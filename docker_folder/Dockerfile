@@ -34,20 +34,20 @@ RUN apt install ros-melodic-ros-base -y
 RUN apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential -y
 RUN apt install python3-pip -y
 RUN python3 -m pip install -U catkin_tools
-#RUN apt-get install ros-melodic-rospy -y
+RUN apt-get install ros-melodic-rospy -y
 
-# RUN sudo pip3 install rospkg && \
-#     sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
-#     sudo apt install -y ros-melodic-vision-msgs
+RUN sudo pip3 install rospkg && \
+    sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
+    sudo apt install -y ros-melodic-vision-msgs
 
 COPY ./ros_entrypoint.sh /
 COPY ./qi_install.sh /
 
-# RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
-#     tar -xvzf qi_jetson.tar.gz && \
-#     cd qi_jetson && \
-#     chmod u+x install.sh && \
-#     ./install.sh
+RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
+    tar -xvzf qi_jetson.tar.gz && \
+    cd qi_jetson && \
+    chmod u+x install.sh && \
+    ./install.sh
 
 # RUN ["chmod", "+x", "/ros_entrypoint.sh"]
 
@@ -121,10 +121,10 @@ RUN python3 -m pip install colorama
 RUN python -m pip install colorama
 
 #Utils DemoFramework
-# RUN pip3 install cvbridge3
-# RUN sudo pip3 install flask
-# RUN sudo apt install python-cv-bridge -y
-# RUN sudo apt install python-opencv -y
+RUN pip3 install cvbridge3
+RUN sudo pip3 install flask
+RUN sudo apt install python-cv-bridge -y
+RUN sudo apt install python-opencv -y
 
 #INSTALL PYREALSE
 RUN apt install -y --no-install-recommends \

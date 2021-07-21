@@ -1,0 +1,2 @@
+comunication_pkg:firos:gesture_pkg:speech_pkg:vision_msgs
+-DCATKIN_DEVEL_PREFIX=/home/felice/command_interaction/ROS/hri_ws/devel -DCMAKE_INSTALL_PREFIX=/home/felice/command_interaction/ROS/hri_ws/install -G Unix Makefiles
