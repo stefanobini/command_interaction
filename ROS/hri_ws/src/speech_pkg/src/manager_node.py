@@ -6,6 +6,7 @@ from speech_pkg.srv import *
 import uuid
 from colorama import Fore
 from datetime import datetime
+import time
 
 from std_msgs.msg import String
 
@@ -59,11 +60,14 @@ def run_demo7(req):
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
         #cmd = res.cmd + offset
         cmd = res.cmd
+        #cb_reply_time = time.time()
         if FIWARE_CB != "None":
             post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
         else:
             pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-        res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        #cb_reply_time = time.time() - cb_reply_time
+        #print(cb_reply_time)
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         
         if rospy.get_param("/save_speech") == True:
@@ -92,19 +96,13 @@ def run_demo3(req):
     # print(res.cmd)
     #cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
     cmd = res.cmd
-
+    #cb_reply_time = time.time()
     if FIWARE_CB != "None":
         post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     else:
-        '''
-        print(command_eng)
-        print(command_ita)
-        print(cmd)
-        print(command_ita[cmd])
-        print(command_eng[cmd])
-        '''
         pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-
+    #cb_reply_time = time.time() - cb_reply_time
+    #print(cb_reply_time)
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
         

@@ -33,6 +33,9 @@ from mtl_exp.hardsharing import HardSharing_PL
 from mtl_exp.softsharing import SoftSharing_PL
 
 
+MODEL_PATH = "models"
+
+
 def get_melspectrogram(waveform:torch.Tensor) -> torch.Tensor:
         """Compute Mel-Spectrogram of a waveform given as input (waveform).
         The method use torchaudio library for the trasformation. All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
@@ -87,7 +90,7 @@ def preprocess(waveform: np.ndarray):
 
 def select_parameters(language="eng", demo="7"):
     #models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
-    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("models")
+    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(MODEL_PATH)
     if demo == "3":
         if language == 'eng':
             COMMANDS = DEMO3_CMD_ENG
@@ -343,12 +346,12 @@ class NewClassifier:
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         ###print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(x), x.shape, x.dtype, np.min(x_cpu), np.max(x_cpu), np.mean(x_cpu)))
         #plot_melspectrogram(path="mel_spec_db.png", melspectrogram=db_melspectrogram)
-        # prev_time = time.time()
+        #prev_time = time.time()
         #cmd_probs = self.cmd_model.predict(melspectrogram)
         #spk_probs = self.spk_model.predict(melspectrogram)
         cmd_probs = self.model.predict(x)
-        # infer_time = time.time() - prev_time
-        # print('\nINFER TIME: {}\n'.format(infer_time))
+        #infer_time = time.time() - prev_time
+        #print('\nINFER TIME: {}'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
         #print(cmd, cmd_probs[0])
@@ -401,7 +404,7 @@ class MTLClassifier:
 
         assert settings.model.network in ["resnet8", "HS", "SS"]
         # base_path = "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/"
-        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("models")
+        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(MODEL_PATH)
         if settings.model.network == "resnet8":
             ckpt_folder = os.path.join(base_path, "experiments", "MTL", settings.input.language, "SCR", "resnet8", "checkpoints")
             ckpt_name = os.listdir(path=ckpt_folder)[-1]
