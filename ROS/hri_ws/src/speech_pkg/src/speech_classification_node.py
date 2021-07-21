@@ -15,6 +15,7 @@ import argparse
 from lang_settings import AVAILABLE_LANGS
 from colorama import Fore
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA
+from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
 import time
 
 
@@ -63,17 +64,20 @@ def select_parameters(language="eng", demo=7):
     
     elif demo == 0:
         if language == 'eng':
-            COMMANDS = DEMO7_CMD_ENG
-            ckpt_folder = models_path.joinpath('eng', 'full_eng')
-            ckpt_name = "matchcboxnet--val_loss=3.9556-epoch=249.model" # full_eng
+            COMMANDS = DEMO_CMD_ENG
+            # ckpt_folder = models_path.joinpath('eng', 'full_eng')
+            ckpt_folder = models_path.joinpath('eng', 'new_full_eng')
+            # ckpt_name = "matchcboxnet--val_loss=3.9556-epoch=249.model" # full_eng
+            ckpt_name = "matchcboxnet--val_loss=3.5196-epoch=99.model" # new_full_eng
 
         elif language == 'ita':
-            COMMANDS = DEMO7_CMD_ITA
-            # ckpt_folder = models_path.joinpath("ita", 'full_ita')
-            ckpt_folder = models_path.joinpath("ita", 'new_full_ita')
-            
-            # ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model"  # full_ita
-            ckpt_name = "matchcboxnet--val_loss=3.269-epoch=97.model"   # new_full_ita, here fix the commands
+            COMMANDS = DEMO_CMD_ITA
+            ckpt_folder = models_path.joinpath("ita", 'full_ita')
+            # ckpt_folder = models_path.joinpath("ita", 'new_full_ita')            
+
+            ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model"  # full_ita
+            # ckpt_name = "matchcboxnet--val_loss=3.269-epoch=97.model"   # new_full_ita, here fix the commands
+            # ckpt_name = "matchcboxnet--val_loss=2.5771-epoch=47.model"   # new_full_ita, here fix the commands
     
     return COMMANDS, ckpt_folder, ckpt_name
 
@@ -205,7 +209,7 @@ class Classifier:
         return model
 
 if __name__ == "__main__":
-    THRESHOLD_1 = 0.001     # 0.004
+    THRESHOLD_1 = 0.004     # 0.004
     THRESHOLD_2 = 0.9     # 0.999 - 0.9
 
     LANGUAGE = rospy.get_param("/language")

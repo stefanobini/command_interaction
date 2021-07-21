@@ -20,7 +20,7 @@
 
 ## Examlples
 1. Running continuous recording
-- ``` python3 microphone.py -sr 16000 -id_device 1 ``` 
+- ``` python3 microphone.py -sr 16000 -id_device 24 ``` 
 2. Running recording for a given number of seconds
 - ``` python microphone.py -sr 16000 -id_device 1 -recording_time 5 ```
 3. Setting a file name

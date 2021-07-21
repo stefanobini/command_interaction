@@ -25,6 +25,7 @@ sudo docker exec -it felice_demo  /bin/bash
 # Docker for WHOLE DEMO
 sudo docker build -t docker_command_demo . --network=host
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
+felice
 sudo docker exec -it command_demo  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
@@ -34,6 +35,7 @@ cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_
 # In the docker
 cd home/felice/command_interaction/ROS/hri_ws/
 source devel/setup.bash
+# FOR DEMO FELICE RESET THE "UNIQUE_CMD_LIST" TO THE RIGHT COMMANDS
 roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
 
 # roslaunch speech_pkg start_demo.launch

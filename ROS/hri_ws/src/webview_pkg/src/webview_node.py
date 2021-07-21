@@ -7,6 +7,8 @@ import message_filters
 import os
 import rospy
 import time
+import threading
+from threading import Lock
 
 from sensor_msgs.msg import Image
 from vision_msgs.msg import Detection2DArray
@@ -90,7 +92,8 @@ class ConsoleWebviewNode:
 
         sub = rospy.Subscriber("speech_command", String, self.text_callback)
         
-        self.webserver.run(debug=True, host='0.0.0.0', use_reloader=False)
+        # threading.Thread(target=lambda: app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False, threaded=True)).start()
+        self.webserver.run(debug=True, host='0.0.0.0', use_reloader=False, threaded=True)
         # rospy.spin()
 
 
