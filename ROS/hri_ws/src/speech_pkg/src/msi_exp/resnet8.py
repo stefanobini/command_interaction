@@ -1,6 +1,6 @@
 from dotmap import DotMap
 import torch
-from models.pl_backbone import PL_Backbone
+from msi_exp.pl_backbone import PL_Backbone
 
 
 class ResNet8_PL(PL_Backbone):
