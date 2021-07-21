@@ -33,19 +33,17 @@ cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_
 
 # In the docker
 cd home/felice/command_interaction/ROS/hri_ws/
-
 source devel/setup.bash
+roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
 
-roslaunch speech_pkg start_demo.launch
-roslaunch speech_pkg start_new_demo.launch
+# roslaunch speech_pkg start_demo.launch
+# roslaunch speech_pkg start_new_demo.launch
 
-roslaunch gesture_pkg gesture_demo_felice.launch
-roslaunch gesture_pkg gesture_demo_pepper.launch
-roslaunch gesture_pkg gesture_demo_webview.launch
+# roslaunch gesture_pkg gesture_demo_felice.launch
+# roslaunch gesture_pkg gesture_demo_pepper.launch
+# roslaunch gesture_pkg gesture_demo_webview.launch
 
-roslaunch gesture_pkg hri_demo_webview.launch
-
-roslaunch webserver_pkg gesture_demo.launch
+# roslaunch webserver_pkg gesture_demo.launch
 
 # Shows connected devices
 cat /proc/asound/cards
