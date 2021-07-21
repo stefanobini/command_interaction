@@ -98,7 +98,8 @@ class Callback:
         # height = hand['roi'][3] - hand['roi'][1] + y_offset
         x_center = (hands['roi'][2] + hands['roi'][0]) // 2
         y_center = (hands['roi'][3] + hands['roi'][1]) // 2
-        
+
+        """
         for (objectID, (centroid_x, centroid_y)) in centr_hands_in_frame.items():
             if centroid_x==x_center and centroid_y==y_center:
                 ### enlarge bounding box
@@ -136,19 +137,57 @@ class Callback:
                 result.score = confidence
                 detection.results.append(result)
                 ##
-                #msg = self.bridge.cv2_to_imgmsg(img)
-                detection.source_img =self.bridge.cv2_to_imgmsg(img)
+                #msg = self.bridge.cv2_to_imgmsg(img) # not used
+                # detection.source_img =self.bridge.cv2_to_imgmsg(img)
                 ##
                 response.detections.append(detection)
                 #print('Frame: {}\nobjectID: {}\nwidth: {}\nheight: {}\ncentroid_x: {}\ncentroid_y: {}\ngesture: {}\nconfidence: {}\n'.format(self.frame, type( str(objectID)), type(window_hands_in_frame[objectID][0]), type(window_hands_in_frame[objectID][1]), type(centroid_x), type(centroid_y), type(gesture), type('{:.2f}'.format(confidence))))           
+        #"""
         
+        #"""
+        (objectID, (centroid_x, centroid_y)) = next(iter(centr_hands_in_frame.items()))
+        if centroid_x==x_center and centroid_y==y_center:
+            probabilty_vector = np.zeros(14)
+            label_predicted = int(hands['label'])
+            score_prediction = float(hands['confidence'])
+            probabilty_vector[label_predicted] = score_prediction
+            
+
+            ## add prediction to the sliding window
+            if objectID not in self.sliding_windows:
+                self.sliding_windows[objectID] = SlidingWindow(window_size=self.window_size, element_size=self.n_gestures)
+                self.sliding_windows[objectID].put(probabilty_vector)
+            else:
+                self.sliding_windows[objectID].put(probabilty_vector)
+            
+            ## apply majority voting on sliding window for gesture classification
+            gesture, confidence = self.sliding_windows[objectID].get_max()
+
+            (objectID, (centroid_x, centroid_y)) = next(iter(centr_hands_in_frame.items()))
+            ## build classification message
+            detection = Detection2D()
+            detection.header.frame_id = str(gesture)
+            detection.header.stamp = msg.header.stamp
+            detection.bbox.size_x = window_hands_in_frame[objectID][0]
+            detection.bbox.size_y = window_hands_in_frame[objectID][1]
+            detection.bbox.center.x = centroid_x
+            detection.bbox.center.y = centroid_y
+            result = ObjectHypothesisWithPose()
+            result.id = objectID
+            result.score = confidence
+            detection.results.append(result)
+            # detection.source_img =self.bridge.cv2_to_imgmsg(img)
+        #"""
+
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
         if self.post_request is not None:
-            self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+            # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+            self.post_request.send_command(command_id=detection.header.frame_id, confidence=detection.results.score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
         else:
-            self.publisher.publish(response)
+            # self.publisher.publish(response)
+            self.publisher.publish(detection)
         
 
 
@@ -159,7 +198,8 @@ class HandDetectorNode:
         global LANGUAGE, ROBOT_UUID
 
         rospy.init_node('hand_gesture_recognition_node', anonymous=True)
-        pub = rospy.Publisher("hand_gesture_recognition", Detection2DArray, queue_size=1)
+        # pub = rospy.Publisher("hand_gesture_recognition", Detection2DArray, queue_size=1)
+        pub = rospy.Publisher("hand_gesture_recognition", Detection2D, queue_size=1)
         
         detector = OneStageDetector(conf_thresh=DETECTOR_THRESH, size_thresh=SIZE_THRESH)
 

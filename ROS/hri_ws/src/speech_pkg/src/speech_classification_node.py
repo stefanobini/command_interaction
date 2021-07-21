@@ -210,7 +210,7 @@ class Classifier:
 
 if __name__ == "__main__":
     THRESHOLD_1 = 0.004     # 0.004
-    THRESHOLD_2 = 0.9     # 0.999 - 0.9
+    THRESHOLD_2 = 0.999     # 0.999 - 0.9
 
     LANGUAGE = rospy.get_param("/language")
     DEMO = rospy.get_param("/demo")

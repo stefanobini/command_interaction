@@ -37,6 +37,8 @@ cd home/felice/command_interaction/ROS/hri_ws/
 source devel/setup.bash
 # FOR DEMO FELICE RESET THE "UNIQUE_CMD_LIST" TO THE RIGHT COMMANDS
 roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
+# Address for visualization: http://10.0.1.222:5000/
+# Open with Google Chrome
 
 # roslaunch speech_pkg start_demo.launch
 # roslaunch speech_pkg start_new_demo.launch

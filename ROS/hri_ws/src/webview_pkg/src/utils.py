@@ -17,7 +17,7 @@ LANG = "eng"
 class ImageStream(object):
 
     def __init__(self):
-        self.image = cv2.imread("{}/static/assets/loading.png".format(os.path.dirname(os.path.abspath(__file__))))
+        self.image = cv2.imread("{}/static/assets/loading.gif".format(os.path.dirname(os.path.abspath(__file__))))
         self.previous_label = None
         self.timestamp = time.time()
         self.count = 0
@@ -35,6 +35,7 @@ class ImageStream(object):
 
         ## acquire image
         img = np.ndarray(shape=(msg_img.height, msg_img.width, 3), dtype=np.uint8, buffer=msg_img.data) # RAW image
+        # img = np.ndarray(shape=(msg.source_img.height, msg.source_img.width, 3), dtype=np.uint8, buffer=msg.source_img.data) # RAW image
         self.count += 1
         ## compute frame rate
         previous_timestamp = self.timestamp
@@ -51,6 +52,7 @@ class ImageStream(object):
         #frame = bridge.imgmsg_to_cv2(msg)
         
         ## show detections
+        """
         for detection in msg_state.detections:
 
             label = int(detection.header.frame_id)
@@ -64,7 +66,18 @@ class ImageStream(object):
             cv2.rectangle(img, (left, top), (right, bottom),  (0, 255, 0), 2)
             #cv2.putText(img, '{} ({:.2f})'.format(detection.header.frame_id, detection.results[0].score), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
             cv2.putText(img, '{}'.format(GESTURE_COMMANDS[label][LANG]), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
+        """
         
+        label = int(msg_state.header.frame_id)
+        if label != 13:
+            right = int(msg_state.bbox.center.x + msg_state.bbox.size_x//2)
+            bottom = int(msg_state.bbox.center.y + msg_state.bbox.size_y//2)
+            left = int(msg_state.bbox.center.x - msg_state.bbox.size_x//2)
+            top = int(msg_state.bbox.center.y - msg_state.bbox.size_y//2)
+            cv2.rectangle(img, (left, top), (right, bottom),  (0, 255, 0), 2)
+            #cv2.putText(img, '{} ({:.2f})'.format(detection.header.frame_id, detection.results[0].score), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
+            cv2.putText(img, '{}'.format(GESTURE_COMMANDS[label][LANG]), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
+
         #out.write(img)
         if not label == 13 and self.count > 10:
             if self.previous_label != label or self.count > 20:
