@@ -24,9 +24,12 @@ sudo docker exec -it felice_demo  /bin/bash
 
 # Docker for WHOLE DEMO
 sudo docker build -t docker_command_demo . --network=host
+sudo docker build -t felice_docker . --network=host #--no-cache
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name felice_demo felice_docker
 felice
 sudo docker exec -it command_demo  /bin/bash
+sudo docker exec -it felice_demo  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
@@ -42,6 +45,7 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 
 '''For FELICE'''
 roslaunch speech_pkg start_felice.launch
+roslaunch gesture_pkg gesture_demo_felice.launch
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch

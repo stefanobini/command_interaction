@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
 
 # setup keys
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0F164EEB
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654RUN
 
 # setup environment
 ENV LANG C.UTF-8
@@ -35,6 +37,7 @@ RUN apt install python-rosdep python-rosinstall python-rosinstall-generator pyth
 RUN apt install python3-pip -y
 RUN python3 -m pip install -U catkin_tools
 RUN apt-get install ros-melodic-rospy -y
+RUN yes | sudo apt-get install v4l-utils
 
 RUN sudo pip3 install rospkg && \
     sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
@@ -67,16 +70,16 @@ RUN apt-get update && \
         libglu1-mesa-dev \
         sudo 
 
-#RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    #cd librealsense && \
-    #./scripts/setup_udev_rules.sh && \
-    #mkdir build && \
-    #cd build && \
-    #cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    #sudo make uninstall && \
-    #sudo make clean && \
-    #sudo make -j4 && \
-    #sudo make install 
+RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+    cd librealsense && \
+    ./scripts/setup_udev_rules.sh && \
+    mkdir build && \
+    cd build && \
+    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+    sudo make uninstall && \
+    sudo make clean && \
+    sudo make -j4 && \
+    sudo make install 
 
 ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
@@ -104,7 +107,7 @@ RUN python3 -m pip install torchmetrics==0.6.0
 #RUN python3 -m pip install torchmetrics==0.6.0
 #RUN python3 -m pip install torch==1.9.0 torchvision==0.10.0+cu102 torchaudio==0.9.0 -f https://torch.kmtea.eu/whl/stable.html
 
-RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
+#RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
 RUN python3 -m pip install setuptools==59.5.0
 
 #Utils installation
@@ -127,30 +130,30 @@ RUN sudo apt install python-cv-bridge -y
 RUN sudo apt install python-opencv -y
 
 #INSTALL PYREALSE
-RUN apt install -y --no-install-recommends \
-       python3-setuptools \
-       python3-dev \
-       libssl-dev \
-       libusb-1.0-0-dev \
-       pkg-config \
-       libgtk-3-dev \
-       libglfw3-dev \
-        libgl1-mesa-dev \
-        libglu1-mesa-dev \
-        sudo 
+#RUN apt install -y --no-install-recommends \
+#       python3-setuptools \
+#       python3-dev \
+#       libssl-dev \
+#       libusb-1.0-0-dev \
+#       pkg-config \
+#       libgtk-3-dev \
+#       libglfw3-dev \
+#        libgl1-mesa-dev \
+#        libglu1-mesa-dev \
+#        sudo 
 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
+#RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+#    cd librealsense && \
+#    ./scripts/setup_udev_rules.sh && \
+#    mkdir build && \
+#    cd build && \
+#    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+#    sudo make uninstall && \
+#    sudo make clean && \
+#    sudo make -j4 && \
+#    sudo make install 
 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
 # DOTMAP
 RUN pip2 install dotmap==1.3.23 
