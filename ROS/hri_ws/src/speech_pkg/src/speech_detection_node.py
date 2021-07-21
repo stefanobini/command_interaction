@@ -194,7 +194,7 @@ class SpeechDetectionNode:
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
-    SPEECH_SAMPLES_PATH = '/home/felice/speech-command_interaction/acquisition/speech/detected_voices'
+    SPEECH_SAMPLES_PATH = '/home/felice/command_interaction/ROS/detected_voices'
 
     rospy.loginfo("Waiting manager service")                            # added by BEIS
     rospy.wait_for_service('manager_service')                           # added by BEIS

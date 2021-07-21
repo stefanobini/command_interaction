@@ -170,6 +170,27 @@ RUN python -m pip install ifcfg
 RUN python3 -m pip install Pillow
 #RUN python3 -m pip install torchvision==0.10.0
 
+# ONNX libraries
+pip3 install -U openmim
+mim install mmcv-full
+git clone https://github.com/open-mmlab/mmdetection.git
+cd mmdetection
+pip3 install -v -e .
+# wget https://nvidia.box.com/shared/static/jy7nqva7l88mq9i8bw3g3sklzf4kccn2.whl -O onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
+# pip3 install onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
+# python3 -m pip install onnxruntime
 
+# mim install mmdet==2.14.0
+# git clone https://github.com/grimoire/torch2trt_dynamic.git torch2trt_dynamic
+# cd torch2trt_dynamic
+# python3 setup.py develop
+
+#git clone --depth=1 https://github.com/grimoire/amirstan_plugin.git
+#cd amirstan_plugin
+#git submodule update --init --progress --depth=1
+#mkdir build
+#cd build
+#cmake -DTENSORRT_DIR=/usr/src/tensorrt ..
+#make -j10
 
 CMD ["bash"]
