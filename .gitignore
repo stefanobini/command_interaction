@@ -8,7 +8,8 @@ Bot/saves/*
 Model_Augmentation/__pycache__/
 Model_Augmentation/.working_dir
 Model_Augmentation/*.txt
-Model_Augmentation/dataset/*
+Model_Augmentation/dataset/Dataset_synth/*
+Model_Augmentation/dataset/FELICE_demo7/*
 Model_Augmentation/fsd/noise_set/*
 Model_Augmentation/apex
 Model_Augmentation/models/*
