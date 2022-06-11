@@ -1,0 +1,235 @@
+,fname,noise,start_time
+0,dataset/FELICE_demo7/commands/2114178392/ita/ita_6.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+7,dataset/FELICE_demo7/commands/2146007936/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+14,dataset/FELICE_demo7/commands/2146007936/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+21,dataset/FELICE_demo7/commands/2146007936/ita/ita_6.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+28,dataset/FELICE_demo7/commands/2146007936/ita/ita_1.wav,fsd/noise_set/drill/50414.wav,0.7654919355722047
+35,dataset/FELICE_demo7/commands/2114791016/ita/ita_2.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+42,dataset/FELICE_demo7/commands/2114791016/ita/ita_4.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+49,dataset/FELICE_demo7/commands/2114791016/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+56,dataset/FELICE_demo7/commands/2114791016/ita/ita_6.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+63,dataset/FELICE_demo7/commands/2114791016/ita/ita_1.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+70,dataset/FELICE_demo7/commands/2114791016/ita/ita_5.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+77,dataset/FELICE_demo7/commands/2114791016/ita/ita_3.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+84,dataset/FELICE_demo7/commands/692151419/ita/ita_2.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+91,dataset/FELICE_demo7/commands/692151419/ita/ita_0.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+98,dataset/FELICE_demo7/commands/692151419/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+105,dataset/FELICE_demo7/commands/692151419/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+112,dataset/FELICE_demo7/commands/1784612953/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.562776186070886
+119,dataset/FELICE_demo7/commands/1784612953/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+126,dataset/FELICE_demo7/commands/1784612953/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,0
+133,dataset/FELICE_demo7/commands/1784612953/ita/ita_1.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+140,dataset/FELICE_demo7/commands/1784612953/ita/ita_3.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+147,dataset/FELICE_demo7/commands/621434009/ita/ita_6.wav,fsd/noise_set/353526.wav,0.8463747894687731
+154,dataset/FELICE_demo7/commands/617568216/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+161,dataset/FELICE_demo7/commands/617568216/ita/ita_4.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+168,dataset/FELICE_demo7/commands/617568216/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+175,dataset/FELICE_demo7/commands/617568216/ita/ita_6.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+182,dataset/FELICE_demo7/commands/617568216/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+189,dataset/FELICE_demo7/commands/617568216/ita/ita_5.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+196,dataset/FELICE_demo7/commands/617568216/ita/ita_3.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+203,dataset/FELICE_demo7/commands/787588380/ita/ita_2.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+210,dataset/FELICE_demo7/commands/787588380/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+217,dataset/FELICE_demo7/commands/787588380/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+224,dataset/FELICE_demo7/commands/787588380/ita/ita_1.wav,fsd/noise_set/353526.wav,0.7638531564522834
+231,dataset/FELICE_demo7/commands/556469931/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+238,dataset/FELICE_demo7/commands/556469931/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+245,dataset/FELICE_demo7/commands/556469931/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+252,dataset/FELICE_demo7/commands/556469931/ita/ita_1.wav,fsd/noise_set/353526.wav,0.5540894291023357
+259,dataset/FELICE_demo7/commands/556469931/ita/ita_3.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+266,dataset/FELICE_demo7/commands/802314253/ita/ita_2.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+273,dataset/FELICE_demo7/commands/802314253/ita/ita_0.wav,fsd/noise_set/drill/89099.wav,1.201680311324635
+280,dataset/FELICE_demo7/commands/802314253/ita/ita_6.wav,fsd/noise_set/hammer/207758.wav,2.381801572893859
+287,dataset/FELICE_demo7/commands/802314253/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+294,dataset/FELICE_demo7/commands/2055098585/ita/ita_2.wav,fsd/noise_set/drill/45383.wav,0.6458155381757178
+301,dataset/FELICE_demo7/commands/2055098585/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+308,dataset/FELICE_demo7/commands/2055098585/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+315,dataset/FELICE_demo7/commands/2055098585/ita/ita_1.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+322,dataset/FELICE_demo7/commands/592391617/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+329,dataset/FELICE_demo7/commands/592391617/ita/ita_0.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+336,dataset/FELICE_demo7/commands/592391617/ita/ita_6.wav,fsd/noise_set/drill/59596.wav,0
+343,dataset/FELICE_demo7/commands/592391617/ita/ita_1.wav,fsd/noise_set/hammer/180137.wav,1.3625355862733708
+350,dataset/FELICE_demo7/commands/133699592/ita/ita_2.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+357,dataset/FELICE_demo7/commands/133699592/ita/ita_0.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+364,dataset/FELICE_demo7/commands/133699592/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+371,dataset/FELICE_demo7/commands/133699592/ita/ita_1.wav,fsd/noise_set/drill/45383.wav,0.7691245626213642
+378,dataset/FELICE_demo7/commands/757906339/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+385,dataset/FELICE_demo7/commands/757906339/ita/ita_0.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+392,dataset/FELICE_demo7/commands/757906339/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+399,dataset/FELICE_demo7/commands/757906339/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+406,dataset/FELICE_demo7/commands/523906610/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+413,dataset/FELICE_demo7/commands/523906610/ita/ita_0.wav,fsd/noise_set/hammer/180137.wav,1.161512014229671
+420,dataset/FELICE_demo7/commands/523906610/ita/ita_6.wav,fsd/noise_set/drill/50416.wav,1.0522327599162415
+427,dataset/FELICE_demo7/commands/523906610/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+434,dataset/FELICE_demo7/commands/604202480/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+441,dataset/FELICE_demo7/commands/604202480/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+448,dataset/FELICE_demo7/commands/604202480/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+455,dataset/FELICE_demo7/commands/604202480/ita/ita_1.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+462,dataset/FELICE_demo7/commands/985961747/ita/ita_2.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+469,dataset/FELICE_demo7/commands/985961747/ita/ita_0.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+476,dataset/FELICE_demo7/commands/985961747/ita/ita_6.wav,fsd/noise_set/353526.wav,0
+483,dataset/FELICE_demo7/commands/985961747/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+490,dataset/FELICE_demo7/commands/121876938/ita/ita_2.wav,fsd/noise_set/hammer/207758.wav,2.4692031259563367
+497,dataset/FELICE_demo7/commands/121876938/ita/ita_6.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+504,dataset/FELICE_demo7/commands/946730582/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+511,dataset/FELICE_demo7/commands/946730582/ita/ita_4.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+518,dataset/FELICE_demo7/commands/946730582/ita/ita_0.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+525,dataset/FELICE_demo7/commands/946730582/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+532,dataset/FELICE_demo7/commands/946730582/ita/ita_1.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+539,dataset/FELICE_demo7/commands/946730582/ita/ita_5.wav,fsd/noise_set/hammer/193353.wav,0.8109953691353575
+546,dataset/FELICE_demo7/commands/946730582/ita/ita_3.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+553,dataset/FELICE_demo7/commands/611850050/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+560,dataset/FELICE_demo7/commands/238016822/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+567,dataset/FELICE_demo7/commands/238016822/ita/ita_0.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+574,dataset/FELICE_demo7/commands/238016822/ita/ita_6.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+581,dataset/FELICE_demo7/commands/238016822/ita/ita_1.wav,fsd/noise_set/353526.wav,0.7026720693085486
+588,dataset/FELICE_demo7/commands/238016822/ita/ita_3.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+595,dataset/FELICE_demo7/commands/694611773/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+602,dataset/FELICE_demo7/commands/694611773/ita/ita_0.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+609,dataset/FELICE_demo7/commands/694611773/ita/ita_6.wav,fsd/noise_set/353526.wav,0.9017291064083428
+616,dataset/FELICE_demo7/commands/694611773/ita/ita_1.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+623,dataset/FELICE_demo7/commands/630722423/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+630,dataset/FELICE_demo7/commands/630722423/ita/ita_4.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+637,dataset/FELICE_demo7/commands/630722423/ita/ita_0.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+644,dataset/FELICE_demo7/commands/630722423/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+651,dataset/FELICE_demo7/commands/630722423/ita/ita_1.wav,fsd/noise_set/353526.wav,0.7181858449771386
+658,dataset/FELICE_demo7/commands/630722423/ita/ita_5.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+665,dataset/FELICE_demo7/commands/630722423/ita/ita_3.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+672,dataset/FELICE_demo7/commands/757577790/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+679,dataset/FELICE_demo7/commands/2129470480/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+686,dataset/FELICE_demo7/commands/2129470480/ita/ita_0.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+693,dataset/FELICE_demo7/commands/2129470480/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+700,dataset/FELICE_demo7/commands/2129470480/ita/ita_1.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.776400148681093
+707,dataset/FELICE_demo7/commands/2112819853/ita/ita_2.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+714,dataset/FELICE_demo7/commands/2112819853/ita/ita_0.wav,fsd/noise_set/drill/236326.wav,0.10685750294732355
+721,dataset/FELICE_demo7/commands/2112819853/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+728,dataset/FELICE_demo7/commands/2112819853/ita/ita_1.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+735,dataset/FELICE_demo7/commands/2112819853/ita/ita_3.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,0
+742,dataset/FELICE_demo7/commands/296821092/ita/ita_2.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+749,dataset/FELICE_demo7/commands/296821092/ita/ita_4.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+756,dataset/FELICE_demo7/commands/296821092/ita/ita_0.wav,fsd/noise_set/hammer/193353.wav,0.6973733501541358
+763,dataset/FELICE_demo7/commands/296821092/ita/ita_6.wav,fsd/noise_set/hammer/207758.wav,0
+770,dataset/FELICE_demo7/commands/296821092/ita/ita_1.wav,fsd/noise_set/353526.wav,0.6764516033898053
+777,dataset/FELICE_demo7/commands/296821092/ita/ita_5.wav,fsd/noise_set/353526.wav,0.9211759519647441
+784,dataset/FELICE_demo7/commands/296821092/ita/ita_3.wav,fsd/noise_set/353526.wav,0.728892535227292
+791,dataset/FELICE_demo7/commands/1415529430/ita/ita_2.wav,fsd/noise_set/353526.wav,0.6948787641604778
+798,dataset/FELICE_demo7/commands/1415529430/ita/ita_0.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+805,dataset/FELICE_demo7/commands/1415529430/ita/ita_6.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+812,dataset/FELICE_demo7/commands/1415529430/ita/ita_1.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,0
+819,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19455376.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+826,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23807946.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+833,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20056491.wav,fsd/noise_set/353526.wav,0.1304832352595248
+840,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20291648.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+847,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20023467.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+854,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002375.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+861,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17988685.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+868,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18812339.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,4.721158766581752
+875,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20061039.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+882,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17488116.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+889,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20065519.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+896,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20061066.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+903,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19990136.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+910,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23807950.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+917,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20402708.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,4.801140291962363
+924,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20065470.wav,fsd/noise_set/hammer/180137.wav,0.8357955598168356
+931,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26047900.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,4.607108844163662
+938,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20011681.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,4.3571404024049745
+945,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20023002.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+952,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002139.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,4.752623325684244
+959,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_27328415.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+966,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17488132.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+973,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17873786.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+980,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20262951.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+987,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17542587.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+994,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20078731.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1001,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18262283.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+1008,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_24505312.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1015,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20023523.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.1251857437380786
+1022,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20476806.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1029,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21547078.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1036,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21714319.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1043,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20327441.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+1050,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18029493.wav,fsd/noise_set/353526.wav,0.5115540066119296
+1057,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21253699.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+1064,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20291647.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+1071,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20291649.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+1078,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002374.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1085,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20015176.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.2125872968005567
+1092,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20076603.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,2.2157295177467065
+1099,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19059291.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,0.9818471967156143
+1106,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21546943.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,6.7098718545771145
+1113,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21547079.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+1120,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19995306.wav,fsd/noise_set/353526.wav,0.06755411705454045
+1127,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18468643.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,4.56733203319179
+1134,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20228476.wav,fsd/noise_set/drill/50416.wav,0.9922170268133397
+1141,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17988690.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
+1148,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002328.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+1155,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23248552.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+1162,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20009801.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1169,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20958979.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,2.5758239163641163
+1176,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20063771.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1183,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20078758.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1190,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20015178.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1197,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26944528.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1204,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_27345395.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,4.680526148736144
+1211,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20060845.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,1.9430366721917742
+1218,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20109524.wav,fsd/noise_set/hammer/180137.wav,0.44773266421943253
+1225,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20310723.wav,fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblyliteINT01-MS.wav,4.821406527078725
+1232,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20295040.wav,fsd/noise_set/hammer/180137.wav,0.8637640567968287
+1239,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20078688.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,5.028812233361675
+1246,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002358.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.6670753727254433
+1253,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23576174.wav,fsd/noise_set/drill/45383.wav,0.4181527011048501
+1260,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19990034.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1267,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_21605521.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,4.76660757417424
+1274,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20022411.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,1.7647375039443187
+1281,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_25459829.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1288,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20286100.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1295,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20080457.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1302,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_27261529.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1309,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18556158.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,2.2017452692567097
+1316,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26721471.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+1323,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23797150.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/hand-grinder-start-run-grind-pause-stop_G1LzB_E__NWM.wav,4.780163919227368
+1330,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26425925.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+1337,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20023607.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1344,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_25294338.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+1351,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18812371.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/machine-cnc-milling-machine-screech_MkfSNuVO_NWM.wav,0
+1358,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19995094.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1365,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20034509.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.2055951725555585
+1372,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20959093.wav,fsd/noise_set/353526.wav,0.39268789444695934
+1379,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19059540.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1386,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_24129157.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1393,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20024487.wav,fsd/noise_set/353526.wav,0.4975697581219331
+1400,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19990369.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.2580361043930455
+1407,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20228475.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,6.6469427363721305
+1414,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_24129230.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1421,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23807920.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+1428,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20276868.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1435,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20024524.wav,fsd/noise_set/hammer/207758.wav,1.900510354029812
+1442,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20286040.wav,fsd/noise_set/colpi ripetuti/pile-driver-pound-hard-long_M1TUSONd_NWM.wav,0
+1449,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20078714.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,0.9503826376131221
+1456,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17988657.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1463,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20327434.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.0272960043081028
+1470,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19518057.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1477,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20011728.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,4.658229648376767
+1484,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19977802.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1491,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20097801.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1498,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26721378.wav,fsd/noise_set/hammer/193353.wav,0.42409782757878733
+1505,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20024645.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1512,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_24662785.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1519,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26425950.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1526,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_25294324.wav,fsd/noise_set/fan/space-heater-run_fyqe_iEd_NWM.wav,0
+1533,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20080463.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/jigsaw-black-and-decker-run_M162Ds4__NWM.wav,1.2685242907605427
+1540,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_23385236.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1547,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_26345506.wav,fsd/noise_set/catena di lavoro robot/verniciatura_car.wav,0
+1554,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20002333.wav,fsd/noise_set/drill/254296.wav,0.01182652264876664
+1561,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20023605.wav,fsd/noise_set/hammer/180137.wav,0.5141578445469158
+1568,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17489745.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1575,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20015081.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/478118__astounded__industrial-compressor.wav,0
+1582,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20024565.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,0
+1589,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20006358.wav,fsd/noise_set/drill/244242.wav,1.3845407481225387
+1596,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_17562616.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,0
+1603,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20006394.wav,fsd/noise_set/generatore/461704__drinkingwindgames__generator-running.wav,1.936044547946776
+1610,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20276905.wav,fsd/noise_set/hammer/193353.wav,0.21608213129008924
+1617,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_19877621.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-buzz-multiple_fyi9E_N__NWM.wav,0
+1624,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_18335522.wav,fsd/noise_set/drill/250062.wav,0.0007283462755206361
+1631,dataset/FELICE_demo7/reject_plus_common_voice/ita/clips/common_voice_it_20065467.wav,fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/saldatrice.wav,0
