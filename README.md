@@ -1,0 +1,2 @@
+# Speech-Command Interaction framework
+Framework for speech-command interaction in the wild. It consists of code to acquire data via a Telegram bot and Text-To-Speech synthesis platforms, train a system and run it on a robotic platform.
