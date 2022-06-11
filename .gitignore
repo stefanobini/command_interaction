@@ -2,21 +2,24 @@
 .vscode
 
 # Bot files
-./Bot/saves/*
-*.zip
-*.rar
+Bot/saves/*
 
 # Model_Augmentation files
-./Model_Augmentation/__pycache__/
-./Model_Augmentation/.working_dir
-./Model_Augmentation/*.txt
-./Model_Augmentation/dataset/*
-*.wav
-./Model_Augmentation/fsd/noise_set/*
-./Model_Augmentation/apex
-./Model_Augmentation/models/*
-./Model_Augmentation/nemo_experiments/*
-./Model_Augmentation/pretrain_models/*
+Model_Augmentation/__pycache__/
+Model_Augmentation/.working_dir
+Model_Augmentation/*.txt
+Model_Augmentation/dataset/*
+Model_Augmentation/fsd/noise_set/*
+Model_Augmentation/apex
+Model_Augmentation/models/*
+Model_Augmentation/nemo_experiments/*
+Model_Augmentation/pretrain_models/*
 
 
 # TTS files
+
+
+# General files
+*.zip
+*.rar
+*.wav
