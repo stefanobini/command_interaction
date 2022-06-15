@@ -10,6 +10,7 @@ import subprocess
 import platform
 import os
 import argparse
+import nemo.collections.asr as nemo_asr
 
 try:
     from google.colab import drive
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     '''
     Parsing input argument
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 1 --log 0 --synth 1 --pre_train ./pretrain_models
+    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     '''
     parser = argparse.ArgumentParser()
@@ -46,7 +48,7 @@ if __name__ == "__main__":
     print("*" * 30)
 
     if not COLAB and platform.system().lower() != "windows":
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(0)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
     register_perturbation("mynoise", Augmentation)
     path_base = Path(get_curr_dir(__file__)).joinpath("manifests")
 
@@ -91,15 +93,34 @@ if __name__ == "__main__":
 
     asr_model = None
     if args.pre_train:
-        # pretrain_path = os.path.join(args.pre_train, args.lang+'.model')
-        # pretrain_config = copy.deepcopy(config)
-        # pretrain_config.model.labels = [i for i in range(0, 29)]
-        # asr_model = Model(cfg=config.model, trainer=trainer, class_weight=None) #Modify here to set class weight
-        # asr_model = asr_model.load_from_checkpoint(checkpoint_path=pretrain_path)
-        asr_model = Model.load_backup(trainer=trainer, ckpt_name=args.lang+'.model', exp_dir=args.pre_train, new_cfg=config.model)
-        asr_model.change_labels(config.model.labels)
-        asr_model.cuda()
-        # asr_model.device('cuda:{}'.format(os.environ["CUDA_VISIBLE_DEVICES"]))
+        if 'nemo_model' in args.pre_train:
+            asr_model = Model.load_backup(trainer=trainer, ckpt_name='commandrecognition_en_matchboxnet3x2x64_v2.nemo', exp_dir=args.pre_train, new_cfg=config.model)
+            asr_model.change_labels(config.model.labels)
+            
+            asr_model.cuda()
+            
+            '''
+            asr_model = nemo_asr.models.EncDecClassificationModel.from_pretrained(model_name="commandrecognition_en_matchboxnet3x2x64_v2")
+
+            asr_model.change_labels(config.model.labels)
+            asr_model.setup_training_data(config.model.train_ds)
+            asr_model._update_decoder_config(labels=config.model.labels, cfg=config.model.decoder)
+            asr_model.setup_optimization(optim_config=config.model.optim)
+            asr_model.set_trainer(trainer=trainer)
+            '''
+
+            asr_model.cuda()
+        else:
+            # pretrain_path = os.path.join(args.pre_train, args.lang+'.model')
+            # pretrain_config = copy.deepcopy(config)
+            # pretrain_config.model.labels = [i for i in range(0, 29)]
+            # asr_model = Model(cfg=config.model, trainer=trainer, class_weight=None) #Modify here to set class weight
+            # asr_model = asr_model.load_from_checkpoint(checkpoint_path=pretrain_path)
+            asr_model = Model.load_backup(trainer=trainer, ckpt_name=args.lang+'.model', exp_dir=args.pre_train, new_cfg=config.model)
+            asr_model.change_labels(config.model.labels)
+            
+            asr_model.cuda()
+            # asr_model.device('cuda:{}'.format(os.environ["CUDA_VISIBLE_DEVICES"]))
     else:
         asr_model = Model(cfg=config.model, trainer=trainer, class_weight=None) #Modify here to set class weight
 

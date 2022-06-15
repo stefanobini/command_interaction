@@ -19,6 +19,7 @@ from joblib.externals.loky import get_reusable_executor
 from torch.utils.data import BatchSampler, WeightedRandomSampler
 import torch
 import gc
+import regex as re
 
 
 REJECT_RATE = 1   # with 1 the number of reject samples is egual to the number of the positive samples (summation on all classes)
@@ -160,7 +161,9 @@ class Preprocessing:
         def get_analyzator(root, service):
             def real_analyzator(filname: str):
                 speaker = Path(root).parent.name
-                cmd_index = filname.split("_")[1].split(".")[0]
+                regex = '[0-9]{1,2}\.(wav|mp3)$'
+                cmd_index = int(re.search(pattern=regex, string=filname).group().split('.')[0])
+                # cmd_index = filname.split("_")[1].split(".")[0]
                 return speaker, cmd_index
             if service == "real":
                 return real_analyzator

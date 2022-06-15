@@ -15,8 +15,8 @@ def convert_audio(input_audio, output_audio):
 
 
 SRC_DATASET = 'GoogleSpeechCommands'
-DST_DATASET = 'FELICE_demo3/rejects'
-THRESHOLD = 50
+DST_DATASET = 'FELICE_demo7_extended/rejects'
+THRESHOLD = 67
 
 SOUND_LIST = [
     '_background_noise_',

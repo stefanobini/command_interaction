@@ -15,6 +15,12 @@ DEMO7_CMDS_DICT_EXT = {
     29:4,
 }# 'old_id':'new_id'
 
+# Thi is only for italian language, in order to include the command for mostrina comandi
+DEMO7_CMDS_DICT_EXT_2 = {
+    26:3,
+    27:3
+}# 'old_id':'new_id'
+
 DEMO3_CMDS_DICT = {
     2:0,
     3:1
