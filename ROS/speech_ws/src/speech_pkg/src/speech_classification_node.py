@@ -59,9 +59,10 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, lang, threshold):
+    def __init__(self, lang, threshold_1, threshold_2):
         self.model = self.load_model(lang)
-        self.threshold = threshold
+        self.threshold_1 = threshold_1
+        self.threshold_2 = threshold_2
         self.model = self.model.eval()
         if torch.cuda.is_available():
             self.model = self.model.cuda()
@@ -95,7 +96,8 @@ class Classifier:
         # print(Fore.CYAN + 'CLASSIFIER END INFERENCE' + Fore.RESET)
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = probs.shape[1] - 1
-        if probs[0, REJECT_LABEL] >= self.threshold:
+        cmd = np.argmax(probs, axis=1)
+        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
             cmd = np.array([REJECT_LABEL])
             # print(cmd.shape)
         else:
@@ -128,13 +130,15 @@ class Classifier:
             exp_dir = base_path.joinpath("ita", 'demo3_no_pretrain_ita')
 
             # MODEL SELECTION
-            # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"  # demo7_no_pretrain_ext_ita
-            ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
+            # ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext threshold 2=0.999
+            # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"   # demo7_no_pretrain_ext_ita
+            # ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
             # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
-            # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"  # demo7_pretrain_ext_ita
+            # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"   # demo7_pretrain_ext_ita
+            # ckpt = r"matchcboxnet--val_loss=2.6342-epoch=380.model"   # demo7_fix_ext_google
 
+            ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita threshold 2=0.999
             # ckpt = r"matchcboxnet--val_loss=8.5081-epoch=184.model"   # demo3_pretrain_ita
-            ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita
 
         model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("# Loaded model lang:", lang)
@@ -143,7 +147,8 @@ class Classifier:
         return model
 
 if __name__ == "__main__":
-    THRESHOLD = 0.002    # 0.004
+    THRESHOLD_1 = 0.002    # 0.004
+    THRESHOLD_2 = 0.999
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
     parser.add_argument("--demo", required=True, dest="demo", type=int)
@@ -152,4 +157,4 @@ if __name__ == "__main__":
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(args.lang, THRESHOLD)
+    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2)
