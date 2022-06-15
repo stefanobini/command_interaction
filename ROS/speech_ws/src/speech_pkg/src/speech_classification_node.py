@@ -127,6 +127,7 @@ class Classifier:
         else:
             exp_dir = base_path.joinpath("ita", 'demo3_no_pretrain_ita')
 
+            # MODEL SELECTION
             # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"  # demo7_no_pretrain_ext_ita
             ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
             # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
@@ -134,6 +135,7 @@ class Classifier:
 
             # ckpt = r"matchcboxnet--val_loss=8.5081-epoch=184.model"   # demo3_pretrain_ita
             ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita
+
         model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("# Loaded model lang:", lang)
         print("# Model loaded:", exp_dir)
