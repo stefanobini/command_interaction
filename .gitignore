@@ -23,15 +23,14 @@ Model_Augmentation/manisfests/*.json
 Model_Augmentation/db_test.csv
 
 # ROS files
-ROS/build
-ROS/catkin
-ROS/devel
-ROS/logs
-ROS/sender_app
-ROS/receiver_app
-ROS/speech_pkg/experiments
-ROS/speech_pkg/catkin
-ROS/speech_pkg/src/firos
+ROS/speech_ws/build
+ROS/speech_ws/catkin
+ROS/speech_ws/devel
+ROS/speech_ws/logs
+ROS/speech_ws/src/sender_app
+ROS/speech_ws/src/receiver_app
+ROS/speech_ws/src/experiments
+ROS/speech_ws/src/firos
 
 
 # TTS files
