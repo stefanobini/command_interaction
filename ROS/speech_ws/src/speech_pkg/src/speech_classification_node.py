@@ -14,6 +14,7 @@ from pathlib import Path
 import argparse
 from lang_settings import AVAILABLE_LANGS
 from colorama import Fore
+from commands import DEMO3_CMD_ENG, DEMO7_CMD_ENG
 
 
 args = None
@@ -59,7 +60,8 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, lang, threshold_1, threshold_2):
+    def __init__(self, lang, threshold_1, threshold_2, commands):
+        self.commands = commands
         self.model = self.load_model(lang)
         self.threshold_1 = threshold_1
         self.threshold_2 = threshold_2
@@ -90,18 +92,28 @@ class Classifier:
         return signal_nw
 
     def predict_cmd(self, signal: np.ndarray):
+        # global COMMANDS
         logits = infer_signal(self.model, signal)
         # print(Fore.CYAN + 'CLASSIFIER START FOR PREDICTION' + Fore.RESET)
         probs = self.model.predict(logits)
         # print(Fore.CYAN + 'CLASSIFIER END INFERENCE' + Fore.RESET)
         probs = probs.cpu().detach().numpy()
-        REJECT_LABEL = probs.shape[1] - 1
         cmd = np.argmax(probs, axis=1)
+        if len(probs[0]) < len(self.commands):
+            probs = np.append(arr=probs, values=[1-probs[0][cmd]], axis=1)
+        '''
+        REJECT_LABEL = probs.shape[1] - 1
+        # cmd = np.argmax(probs, axis=1)
         if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
             cmd = np.array([REJECT_LABEL])
-            # print(cmd.shape)
+        '''
+        if probs[0, cmd] < self.threshold_2:
+            cmd = np.array([probs.shape[1]-1])
+        '''
         else:
             cmd = np.argmax(probs, axis=1)
+        '''
+
         return cmd, probs
 
     def parse_req(self, req):
@@ -127,17 +139,21 @@ class Classifier:
             exp_dir = base_path.joinpath("eng")
             ckpt = r"matchcboxnet--val_loss=0.6037-epoch=185.model"
         else:
-            exp_dir = base_path.joinpath("ita", 'demo3_no_pretrain_ita')
+            exp_dir = base_path.joinpath("ita", 'demo7_fix_ext')
 
             # MODEL SELECTION
-            # ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext threshold 2=0.999
+            ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext threshold 2=0.999
             # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"   # demo7_no_pretrain_ext_ita
             # ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
             # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
             # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"   # demo7_pretrain_ext_ita
             # ckpt = r"matchcboxnet--val_loss=2.6342-epoch=380.model"   # demo7_fix_ext_google
 
-            ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita threshold 2=0.999
+            # ckpt = r"matchcboxnet--val_loss=0.2571-epoch=242.model"     # demo7_cmds
+            # ckpt = r"matchcboxnet--val_loss=0.229-epoch=155.model"      # demo7_cmds_noise
+            # ckpt = r"matchcboxnet--val_loss=3.0086-epoch=129.model"      # demo7_cmds_noise_reject
+
+            # ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita threshold 2=0.999
             # ckpt = r"matchcboxnet--val_loss=8.5081-epoch=184.model"   # demo3_pretrain_ita
 
         model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
@@ -147,14 +163,22 @@ class Classifier:
         return model
 
 if __name__ == "__main__":
-    THRESHOLD_1 = 0.002    # 0.004
-    THRESHOLD_2 = 0.999
+    THRESHOLD_1 = 0.001     # 0.004
+    THRESHOLD_2 = 0.999     # 0.999
+    COMMANDS = 0
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
     parser.add_argument("--demo", required=True, dest="demo", type=int)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
+
+    if args.demo == 3:
+        COMMANDS = DEMO3_CMD_ENG
+    elif args.demo == 7:
+        COMMANDS = DEMO7_CMD_ENG
+
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2)
+    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2, COMMANDS)
