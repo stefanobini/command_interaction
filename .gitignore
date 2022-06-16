@@ -34,6 +34,10 @@ ROS/speech_ws/experiments
 # TTS files
 
 
+# speech detected from VAD file
+detected_voices/
+
+
 # General files
 *.zip
 *.rar
