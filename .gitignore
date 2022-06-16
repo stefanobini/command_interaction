@@ -30,6 +30,8 @@ ROS/logs
 ROS/sender_app
 ROS/receiver_app
 ROS/speech_pkg/experiments
+ROS/speech_pkg/catkin
+ROS/speech_pkg/src/firos
 
 
 # TTS files
