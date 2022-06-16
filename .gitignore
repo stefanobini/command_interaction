@@ -24,7 +24,6 @@ Model_Augmentation/db_test.csv
 
 # ROS files
 ROS/speech_ws/build
-ROS/speech_ws/catkin
 ROS/speech_ws/devel
 ROS/speech_ws/logs
 ROS/speech_ws/src/sender_app
