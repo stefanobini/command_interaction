@@ -1,12 +1,11 @@
 import os
-import sys
 from tqdm import tqdm
 from pydub import AudioSegment
 
 
 DATASET_PATH = './saves'
-OUTPUT_PATH = './Dataset/Dataset/FELICE_demo7'
-CMDS_DICT = {
+OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo7'
+'''CMDS_DICT = {
     6:6,
     8:8,
     12:12,
@@ -15,6 +14,17 @@ CMDS_DICT = {
     30:20,
     18:23
 }# 'old_id':'new_id'
+'''
+CMDS_DICT = {
+    6:0,
+    8:1,
+    12:2,
+    31:3,
+    28:4,
+    30:5,
+    18:6
+}# 'old_id':'new_id'
+#'''
 CMDS_LIST = CMDS_DICT.keys()
 
 ds_cmd_path = os.path.join(OUTPUT_PATH, 'commands')

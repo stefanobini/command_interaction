@@ -20,6 +20,8 @@ from torch.utils.data import BatchSampler, WeightedRandomSampler
 import torch
 import gc
 
+
+REJECT_RATE = 1.5   # with 1 the number of reject samples is egual to the number of the positive samples (summation on all classes)
 '''
 This class splits the dataset into train set, validation set, and test set.
 The same task if performed for the noise set
@@ -245,7 +247,7 @@ class Preprocessing:
             out_dir.mkdir(exist_ok=True, parents=True)
             for dataset_type, speakers_list in zip(["train", "val", "test"], speakers_reject_split):
                 db = get_database(reject_db, speakers_list)
-                db = db.sample(n=int(self.stats[f"{dataset_type}_cmds_sum"]), random_state=self.seed)
+                db = db.sample(n=int(self.stats[f"{dataset_type}_cmds_sum"]*REJECT_RATE), random_state=self.seed)
                 db["path"] = db["path"].apply(lambda x: convert(x))
                 db["path"] = self._parallel_cut(db, out_dir, dataset_type)
                 db["cmd_index"] = len(commands.command_eng)

@@ -44,7 +44,7 @@ if __name__ == "__main__":
     print("*" * 30)
 
     if not COLAB and platform.system().lower() != "windows":
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(2)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
     register_perturbation("mynoise", Augmentation)
     path_base = Path(get_curr_dir(__file__)).joinpath("manifests")
 

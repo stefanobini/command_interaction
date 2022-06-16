@@ -327,8 +327,8 @@ class ValidationCallback(Callback):
             bal_acc = v[1]
             trainer.logger.log_metrics({f"accuracy_snr_{k}dB": acc}, step=self.validation_step)
             trainer.logger.log_metrics({f"bal_acc_snr_{k}dB": bal_acc}, step=self.validation_step)
-        # model.save_backup(self.exp_dir, epoch=self.validation_step, loss=loss_mean)
-        model.save_backup(self.exp_dir, epoch=self.validation_step, loss=accuracy_mean)
+        model.save_backup(self.exp_dir, epoch=self.validation_step, loss=loss_mean)
+        # model.save_backup(self.exp_dir, epoch=self.validation_step, loss=accuracy_mean)
         self.validation_step += 1
         model = model.cuda()
         model.training = True

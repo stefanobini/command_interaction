@@ -3,6 +3,7 @@
 
 # Bot files
 Bot/saves/*
+Bot/log.txt
 
 # Model_Augmentation files
 Model_Augmentation/__pycache__/
@@ -10,12 +11,25 @@ Model_Augmentation/.working_dir
 Model_Augmentation/*.txt
 Model_Augmentation/dataset/Dataset_synth/*
 Model_Augmentation/dataset/FELICE_demo7/*
+Model_Augmentation/dataset/GoogleSpeechCommands/*
 Model_Augmentation/dataset/sync.ffs_db
 Model_Augmentation/fsd/noise_set/*
 Model_Augmentation/apex
 Model_Augmentation/models/*
 Model_Augmentation/nemo_experiments/*
 Model_Augmentation/pretrain_models/*
+Model_Augmentation/manisfests/*.csv
+Model_Augmentation/manisfests/*.json
+Model_Augmentation/db_test.csv
+
+# ROS files
+ROS/build
+ROS/catkin
+ROS/devel
+ROS/logs
+ROS/sender_app
+ROS/receiver_app
+ROS/speech_pkg/experiments
 
 
 # TTS files

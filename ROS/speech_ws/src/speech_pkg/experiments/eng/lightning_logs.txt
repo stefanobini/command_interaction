@@ -1,0 +1,268 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [2]
+
+  | Name              | Type                       | Params
+-----------------------------------------------------------------
+0 | spec_augmentation | SpectrogramAugmentation    | 0     
+1 | preprocessor      | AudioToMFCCPreprocessor    | 0     
+2 | encoder           | ConvASREncoder             | 88.9 K
+3 | decoder           | Decoder                    | 1.0 K 
+4 | loss              | CrossEntropyLoss           | 0     
+5 | _accuracy         | TopKClassificationAccuracy | 0     
+-----------------------------------------------------------------
+89.9 K    Trainable params
+0         Non-trainable params
+89.9 K    Total params
+0.360     Total estimated model params size (MB)
+Epoch 0, global step 40: val_loss reached 2.04408 (best 2.04408), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=2.0441-epoch=0.ckpt" as top 3
+Epoch 1, global step 81: val_loss reached 2.18821 (best 2.04408), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=2.1882-epoch=1.ckpt" as top 3
+Epoch 2, global step 122: val_loss reached 2.27653 (best 2.04408), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=2.2765-epoch=2.ckpt" as top 3
+Epoch 3, global step 163: val_loss reached 2.08928 (best 2.04408), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=2.0893-epoch=3.ckpt" as top 3
+Epoch 4, global step 204: val_loss was not in top 3
+Epoch 5, global step 245: val_loss reached 1.97792 (best 1.97792), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.9779-epoch=5.ckpt" as top 3
+Epoch 6, global step 286: val_loss was not in top 3
+Epoch 7, global step 327: val_loss reached 1.97925 (best 1.97792), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.9793-epoch=7.ckpt" as top 3
+Epoch 8, global step 368: val_loss reached 1.79058 (best 1.79058), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.7906-epoch=8.ckpt" as top 3
+Epoch 9, global step 409: val_loss was not in top 3
+Epoch 10, global step 450: val_loss was not in top 3
+Epoch 11, global step 491: val_loss reached 1.97287 (best 1.79058), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.9729-epoch=11.ckpt" as top 3
+Epoch 12, global step 532: val_loss reached 1.79081 (best 1.79058), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.7908-epoch=12.ckpt" as top 3
+Epoch 13, global step 573: val_loss was not in top 3
+Epoch 14, global step 614: val_loss was not in top 3
+Epoch 15, global step 655: val_loss was not in top 3
+Epoch 16, global step 696: val_loss reached 1.56971 (best 1.56971), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.5697-epoch=16.ckpt" as top 3
+Epoch 17, global step 737: val_loss reached 1.70484 (best 1.56971), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.7048-epoch=17.ckpt" as top 3
+Epoch 18, global step 778: val_loss was not in top 3
+Epoch 19, global step 819: val_loss was not in top 3
+Epoch 20, global step 860: val_loss was not in top 3
+Epoch 21, global step 901: val_loss was not in top 3
+Epoch 22, global step 942: val_loss was not in top 3
+Epoch 23, global step 983: val_loss was not in top 3
+Epoch 24, global step 1024: val_loss was not in top 3
+Epoch 25, global step 1065: val_loss was not in top 3
+Epoch 26, global step 1106: val_loss was not in top 3
+Epoch 27, global step 1147: val_loss was not in top 3
+Epoch 28, global step 1188: val_loss was not in top 3
+Epoch 29, global step 1229: val_loss reached 1.53111 (best 1.53111), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.5311-epoch=29.ckpt" as top 3
+Epoch 30, global step 1270: val_loss was not in top 3
+Epoch 31, global step 1311: val_loss was not in top 3
+Epoch 32, global step 1352: val_loss was not in top 3
+Epoch 33, global step 1393: val_loss was not in top 3
+Epoch 34, global step 1434: val_loss was not in top 3
+Epoch 35, global step 1475: val_loss was not in top 3
+Epoch 36, global step 1516: val_loss was not in top 3
+Epoch 37, global step 1557: val_loss reached 1.56642 (best 1.53111), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.5664-epoch=37.ckpt" as top 3
+Epoch 38, global step 1598: val_loss was not in top 3
+Epoch 39, global step 1639: val_loss was not in top 3
+Epoch 40, global step 1680: val_loss was not in top 3
+Epoch 41, global step 1721: val_loss was not in top 3
+Epoch 42, global step 1762: val_loss was not in top 3
+Epoch 43, global step 1803: val_loss reached 1.51296 (best 1.51296), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.5130-epoch=43.ckpt" as top 3
+Epoch 44, global step 1844: val_loss was not in top 3
+Epoch 45, global step 1885: val_loss was not in top 3
+Epoch 46, global step 1926: val_loss was not in top 3
+Epoch 47, global step 1967: val_loss was not in top 3
+Epoch 48, global step 2008: val_loss was not in top 3
+Epoch 49, global step 2049: val_loss was not in top 3
+Epoch 50, global step 2090: val_loss was not in top 3
+Epoch 51, global step 2131: val_loss was not in top 3
+Epoch 52, global step 2172: val_loss was not in top 3
+Epoch 53, global step 2213: val_loss was not in top 3
+Epoch 54, global step 2254: val_loss was not in top 3
+Epoch 55, global step 2295: val_loss was not in top 3
+Epoch 56, global step 2336: val_loss was not in top 3
+Epoch 57, global step 2377: val_loss was not in top 3
+Epoch 58, global step 2418: val_loss was not in top 3
+Epoch 59, global step 2459: val_loss reached 1.45059 (best 1.45059), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.4506-epoch=59.ckpt" as top 3
+Epoch 60, global step 2500: val_loss was not in top 3
+Epoch 61, global step 2541: val_loss was not in top 3
+Epoch 62, global step 2582: val_loss was not in top 3
+Epoch 63, global step 2623: val_loss was not in top 3
+Epoch 64, global step 2664: val_loss was not in top 3
+Epoch 65, global step 2705: val_loss was not in top 3
+Epoch 66, global step 2746: val_loss was not in top 3
+Epoch 67, global step 2787: val_loss was not in top 3
+Epoch 68, global step 2828: val_loss was not in top 3
+Epoch 69, global step 2869: val_loss reached 1.50323 (best 1.45059), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.5032-epoch=69.ckpt" as top 3
+Epoch 70, global step 2910: val_loss reached 1.38178 (best 1.38178), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.3818-epoch=70.ckpt" as top 3
+Epoch 71, global step 2951: val_loss was not in top 3
+Epoch 72, global step 2992: val_loss was not in top 3
+Epoch 73, global step 3033: val_loss was not in top 3
+Epoch 74, global step 3074: val_loss was not in top 3
+Epoch 75, global step 3115: val_loss was not in top 3
+Epoch 76, global step 3156: val_loss was not in top 3
+Epoch 77, global step 3197: val_loss was not in top 3
+Epoch 78, global step 3238: val_loss was not in top 3
+Epoch 79, global step 3279: val_loss was not in top 3
+Epoch 80, global step 3320: val_loss was not in top 3
+Epoch 81, global step 3361: val_loss was not in top 3
+Epoch 82, global step 3402: val_loss was not in top 3
+Epoch 83, global step 3443: val_loss was not in top 3
+Epoch 84, global step 3484: val_loss was not in top 3
+Epoch 85, global step 3525: val_loss was not in top 3
+Epoch 86, global step 3566: val_loss was not in top 3
+Epoch 87, global step 3607: val_loss was not in top 3
+Epoch 88, global step 3648: val_loss was not in top 3
+Epoch 89, global step 3689: val_loss was not in top 3
+Epoch 90, global step 3730: val_loss was not in top 3
+Epoch 91, global step 3771: val_loss was not in top 3
+Epoch 92, global step 3812: val_loss was not in top 3
+Epoch 93, global step 3853: val_loss was not in top 3
+Epoch 94, global step 3894: val_loss was not in top 3
+Epoch 95, global step 3935: val_loss was not in top 3
+Epoch 96, global step 3976: val_loss was not in top 3
+Epoch 97, global step 4017: val_loss reached 1.26292 (best 1.26292), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.2629-epoch=97.ckpt" as top 3
+Epoch 98, global step 4058: val_loss was not in top 3
+Epoch 99, global step 4099: val_loss was not in top 3
+Epoch 100, global step 4140: val_loss was not in top 3
+Epoch 101, global step 4181: val_loss was not in top 3
+Epoch 102, global step 4222: val_loss was not in top 3
+Epoch 103, global step 4263: val_loss was not in top 3
+Epoch 104, global step 4304: val_loss was not in top 3
+Epoch 105, global step 4345: val_loss was not in top 3
+Epoch 106, global step 4386: val_loss was not in top 3
+Epoch 107, global step 4427: val_loss was not in top 3
+Epoch 108, global step 4468: val_loss was not in top 3
+Epoch 109, global step 4509: val_loss was not in top 3
+Epoch 110, global step 4550: val_loss was not in top 3
+Epoch 111, global step 4591: val_loss was not in top 3
+Epoch 112, global step 4632: val_loss was not in top 3
+Epoch 113, global step 4673: val_loss was not in top 3
+Epoch 114, global step 4714: val_loss was not in top 3
+Epoch 115, global step 4755: val_loss was not in top 3
+Epoch 116, global step 4796: val_loss was not in top 3
+Epoch 117, global step 4837: val_loss was not in top 3
+Epoch 118, global step 4878: val_loss was not in top 3
+Epoch 119, global step 4919: val_loss was not in top 3
+Epoch 120, global step 4960: val_loss was not in top 3
+Epoch 121, global step 5001: val_loss was not in top 3
+Epoch 122, global step 5042: val_loss was not in top 3
+Epoch 123, global step 5083: val_loss was not in top 3
+Epoch 124, global step 5124: val_loss was not in top 3
+Epoch 125, global step 5165: val_loss was not in top 3
+Epoch 126, global step 5206: val_loss was not in top 3
+Epoch 127, global step 5247: val_loss was not in top 3
+Epoch 128, global step 5288: val_loss was not in top 3
+Epoch 129, global step 5329: val_loss was not in top 3
+Epoch 130, global step 5370: val_loss was not in top 3
+Epoch 131, global step 5411: val_loss was not in top 3
+Epoch 132, global step 5452: val_loss was not in top 3
+Epoch 133, global step 5493: val_loss was not in top 3
+Epoch 134, global step 5534: val_loss reached 1.27643 (best 1.26292), saving model to "/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-06-09_11-44-38/checkpoints/MatchboxNet-3x2x64--val_loss=1.2764-epoch=134.ckpt" as top 3
+Epoch 135, global step 5575: val_loss was not in top 3
+Epoch 136, global step 5616: val_loss was not in top 3
+Epoch 137, global step 5657: val_loss was not in top 3
+Epoch 138, global step 5698: val_loss was not in top 3
+Epoch 139, global step 5739: val_loss was not in top 3
+Epoch 140, global step 5780: val_loss was not in top 3
+Epoch 141, global step 5821: val_loss was not in top 3
+Epoch 142, global step 5862: val_loss was not in top 3
+Epoch 143, global step 5903: val_loss was not in top 3
+Epoch 144, global step 5944: val_loss was not in top 3
+Epoch 145, global step 5985: val_loss was not in top 3
+Epoch 146, global step 6026: val_loss was not in top 3
+Epoch 147, global step 6067: val_loss was not in top 3
+Epoch 148, global step 6108: val_loss was not in top 3
+Epoch 149, global step 6149: val_loss was not in top 3
+Epoch 150, global step 6190: val_loss was not in top 3
+Epoch 151, global step 6231: val_loss was not in top 3
+Epoch 152, global step 6272: val_loss was not in top 3
+Epoch 153, global step 6313: val_loss was not in top 3
+Epoch 154, global step 6354: val_loss was not in top 3
+Epoch 155, global step 6395: val_loss was not in top 3
+Epoch 156, global step 6436: val_loss was not in top 3
+Epoch 157, global step 6477: val_loss was not in top 3
+Epoch 158, global step 6518: val_loss was not in top 3
+Epoch 159, global step 6559: val_loss was not in top 3
+Epoch 160, global step 6600: val_loss was not in top 3
+Epoch 161, global step 6641: val_loss was not in top 3
+Epoch 162, global step 6682: val_loss was not in top 3
+Epoch 163, global step 6723: val_loss was not in top 3
+Epoch 164, global step 6764: val_loss was not in top 3
+Epoch 165, global step 6805: val_loss was not in top 3
+Epoch 166, global step 6846: val_loss was not in top 3
+Epoch 167, global step 6887: val_loss was not in top 3
+Epoch 168, global step 6928: val_loss was not in top 3
+Epoch 169, global step 6969: val_loss was not in top 3
+Epoch 170, global step 7010: val_loss was not in top 3
+Epoch 171, global step 7051: val_loss was not in top 3
+Epoch 172, global step 7092: val_loss was not in top 3
+Epoch 173, global step 7133: val_loss was not in top 3
+Epoch 174, global step 7174: val_loss was not in top 3
+Epoch 175, global step 7215: val_loss was not in top 3
+Epoch 176, global step 7256: val_loss was not in top 3
+Epoch 177, global step 7297: val_loss was not in top 3
+Epoch 178, global step 7338: val_loss was not in top 3
+Epoch 179, global step 7379: val_loss was not in top 3
+Epoch 180, global step 7420: val_loss was not in top 3
+Epoch 181, global step 7461: val_loss was not in top 3
+Epoch 182, global step 7502: val_loss was not in top 3
+Epoch 183, global step 7543: val_loss was not in top 3
+Epoch 184, global step 7584: val_loss was not in top 3
+Epoch 185, global step 7625: val_loss was not in top 3
+Epoch 186, global step 7666: val_loss was not in top 3
+Epoch 187, global step 7707: val_loss was not in top 3
+Epoch 188, global step 7748: val_loss was not in top 3
+Epoch 189, global step 7789: val_loss was not in top 3
+Epoch 190, global step 7830: val_loss was not in top 3
+Epoch 191, global step 7871: val_loss was not in top 3
+Epoch 192, global step 7912: val_loss was not in top 3
+Epoch 193, global step 7953: val_loss was not in top 3
+Epoch 194, global step 7994: val_loss was not in top 3
+Epoch 195, global step 8035: val_loss was not in top 3
+Epoch 196, global step 8076: val_loss was not in top 3
+Epoch 197, global step 8117: val_loss was not in top 3
+Epoch 198, global step 8158: val_loss was not in top 3
+Epoch 199, global step 8199: val_loss was not in top 3
+Epoch 200, global step 8240: val_loss was not in top 3
+Epoch 201, global step 8281: val_loss was not in top 3
+Epoch 202, global step 8322: val_loss was not in top 3
+Epoch 203, global step 8363: val_loss was not in top 3
+Epoch 204, global step 8404: val_loss was not in top 3
+Epoch 205, global step 8445: val_loss was not in top 3
+Epoch 206, global step 8486: val_loss was not in top 3
+Epoch 207, global step 8527: val_loss was not in top 3
+Epoch 208, global step 8568: val_loss was not in top 3
+Epoch 209, global step 8609: val_loss was not in top 3
+Epoch 210, global step 8650: val_loss was not in top 3
+Epoch 211, global step 8691: val_loss was not in top 3
+Epoch 212, global step 8732: val_loss was not in top 3
+Epoch 213, global step 8773: val_loss was not in top 3
+Epoch 214, global step 8814: val_loss was not in top 3
+Epoch 215, global step 8855: val_loss was not in top 3
+Epoch 216, global step 8896: val_loss was not in top 3
+Epoch 217, global step 8937: val_loss was not in top 3
+Epoch 218, global step 8978: val_loss was not in top 3
+Epoch 219, global step 9019: val_loss was not in top 3
+Epoch 220, global step 9060: val_loss was not in top 3
+Epoch 221, global step 9101: val_loss was not in top 3
+Epoch 222, global step 9142: val_loss was not in top 3
+Epoch 223, global step 9183: val_loss was not in top 3
+Epoch 224, global step 9224: val_loss was not in top 3
+Epoch 225, global step 9265: val_loss was not in top 3
+Epoch 226, global step 9306: val_loss was not in top 3
+Epoch 227, global step 9347: val_loss was not in top 3
+Epoch 228, global step 9388: val_loss was not in top 3
+Epoch 229, global step 9429: val_loss was not in top 3
+Epoch 230, global step 9470: val_loss was not in top 3
+Epoch 231, global step 9511: val_loss was not in top 3
+Epoch 232, global step 9552: val_loss was not in top 3
+Epoch 233, global step 9593: val_loss was not in top 3
+Epoch 234, global step 9634: val_loss was not in top 3
+Epoch 235, global step 9675: val_loss was not in top 3
+Epoch 236, global step 9716: val_loss was not in top 3
+Epoch 237, global step 9757: val_loss was not in top 3
+Epoch 238, global step 9798: val_loss was not in top 3
+Epoch 239, global step 9839: val_loss was not in top 3
+Epoch 240, global step 9880: val_loss was not in top 3
+Epoch 241, global step 9921: val_loss was not in top 3
+Epoch 242, global step 9962: val_loss was not in top 3
+Epoch 243, global step 10003: val_loss was not in top 3
+Epoch 244, global step 10044: val_loss was not in top 3
+Epoch 245, global step 10085: val_loss was not in top 3
+Epoch 246, global step 10126: val_loss was not in top 3
+Epoch 247, global step 10167: val_loss was not in top 3
+Epoch 248, global step 10208: val_loss was not in top 3
+Epoch 249, global step 10249: val_loss was not in top 3

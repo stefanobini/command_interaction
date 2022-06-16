@@ -1,5 +1,5 @@
 """
-Fix the data acquired through the Telegram both in qhich there are some commands with bad definition. This is caused by the wrong definition in the previous phase, so it is managed after acquisition through this script.
+Fix the data acquired through the Telegram both in which there are some commands with bad definition. This is caused by the wrong definition in the previous phase, so it is managed after acquisition through this script.
 """
 
 import os

@@ -1,35 +1,35 @@
 ,path,fname,noise_type
-0,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/254325.wav,254325.wav,drill
-1,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/386248.wav,386248.wav,drill
-2,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/318203.wav,318203.wav,drill
-3,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/46668.wav,46668.wav,drill
-4,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/32990.wav,32990.wav,drill
-5,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/66622.wav,66622.wav,drill
-6,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/180129.wav,180129.wav,drill
-7,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/318197.wav,318197.wav,drill
-8,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/328764.wav,328764.wav,drill
-9,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/59594.wav,59594.wav,drill
-10,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/254302.wav,254302.wav,drill
-11,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/96159.wav,96159.wav,drill
-12,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/274853.wav,274853.wav,drill
-13,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/84971.wav,84971.wav,drill
-14,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/71529.wav,71529.wav,drill
-15,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/168797.wav,168797.wav,hammer
-16,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/363169.wav,363169.wav,hammer
-17,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/104193.wav,104193.wav,hammer
-18,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblylineliteINT02-MS.wav,SDMechanicalFactoryassemblylineliteINT02-MS.wav,catena di lavoro
-19,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblylineliteINT01-MS.wav,SDMechanicalFactoryassemblylineliteINT01-MS.wav,catena di lavoro
-20,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/metal-grinder-on-run-off_MyXT7hV__NWM.wav,metal-grinder-on-run-off_MyXT7hV__NWM.wav,grinder  (mola)
-21,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/Die grinder scrape metal surface pneumatic_BLASTWAVEFX_05652.wav,Die grinder scrape metal surface pneumatic_BLASTWAVEFX_05652.wav,grinder  (mola)
-22,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/industrial-saw-exhaust-hum-looping_M1uE_rEd_NWM.wav,industrial-saw-exhaust-hum-looping_M1uE_rEd_NWM.wav,saw
-23,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/band-saw-on-run-off_fyUnNu4__NWM.wav,band-saw-on-run-off_fyUnNu4__NWM.wav,saw
-24,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/generatore/big-generator_zyOEEfNu_NWM.wav,big-generator_zyOEEfNu_NWM.wav,generatore
-25,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/408484__falcons-shadow__air-compressor.wav,408484__falcons-shadow__air-compressor.wav,compressore
-26,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro robot/robot_builds_cars.wav,robot_builds_cars.wav,catena di lavoro robot
-27,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/spot-welder-spark-buzz_G1LsSuE__NWM.wav,spot-welder-spark-buzz_G1LsSuE__NWM.wav,saldatrice
-28,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-turn-on-run-turn-off_fkcvPjNO_NWM.wav,air-ratchet-turn-on-run-turn-off_fkcvPjNO_NWM.wav,air-ratchet (cricchetto ad aria)
-29,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/colpi ripetuti/battitore.wav,battitore.wav,colpi ripetuti
-30,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/fan/fan-paint-booth-on-off_G1X4EOVd_NWM_01.wav,fan-paint-booth-on-off_G1X4EOVd_NWM_01.wav,fan
-31,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/EFX INT Vibrator on Metal Surface 04.wav,EFX INT Vibrator on Metal Surface 04.wav,raschiatura
-32,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,tornio.wav,tornio
-33,/mnt/sdb1/sbini/Speec-Command_Interaction/Model_Augmentation/fsd/noise_set/114399.wav,114399.wav,noise_set
+0,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/254325.wav,254325.wav,drill
+1,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/386248.wav,386248.wav,drill
+2,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/318203.wav,318203.wav,drill
+3,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/46668.wav,46668.wav,drill
+4,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/32990.wav,32990.wav,drill
+5,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/66622.wav,66622.wav,drill
+6,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/180129.wav,180129.wav,drill
+7,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/318197.wav,318197.wav,drill
+8,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/328764.wav,328764.wav,drill
+9,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/59594.wav,59594.wav,drill
+10,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/254302.wav,254302.wav,drill
+11,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/96159.wav,96159.wav,drill
+12,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/274853.wav,274853.wav,drill
+13,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/84971.wav,84971.wav,drill
+14,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/drill/71529.wav,71529.wav,drill
+15,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/168797.wav,168797.wav,hammer
+16,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/363169.wav,363169.wav,hammer
+17,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/hammer/104193.wav,104193.wav,hammer
+18,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblylineliteINT02-MS.wav,SDMechanicalFactoryassemblylineliteINT02-MS.wav,catena di lavoro
+19,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro/SDMechanicalFactoryassemblylineliteINT01-MS.wav,SDMechanicalFactoryassemblylineliteINT01-MS.wav,catena di lavoro
+20,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/metal-grinder-on-run-off_MyXT7hV__NWM.wav,metal-grinder-on-run-off_MyXT7hV__NWM.wav,grinder  (mola)
+21,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/grinder  (mola)/Die grinder scrape metal surface pneumatic_BLASTWAVEFX_05652.wav,Die grinder scrape metal surface pneumatic_BLASTWAVEFX_05652.wav,grinder  (mola)
+22,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/industrial-saw-exhaust-hum-looping_M1uE_rEd_NWM.wav,industrial-saw-exhaust-hum-looping_M1uE_rEd_NWM.wav,saw
+23,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saw/band-saw-on-run-off_fyUnNu4__NWM.wav,band-saw-on-run-off_fyUnNu4__NWM.wav,saw
+24,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/generatore/big-generator_zyOEEfNu_NWM.wav,big-generator_zyOEEfNu_NWM.wav,generatore
+25,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/compressore/408484__falcons-shadow__air-compressor.wav,408484__falcons-shadow__air-compressor.wav,compressore
+26,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/catena di lavoro robot/robot_builds_cars.wav,robot_builds_cars.wav,catena di lavoro robot
+27,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/saldatrice/spot-welder-spark-buzz_G1LsSuE__NWM.wav,spot-welder-spark-buzz_G1LsSuE__NWM.wav,saldatrice
+28,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/air-ratchet (cricchetto ad aria)/air-ratchet-turn-on-run-turn-off_fkcvPjNO_NWM.wav,air-ratchet-turn-on-run-turn-off_fkcvPjNO_NWM.wav,air-ratchet (cricchetto ad aria)
+29,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/colpi ripetuti/battitore.wav,battitore.wav,colpi ripetuti
+30,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/fan/fan-paint-booth-on-off_G1X4EOVd_NWM_01.wav,fan-paint-booth-on-off_G1X4EOVd_NWM_01.wav,fan
+31,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/raschiatura/EFX INT Vibrator on Metal Surface 04.wav,EFX INT Vibrator on Metal Surface 04.wav,raschiatura
+32,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,tornio.wav,tornio
+33,/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/fsd/noise_set/114399.wav,114399.wav,noise_set
