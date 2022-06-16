@@ -14,10 +14,48 @@ from pathlib import Path
 import argparse
 from lang_settings import AVAILABLE_LANGS
 from colorama import Fore
-from commands import DEMO3_CMD_ENG, DEMO7_CMD_ENG
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA
 
 
 args = None
+
+def select_parameters(args):
+    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
+    if args.demo == 3:
+        if args.lang == 'eng':
+            COMMANDS = DEMO3_CMD_ENG
+            ckpt_folder = models_path.joinpath('eng', 'demo3_eng')
+            ckpt_name = 'matchcboxnet--val_loss=2.2774-epoch=209.model' # demo3_eng
+        elif args.lang == 'ita':
+            COMMANDS = DEMO3_CMD_ITA
+            ckpt_folder = models_path.joinpath('ita', 'demo3_ita')
+            # ckpt_name = r"matchcboxnet--val_loss=1.4977-epoch=129.model"  # demo3_no_pretrain_ita
+            # ckpt_name = r"matchcboxnet--val_loss=8.5081-epoch=184.model"  # demo3_pretrain_ita
+            ckpt_name = 'matchcboxnet--val_loss=8.5081-epoch=184.model'   # demo3_ita
+
+    elif args.demo == 7:
+        if args.lang == 'eng':
+            COMMANDS = DEMO7_CMD_ENG
+            ckpt_folder = models_path.joinpath('eng', 'demo7_eng')
+            ckpt_name = 'matchcboxnet--val_loss=0.5461-epoch=172.model' # demo7_pretrain_eng
+            ckpt_name = 'matchcboxnet--val_loss=1.9024-epoch=172.model' # demo7_eng
+        elif args.lang == 'ita':
+            COMMANDS = DEMO7_CMD_ITA
+            ckpt_folder = models_path.joinpath("ita", 'demo7_fix_ext')
+            ckpt_name = 'matchcboxnet--val_loss=2.7598-epoch=130.model'
+
+            # ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext
+            # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"   # demo7_no_pretrain_ext_ita
+            # ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
+            # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
+            # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"   # demo7_pretrain_ext_ita
+            # ckpt = r"matchcboxnet--val_loss=2.6342-epoch=380.model"   # demo7_fix_ext_google
+
+            # ckpt = r"matchcboxnet--val_loss=0.2571-epoch=242.model"     # demo7_cmds
+            # ckpt = r"matchcboxnet--val_loss=0.229-epoch=155.model"      # demo7_cmds_noise
+            # ckpt = r"matchcboxnet--val_loss=3.0086-epoch=129.model"     # demo7_cmds_noise_reject
+    
+    return COMMANDS, ckpt_folder, ckpt_name
 
 
 def infer_signal(model, signal):
@@ -60,16 +98,26 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, lang, threshold_1, threshold_2, commands):
+    def __init__(self, lang, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
         self.commands = commands
-        self.model = self.load_model(lang)
         self.threshold_1 = threshold_1
         self.threshold_2 = threshold_2
+
+        self.model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
+        print("# Loaded model lang:", lang)
+        print("# Model loaded:", ckpt_folder)
+        # self.model = self.load_model(lang)
+
         self.model = self.model.eval()
         if torch.cuda.is_available():
             self.model = self.model.cuda()
         else:
             self.model = self.model.cpu()
+        
+        # In order to avoid the waste of time related to the first inference
+        logits = infer_signal(self.model, np.zeros(shape=(20000,)))
+        self.model.predict(logits)
+
         self.init_node()
 
     def _pcm2float(self, sound: np.ndarray):
@@ -92,11 +140,8 @@ class Classifier:
         return signal_nw
 
     def predict_cmd(self, signal: np.ndarray):
-        # global COMMANDS
         logits = infer_signal(self.model, signal)
-        # print(Fore.CYAN + 'CLASSIFIER START FOR PREDICTION' + Fore.RESET)
         probs = self.model.predict(logits)
-        # print(Fore.CYAN + 'CLASSIFIER END INFERENCE' + Fore.RESET)
         probs = probs.cpu().detach().numpy()
         cmd = np.argmax(probs, axis=1)
         if len(probs[0]) < len(self.commands):
@@ -117,11 +162,8 @@ class Classifier:
         return cmd, probs
 
     def parse_req(self, req):
-        # print(Fore.GREEN + '#'*33 + '\n# Command classifier is running #\n' + '#'*33 + Fore.RESET)
         signal = self.convert(req.data.data)
-        # print(Fore.CYAN + 'CLASSIFIER HAS RECEIVED THE AUDIO SIGNAL' + Fore.RESET)
         cmd, probs = self.predict_cmd(signal)
-        # print(Fore.CYAN + 'CLASSIFIER HAS PREDICTED THE COMMAND' + Fore.RESET)
         assert len(cmd) == 1
         cmd = int(cmd[0])
         probs = probs.tolist()[0]
@@ -132,53 +174,26 @@ class Classifier:
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
-    def load_model(self, lang):
-        global args
-        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
-        if lang == "eng":
-            exp_dir = base_path.joinpath("eng")
-            ckpt = r"matchcboxnet--val_loss=0.6037-epoch=185.model"
-        else:
-            exp_dir = base_path.joinpath("ita", 'demo7_fix_ext')
-
-            # MODEL SELECTION
-            ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext threshold 2=0.999
-            # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"   # demo7_no_pretrain_ext_ita
-            # ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
-            # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
-            # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"   # demo7_pretrain_ext_ita
-            # ckpt = r"matchcboxnet--val_loss=2.6342-epoch=380.model"   # demo7_fix_ext_google
-
-            # ckpt = r"matchcboxnet--val_loss=0.2571-epoch=242.model"     # demo7_cmds
-            # ckpt = r"matchcboxnet--val_loss=0.229-epoch=155.model"      # demo7_cmds_noise
-            # ckpt = r"matchcboxnet--val_loss=3.0086-epoch=129.model"      # demo7_cmds_noise_reject
-
-            # ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita threshold 2=0.999
-            # ckpt = r"matchcboxnet--val_loss=8.5081-epoch=184.model"   # demo3_pretrain_ita
-
-        model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
+    def load_model(self, lang, ckpt_folder, ckpt_name):
+        model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
         print("# Loaded model lang:", lang)
-        print("# Model loaded:", exp_dir)
-        print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(args.demo) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
+        print("# Model loaded:", ckpt_folder)
+        
         return model
 
 if __name__ == "__main__":
     THRESHOLD_1 = 0.001     # 0.004
     THRESHOLD_2 = 0.999     # 0.999
-    COMMANDS = 0
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
     parser.add_argument("--demo", required=True, dest="demo", type=int)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
 
-    if args.demo == 3:
-        COMMANDS = DEMO3_CMD_ENG
-    elif args.demo == 7:
-        COMMANDS = DEMO7_CMD_ENG
+    commands, ckpt_folder, ckpt_name = select_parameters(args=args)
 
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2, COMMANDS)
+    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)

@@ -121,6 +121,8 @@ if __name__ == "__main__":
     # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
     
     classify = rospy.ServiceProxy('classifier_service', Classification)
+    print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(args.demo) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
+
     # speech = rospy.ServiceProxy('speech_service', Talker)
 
     rospy.spin()
