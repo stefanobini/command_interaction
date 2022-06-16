@@ -10,7 +10,6 @@ import subprocess
 import platform
 import os
 import argparse
-import nemo.collections.asr as nemo_asr
 
 try:
     from google.colab import drive
