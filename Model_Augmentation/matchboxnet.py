@@ -21,7 +21,7 @@ except Exception:
 if __name__ == "__main__":
     '''
     Parsing input argument
-    python3 matchboxnet.py --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     '''
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, dest="config", required=True, help="Yaml file containing the configuration")
@@ -30,6 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("--log", type=int, required=False, dest="logfile", default=1, help='0 to disable log file, 1 to activate log file, default 1')
     parser.add_argument("--synth", type=int, required=False, dest="synth", default=1, help='0 to exculde synthetic samples, 1 to include it, default 1')
     parser.add_argument("--pre_train", type=str, default=None, dest="pre_train", help='Path of the pre-training model from which to start')
+    parser.add_argument("--dataset_path", type=str, default=None, dest="dataset_path", help='Path of the dataset folder')
     # parser.add_argument("--pre_train", type=int, required=False, dest="pre_train", default=0, help='1 if the user is loading a model, 0 (default) if he is creating the model')
     args = parser.parse_args()
 
@@ -64,12 +65,12 @@ if __name__ == "__main__":
     config.model.labels = LABELS
     config.model.lang = LANG
 
-    config.model.train_ds.augmentor.mynoise.dataset_path_real = str(Path(get_curr_dir(__file__)).joinpath("dataset/FELICE_demo7/commands"))
+    config.model.train_ds.augmentor.mynoise.dataset_path_real = str(Path(get_curr_dir(__file__)).joinpath("{}/commands".format(args.dataset_path)))
     if args.synth:
-        config.model.train_ds.augmentor.mynoise.dataset_path_synth = str(Path(get_curr_dir(__file__)).joinpath("dataset/FELICE_demo7/synthetics"))
+        config.model.train_ds.augmentor.mynoise.dataset_path_synth = str(Path(get_curr_dir(__file__)).joinpath("{}/synthetics".format(args.dataset_path)))
     else:
         config.model.train_ds.augmentor.mynoise.dataset_path_synth = None
-    config.model.train_ds.augmentor.mynoise.dataset_path_reject = str(Path(get_curr_dir(__file__)).joinpath("dataset/FELICE_demo7/reject_plus_common_voice"))
+    config.model.train_ds.augmentor.mynoise.dataset_path_reject = str(Path(get_curr_dir(__file__)).joinpath("{}/reject_plus_common_voice".format(args.dataset_path)))
 
     config.model.train_ds.manifest_filepath = TRAIN_MANIFEST
 

@@ -36,6 +36,8 @@ import pytorch_lightning as pl
 from colorama import Fore
 
 MAXSIZE = 2**32-1
+DATASET_PATH = "dataset/FELICE_demo7_extended"
+
 '''
 This class implements the PyTorch callback interface.
 It have to use in both train phase and test phase.
@@ -197,9 +199,9 @@ class ValidationCallback(Callback):
             service = row["service"]
             audio_name = Path(audio_path_input).name
             if service == "real":
-                audio_path_input = Path(get_curr_dir(__file__)).joinpath(f"dataset/FELICE_demo7/commands/{speaker}/{self.lang}/{audio_name}")
+                audio_path_input = Path(get_curr_dir(__file__)).joinpath(f"{DATASET_PATH}/commands/{speaker}/{self.lang}/{audio_name}")
             elif pd.isna(service):
-                audio_path_input = Path(get_curr_dir(__file__)).joinpath(f"dataset/FELICE_demo7/reject_plus_common_voice/{self.lang}/clips/{audio_name}")
+                audio_path_input = Path(get_curr_dir(__file__)).joinpath(f"{DATASET_PATH}/reject_plus_common_voice/{self.lang}/clips/{audio_name}")
             else:
                 raise Exception(f"service not found. Received: {service}")
             audio = AudioSegment.from_file(audio_path_input, target_sr=self.augmentation.sample_rate)
