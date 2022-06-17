@@ -1,6 +1,0 @@
-devel_space: /home/felice/felice/speech/code/ROS/speech_ws/devel
-install: false
-install_space: /home/felice/felice/speech/code/ROS/speech_ws/install
-profile: default
-source_space: /home/felice/felice/speech/code/ROS/speech_ws/src
-workspace: /home/felice/felice/speech/code/ROS/speech_ws
