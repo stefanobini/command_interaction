@@ -29,10 +29,15 @@ ROS/speech_ws/devel
 ROS/speech_ws/logs
 ROS/speech_ws/src/sender_app
 ROS/speech_ws/src/receiver_app
-ROS/speech_ws/experiments
+ROS/speech_ws/src/speech_pkg/experiments
+ROS/speech_ws/src/speech_pkg/src/__pycache__
 
 
 # TTS files
+
+
+# speech detected from VAD file
+detected_voices/
 
 
 # General files

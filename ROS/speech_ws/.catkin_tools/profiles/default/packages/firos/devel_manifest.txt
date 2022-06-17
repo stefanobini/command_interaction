@@ -1,2 +1,0 @@
-firos
-/home/felice/felice/speech/code/ROS/speech_ws/devel/.private/firos/cmake.lock /home/felice/felice/speech/code/ROS/speech_ws/devel/./cmake.lock
