@@ -19,8 +19,8 @@ Model_Augmentation/apex
 Model_Augmentation/models/*
 Model_Augmentation/nemo_experiments/*
 Model_Augmentation/pretrain_models/*
-Model_Augmentation/manisfests/*.csv
-Model_Augmentation/manisfests/*.json
+Model_Augmentation/manifests/*.csv
+Model_Augmentation/manifests/*.json
 Model_Augmentation/db_test.csv
 
 # ROS files
