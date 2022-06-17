@@ -24,14 +24,11 @@ Model_Augmentation/db_test.csv
 
 # ROS files
 ROS/speech_ws/build
-ROS/speech_ws/catkin
 ROS/speech_ws/devel
 ROS/speech_ws/logs
 ROS/speech_ws/src/sender_app
 ROS/speech_ws/src/receiver_app
 ROS/speech_ws/experiments
-ROS/speech_ws/speech_pkg/catkin
-ROS/speech_ws/src/firos
 
 
 # TTS files

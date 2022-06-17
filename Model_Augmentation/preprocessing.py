@@ -21,7 +21,7 @@ import torch
 import gc
 
 
-REJECT_RATE = 1.5   # with 1 the number of reject samples is egual to the number of the positive samples (summation on all classes)
+REJECT_RATE = 1   # with 1 the number of reject samples is egual to the number of the positive samples (summation on all classes)
 '''
 This class splits the dataset into train set, validation set, and test set.
 The same task if performed for the noise set
