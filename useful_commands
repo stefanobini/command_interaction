@@ -23,3 +23,6 @@ roslaunch speech_pkg start_demo.launch
 
 # Shows connected devices
 cat /proc/asound/cards
+
+# FIROS
+contextbroaker: ip the context broaker (es. macchina virtuale)
