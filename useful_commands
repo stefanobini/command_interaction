@@ -1,0 +1,25 @@
+# ROS framework
+source devel/setup.bash
+
+roscore
+rosrun comunication_pkg cobot1_node.py
+rosrun firos core.py --conf src/firos/config
+rostopic echo comunication_pkg/Speech
+
+# Hamachi server
+
+
+# Docker
+sudo docker build -t docker_felice_demo7 . --network=host
+
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/felice/speech-command_interaction:/home/felice/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo7 docker_felice_demo7
+
+sudo docker exec -it felice_demo7  /bin/bash
+
+# In the docker
+source devel/setup.bash
+
+roslaunch speech_pkg start_demo.launch
+
+# Shows connected devices
+cat /proc/asound/cards
