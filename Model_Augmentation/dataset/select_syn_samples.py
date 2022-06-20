@@ -46,7 +46,7 @@ for platform in dataset_iterator:
 
         # create platform folder in dataset
         ptf_cmd_path = create_folder(DST_CMD_DATA_PATH, platform)
-        ptf_rjt_path = create_folder(DST_RJT_DATA_PATH, platform)
+        #ptf_rjt_path = create_folder(DST_RJT_DATA_PATH, platform)
 
         for speaker in os.listdir(ptf_syn_path):
             if '.' not in speaker:
@@ -66,7 +66,7 @@ for platform in dataset_iterator:
                         # create language folder in dataset
                         lang_cmd_path = create_folder(spk_cmd_path, language)
                         lang_cmd_path_ext = create_folder(spk_cmd_path_ext, language)
-                        lang_rjt_path = create_folder(ptf_rjt_path, language)
+                        lang_rjt_path = create_folder(DST_RJT_DATA_PATH, language)
 
                         # for "start" command, taht is the same between italian and english commands
                         other_lang = 'ita' if language == 'eng' else 'eng'
