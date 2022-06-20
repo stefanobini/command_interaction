@@ -45,3 +45,4 @@ detected_voices/
 *.rar
 *.wav
 *.pyc
+*.model
