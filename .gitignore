@@ -44,3 +44,4 @@ detected_voices/
 *.zip
 *.rar
 *.wav
+*.pyc
