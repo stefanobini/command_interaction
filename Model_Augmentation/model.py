@@ -38,7 +38,7 @@ from colorama import Fore
 MAXSIZE = 2**32-1
 
 # CMD_DATASET_PATH = "dataset/FELICE_demo7/commands"
-RJT_DATASET_PATH = "dataset/FELICE_demo7/reject_plus_common_voice"
+RJT_DATASET_PATH = "dataset/FELICE_demo7_extended/rejects"
 
 CMD_DATASET_PATH = "dataset/FELICE_demo7_extended/commands"
 # RJT_DATASET_PATH = "dataset/FELICE_demo7_extended/rejects"

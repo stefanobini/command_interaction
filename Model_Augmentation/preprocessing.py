@@ -137,6 +137,7 @@ class Preprocessing:
     :param output_audio: path to save the file
     '''
     def convert_audio(self, input_audio, output_audio):
+        print(input_audio)
         cmd = [self.exe_path, "-y", "-i", input_audio, output_audio]
         null = subprocess.DEVNULL
         process = subprocess.run(cmd, stdin=null, stdout=null)

@@ -6,8 +6,8 @@ from pydub import AudioSegment
 
 
 SRC_DATASET = 'GoogleSpeechCommands'
-DST_DATASET = 'FELICE_demo7_extended/rejects'
-THRESHOLD = 50
+DST_DATASET = 'FELICE_demo3/rejects'
+THRESHOLD = 1500
 
 SOUND_LIST = [
     '_background_noise_',
