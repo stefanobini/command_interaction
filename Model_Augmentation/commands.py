@@ -1,3 +1,4 @@
+'''
 command_eng = {
     0: "Bring me the gun screwdriver",
     1: "Bring me the elbow screwdriver",
@@ -17,3 +18,15 @@ command_ita = {
     5: "Rilascia",
     6: "Start"
 }
+
+'''
+command_eng = {
+    0: "Increase the height",
+    1: "Decrease the height"
+}
+
+command_ita = {
+    0: "Più alto",
+    1: "Più basso"
+}
+#'''

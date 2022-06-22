@@ -87,6 +87,9 @@ for user in user_iterator:
                     os.mkdir(ds_cmd_lang_path)
                 if not os.path.isdir(ds_rej_lang_path):
                     os.mkdir(ds_rej_lang_path)
+                ds_rej_lang_path = os.path.join(ds_rej_lang_path, 'clips')
+                if not os.path.isdir(ds_rej_lang_path):
+                    os.mkdir(ds_rej_lang_path)
                 for file in os.listdir(bot_lang_path):
                     if '.ogg' in file:
                         cmd = int(file.replace(lang+'_', '').replace('.ogg', ''))

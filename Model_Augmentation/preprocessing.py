@@ -54,7 +54,7 @@ class Preprocessing:
         self.sample_rate = sample_rate
         self.reject_window_dim = 3 #seconds
         self.train_frac, self.val_frac, self.test_frac, = train_frac, val_frac, test_frac
-        self.exe_path = Path(get_curr_dir(__file__)).joinpath("ffmpeg.exe")
+        self.exe_path = 'ffmpeg'
         assert self.train_frac + self.val_frac + self.test_frac == 1
         self.db_train, self.db_val, self.db_test = self.prepare_command_dataset(dataset_path_real=dataset_path_real,
                                                                  dataset_path_synth=dataset_path_synth,
@@ -137,7 +137,7 @@ class Preprocessing:
     :param output_audio: path to save the file
     '''
     def convert_audio(self, input_audio, output_audio):
-        print(input_audio)
+        # cmd = [self.exe_path, "-y", "-i", input_audio, output_audio]
         cmd = [self.exe_path, "-y", "-i", input_audio, output_audio]
         null = subprocess.DEVNULL
         process = subprocess.run(cmd, stdin=null, stdout=null)

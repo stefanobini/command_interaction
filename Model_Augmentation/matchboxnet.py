@@ -21,6 +21,7 @@ except Exception:
 if __name__ == "__main__":
     '''
     Parsing input argument
+    python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 1 --log 0 --synth 1 --pre_train ./pretrain_models
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     '''
     parser = argparse.ArgumentParser()
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     print("*" * 30)
 
     if not COLAB and platform.system().lower() != "windows":
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(0)
     register_perturbation("mynoise", Augmentation)
     path_base = Path(get_curr_dir(__file__)).joinpath("manifests")
 
