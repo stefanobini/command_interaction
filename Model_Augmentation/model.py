@@ -38,10 +38,12 @@ from colorama import Fore
 MAXSIZE = 2**32-1
 
 # CMD_DATASET_PATH = "dataset/FELICE_demo7/commands"
-RJT_DATASET_PATH = "dataset/FELICE_demo7/reject_plus_common_voice"
+# CMD_DATASET_PATH = "dataset/FELICE_demo7_extended/commands"
+CMD_DATASET_PATH = "dataset/FELICE_demo3/commands"
 
-CMD_DATASET_PATH = "dataset/FELICE_demo7_extended/commands"
+# RJT_DATASET_PATH = "dataset/FELICE_demo7/rejects"
 # RJT_DATASET_PATH = "dataset/FELICE_demo7_extended/rejects"
+RJT_DATASET_PATH = "dataset/FELICE_demo3/rejects"
 
 '''
 This class implements the PyTorch callback interface.
