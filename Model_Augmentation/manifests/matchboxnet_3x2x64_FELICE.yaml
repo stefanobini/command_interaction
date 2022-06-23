@@ -150,7 +150,7 @@ model:
 
 trainer:
   gpus: 1 # number of gpus
-  max_epochs: 250
+  max_epochs: 1000 # 250
   max_steps: null # computed at runtime if not set
   num_nodes: 1
   accelerator: "ddp"
