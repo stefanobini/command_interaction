@@ -16,9 +16,9 @@ def convert_audio(input_audio, output_audio):
 
 
 SRC_PATH = 'FELICE_demo7/reject_plus_common_voice'
-# DST_PATH = 'FELICE_demo7_extended/rejects'
-DST_PATH = 'FELICE_demo3/rejects'
-N_SAMPLES = 1500
+DST_PATH = 'FELICE_demo7_extended/rejects'
+# DST_PATH = 'FELICE_demo3/rejects'
+N_SAMPLES = 2000
 
 for lan in ['eng', 'ita']:
 # for lan in ['ita']:

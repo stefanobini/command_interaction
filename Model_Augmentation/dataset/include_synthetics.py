@@ -14,12 +14,6 @@ DEMO3_DST_CMD_DATA_PATH = 'FELICE_demo3/synthetics/'
 DEMO3_DST_RJT_DATA_PATH = 'FELICE_demo3/rejects/'
 
 
-DEMO7_CMDS_LIST = DEMO7_CMDS_DICT.keys()
-DEMO7_CMDS_EXT_LIST = DEMO7_CMDS_DICT_EXT.keys()        # for command that begin with 'Take'
-DEMO7_CMDS_EXT_2_LIST = DEMO7_CMDS_DICT_EXT_2.keys()    # for italian command: 'mostrina comandi'
-DEMO3_CMDS_LIST = DEMO3_CMDS_DICT.keys()
-
-
 def create_folder(base_path, folder):
     ptf_cmd_path = os.path.join(base_path, folder)
     if not os.path.isdir(ptf_cmd_path):
@@ -64,20 +58,26 @@ for platform in dataset_iterator:
                             if '.wav' in file_syn_path:
                                 regex = '[0-9]{1,2}\.wav$'
                                 cmd = int(re.search(pattern=regex, string=file_syn_path).group().split('.')[0])
-                                if cmd in DEMO7_CMDS_LIST:
+                                if cmd in DEMO7_CMDS_DICT:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])))
                                     shutil.copyfile(file_syn_path, file_cmd_path)
                                     if cmd == 18:
                                         file_cmd_path = os.path.join(other_lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])))
                                         shutil.copyfile(file_syn_path, file_cmd_path)
-                                elif cmd in DEMO7_CMDS_EXT_LIST:
+                                
+                                # for command that begin with 'Take'
+                                elif cmd in DEMO7_CMDS_DICT_EXT:
                                     file_path = 'take_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd]))
                                     file_cmd_path = os.path.join(lang_cmd_path, file_path)
                                     shutil.copyfile(file_syn_path, file_cmd_path)
+                                
+                                # for italian command: 'mostrina comandi'
                                 elif language == 'ita' and cmd in DEMO7_CMDS_DICT_EXT_2:
                                     file_path = 'mc_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT_2[cmd]))
                                     file_cmd_path = os.path.join(lang_cmd_path, file_path)
                                     shutil.copyfile(file_syn_path, file_cmd_path)
+                                
+                                # for reject cmds
                                 else:
                                     file_rjt_path = os.path.join(lang_rjt_path, filee)
                                     shutil.copyfile(file_syn_path, file_rjt_path)
@@ -86,19 +86,25 @@ for platform in dataset_iterator:
                                 file_wav = AudioSegment.from_mp3(file_syn_path) # from .mp3 to .wav
                                 regex = '[0-9]{1,2}\.mp3$'
                                 cmd = int(re.search(pattern=regex, string=file_syn_path).group().split('.')[0])
-                                if cmd in DEMO7_CMDS_LIST:
+                                if cmd in DEMO7_CMDS_DICT:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])).replace('.mp3', '.wav'))
                                     file_wav.export(file_cmd_path, format='wav')
                                     if cmd == 18:
                                         file_cmd_path = os.path.join(other_lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])).replace('.mp3', '.wav'))
                                         file_wav.export(file_cmd_path, format='wav')
-                                elif cmd in DEMO7_CMDS_EXT_LIST:
+                                
+                                # for command that begin with 'Take'
+                                elif cmd in DEMO7_CMDS_DICT_EXT:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd])).replace('.mp3', '.wav'))
                                     file_wav.export(file_cmd_path, format='wav')
+                                
+                                # for italian command: 'mostrina comandi'
                                 elif language == 'ita' and cmd in DEMO7_CMDS_DICT_EXT_2:
                                     file_path = 'mc_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT_2[cmd])).replace('.mp3', '.wav')
                                     file_cmd_path = os.path.join(lang_cmd_path, file_path)
                                     file_wav.export(file_cmd_path, format='wav')
+                                
+                                # for reject cmds
                                 else:
                                     file_rjt_path = os.path.join(lang_rjt_path, filee.replace('.mp3', '.wav'))
                                     file_wav.export(file_rjt_path, format='wav')
