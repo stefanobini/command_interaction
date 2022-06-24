@@ -4,7 +4,7 @@ import shutil
 
 from tqdm import tqdm
 from pydub import AudioSegment
-from commands_dict import DEMO7_CMDS_DICT, DEMO7_CMDS_DICT_EXT, DEMO3_CMDS_DICT
+from commands_dict import DEMO7_CMDS_DICT, DEMO7_CMDS_DICT_EXT, DEMO7_CMDS_DICT_EXT_2, DEMO3_CMDS_DICT
 
 
 SRC_SYN_DATA_PATH = 'Dataset_synth/'
@@ -15,7 +15,8 @@ DEMO3_DST_RJT_DATA_PATH = 'FELICE_demo3/rejects/'
 
 
 DEMO7_CMDS_LIST = DEMO7_CMDS_DICT.keys()
-DEMO7_CMDS_EXT_LIST = DEMO7_CMDS_DICT_EXT.keys()    # for command that begin with 'Take'
+DEMO7_CMDS_EXT_LIST = DEMO7_CMDS_DICT_EXT.keys()        # for command that begin with 'Take'
+DEMO7_CMDS_EXT_2_LIST = DEMO7_CMDS_DICT_EXT_2.keys()    # for italian command: 'mostrina comandi'
 DEMO3_CMDS_LIST = DEMO3_CMDS_DICT.keys()
 
 
@@ -25,7 +26,7 @@ def create_folder(base_path, folder):
         os.mkdir(ptf_cmd_path)
     return ptf_cmd_path
 
-'''
+#'''
 dataset_iterator = tqdm(os.listdir(SRC_SYN_DATA_PATH))
 for platform in dataset_iterator:
     if '.' not in platform:
@@ -41,7 +42,6 @@ for platform in dataset_iterator:
 
                 # create speaker folder in dataset
                 spk_cmd_path = create_folder(ptf_cmd_path, speaker)
-                spk_cmd_path_ext = create_folder(ptf_cmd_path, speaker+'_take')
                 #spk_rjt_path = create_folder(ptf_rjt_path, speaker)
 
                 for language in os.listdir(spk_syn_path):
@@ -52,12 +52,11 @@ for platform in dataset_iterator:
                         
                         # create language folder in dataset
                         lang_cmd_path = create_folder(spk_cmd_path, language)
-                        lang_cmd_path_ext = create_folder(spk_cmd_path_ext, language)
                         lang_rjt_path = create_folder(DEMO7_DST_RJT_DATA_PATH, language)
 
-                        # for "start" command, taht is the same between italian and english commands
+                        # for "start" command, that is the same between italian and english commands
                         other_lang = 'ita' if language == 'eng' else 'eng'
-                        other_lang_cmd_path = create_folder(spk_cmd_path_ext, other_lang)
+                        other_lang_cmd_path = create_folder(spk_cmd_path, other_lang)
                         
                         for filee in os.listdir(lang_syn_path):
                             file_syn_path = os.path.join(lang_syn_path, filee)
@@ -72,11 +71,16 @@ for platform in dataset_iterator:
                                         file_cmd_path = os.path.join(other_lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])))
                                         shutil.copyfile(file_syn_path, file_cmd_path)
                                 elif cmd in DEMO7_CMDS_EXT_LIST:
-                                    file_cmd_path_ext = os.path.join(lang_cmd_path_ext, filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd])))
-                                    shutil.copyfile(file_syn_path, file_cmd_path_ext)
+                                    file_path = 'take_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd]))
+                                    file_cmd_path = os.path.join(lang_cmd_path, file_path)
+                                    shutil.copyfile(file_syn_path, file_cmd_path)
+                                elif language == 'ita' and cmd in DEMO7_CMDS_DICT_EXT_2:
+                                    file_path = 'mc_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT_2[cmd]))
+                                    file_cmd_path = os.path.join(lang_cmd_path, file_path)
+                                    shutil.copyfile(file_syn_path, file_cmd_path)
                                 else:
-                                    file_rjt_path_ext = os.path.join(lang_rjt_path, filee)
-                                    shutil.copyfile(file_syn_path, file_rjt_path_ext)
+                                    file_rjt_path = os.path.join(lang_rjt_path, filee)
+                                    shutil.copyfile(file_syn_path, file_rjt_path)
                             
                             elif '.mp3' in file_syn_path:
                                 file_wav = AudioSegment.from_mp3(file_syn_path) # from .mp3 to .wav
@@ -89,11 +93,16 @@ for platform in dataset_iterator:
                                         file_cmd_path = os.path.join(other_lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd])).replace('.mp3', '.wav'))
                                         file_wav.export(file_cmd_path, format='wav')
                                 elif cmd in DEMO7_CMDS_EXT_LIST:
-                                    file_cmd_path_ext = os.path.join(lang_cmd_path_ext, filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd])).replace('.mp3', '.wav'))
-                                    file_wav.export(file_cmd_path_ext, format='wav')
+                                    file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd])).replace('.mp3', '.wav'))
+                                    file_wav.export(file_cmd_path, format='wav')
+                                elif language == 'ita' and cmd in DEMO7_CMDS_DICT_EXT_2:
+                                    file_path = 'mc_' + filee.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT_2[cmd])).replace('.mp3', '.wav')
+                                    file_cmd_path = os.path.join(lang_cmd_path, file_path)
+                                    file_wav.export(file_cmd_path, format='wav')
                                 else:
-                                    file_rjt_path_ext = os.path.join(lang_rjt_path, filee.replace('.mp3', '.wav'))
-                                    file_wav.export(file_rjt_path_ext, format='wav')
+                                    file_rjt_path = os.path.join(lang_rjt_path, filee.replace('.mp3', '.wav'))
+                                    file_wav.export(file_rjt_path, format='wav')
+
 '''
 
 dataset_iterator = tqdm(os.listdir(SRC_SYN_DATA_PATH))
@@ -140,3 +149,4 @@ for platform in dataset_iterator:
                                 if cmd in DEMO3_CMDS_LIST:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO3_CMDS_DICT[cmd]).replace('.mp3', '.wav')))
                                     file_wav.export(file_cmd_path, format='wav')
+#'''
