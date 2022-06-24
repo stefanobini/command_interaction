@@ -1,22 +1,28 @@
 #!/usr/bin/python3
 
+import sys
 import rospy
+import argparse
 from speech_pkg.srv import *
 
 from colorama import Fore
 from datetime import datetime
-from commands import command_eng, command_ita
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA
 from speech_pkg.msg import Command, Speech
 
 
 SPEECH_INFO_FILE = '/home/felice/felice/speech-command_interaction/detected_voices/res.txt'
 SAVE_SPEECH_INFO = False
 
+command_eng = DEMO7_CMD_ENG
+command_ita  = DEMO7_CMD_ITA
 speech_counter = 0
 robot_listening = False
 
 
 def publish_cmd(command:int, confidence:float):
+    global command_eng, command_ita
+
     # Make Command message
     cmd_msg = Command()
     cmd_msg.label = command
@@ -39,8 +45,8 @@ def publish_cmd(command:int, confidence:float):
     pub.publish(speech_msg)
 
 
-def run(req):
-    global SPEECH_INFO_FILE, SAVE_SPEECH_INFO, speech_counter, robot_listening
+def run_demo7(req):
+    global SPEECH_INFO_FILE, SAVE_SPEECH_INFO, speech_counter, robot_listening, command_eng, command_ita
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -69,14 +75,49 @@ def run(req):
     return ManagerResponse(True)    # res.flag
 
 
+def run_demo3(req):
+    global SPEECH_INFO_FILE, SAVE_SPEECH_INFO, speech_counter, robot_listening, command_eng, command_ita
+
+    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
+    res = classify(req.data)
+    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+
+
+    publish_cmd(command=res.cmd, confidence=res.probs[res.cmd])
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+    print(res_str)
+        
+    if SAVE_SPEECH_INFO:
+        with open(SPEECH_INFO_FILE, "a") as f:
+            f.write(res_str)
+
+    speech_counter += 1
+    # res = speech(res.cmd, res.probs)
+
+    return ManagerResponse(True)    # res.flag
+
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--demo", required=True, dest="demo", type=int)
+    args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
+
     pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/Speech', Speech, queue_size=10)
     
     rospy.init_node('manager')
     
     rospy.wait_for_service('classifier_service')
     # rospy.wait_for_service('speech_service')
-    rospy.Service('manager_service', Manager, run)
+
+    if args.demo == 3:
+        command_eng = DEMO3_CMD_ENG
+        command_ita  = DEMO3_CMD_ITA
+        rospy.Service('manager_service', Manager, run_demo3)
+    else:
+        command_eng = DEMO7_CMD_ENG
+        command_ita  = DEMO7_CMD_ITA
+        rospy.Service('manager_service', Manager, run_demo7)
+    # rospy.Service('manager_service', Manager, run_demo7)
     # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
     
     classify = rospy.ServiceProxy('classifier_service', Classification)

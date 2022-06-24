@@ -15,6 +15,10 @@ import argparse
 from lang_settings import AVAILABLE_LANGS
 from colorama import Fore
 
+
+args = None
+
+
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
     batch = next(iter(data_loader))
@@ -55,8 +59,9 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, lang):
+    def __init__(self, lang, threshold):
         self.model = self.load_model(lang)
+        self.threshold = threshold
         self.model = self.model.eval()
         if torch.cuda.is_available():
             self.model = self.model.cuda()
@@ -90,7 +95,7 @@ class Classifier:
         # print(Fore.CYAN + 'CLASSIFIER END INFERENCE' + Fore.RESET)
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = probs.shape[1] - 1
-        if probs[0, REJECT_LABEL] >= 0.004:
+        if probs[0, REJECT_LABEL] >= self.threshold:
             cmd = np.array([REJECT_LABEL])
             # print(cmd.shape)
         else:
@@ -114,26 +119,37 @@ class Classifier:
         rospy.spin()
 
     def load_model(self, lang):
+        global args
         base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
         if lang == "eng":
             exp_dir = base_path.joinpath("eng")
             ckpt = r"matchcboxnet--val_loss=0.6037-epoch=185.model"
         else:
-            exp_dir = base_path.joinpath("ita")
-            # ckpt = r"matchcboxnet--val_loss=1.2096-epoch=154.model"
-            ckpt = r"matchcboxnet--val_loss=1.1096-epoch=201.model"
+            exp_dir = base_path.joinpath("ita", 'demo3_no_pretrain_ita')
+
+            # MODEL SELECTION
+            # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"  # demo7_no_pretrain_ext_ita
+            ckpt = r"matchcboxnet--val_loss=1.3722-epoch=202.model"   # demo7_no_pretrain_ita
+            # ckpt = r"matchcboxnet--val_loss=0.7473-epoch=180.model"   # demo7_pretrain_ita
+            # ckpt = r"matchcboxnet--val_loss=12.0919-epoch=80.model"  # demo7_pretrain_ext_ita
+
+            # ckpt = r"matchcboxnet--val_loss=8.5081-epoch=184.model"   # demo3_pretrain_ita
+            ckpt = r"matchcboxnet--val_loss=1.4977-epoch=129.model"   # demo3_no_pretrain_ita
+
         model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("# Loaded model lang:", lang)
         print("# Model loaded:", exp_dir)
-        print(Fore.GREEN + '\n' + '#'*17 + '\n# SYSTEM READY! #\n' + '#'*17 + '\n' + Fore.RESET)
+        print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(args.demo) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
         return model
 
 if __name__ == "__main__":
+    THRESHOLD = 0.002    # 0.004
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
+    parser.add_argument("--demo", required=True, dest="demo", type=int)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(args.lang)
+    classifier = Classifier(args.lang, THRESHOLD)
