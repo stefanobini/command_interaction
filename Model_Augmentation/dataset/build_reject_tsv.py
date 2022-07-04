@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 # DST_TSV_FOLDER = 'FELICE_demo3/rejects'
-DST_TSV_FOLDER = 'FELICE_demo7_extended/rejects'
+DST_TSV_FOLDER = 'FELICE_demo3/rejects'
 
 
 for language in ['eng', 'ita']:

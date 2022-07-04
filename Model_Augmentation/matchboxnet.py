@@ -21,8 +21,7 @@ except Exception:
 if __name__ == "__main__":
     '''
     Parsing input argument
-    python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 1 --log 0 --synth 1 --pre_train ./pretrain_models
-    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+    python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     '''
     parser = argparse.ArgumentParser()
@@ -47,7 +46,7 @@ if __name__ == "__main__":
     print("*" * 30)
 
     if not COLAB and platform.system().lower() != "windows":
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(2)
     register_perturbation("mynoise", Augmentation)
     path_base = Path(get_curr_dir(__file__)).joinpath("manifests")
 
@@ -62,7 +61,7 @@ if __name__ == "__main__":
     config = OmegaConf.to_container(config, resolve=False)
     config = OmegaConf.create(config)
     LABELS = list(map(lambda x: int(x), command_eng.keys()))
-    LABELS.append(int(len(command_eng)))
+    LABELS.append(int(len(command_eng)))  # if commented it does not consider reject option
     batch_size = config.model.train_ds.batch_size
     config.model.labels = LABELS
     config.model.lang = LANG
@@ -107,8 +106,6 @@ if __name__ == "__main__":
             asr_model.setup_optimization(optim_config=config.model.optim)
             asr_model.set_trainer(trainer=trainer)
             '''
-
-            asr_model.cuda()
         else:
             # pretrain_path = os.path.join(args.pre_train, args.lang+'.model')
             # pretrain_config = copy.deepcopy(config)
@@ -122,6 +119,13 @@ if __name__ == "__main__":
             # asr_model.device('cuda:{}'.format(os.environ["CUDA_VISIBLE_DEVICES"]))
     else:
         asr_model = Model(cfg=config.model, trainer=trainer, class_weight=None) #Modify here to set class weight
+    
+    with open('info_model.txt', 'w') as f:
+        f.write(str(asr_model))
+        f.write(str(asr_model.train_dataloader))
+        f.write(str(asr_model.cfg))
+    
+    asr_model._setup_dataloader_from_config(asr_model.cfg.train_ds)
 
     exp_dir = exp_manager(trainer, config.get("exp_manager", None))
     exp_dir = str(exp_dir)

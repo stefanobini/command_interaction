@@ -20,7 +20,7 @@ def create_folder(base_path, folder):
         os.mkdir(ptf_cmd_path)
     return ptf_cmd_path
 
-#'''
+'''
 dataset_iterator = tqdm(os.listdir(SRC_SYN_DATA_PATH))
 for platform in dataset_iterator:
     if '.' not in platform:
@@ -144,7 +144,7 @@ for platform in dataset_iterator:
                             if '.wav' in file_syn_path:
                                 regex = '[0-9]{1,2}\.wav$'
                                 cmd = int(re.search(pattern=regex, string=file_syn_path).group().split('.')[0])
-                                if cmd in DEMO3_CMDS_LIST:
+                                if cmd in DEMO3_CMDS_DICT:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO3_CMDS_DICT[cmd])))
                                     shutil.copyfile(file_syn_path, file_cmd_path)
                             
@@ -152,7 +152,7 @@ for platform in dataset_iterator:
                                 file_wav = AudioSegment.from_mp3(file_syn_path) # from .mp3 to .wav
                                 regex = '[0-9]{1,2}\.mp3$'
                                 cmd = int(re.search(pattern=regex, string=file_syn_path).group().split('.')[0])
-                                if cmd in DEMO3_CMDS_LIST:
+                                if cmd in DEMO3_CMDS_DICT:
                                     file_cmd_path = os.path.join(lang_cmd_path, filee.replace(str(cmd), str(DEMO3_CMDS_DICT[cmd]).replace('.mp3', '.wav')))
                                     file_wav.export(file_cmd_path, format='wav')
 #'''

@@ -38,12 +38,12 @@ from colorama import Fore
 MAXSIZE = 2**32-1
 
 # CMD_DATASET_PATH = "dataset/FELICE_demo7/commands"
-CMD_DATASET_PATH = "dataset/FELICE_demo7_extended/commands"
-# CMD_DATASET_PATH = "dataset/FELICE_demo3/commands"
+# CMD_DATASET_PATH = "dataset/FELICE_demo7_extended/commands"
+CMD_DATASET_PATH = "dataset/FELICE_demo3/commands"
 
 # RJT_DATASET_PATH = "dataset/FELICE_demo7/rejects"
-RJT_DATASET_PATH = "dataset/FELICE_demo7_extended/rejects"
-# RJT_DATASET_PATH = "dataset/FELICE_demo3/rejects"
+# RJT_DATASET_PATH = "dataset/FELICE_demo7_extended/rejects"
+RJT_DATASET_PATH = "dataset/FELICE_demo3/rejects"
 
 '''
 This class implements the PyTorch callback interface.
@@ -419,7 +419,6 @@ class Model(EncDecClassificationModel):
     '''
     def _setup_loss(self):
         weights = list(self.class_weight) if self.class_weight is not None else None
-        print(Fore.GREEN + '{}'.format(weights) + Fore.RESET)
         return CrossEntropyLoss(weight=weights)
 
     '''
@@ -445,17 +444,25 @@ class Model(EncDecClassificationModel):
         checkpoint = torch.load(ckpt_path)
         state_dict = checkpoint["state_dict"]
         class_weight = state_dict["loss.weight"] if "loss.weight" in state_dict.keys() else None
-        print(Fore.YELLOW + '{}'.format(class_weight) + Fore.RESET)
+        # print(Fore.YELLOW + '{}'.format(class_weight) + Fore.RESET)
         
         # convert old dataset parth
         # print(Fore.YELLOW + 'Old: {}'.format(checkpoint) + Fore.RESET)
         # print(Fore.BLUE + 'New: {}'.format(new_cfg['train_ds']['manifest_filepath']) + Fore.RESET)
+        #'''
         checkpoint['cfg']['train_ds']['manifest_filepath'] = new_cfg['train_ds']['manifest_filepath']
         checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_real'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_real']
         checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_synth'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_synth']
-        checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_reject'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_reject']
-        checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_reject'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_reject']
+        
+        # checkpoint['cfg']['labels'] = new_cfg['labels']
+        checkpoint['cfg']['train_ds']['labels'] = new_cfg['train_ds']['labels']
+        
+        OmegaConf.set_struct(checkpoint['cfg'], False)
+        OmegaConf.update(cfg=checkpoint['cfg'], key='train_ds.augmentor.mynoise', value={'dataset_path_reject': new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_reject']}, merge=True)
+        OmegaConf.set_struct(checkpoint['cfg'], True)
+        # checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_reject'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_reject']
         checkpoint['cfg']['train_ds']['batch_size'] = new_cfg['train_ds']['batch_size']
+        #'''
         
         # del state_dict["loss.weight"]
         model = cls(checkpoint['cfg'], trainer=trainer, class_weight=class_weight)
@@ -702,7 +709,7 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
         self.rng = random.Random(self.seed)
         self._sample_rate = sample_rate
         self.min_snr, self.max_snr = max_snr,  min_snr
-        self.min_snr_val, self.max_snr_val, self.snr_val_step = 0, 30, 5
+        self.min_snr_val, self.max_snr_val, self.snr_val_step = min_snr, max_snr, 5
         self._max_gain_db = max_gain_db
         if not test:
             self._noise_df_train = self.preprocessing.noise_train_set

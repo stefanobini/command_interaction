@@ -9,7 +9,7 @@ DEMO7_OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo7_extended'
 DEMO3_OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo3'
 
 
-#'''
+'''
 ds_cmd_path = os.path.join(DEMO7_OUTPUT_PATH, 'commands')
 ds_rej_path = os.path.join(DEMO7_OUTPUT_PATH, 'rejects')
 user_iterator = tqdm(os.listdir(DATASET_PATH))
@@ -104,7 +104,7 @@ for user in user_iterator:
                         bot_sample_path = os.path.join(bot_lang_path, file)
                         # from .ogg to .wav
                         file_ogg = AudioSegment.from_ogg(bot_sample_path)
-                        if cmd in DEMO3_CMDS_LIST:
+                        if cmd in DEMO3_CMDS_DICT:
                             ds_cmd_sample_path = os.path.join(ds_cmd_lang_path, file.replace(str(cmd), str(DEMO3_CMDS_DICT[cmd])).replace('.ogg', '.wav'))  # update name for new command
                             file_handle = file_ogg.export(ds_cmd_sample_path, format='wav')
                         else:
