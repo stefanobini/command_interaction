@@ -29,10 +29,8 @@ ROS/speech_ws/build
 ROS/speech_ws/catkin
 ROS/speech_ws/devel
 ROS/speech_ws/logs
-ROS/speech_ws/src/firos
 ROS/speech_ws/src/sender_app
 ROS/speech_ws/src/receiver_app
-ROS/speech_ws/src/speech_pkg/experiments
 ROS/speech_ws/src/speech_pkg/src/__pycache__
 
 
