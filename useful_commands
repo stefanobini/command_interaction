@@ -42,4 +42,6 @@ sudo apt-get install python3-pip
 sudo -H pip3 install -U jetson-stats
 
 # GitHub
+git config --global user.email "sbini@unisa.it"
+git config --global user.name "stefanobini"
 git config --global credential.helper store
