@@ -24,7 +24,7 @@ Model_Augmentation/manifests/*.json
 Model_Augmentation/db_test.csv
 
 # ROS files
-ROS/speech_ws/.catkin_tools/
+ROS/.catkin_tools/
 ROS/speech_ws/build
 ROS/speech_ws/catkin
 ROS/speech_ws/devel

@@ -40,3 +40,6 @@ sudo apt install code
 # JTop
 sudo apt-get install python3-pip
 sudo -H pip3 install -U jetson-stats
+
+# GitHub
+git config --global credential.helper store
