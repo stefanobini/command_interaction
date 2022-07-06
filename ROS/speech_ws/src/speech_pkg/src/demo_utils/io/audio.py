@@ -3,6 +3,7 @@ from .speech_rec_mod import TimedRecognizer
 import speech_recognition as sr
 import pyaudio
 import numpy as np
+from colorama import Fore
 
 class PyAudioSource(AudioSource):
     '''PyAudioSource implements AudioSource through the use of the PyAudio library.
@@ -116,6 +117,7 @@ class SpeechRecognitionVAD(SpeechSource):
         return speech_data, timestamps
 
     def calibrate(self):
+        print(Fore.YELLOW + '#'*21 + '\n# Start calibration #\n' + '#'*21 + Fore.RESET)
         with self.mic as source:
             self.sr.adjust_for_ambient_noise(source, self.calibration_duration)  
 
