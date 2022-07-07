@@ -1,0 +1,6 @@
+Per iniziare l'acquisizione del soggetto, premere il tasto "s" con la finestra di cv2 in primo piano.
+
+Per terminare lo script premere "q" o "esc" con la finestra di cv2 in primo piano.
+
+Per cancellare un gesto registato male, eliminare manualmente da dentro le cartelle PoseXX_Xm_depth e PoseXX_Xm_rgb, la cartella rispettiva al gesto registrato male (dx o sx). Dopodichè riavviare lo script di acquisizione e saltare tutte le pose fino ad arrivare a quella da ri-acquisire. (si dovranno reinserire le info del soggetto, quindi una riga identica sarà creata nel json che dovrà essere eliminata manualmente poi.)
+
