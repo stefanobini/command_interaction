@@ -69,7 +69,10 @@ class TimedRecognizer(Recognizer):
 
                     else:
                         # buffer_copy = copy.copy(buffer)
+                        # prev_time = time.time()                              # add by BEIS
                         is_speech = vad.is_speech(buffer)  # before was buffer_copy
+                        # infer_interval = time.time() - prev_time             # add by BEIS
+                        # print('\nVAD infer time: {}\n'.format(infer_interval))  # add by BEIS
                     
                     if is_speech: break
 
