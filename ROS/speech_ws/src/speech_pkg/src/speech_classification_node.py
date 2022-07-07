@@ -142,10 +142,10 @@ class Classifier:
 
     def predict_cmd(self, signal: np.ndarray):
         logits = infer_signal(self.model, signal)
-        prev_time = time.time()
+        # prev_time = time.time()
         probs = self.model.predict(logits)
-        infer_time = time.time() - prev_time
-        print('\nINFER TIME: {}\n'.format(infer_time))
+        # infer_time = time.time() - prev_time
+        # print('\nINFER TIME: {}\n'.format(infer_time))
         probs = probs.cpu().detach().numpy()
         cmd = np.argmax(probs, axis=1)
         if len(probs[0]) < len(self.commands):
