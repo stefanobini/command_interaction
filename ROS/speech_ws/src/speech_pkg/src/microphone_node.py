@@ -2,9 +2,13 @@
 import rospy
 from std_msgs.msg import Int16MultiArray
 import speech_recognition as sr
+from speech_pkg.msg import SystemHealth
+from datetime import datetime
+import uuid
 
 from demo_utils.io.audio import PyAudioSource
 from settings import demo_settings
+
 
 class MicrophoneNode:
     '''MicrophoneNode implements the ROS interface for the microphone acquisition.
@@ -24,6 +28,8 @@ class MicrophoneNode:
     def start(self):
         # Node and publisher initialization
         pub = rospy.Publisher('mic_data', Int16MultiArray, queue_size=3)
+        health_pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/SystemHealth', SystemHealth, queue_size=10)
+        
         rospy.init_node('microphone_node')
 
         # Stream initialization
@@ -35,16 +41,34 @@ class MicrophoneNode:
             format = demo_settings.io.mic.format
         )
 
+        robot_uuid = uuid.uuid1(node=uuid.getnode())
+
+        # Make SystemHealth message
+        alive_msg = SystemHealth()
+        alive_msg.id = 'UNISA.SpeechGestureAnalysis.SystemHealth:{}'.format(robot_uuid)
+        alive_msg.type = 'SystemHealth'
+        alive_msg.timestamp = datetime.now().isoformat()
+        alive_msg.status = "Ok"
+
+        prev_time = datetime.now()
+
         while not rospy.is_shutdown():
             # Get data
             audio_frame = audio_stream.get_audio_frame()
             
-            # Message preparation
+            # Message Audio message
             msg = Int16MultiArray()
             msg.data = audio_frame
-
-            # Message publishing
             pub.publish(msg)
+
+            curr_time = datetime.now()
+            if (curr_time - prev_time).total_seconds() > 10:
+                prev_time = curr_time
+                alive_msg.timestamp = datetime.now().isoformat()
+                alive_msg.status = "Alive"
+                health_pub.publish(alive_msg)
+
+        alive_msg.status = "Not alive"
 
         # Close the stream
         audio_stream.stop() 

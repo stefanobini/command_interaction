@@ -33,12 +33,9 @@ def publish_cmd(command:int, confidence:float):
 
     # Make Speech message
     speech_msg = Speech()
-    # speech_msg.id = '/cobot1/speech'
     # speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech'
     speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech:{}'.format(robot_uuid)
-    # speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech'
     speech_msg.type = 'Speech'
-    # speech_msg.timestamp = Time.now()
     speech_msg.timestamp = datetime.now().isoformat()
     speech_msg.command = cmd_msg
     speech_msg.confidence = float(confidence)
