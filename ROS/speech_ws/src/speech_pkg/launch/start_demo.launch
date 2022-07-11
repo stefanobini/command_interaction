@@ -1,6 +1,6 @@
 <launch>
-    <arg name="lang" default="ita"/>
-    <arg name="demo" default="7"/>
+    <arg name="lang" default="eng"/>
+    <arg name="demo" default="3"/>
     
     <arg name="some_path" default="$(find firos)/config_demo" />
     <arg name="node_name" default="firos" />

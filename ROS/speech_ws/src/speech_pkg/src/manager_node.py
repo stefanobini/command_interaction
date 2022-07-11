@@ -4,6 +4,7 @@ import sys
 import rospy
 import argparse
 from speech_pkg.srv import *
+import uuid
 
 from colorama import Fore
 from datetime import datetime
@@ -18,10 +19,11 @@ command_eng = DEMO7_CMD_ENG
 command_ita  = DEMO7_CMD_ITA
 speech_counter = 0
 robot_listening = False
+robot_uuid = uuid.uuid1(node=uuid.getnode())
 
 
 def publish_cmd(command:int, confidence:float):
-    global command_eng, command_ita
+    global command_eng, command_ita, robot_uuid
 
     # Make Command message
     cmd_msg = Command()
@@ -32,7 +34,9 @@ def publish_cmd(command:int, confidence:float):
     # Make Speech message
     speech_msg = Speech()
     # speech_msg.id = '/cobot1/speech'
-    speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech'
+    # speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech'
+    speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech:{}'.format(robot_uuid)
+    # speech_msg.id = 'UNISA.SpeechGestureAnalysis.Speech'
     speech_msg.type = 'Speech'
     # speech_msg.timestamp = Time.now()
     speech_msg.timestamp = datetime.now().isoformat()
@@ -41,7 +45,7 @@ def publish_cmd(command:int, confidence:float):
 
     # print(Fore.LIGHTYELLOW_EX + '#'*30 + '\n' + str(speech_msg) + '\n' + '#'*30 + Fore.RESET)
 
-    #rospy.loginfo(speech_msg)
+    # rospy.loginfo(speech_msg)
     pub.publish(speech_msg)
 
 
@@ -84,7 +88,7 @@ def run_demo3(req):
 
 
     publish_cmd(command=res.cmd, confidence=res.probs[res.cmd])
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
         
     if SAVE_SPEECH_INFO:
@@ -103,6 +107,8 @@ if __name__ == "__main__":
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
 
     pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/Speech', Speech, queue_size=10)
+    # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisAWS/Speech', Speech, queue_size=10)
+    # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisCOBOT/Speech', Speech, queue_size=10)
     
     rospy.init_node('manager')
     
