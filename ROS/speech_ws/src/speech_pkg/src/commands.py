@@ -1,7 +1,7 @@
 # coding=utf-8
 DEMO3_CMD_ENG = {
-    0: "Increase the heigh",
-    1: "Decrease the heigh",
+    0: "Increase the height",
+    1: "Decrease the height",
     2: "No command"
 }
 
