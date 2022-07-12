@@ -45,3 +45,5 @@ sudo -H pip3 install -U jetson-stats
 git config --global user.email "sbini@unisa.it"
 git config --global user.name "stefanobini"
 git config --global credential.helper store
+
+git pull --no-edit
