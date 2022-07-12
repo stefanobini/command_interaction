@@ -52,6 +52,7 @@ find_package(catkin REQUIRED COMPONENTS
    Command.msg
    Gesture.msg
    Speech.msg
+   SystemHealth.msg
    SpeechData.msg 
  )
 

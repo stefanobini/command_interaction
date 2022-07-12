@@ -20,6 +20,8 @@ sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=
 sudo docker exec -it felice_demo7  /bin/bash
 
 # In the docker
+cd home/felice/speech-command_interaction/ROS/speech_ws/
+
 source devel/setup.bash
 
 roslaunch speech_pkg start_demo.launch

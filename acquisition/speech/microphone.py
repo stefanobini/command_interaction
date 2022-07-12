@@ -71,8 +71,8 @@ class Microphone:
 
     def configure_parser(self):
         args_parser = argparse.ArgumentParser()
-        args_parser.add_argument("-sr", help="sampling rate", type=int, dest="sr", required=True)
-        args_parser.add_argument("-id_device", help="input device index", dest="id_device", required=True, type=int)
+        args_parser.add_argument("-sr", help="sampling rate", type=int, dest="sr", required=False, default=16000)
+        args_parser.add_argument("-id_device", help="input device index", dest="id_device", required=False, type=int, default=24)
         args_parser.add_argument("-recording_time",
                                  help="recording time in seconds, if you desire continuous recording ignore this parameter",
                                  default=None,

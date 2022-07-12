@@ -2,6 +2,7 @@ FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 #WORKDIR /usr/src/librealsense-docker
 
 # install packages
+RUN apt-get update && apt-get install -y apt-transport-https
 RUN apt install net-tools
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
@@ -96,7 +97,7 @@ RUN apt install libsndfile1 -y
 RUN python3 -m pip install sounddevice
 RUN python3 -m pip install webrtcvad
 RUN python3 -m pip install netifaces
-RUN -H python3 -m pip install -U jetson-stats
+RUN python3 -m pip install -U jetson-stats
 
 #RUN apt install python-pip
 #RUN python -m pip install colorama
