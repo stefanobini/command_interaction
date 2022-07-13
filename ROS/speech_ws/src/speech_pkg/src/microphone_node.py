@@ -6,6 +6,7 @@ from speech_pkg.msg import SystemHealth
 from datetime import datetime
 import uuid
 
+from demo_utils.post_alive import MyRequestPost
 from demo_utils.io.audio import PyAudioSource
 from settings import demo_settings
 
@@ -28,7 +29,7 @@ class MicrophoneNode:
     def start(self):
         # Node and publisher initialization
         pub = rospy.Publisher('mic_data', Int16MultiArray, queue_size=3)
-        health_pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/SystemHealth', SystemHealth, queue_size=10)
+        # health_pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/SystemHealth', SystemHealth, queue_size=10)
         
         rospy.init_node('microphone_node')
 
@@ -66,7 +67,8 @@ class MicrophoneNode:
                 prev_time = curr_time
                 alive_msg.timestamp = datetime.now().isoformat()
                 alive_msg.status = "Alive"
-                health_pub.publish(alive_msg)
+                # health_pub.publish(alive_msg)
+                # post_request.send_alive(status="Alive")
 
         alive_msg.status = "Not alive"
 
@@ -74,6 +76,10 @@ class MicrophoneNode:
         audio_stream.stop() 
 
 if __name__ == '__main__':
+    robot_uuid = uuid.uuid1(node=uuid.getnode())
+
+    # post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address="192.168.1.106", port=1026)
+    # post_request.create_entity()
+
     microphone = MicrophoneNode()
     microphone.start()
-    
