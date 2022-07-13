@@ -184,9 +184,9 @@ class SpeechDetectionNode:
             # pub.publish(msg)  # commented by BEIS
             manger_service(msg)
 
-            if SAVE_SPEECH:
+            if rospy.get_param("/save_speech") == True:
                 speech_save = np.reshape(speech.copy(), (-1, 1))
-                sf.write("{}/{}.wav".format(SPEECH_SAMPLES_PATH, i), data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
+                sf.write("{}/{}.wav".format(SPEECH_SAMPLES_PATH, i), data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
                 i += 1
 
             self.enabled = True
@@ -194,8 +194,7 @@ class SpeechDetectionNode:
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
-    SPEECH_SAMPLES_PATH = '/home/felice/felice/speech-command_interaction/detected_voices'
-    SAVE_SPEECH = False
+    SPEECH_SAMPLES_PATH = '/home/felice/speech-command_interaction/acquisition/speech/detected_voices'
 
     rospy.loginfo("Waiting manager service")                            # added by BEIS
     rospy.wait_for_service('manager_service')                           # added by BEIS

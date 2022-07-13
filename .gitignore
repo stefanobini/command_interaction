@@ -38,7 +38,8 @@ ROS/speech_ws/src/speech_pkg/src/__pycache__
 
 
 # speech detected from VAD file
-detected_voices/
+acquisition/speech/audio_saves/*
+acquisition/speech/detected_voices/*
 
 
 # General files

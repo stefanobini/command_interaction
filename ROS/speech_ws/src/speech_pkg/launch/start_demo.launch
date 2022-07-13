@@ -6,6 +6,7 @@
     <arg name="node_name" default="firos" />
 
     <param name="vad" type="str" value="webrtcvad" />
+    <param name="save_speech" type="bool" value="True"/>
 
     <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang) --demo $(arg demo)"/>
     <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen" args="--demo $(arg demo)"/>

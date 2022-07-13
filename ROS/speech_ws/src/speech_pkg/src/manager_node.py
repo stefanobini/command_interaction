@@ -12,8 +12,7 @@ from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA
 from speech_pkg.msg import Command, Speech
 
 
-SPEECH_INFO_FILE = '/home/felice/felice/speech-command_interaction/detected_voices/res.txt'
-SAVE_SPEECH_INFO = False
+SPEECH_INFO_FILE = '/home/felice/speech-command_interaction/acquisition/speech/detected_voices/res.txt'
 
 command_eng = DEMO7_CMD_ENG
 command_ita  = DEMO7_CMD_ITA
@@ -47,7 +46,7 @@ def publish_cmd(command:int, confidence:float):
 
 
 def run_demo7(req):
-    global SPEECH_INFO_FILE, SAVE_SPEECH_INFO, speech_counter, robot_listening, command_eng, command_ita
+    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -62,7 +61,7 @@ def run_demo7(req):
         res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         
-        if SAVE_SPEECH_INFO:
+        if rospy.get_param("/save_speech") == True:
             with open(SPEECH_INFO_FILE, "a") as f:
                 f.write(res_str)
 
@@ -77,7 +76,7 @@ def run_demo7(req):
 
 
 def run_demo3(req):
-    global SPEECH_INFO_FILE, SAVE_SPEECH_INFO, speech_counter, robot_listening, command_eng, command_ita
+    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -88,7 +87,7 @@ def run_demo3(req):
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
         
-    if SAVE_SPEECH_INFO:
+    if rospy.get_param("/save_speech") == True:
         with open(SPEECH_INFO_FILE, "a") as f:
             f.write(res_str)
 
