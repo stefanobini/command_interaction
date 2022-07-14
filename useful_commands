@@ -25,6 +25,7 @@ cd home/felice/speech-command_interaction/ROS/speech_ws/
 source devel/setup.bash
 
 roslaunch speech_pkg start_demo.launch
+roslaunch speech_pkg start_new_demo.launch
 
 # Shows connected devices
 cat /proc/asound/cards
@@ -49,3 +50,7 @@ git config --global user.name "stefanobini"
 git config --global credential.helper store
 
 git pull --no-edit
+
+# FIWARE
+curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech -s -S -X DELETE
+curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?type={UserInput} -s -S -X DELETE
