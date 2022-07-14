@@ -63,23 +63,25 @@ class MicrophoneNode:
             pub.publish(msg)
 
             curr_time = datetime.now()
-            if (curr_time - prev_time).total_seconds() > 10:
+            if (curr_time - prev_time).total_seconds() > 15:
                 prev_time = curr_time
                 alive_msg.timestamp = datetime.now().isoformat()
                 alive_msg.status = "Alive"
                 # health_pub.publish(alive_msg)
-                # post_request.send_alive(status="Alive")
+                post_request.send_alive(status="Ok") # Comment to unable health message
 
-        alive_msg.status = "Not alive"
+        # alive_msg.status = "Not alive"
+        post_request.send_alive(status="Error") # Comment to unable health message
 
         # Close the stream
         audio_stream.stop() 
 
 if __name__ == '__main__':
-    robot_uuid = uuid.uuid1(node=uuid.getnode())
+    robot_uuid = uuid.uuid1()
 
-    # post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address="192.168.1.106", port=1026)
-    # post_request.create_entity()
+    # Comment to unable health message
+    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address="192.168.1.106", port=1026)
+    post_request.create_entity()
 
     microphone = MicrophoneNode()
     microphone.start()

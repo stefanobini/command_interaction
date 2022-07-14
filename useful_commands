@@ -55,5 +55,5 @@ git checkout -b fiware
 git push -u origin fiware
 
 # FIWARE
-curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech -s -S -X DELETE
+curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech:1c07e3ea-037b-11ed-a3b0-d8c0a69b3641 -s -S -X DELETE
 curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?type={UserInput} -s -S -X DELETE

@@ -19,7 +19,7 @@ command_eng = DEMO_CMD_ENG
 command_ita  = DEMO_CMD_ITA
 speech_counter = 0
 robot_listening = False
-robot_uuid = uuid.uuid1(node=uuid.getnode())
+robot_uuid = uuid.uuid1()
 
 
 def  lish_cmd(command:int, confidence:float):
@@ -85,7 +85,7 @@ def run_demo3(req):
 
 
     # publish_cmd(command=res.cmd, confidence=res.probs[res.cmd])
-    print(res.cmd)
+    # print(res.cmd)
     cmd = res.cmd+7 if res.cmd == 2 else res.cmd    # to manage the unique command list
     post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'

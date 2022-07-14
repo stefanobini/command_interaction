@@ -17,29 +17,15 @@ class MyRequestPost:
 
         # entity instantiation message
         msg_create = """{
-                "id": "UNISA.SpeechGestureAnalysis.Speech",
+                "id": "UNISA.SpeechGestureAnalysis.SystemHealth",
                 "type": "Speech",
                 "timestamp": {
                         "type": "DateTime",
                         "value": "1995-02-22T06:30:22.12"
                 },
-                "command": {
-                        "type": "Number",
-                        "value": 29,
-                        "metadata":{
-                                "english":{
-                                        "type": "String",
-                                        "value": "No command"
-                                },
-                                "italian":{
-                                        "type": "String",
-                                        "value": "Nessun comando"
-                                }
-                        }
-                },
-                "confidence": {
-                        "type": "float",
-                        "value": "0.0"
+                "status": {
+                        "type": "string",
+                        "value": "Alive"
                 }
         }"""
 
@@ -50,23 +36,9 @@ class MyRequestPost:
                         "type": "DateTime",
                         "value": "1995-02-22T06:30:22.12"
                 },
-                "command": {
-                        "type": "Number",
-                        "value": 29,
-                        "metadata":{
-                                "english":{
-                                        "type": "String",
-                                        "value": "No command"
-                                },
-                                "italian":{
-                                        "type": "String",
-                                        "value": "Nessun comando"
-                                }
-                        }
-                },
-                "confidence": {
-                        "type": "float",
-                        "value": "0.0"
+                "status": {
+                        "type": "string",
+                        "value": "Alive"
                 }
         }"""
 
@@ -81,6 +53,7 @@ class MyRequestPost:
         self.json_create['id'] = self.entity
         self.json_create['type'] = self.msg_type
         self.json_create['timestamp']['value'] = datetime.now().isoformat()
+        self.json_update['status']['value'] = "Alive"
         
         msg = json.dumps(self.json_create)
         print(msg)
@@ -94,15 +67,12 @@ class MyRequestPost:
             print("CB response -> " + response.text)
 
         
-    def send_command(self, command_id, confidence):
+    def send_alive(self, status):
         response = None
         msg = None
         
         self.json_update['timestamp']['value'] = datetime.now().isoformat()
-        self.json_update['command']['value'] = command_id
-        self.json_update['command']['metadata']['english']['value'] = DEMO_CMD_ENG[command_id]
-        self.json_update['command']['metadata']['italian']['value'] = DEMO_CMD_ITA[command_id]
-        self.json_update['confidence']['value'] = confidence
+        self.json_update['status']['value'] = status
 
         msg = json.dumps(self.json_update)
         print(msg)
@@ -111,6 +81,6 @@ class MyRequestPost:
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
 
         if response.ok: # response successful
-            print("CB response -> status " + response.status_code.__str__())
+            print("CB response (ALIVE msg) -> status " + response.status_code.__str__())
         else: # response ko
-            print("CB response -> " + response.text)
+            print("CB response (ALIVE msg) -> " + response.text)

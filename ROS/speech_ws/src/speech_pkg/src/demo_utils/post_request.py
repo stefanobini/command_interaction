@@ -111,6 +111,6 @@ class MyRequestPost:
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
 
         if response.ok: # response successful
-            print("CB response -> status " + response.status_code.__str__())
+            print("CB response (COMMAND msg) -> status " + response.status_code.__str__())
         else: # response ko
-            print("CB response -> " + response.text)
+            print("CB response (COMMAND msg) -> " + response.text)

@@ -13,8 +13,8 @@ DEMO_CMD_ENG = {
 }
 
 DEMO_CMD_ITA = {
-    0: "Più alto",
-    1: "Più basso",
+    0: "Piu alto",
+    1: "Piu basso",
     2: "Portami l'avvitatore elettrico",
     3: "Portami l'avvitatore a gomito",
     4: "Portami il cacciavite",
