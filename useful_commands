@@ -17,6 +17,8 @@ sudo docker build -t docker_felice_demo7 . --network=host
 
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo7 docker_felice_demo7
 
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo7 docker_felice_demo7
+
 sudo docker exec -it felice_demo7  /bin/bash
 
 # In the docker
