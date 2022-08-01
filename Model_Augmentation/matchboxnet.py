@@ -22,7 +22,7 @@ if __name__ == "__main__":
     '''
     Parsing input argument
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
-    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_phase_I --config ./matchboxnet_3x2x64_FELICE.yaml --lang eng --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     '''
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, dest="config", required=True, help="Yaml file containing the configuration")

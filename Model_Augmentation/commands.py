@@ -1,22 +1,20 @@
-'''
+#'''
 command_eng = {
-    0: "Bring me the gun screwdriver",
-    1: "Bring me the elbow screwdriver",
-    2: "Bring me the screwdriver",
-    3: "Bring me the windows control panel",
-    4: "Bring me the rearview mirror",
-    5: "Release",
-    6: "Start"
+    0: "Start",
+    1: "Release",
+    2: "Bring me the gun screwdriver",
+    3: "Take the gun screwdriver",
+    4: "Bring me the windows control panel",
+    5: "Bring me the windows control panel"
 }
 
 command_ita = {
-    0: "Portami l'avvitatore elettrico",
-    1: "Portami l'avvitatore a gomito",
-    2: "Portami il cacciavite",
-    3: "Portami la mostrina comandi",
-    4: "Portami lo specchietto retrovisore",
-    5: "Rilascia",
-    6: "Start"
+    0: "Start",
+    1: "Rilascia",
+    2: "Portami l'avvitatore elettrico",
+    3: "Prendi l'avvitatore elettrico",
+    4: "Portami la mostrina comandi",
+    5: "Prendi la mostrina comandi"
 }
 
 '''

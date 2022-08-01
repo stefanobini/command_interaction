@@ -5,11 +5,11 @@ from commands_dict import DEMO7_CMDS_DICT, DEMO7_CMDS_DICT_EXT, DEMO7_CMDS_DICT_
 
 
 DATASET_PATH = './saves'
-DEMO7_OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo7_extended'
+DEMO7_OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo7_phase_I'
 DEMO3_OUTPUT_PATH = '../Model_Augmentation/dataset/FELICE_demo3'
 
 
-'''
+#'''
 ds_cmd_path = os.path.join(DEMO7_OUTPUT_PATH, 'commands')
 ds_rej_path = os.path.join(DEMO7_OUTPUT_PATH, 'rejects')
 user_iterator = tqdm(os.listdir(DATASET_PATH))
@@ -54,6 +54,7 @@ for user in user_iterator:
                                 ds_cmd_sample_path = os.path.join(ds_other_lang_path, file.replace(str(cmd), str(DEMO7_CMDS_DICT[cmd]))).replace('.ogg', '.wav')
                                 file_handle = file_ogg.export(ds_cmd_sample_path, format='wav')
                         
+                        ######## TO COMMENT FOR PHASE I ########
                         # for command that begin with 'Take'
                         elif cmd in DEMO7_CMDS_DICT_EXT:
                             file_path = 'take_' + file.replace(str(cmd), str(DEMO7_CMDS_DICT_EXT[cmd])).replace('.ogg', '.wav')
