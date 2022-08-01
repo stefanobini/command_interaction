@@ -1,0 +1,67 @@
+[NeMo W 2022-08-01 12:37:33 optimizers:47] Apex was not found. Using the lamb optimizer will error out.
+[NeMo W 2022-08-01 12:37:45 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=48000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:37:45 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=22050, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:37:46 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=48000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:37:46 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=22050, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:37:47 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=24000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:38:27 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=32000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:38:28 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=44100, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:38:45 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=96000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:42:48 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:240: LightningDeprecationWarning: `ModelCheckpoint(every_n_val_epochs)` is deprecated in v1.4 and will be removed in v1.6. Please use `every_n_epochs` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-08-01 12:42:49 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/pytorch_lightning/trainer/data_loading.py:382: UserWarning: One of given dataloaders is None and it will be skipped.
+      rank_zero_warn("One of given dataloaders is None and it will be skipped.")
+    
+[NeMo W 2022-08-01 12:42:49 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/pytorch_lightning/trainer/data_loading.py:105: UserWarning: The dataloader, train dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+      rank_zero_warn(
+    
+[NeMo W 2022-08-01 12:42:52 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=48000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:42:54 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=22050, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:43:06 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=44100, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:43:08 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=24000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:43:31 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=11025, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:45:39 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=48000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:45:40 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=24000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:45:41 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=22050, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:45:46 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=44100, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:46:10 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=44100, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    
+[NeMo W 2022-08-01 12:46:16 nemo_logging:349] /user/sbini/anaconda3/envs/felice_train/lib/python3.8/site-packages/nemo/collections/asr/parts/preprocessing/segment.py:75: FutureWarning: Pass orig_sr=48000, target_sr=16000 as keyword args. From version 0.10 passing these as positional arguments will result in an error
+      samples = librosa.core.resample(samples, sample_rate, target_sr)
+    

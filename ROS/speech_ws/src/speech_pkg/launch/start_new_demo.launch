@@ -1,6 +1,6 @@
 <launch>
     <arg name="lang" default="ita"/>
-    <arg name="demo" default="3"/>
+    <arg name="demo" default="7"/>
 
     <param name="vad" type="str" value="webrtcvad" />
     <param name="save_speech" type="bool" value="False"/>
