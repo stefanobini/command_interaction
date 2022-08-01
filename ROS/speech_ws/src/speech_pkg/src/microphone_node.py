@@ -78,9 +78,10 @@ class MicrophoneNode:
 
 if __name__ == '__main__':
     robot_uuid = uuid.uuid1()
+    FIWARE_CB = rospy.get_param("/fiware_cb")
 
     # Comment to unable health message
-    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address="192.168.1.106", port=1026)
+    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address=FIWARE_CB, port=1026)
     post_request.create_entity()
 
     microphone = MicrophoneNode()

@@ -127,7 +127,8 @@ if __name__ == "__main__":
     # rospy.Service('manager_service', Manager, run_demo7)
     # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
 
-    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.Speech", msg_type="Speech", address="192.168.1.106", port=1026)
+    FIWARE_CB = rospy.get_param("/fiware_cb")
+    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.Speech", msg_type="Speech", address=FIWARE_CB, port=1026)
     post_request.create_entity()
     
     classify = rospy.ServiceProxy('classifier_service', Classification)
