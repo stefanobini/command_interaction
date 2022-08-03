@@ -37,18 +37,20 @@ def select_parameters(args):
     elif args.demo == 7:
         if args.lang == 'eng':
             COMMANDS = DEMO7_CMD_ENG
-            ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng')
+            ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
             # ckpt_name = 'matchcboxnet--val_loss=1.9024-epoch=172.model' # demo7_eng
             
             # ckpt_name = 'matchcboxnet--val_loss=0.5461-epoch=172.model' # demo7_pretrain_eng
 
-            ckpt_name = "matchcboxnet--val_loss=1.9424-epoch=50.model"  # demo7_phase_I_eng
+            ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
+            # ckpt_name = "matchcboxnet--val_loss=1.9424-epoch=50.model"  # demo7_phase_I_eng
         elif args.lang == 'ita':
             COMMANDS = DEMO7_CMD_ITA
-            ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita')
+            ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
             # ckpt_name = 'matchcboxnet--val_loss=2.7598-epoch=130.model'
-
-            ckpt_name = "matchcboxnet--val_loss=3.2168-epoch=147.model" # demo7_phase_I_ita
+            
+            ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
+            # ckpt_name = "matchcboxnet--val_loss=3.2168-epoch=147.model" # demo7_phase_I_ita
 
             # ckpt = r"matchcboxnet--val_loss=2.7598-epoch=130.model"   # demo7_fix_ext
             # ckpt = r"matchcboxnet--val_loss=2.2616-epoch=103.model"   # demo7_no_pretrain_ext_ita

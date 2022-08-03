@@ -19,7 +19,7 @@ command_eng = DEMO_CMD_ENG
 command_ita  = DEMO_CMD_ITA
 speech_counter = 0
 robot_listening = False
-robot_uuid = uuid.uuid1()
+robot_uuid = uuid.uuid1().node
 
 
 def  lish_cmd(command:int, confidence:float):
