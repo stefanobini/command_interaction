@@ -1,5 +1,5 @@
 <launch>
-    <arg name="lang" default="ita"/>
+    <arg name="lang" default="eng"/>
     <arg name="demo" default="7"/>
 
     <param name="vad" type="str" value="webrtcvad" />
