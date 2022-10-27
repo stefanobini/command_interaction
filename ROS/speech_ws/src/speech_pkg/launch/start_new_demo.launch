@@ -1,11 +1,11 @@
 <launch>
-    <arg name="lang" default="ita"/>
-    <arg name="demo" default="3"/>
+    <arg name="lang" default="eng"/>
+    <arg name="demo" default="7"/>
 
     <param name="vad" type="str" value="webrtcvad" />
     <param name="save_speech" type="bool" value="False"/>
-    <!-- <param name="fiware_ip" type="str" value="10.0.3.15"/>  CRF_network -->
-    <param name="fiware_cb" type="str" value="172.16.174.50"/>
+    <param name="fiware_cb" type="str" value="192.168.2.106"/>  <!-- CRF_network -->
+    <!-- <param name="fiware_cb" type="str" value="172.16.174.50"/> -->
 
     <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang) --demo $(arg demo)"/>
     <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen" args="--demo $(arg demo)"/>

@@ -2,25 +2,23 @@
 DEMO_CMD_ENG = {
     0: "Increase the height",
     1: "Decrease the height",
-    2: "Bring me the gun screwdriver",
-    3: "Bring me the elbow screwdriver",
-    4: "Bring me the screwdriver",
-    5: "Bring me the windows control panel",
-    6: "Bring me the rearview mirror",
-    7: "Release",
-    8: "Start",
-    9: "No command"
+    2: "Start",
+    3: "Release",
+    4: "Bring me the gun screwdriver",
+    5: "Take the gun screwdriver",
+    6: "Bring me the windows control panel",
+    7: "Take the windows control panel",
+    8: "No command"
 }
 
 DEMO_CMD_ITA = {
     0: "Piu alto",
     1: "Piu basso",
-    2: "Portami l'avvitatore elettrico",
-    3: "Portami l'avvitatore a gomito",
-    4: "Portami il cacciavite",
-    5: "Portami la mostrina comandi",
-    6: "Portami lo specchietto retrovisore",
-    7: "Rilascia",
-    8: "Start",
-    9: "Nessun comando"
+    2: "Start",
+    3: "Rilascia",
+    4: "Portami l'avvitatore elettrico",
+    5: "Prendi l'avvitatore elettrico",
+    6: "Portami la mostrina comandi",
+    7: "Prendi la mostrina comandi",
+    8: "Nessun comando"
 }

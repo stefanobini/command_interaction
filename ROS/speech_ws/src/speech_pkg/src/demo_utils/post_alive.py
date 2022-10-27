@@ -25,7 +25,7 @@ class MyRequestPost:
                 },
                 "status": {
                         "type": "string",
-                        "value": "Alive"
+                        "value": "Ok"
                 }
         }"""
 
@@ -38,7 +38,7 @@ class MyRequestPost:
                 },
                 "status": {
                         "type": "string",
-                        "value": "Alive"
+                        "value": "Ok"
                 }
         }"""
 
@@ -53,7 +53,7 @@ class MyRequestPost:
         self.json_create['id'] = self.entity
         self.json_create['type'] = self.msg_type
         self.json_create['timestamp']['value'] = datetime.now().isoformat()
-        self.json_update['status']['value'] = "Alive"
+        self.json_update['status']['value'] = "Ok"
         
         msg = json.dumps(self.json_create)
         print(msg)

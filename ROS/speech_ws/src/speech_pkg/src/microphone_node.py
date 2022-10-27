@@ -42,7 +42,8 @@ class MicrophoneNode:
             format = demo_settings.io.mic.format
         )
 
-        robot_uuid = uuid.uuid1(node=uuid.getnode())
+        '''
+        robot_uuid = uuid.uuid1()
 
         # Make SystemHealth message
         alive_msg = SystemHealth()
@@ -50,6 +51,7 @@ class MicrophoneNode:
         alive_msg.type = 'SystemHealth'
         alive_msg.timestamp = datetime.now().isoformat()
         alive_msg.status = "Ok"
+        '''
 
         prev_time = datetime.now()
 
@@ -63,11 +65,13 @@ class MicrophoneNode:
             pub.publish(msg)
 
             curr_time = datetime.now()
-            if (curr_time - prev_time).total_seconds() > 15:
+            if (curr_time - prev_time).total_seconds() > 60:
                 prev_time = curr_time
+                '''
                 alive_msg.timestamp = datetime.now().isoformat()
-                alive_msg.status = "Alive"
-                # health_pub.publish(alive_msg)
+                alive_msg.status = "Ok"
+                health_pub.publish(alive_msg)
+                '''
                 post_request.send_alive(status="Ok") # Comment to unable health message
 
         # alive_msg.status = "Not alive"
@@ -77,7 +81,7 @@ class MicrophoneNode:
         audio_stream.stop() 
 
 if __name__ == '__main__':
-    robot_uuid = uuid.uuid1()
+    robot_uuid = uuid.uuid1().node
     FIWARE_CB = rospy.get_param("/fiware_cb")
 
     # Comment to unable health message

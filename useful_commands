@@ -13,13 +13,13 @@ rostopic echo comunication_pkg/Speech
 
 
 # Docker
-sudo docker build -t docker_felice_demo7 . --network=host
+sudo docker build -t docker_felice_demo . --network=host
 
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo7 docker_felice_demo7
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo docker_felice_demo7
 
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo7 docker_felice_demo7
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo docker_felice_demo7
 
-sudo docker exec -it felice_demo7  /bin/bash
+sudo docker exec -it felice_demo  /bin/bash
 
 # In the docker
 cd home/felice/speech-command_interaction/ROS/speech_ws/
@@ -57,5 +57,6 @@ git checkout -b fiware
 git push -u origin fiware
 
 # FIWARE
+CONTEXT_BROAKER = "192.168.2.106"
 curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.SystemHealth:ac55f166-037c-11ed-a48a-d8c0a69b3641 -s -S -X DELETE
 curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?type={UserInput} -s -S -X DELETE

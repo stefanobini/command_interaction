@@ -19,7 +19,7 @@ command_eng = DEMO_CMD_ENG
 command_ita  = DEMO_CMD_ITA
 speech_counter = 0
 robot_listening = False
-robot_uuid = uuid.uuid1()
+robot_uuid = uuid.uuid1().node
 
 
 def  lish_cmd(command:int, confidence:float):
@@ -47,26 +47,28 @@ def  lish_cmd(command:int, confidence:float):
 
 
 def run_demo7(req):
-    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, offset
+    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, post_request, offset
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
     # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
 
-    if not robot_listening and res.cmd == 6:
+    if not robot_listening and res.cmd == 0:
         robot_listening = True
         print(Fore.LIGHTGREEN_EX + '-'*12 + ' ROBOT IS LISTENING ' + '-'*12 + Fore.RESET)
 
     if robot_listening:
-        publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
+        cmd = res.cmd + offset
+        post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+        res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         
         if rospy.get_param("/save_speech") == True:
             with open(SPEECH_INFO_FILE, "a") as f:
                 f.write(res_str)
 
-    if robot_listening and res.cmd == 5:
+    if robot_listening and res.cmd == 1:
         robot_listening = False
         print(Fore.LIGHTRED_EX + '-'*12 + ' ROBOT IS NOT LISTENING ' + '-'*12 + Fore.RESET)
 
@@ -86,7 +88,7 @@ def run_demo3(req):
 
     # publish_cmd(command=res.cmd, confidence=res.probs[res.cmd])
     # print(res.cmd)
-    cmd = res.cmd+7 if res.cmd == 2 else res.cmd    # to manage the unique command list
+    cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
     post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
