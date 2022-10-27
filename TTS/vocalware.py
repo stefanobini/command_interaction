@@ -1,5 +1,7 @@
 import requests
-from utils import command_eng, command_ita
+# from utils import command_eng, command_ita
+# from all_commands import command_eng, command_ita
+from commands_v2 import command_eng, command_ita
 from pathlib import Path
 import hashlib
 import time
@@ -14,9 +16,9 @@ params_list = [
     "CS"
 ]
 
-SECRET_KEY = ""
-ACCOUNT_ID = ""
-API_ID = ""
+SECRET_KEY = "aa0f12e84c50da3665f6a2cf25eb4da5"
+ACCOUNT_ID = "8565801"
+API_ID = "2753099"
 
 def md5(params: dict):
     input_data = ""

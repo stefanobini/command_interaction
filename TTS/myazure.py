@@ -3,7 +3,8 @@ import os
 from azure.cognitiveservices.speech.speech import SpeechConfig, SpeechSynthesizer
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 # from utils import command_eng, command_ita
-from all_commands import command_eng, command_ita
+# from all_commands import command_eng, command_ita
+from commands_v2 import command_ita, command_eng
 from pathlib import Path
 import time
 

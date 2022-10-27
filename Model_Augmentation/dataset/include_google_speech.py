@@ -15,9 +15,11 @@ def convert_audio(input_audio, output_audio):
 
 
 SRC_DATASET = 'GoogleSpeechCommands'
-#DST_DATASET = 'FELICE_demo7_extended/rejects'
-DST_DATASET = 'FELICE_demo3/rejects'
-THRESHOLD = 67
+# DST_DATASET = 'FELICE_demo7_extended/rejects'
+# DST_DATASET = 'FELICE_demo3/rejects'
+DST_DATASET = "full_dataset_v1/rejects"
+THRESH = True
+THRESHOLD = 225
 
 SOUND_LIST = [
     '_background_noise_',
@@ -69,7 +71,7 @@ for lan in ['eng', 'ita']:
             elif '.mp3' in src_sample_path:
                 convert_audio(src_sample_path, dst_final_path.replace('.mp3', '.wav'))
             
-            if i > THRESHOLD:
+            if THRESH and i > THRESHOLD:
                 break
             i += 1
         
