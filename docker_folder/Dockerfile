@@ -2,8 +2,9 @@ FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 #WORKDIR /usr/src/librealsense-docker
 
 # install packages
+
 RUN apt-get update && apt-get install -y apt-transport-https
-RUN apt install net-tools
+RUN apt-get install net-tools
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
@@ -35,24 +36,36 @@ RUN apt install python3-pip -y
 RUN python3 -m pip install -U catkin_tools
 #RUN apt-get install ros-melodic-rospy -y
 
+# RUN sudo pip3 install rospkg && \
+#     sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
+#     sudo apt install -y ros-melodic-vision-msgs
+
 COPY ./ros_entrypoint.sh /
 COPY ./qi_install.sh /
+
+# RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
+#     tar -xvzf qi_jetson.tar.gz && \
+#     cd qi_jetson && \
+#     chmod u+x install.sh && \
+#     ./install.sh
+
+# RUN ["chmod", "+x", "/ros_entrypoint.sh"]
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 
 # Pyrealsense 2 installation
-#RUN apt-get update && \
-   # apt-get install -y --no-install-recommends \
-      #  python3-setuptools \
-       # python3-dev \
-       # libssl-dev \
-       # libusb-1.0-0-dev \
-       # pkg-config \
-       # libgtk-3-dev \
-       # libglfw3-dev \
-        #libgl1-mesa-dev \
-        #libglu1-mesa-dev \
-        #sudo 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3-setuptools \
+        python3-dev \
+        libssl-dev \
+        libusb-1.0-0-dev \
+        pkg-config \
+        libgtk-3-dev \
+        libglfw3-dev \
+        libgl1-mesa-dev \
+        libglu1-mesa-dev \
+        sudo 
 
 #RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
     #cd librealsense && \
@@ -85,8 +98,12 @@ RUN apt install curl -y
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-RUN apt-get install libportaudio2 -y
-RUN python3 -m pip install torch==1.9.0 torchaudio torchmetrics==0.6.0
+#RUN apt-get install libportaudio2 -y
+#RUN python3 -m pip install torch==1.9.0 torchaudio torchmetrics==0.6.0
+RUN python3 -m pip install torchmetrics==0.6.0
+#RUN python3 -m pip install torchmetrics==0.6.0
+#RUN python3 -m pip install torch==1.9.0 torchvision==0.10.0+cu102 torchaudio==0.9.0 -f https://torch.kmtea.eu/whl/stable.html
+
 RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
 RUN python3 -m pip install setuptools==59.5.0
 
@@ -99,8 +116,60 @@ RUN python3 -m pip install webrtcvad
 RUN python3 -m pip install netifaces
 RUN python3 -m pip install -U jetson-stats
 
-#RUN apt install python-pip
-#RUN python -m pip install colorama
+RUN apt install python-pip -y
+RUN python3 -m pip install colorama
+RUN python -m pip install colorama
+
+#Utils DemoFramework
+# RUN pip3 install cvbridge3
+# RUN sudo pip3 install flask
+# RUN sudo apt install python-cv-bridge -y
+# RUN sudo apt install python-opencv -y
+
+#INSTALL PYREALSE
+RUN apt install -y --no-install-recommends \
+       python3-setuptools \
+       python3-dev \
+       libssl-dev \
+       libusb-1.0-0-dev \
+       pkg-config \
+       libgtk-3-dev \
+       libglfw3-dev \
+        libgl1-mesa-dev \
+        libglu1-mesa-dev \
+        sudo 
+
+RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+    cd librealsense && \
+    ./scripts/setup_udev_rules.sh && \
+    mkdir build && \
+    cd build && \
+    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+    sudo make uninstall && \
+    sudo make clean && \
+    sudo make -j4 && \
+    sudo make install 
+
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+
+# DOTMAP
+RUN pip2 install dotmap==1.3.23 
+
+# RUN apt-get install -q -y net-tools 
+RUN python -m pip install ifcfg
+
+#RUN pip3 install pyrealsense2
+
+
 
 #RUN git clone https://github.com/peppo97/tesi_magistrale_ros /home/
+
+#GESTURE RECOGNITION (Marchesano)
+
+#RUN python3 -m pip install opencv-python==4.5.5.64
+RUN python3 -m pip install Pillow
+#RUN python3 -m pip install torchvision==0.10.0
+
+
+
 CMD ["bash"]
