@@ -1,9 +1,12 @@
 from google.cloud import texttospeech
 import os
-from utils import command_ita, command_eng
+# from utils import command_ita, command_eng
+from all_commands import command_eng, command_ita
 from pathlib import Path
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\keys\google_key.json"
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\keys\google_key.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google_key.json"
 
+'''
 neural_voices_eng = [
 "en-AU-Wavenet-A",
 "en-AU-Wavenet-B",
@@ -68,6 +71,32 @@ standard_voices_ita = [
 "it-IT-Standard-C",
 "it-IT-Standard-D"
 ]
+'''
+neural_voices_eng = list()
+standard_voices_eng = list()
+neural_voices_ita = list()
+standard_voices_ita = list()
+
+def list_voices(language_code=None):
+    client = texttospeech.TextToSpeechClient()
+    response = client.list_voices(language_code=language_code)
+    voices = sorted(response.voices, key=lambda voice: voice.name)
+    std_voices = list()
+    nrl_voices = list()
+
+    print(f" Voices: {len(voices)} ".center(60, "-"))
+    for voice in voices:
+        languages = ", ".join(voice.language_codes)
+        name = voice.name
+        gender = texttospeech.SsmlVoiceGender(voice.ssml_gender).name
+        rate = voice.natural_sample_rate_hertz
+        if "Standard" in name:
+            std_voices.append(name)
+        else:
+            nrl_voices.append(name)
+        # print(f"{languages:<8} | {name:<24} | {gender:<8} | {rate:,} Hz")
+
+    return std_voices, nrl_voices
 
 
 def test():
@@ -136,6 +165,9 @@ def main():
     client = texttospeech.TextToSpeechClient()
     audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
     path_base = Path(r"voices/google/")
+
+    neural_voices_eng, standard_voices_eng = list_voices(language_code="en")
+    neural_voices_ita, standard_voices_ita = list_voices(language_code="it")
 
     for voice in neural_voices_eng:
         create(voice, r"neural/eng")

@@ -17,8 +17,11 @@ def convert_audio(input_audio, output_audio):
 
 SRC_PATH = 'FELICE_demo7/reject_plus_common_voice'
 # DST_PATH = 'FELICE_demo7_extended/rejects'
-DST_PATH = 'FELICE_demo3/rejects'
-N_SAMPLES = 2000
+# DST_PATH = 'FELICE_demo3/rejects'
+DST_PATH = "full_dataset_v1/rejects"
+THRESH = True
+# N_SAMPLES = 2000
+N_SAMPLES = 8000
 
 for lan in ['eng', 'ita']:
 # for lan in ['ita']:
@@ -39,7 +42,7 @@ for lan in ['eng', 'ita']:
                 # file_wav = AudioSegment.from_mp3(src_sample_path) # from .mp3 to .wav
                 # file_wav.export(dst_sample_path.replace('.mp3', '.wav'), format='wav')
 
-            if sample_counter > N_SAMPLES:
+            if  THRESH and sample_counter > N_SAMPLES:
                 break
 
             sample_counter += 1

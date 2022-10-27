@@ -1,7 +1,8 @@
 from ibm_watson import TextToSpeechV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from pathlib import Path
-from utils import command_ita, command_eng
+# from utils import command_ita, command_eng
+from commands_v2 import command_ita, command_eng
 
 voices_eng = [
 "en-US_AllisonV3Voice",

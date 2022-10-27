@@ -1,6 +1,7 @@
 import soundfile as sf
 from nemo.collections.tts.models.base import SpectrogramGenerator, Vocoder
-from utils import command_ita, command_eng
+# from utils import command_ita, command_eng
+from commands_v2 import command_ita, command_eng
 from pathlib import Path
 import torch
 import gc
@@ -36,7 +37,7 @@ def main():
                 for index, cmd in commands.items():
                     cmd_count += 1
                     filname = f"{spectro_id.split('_')[2]}_{vocecoder_id.split('_')[1]}_cmd{index}.wav"
-                    if path.exists(): continue
+                    # if path.exists(): continue
                     path = path_base.joinpath("na", lang, filname)
                     try:
                         spectro = SpectrogramGenerator.from_pretrained(model_name=spectro_id).cpu()

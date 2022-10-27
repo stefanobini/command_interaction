@@ -15,7 +15,7 @@ model:
   train_ds:
     manifest_filepath: ???
     sample_rate: ${model.sample_rate}
-    labels: ${model.labels}           ### TO CHANGE FOR GEODESIC EXPERIMENTATION
+    labels: ${model.labels}           ### TO CHANGE FOR GEODESIC EXPERIMENTATION (probabily not)
     batch_size: 32
     shuffle: False
     is_tarred: False

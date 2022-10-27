@@ -48,6 +48,10 @@ class AudioDataLayer(IterableDataset):
 if __name__ == "__main__":
     model_path = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46\checkpoints_backup\matchcboxnet--val_loss=0.369-epoch=249.model"
     exp_dir = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46"
+
+    # exp_dir = ".\nemo_experiments\MatchboxNet-3x2x64\"
+    # model_path = exp_dir + ""
+    
     model = Model.load_backup(model_path, exp_dir)
     model = model.eval()
     data_layer = AudioDataLayer(sample_rate=16000)

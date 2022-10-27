@@ -20,9 +20,11 @@ except Exception:
 
 if __name__ == "__main__":
     '''
+    To train change the dataset path here and in <model.py>, then change commands in <commands.py>
     Parsing input argument
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
     python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+    python3 matchboxnet.py --dataset_path dataset/full_dataset_v1 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1
     '''
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, dest="config", required=True, help="Yaml file containing the configuration")
@@ -112,7 +114,7 @@ if __name__ == "__main__":
             # pretrain_config.model.labels = [i for i in range(0, 29)]
             # asr_model = Model(cfg=config.model, trainer=trainer, class_weight=None) #Modify here to set class weight
             # asr_model = asr_model.load_from_checkpoint(checkpoint_path=pretrain_path)
-            asr_model = Model.load_backup(trainer=trainer, ckpt_name=args.lang+'.model', exp_dir=args.pre_train, new_cfg=config.model)
+            asr_model = Model.load_backup(trainer=trainer, ckpt_name=args.lang+'.model', exp_dir=args.pre_train, new_cfg=config.model)  # source code of the model here: <https://docs.nvidia.com/deeplearning/nemo/user-guide/docs/en/stable/_modules/nemo/collections/asr/models/classification_models.html#EncDecClassificationModel>
             asr_model.change_labels(config.model.labels)
             
             asr_model.cuda()

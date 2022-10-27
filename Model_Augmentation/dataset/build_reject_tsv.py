@@ -6,7 +6,8 @@ from tqdm import tqdm
 
 
 # DST_TSV_FOLDER = 'FELICE_demo3/rejects'
-DST_TSV_FOLDER = 'FELICE_demo3/rejects'
+# DST_TSV_FOLDER = 'FELICE_demo3/rejects'
+DST_TSV_FOLDER = "full_dataset_v1/rejects"
 
 
 for language in ['eng', 'ita']:
