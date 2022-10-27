@@ -13,6 +13,7 @@ Model_Augmentation/dataset/Dataset_synth/*
 Model_Augmentation/dataset/FELICE_demo7/*
 Model_Augmentation/dataset/FELICE_demo7_extended/*
 Model_Augmentation/dataset/GoogleSpeechCommands/*
+Model_Augmentation/dataset/full_dataset_v1/*
 Model_Augmentation/dataset/sync.ffs_db
 Model_Augmentation/fsd/noise_set/*
 Model_Augmentation/apex
