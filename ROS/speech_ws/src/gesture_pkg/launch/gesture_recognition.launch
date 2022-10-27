@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="gesture_pkg" name="image_input_node" type="image_input_node.py" output="screen"/>
+    <!-- <env name="CUDA_VISIBLE_DEVICES" value="" /> -->
+    <!-- <node pkg="gesture_pkg" name="hand_gesture_classification_node" type="hand_gesture_classification_node.py" output="screen"/> -->
+    <!-- <node pkg="demo_pkg" name="hand_detector_node" type="hand_detector_node.py" output="screen"/> -->
+    <!-- <node pkg="gesture_pkg" name="hand_gesture_classification_node" type="hand_gesture_classification_node.py" output="screen"/> -->
+    <node pkg="gesture_pkg" name="speech_synthesis_node" type="speech_synthesis_node.py" output="screen"/>
+    <node pkg="gesture_pkg" name="webview_node" type="gesture_webview_node.py" output="screen"/>
+</launch>

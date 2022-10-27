@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="gesture_pkg" name="hand_gesture_classification_node" type="hand_gesture_classification_node.py" output="screen"/>
+</launch>
