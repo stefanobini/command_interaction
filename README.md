@@ -3,7 +3,9 @@
 
 <p align="center">
   <img src="./figures/unisa_logo.png" width="100">
+  &nbsp;
   <img src="./figures/stellantis_logo.png" width="100">
+  &nbsp;
   <img src="./figures/upc_logo.png" width="100">
 </p>
 
