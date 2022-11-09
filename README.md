@@ -1,8 +1,10 @@
 # Command-based Human-Robot Interaction framework
 
-<img src="./figures/unisa_logo.png" width="50">
-<img src="./figures/stellantis_logo.png" width="50">
-<img src="./figures/upc_logo.png" width="50">
+<p float="center">
+  <img src="./figures/unisa_logo.png" width="100">
+  <img src="./figures/stellantis_logo.png" width="100">
+  <img src="./figures/upc_logo.png" width="100">
+<\p>
 
 The repository is associated with my Ph. D. project carried out at the University of Salerno in collaboration with the Fiat Research Center (Stellantis) in Melfi and the Universitat Politècnica de Catalugna (UPC). The project consists in the realization of a robotic assistant operating on the production lines that is capable of understanding both speech and gesture commands in a highly noisy and dynamic environment such as the production lines of an automotive industry.
 The obtained system has been successfully tested in the real scenarios offered by Stellantis.
