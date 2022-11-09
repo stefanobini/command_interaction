@@ -1,5 +1,17 @@
 # Command-based Human-Robot Interaction framework
 
+<style>
+    .images-container{
+    display:flex;
+    justify-content: center;
+  }
+  
+  .images-container img{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+</style>
+
 <div class="images-container">
   <img src="./figures/unisa_logo.png" width="100">
   <img src="./figures/stellantis_logo.png" width="100">
