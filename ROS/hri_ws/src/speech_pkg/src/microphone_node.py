@@ -72,10 +72,12 @@ class MicrophoneNode:
                 alive_msg.status = "Ok"
                 health_pub.publish(alive_msg)
                 '''
-                post_request.send_alive(status="Ok") # Comment to unable health message
+                if FIWARE_CB != "None":
+                    post_request.send_alive(status="Ok") # Comment to unable health message
 
         # alive_msg.status = "Not alive"
-        post_request.send_alive(status="Error") # Comment to unable health message
+        if FIWARE_CB != "None":
+            post_request.send_alive(status="Error") # Comment to unable health message
 
         # Close the stream
         audio_stream.stop() 
@@ -85,8 +87,9 @@ if __name__ == '__main__':
     FIWARE_CB = rospy.get_param("/fiware_cb")
 
     # Comment to unable health message
-    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address=FIWARE_CB, port=1026)
-    post_request.create_entity()
+    if FIWARE_CB != "None":
+        post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.SystemHealth", msg_type="SystemHealth", address=FIWARE_CB, port=1026)
+        post_request.create_entity()
 
     microphone = MicrophoneNode()
     microphone.start()

@@ -5,8 +5,8 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("comunication_pkg")
 subdirs("firos")
 subdirs("speech_pkg")
 subdirs("vision_msgs")
 subdirs("gesture_pkg")
+subdirs("webview_pkg")

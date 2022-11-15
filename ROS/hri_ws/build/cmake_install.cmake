@@ -131,11 +131,11 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/felice/command_interaction/ROS/hri_ws/build/gtest/cmake_install.cmake")
-  include("/home/felice/command_interaction/ROS/hri_ws/build/comunication_pkg/cmake_install.cmake")
   include("/home/felice/command_interaction/ROS/hri_ws/build/firos/cmake_install.cmake")
   include("/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/cmake_install.cmake")
   include("/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/cmake_install.cmake")
   include("/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/cmake_install.cmake")
+  include("/home/felice/command_interaction/ROS/hri_ws/build/webview_pkg/cmake_install.cmake")
 
 endif()
 

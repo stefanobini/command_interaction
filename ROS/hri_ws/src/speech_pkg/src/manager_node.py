@@ -2,12 +2,13 @@
 
 import sys
 import rospy
-import argparse
 from speech_pkg.srv import *
 import uuid
-
 from colorama import Fore
 from datetime import datetime
+
+from std_msgs.msg import String
+
 from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 from speech_pkg.msg import Command, Speech
 from demo_utils.post_request import MyRequestPost
@@ -46,7 +47,7 @@ def publish_cmd(command:int, confidence:float):
 
 
 def run_demo7(req):
-    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, post_request, offset
+    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, post_request, offset, FIWARE_CB
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -59,7 +60,10 @@ def run_demo7(req):
     if robot_listening:
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
         cmd = res.cmd + offset
-        post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+        if FIWARE_CB != "None":
+            post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+        else:
+            pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
         res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         
@@ -102,12 +106,46 @@ def run_demo3(req):
     return ManagerResponse(True)    # res.flag
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--demo", required=True, dest="demo", type=int)
-    args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
+def run_demo_full(req):
+    global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, post_request, offset, FIWARE_CB
 
-    pub = rospy.Publisher('/UNISA/SpeechGestureAnalysis/Speech', Speech, queue_size=10)
+    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
+    res = classify(req.data)
+    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+
+    if not robot_listening and res.cmd == 23:
+        robot_listening = True
+        print(Fore.LIGHTGREEN_EX + '-'*12 + ' ROBOT IS LISTENING ' + '-'*12 + Fore.RESET)
+
+    if robot_listening:
+        cmd = res.cmd + offset
+        # print(cmd)
+        if FIWARE_CB != "None":
+            post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+        else:
+            pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
+        res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        print(res_str)
+        
+        if rospy.get_param("/save_speech") == True:
+            with open(SPEECH_INFO_FILE, "a") as f:
+                f.write(res_str)
+
+    if robot_listening and res.cmd == 20:
+        robot_listening = False
+        print(Fore.LIGHTRED_EX + '-'*12 + ' ROBOT IS NOT LISTENING ' + '-'*12 + Fore.RESET)
+
+    speech_counter += 1
+    # res = speech(res.cmd, res.probs)
+
+    return ManagerResponse(True)    # res.flag
+
+
+if __name__ == "__main__":
+    DEMO = rospy.get_param("/demo")
+    FIWARE_CB = rospy.get_param("/fiware_cb")
+
+    pub = rospy.Publisher('speech_command', String, queue_size=1)
     # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisAWS/Speech', Speech, queue_size=10)
     # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisCOBOT/Speech', Speech, queue_size=10)
     
@@ -119,21 +157,24 @@ if __name__ == "__main__":
     command_eng = DEMO_CMD_ENG
     command_ita  = DEMO_CMD_ITA
 
-    if args.demo == 3:
+    if DEMO == 3:
         offset = 0
         rospy.Service('manager_service', Manager, run_demo3)
-    else:
+    elif DEMO == 7:
         offset = 2
         rospy.Service('manager_service', Manager, run_demo7)
+    elif DEMO == 0:
+        offset = 0
+        rospy.Service('manager_service', Manager, run_demo_full)
     # rospy.Service('manager_service', Manager, run_demo7)
     # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
 
-    FIWARE_CB = rospy.get_param("/fiware_cb")
-    post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.Speech", msg_type="Speech", address=FIWARE_CB, port=1026)
-    post_request.create_entity()
+    if FIWARE_CB != "None":
+        post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.Speech", msg_type="Speech", address=FIWARE_CB, port=1026)
+        post_request.create_entity()
     
     classify = rospy.ServiceProxy('classifier_service', Classification)
-    print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(args.demo) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
+    print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(DEMO) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
 
     # speech = rospy.ServiceProxy('speech_service', Talker)
 

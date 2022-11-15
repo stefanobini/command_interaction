@@ -285,162 +285,6 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
-# Target rules for targets named comunication_pkg_genpy
-
-# Build rule for target.
-comunication_pkg_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_genpy
-.PHONY : comunication_pkg_genpy
-
-# fast build rule for target.
-comunication_pkg_genpy/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_genpy.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_genpy.dir/build
-.PHONY : comunication_pkg_genpy/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages_py
-
-# Build rule for target.
-comunication_pkg_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages_py
-.PHONY : comunication_pkg_generate_messages_py
-
-# fast build rule for target.
-comunication_pkg_generate_messages_py/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_py.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_py.dir/build
-.PHONY : comunication_pkg_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages_nodejs
-
-# Build rule for target.
-comunication_pkg_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages_nodejs
-.PHONY : comunication_pkg_generate_messages_nodejs
-
-# fast build rule for target.
-comunication_pkg_generate_messages_nodejs/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_nodejs.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_nodejs.dir/build
-.PHONY : comunication_pkg_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages_lisp
-
-# Build rule for target.
-comunication_pkg_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages_lisp
-.PHONY : comunication_pkg_generate_messages_lisp
-
-# fast build rule for target.
-comunication_pkg_generate_messages_lisp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_lisp.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_lisp.dir/build
-.PHONY : comunication_pkg_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages_eus
-
-# Build rule for target.
-comunication_pkg_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages_eus
-.PHONY : comunication_pkg_generate_messages_eus
-
-# fast build rule for target.
-comunication_pkg_generate_messages_eus/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_eus.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_eus.dir/build
-.PHONY : comunication_pkg_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_geneus
-
-# Build rule for target.
-comunication_pkg_geneus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_geneus
-.PHONY : comunication_pkg_geneus
-
-# fast build rule for target.
-comunication_pkg_geneus/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_geneus.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_geneus.dir/build
-.PHONY : comunication_pkg_geneus/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_gencpp
-
-# Build rule for target.
-comunication_pkg_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_gencpp
-.PHONY : comunication_pkg_gencpp
-
-# fast build rule for target.
-comunication_pkg_gencpp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_gencpp.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_gencpp.dir/build
-.PHONY : comunication_pkg_gencpp/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_genlisp
-
-# Build rule for target.
-comunication_pkg_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_genlisp
-.PHONY : comunication_pkg_genlisp
-
-# fast build rule for target.
-comunication_pkg_genlisp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_genlisp.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_genlisp.dir/build
-.PHONY : comunication_pkg_genlisp/fast
-
-#=============================================================================
-# Target rules for targets named _comunication_pkg_generate_messages_check_deps_Speech
-
-# Build rule for target.
-_comunication_pkg_generate_messages_check_deps_Speech: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _comunication_pkg_generate_messages_check_deps_Speech
-.PHONY : _comunication_pkg_generate_messages_check_deps_Speech
-
-# fast build rule for target.
-_comunication_pkg_generate_messages_check_deps_Speech/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Speech.dir/build.make comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Speech.dir/build
-.PHONY : _comunication_pkg_generate_messages_check_deps_Speech/fast
-
-#=============================================================================
-# Target rules for targets named _comunication_pkg_generate_messages_check_deps_Command
-
-# Build rule for target.
-_comunication_pkg_generate_messages_check_deps_Command: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _comunication_pkg_generate_messages_check_deps_Command
-.PHONY : _comunication_pkg_generate_messages_check_deps_Command
-
-# fast build rule for target.
-_comunication_pkg_generate_messages_check_deps_Command/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Command.dir/build.make comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Command.dir/build
-.PHONY : _comunication_pkg_generate_messages_check_deps_Command/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_gennodejs
-
-# Build rule for target.
-comunication_pkg_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_gennodejs
-.PHONY : comunication_pkg_gennodejs
-
-# fast build rule for target.
-comunication_pkg_gennodejs/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_gennodejs.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_gennodejs.dir/build
-.PHONY : comunication_pkg_gennodejs/fast
-
-#=============================================================================
-# Target rules for targets named _comunication_pkg_generate_messages_check_deps_Gesture
-
-# Build rule for target.
-_comunication_pkg_generate_messages_check_deps_Gesture: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _comunication_pkg_generate_messages_check_deps_Gesture
-.PHONY : _comunication_pkg_generate_messages_check_deps_Gesture
-
-# fast build rule for target.
-_comunication_pkg_generate_messages_check_deps_Gesture/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Gesture.dir/build.make comunication_pkg/CMakeFiles/_comunication_pkg_generate_messages_check_deps_Gesture.dir/build
-.PHONY : _comunication_pkg_generate_messages_check_deps_Gesture/fast
-
-#=============================================================================
 # Target rules for targets named roscpp_generate_messages_py
 
 # Build rule for target.
@@ -450,7 +294,7 @@ roscpp_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_py/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/roscpp_generate_messages_py.dir/build.make comunication_pkg/CMakeFiles/roscpp_generate_messages_py.dir/build
+	$(MAKE) -f firos/CMakeFiles/roscpp_generate_messages_py.dir/build.make firos/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
 
 #=============================================================================
@@ -463,7 +307,7 @@ roscpp_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_eus/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/roscpp_generate_messages_eus.dir/build.make comunication_pkg/CMakeFiles/roscpp_generate_messages_eus.dir/build
+	$(MAKE) -f firos/CMakeFiles/roscpp_generate_messages_eus.dir/build.make firos/CMakeFiles/roscpp_generate_messages_eus.dir/build
 .PHONY : roscpp_generate_messages_eus/fast
 
 #=============================================================================
@@ -476,21 +320,8 @@ roscpp_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_lisp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make comunication_pkg/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+	$(MAKE) -f firos/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make firos/CMakeFiles/roscpp_generate_messages_lisp.dir/build
 .PHONY : roscpp_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages
-
-# Build rule for target.
-comunication_pkg_generate_messages: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages
-.PHONY : comunication_pkg_generate_messages
-
-# fast build rule for target.
-comunication_pkg_generate_messages/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages.dir/build
-.PHONY : comunication_pkg_generate_messages/fast
 
 #=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_cpp
@@ -502,7 +333,7 @@ rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f firos/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make firos/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -515,7 +346,7 @@ std_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make comunication_pkg/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f firos/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make firos/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
 .PHONY : std_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -528,21 +359,8 @@ roscpp_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_cpp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make comunication_pkg/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+	$(MAKE) -f firos/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make firos/CMakeFiles/roscpp_generate_messages_cpp.dir/build
 .PHONY : roscpp_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named comunication_pkg_generate_messages_cpp
-
-# Build rule for target.
-comunication_pkg_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comunication_pkg_generate_messages_cpp
-.PHONY : comunication_pkg_generate_messages_cpp
-
-# fast build rule for target.
-comunication_pkg_generate_messages_cpp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_cpp.dir/build.make comunication_pkg/CMakeFiles/comunication_pkg_generate_messages_cpp.dir/build
-.PHONY : comunication_pkg_generate_messages_cpp/fast
 
 #=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_eus
@@ -554,7 +372,7 @@ rosgraph_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f firos/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make firos/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -567,7 +385,7 @@ rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f firos/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make firos/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -580,7 +398,7 @@ std_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make comunication_pkg/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f firos/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make firos/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
 .PHONY : std_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -593,7 +411,7 @@ rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f firos/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make firos/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
 .PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -606,7 +424,7 @@ rosgraph_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make comunication_pkg/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+	$(MAKE) -f firos/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make firos/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -619,7 +437,7 @@ std_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_eus/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make comunication_pkg/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f firos/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make firos/CMakeFiles/std_msgs_generate_messages_eus.dir/build
 .PHONY : std_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -632,7 +450,7 @@ std_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make comunication_pkg/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f firos/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make firos/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
 .PHONY : std_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -645,7 +463,7 @@ roscpp_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_nodejs/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make comunication_pkg/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+	$(MAKE) -f firos/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make firos/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
 .PHONY : roscpp_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -658,7 +476,7 @@ std_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_py/fast:
-	$(MAKE) -f comunication_pkg/CMakeFiles/std_msgs_generate_messages_py.dir/build.make comunication_pkg/CMakeFiles/std_msgs_generate_messages_py.dir/build
+	$(MAKE) -f firos/CMakeFiles/std_msgs_generate_messages_py.dir/build.make firos/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -1645,26 +1463,12 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... comunication_pkg_genpy"
-	@echo "... comunication_pkg_generate_messages_py"
-	@echo "... comunication_pkg_generate_messages_nodejs"
-	@echo "... comunication_pkg_generate_messages_lisp"
-	@echo "... comunication_pkg_generate_messages_eus"
-	@echo "... comunication_pkg_geneus"
-	@echo "... comunication_pkg_gencpp"
-	@echo "... comunication_pkg_genlisp"
-	@echo "... _comunication_pkg_generate_messages_check_deps_Speech"
-	@echo "... _comunication_pkg_generate_messages_check_deps_Command"
-	@echo "... comunication_pkg_gennodejs"
-	@echo "... _comunication_pkg_generate_messages_check_deps_Gesture"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
 	@echo "... roscpp_generate_messages_lisp"
-	@echo "... comunication_pkg_generate_messages"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_cpp"
-	@echo "... comunication_pkg_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_cpp"

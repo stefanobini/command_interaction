@@ -1,0 +1,11 @@
+<launch>
+
+    <param name="language" type="str" value="ita"/>  <!-- "ita" or "eng" -->
+    <param name="fiware_cb" type="str" value="None"/>  <!-- no publish on FIWARE context broaker -->
+    
+    <node pkg="gesture_pkg" name="image_input_node" type="image_input_node.py" output="screen"/>
+    <node pkg="gesture_pkg" name="hand_gesture_classification_node" type="hand_gesture_classification_node.py" output="screen"/>
+
+    <node pkg="webview_pkg" name="webview_node" type="webview_node.py" output="screen"/>
+
+</launch>

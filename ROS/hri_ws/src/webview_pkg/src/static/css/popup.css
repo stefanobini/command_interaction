@@ -1,0 +1,18 @@
+div#popup {
+    background-color: #AED3E3;
+    text-align: left;
+    border-radius: 2vh;
+    font-family: HelveticaNeue;
+    width: 75vw;
+    margin-top: 2vh;
+    position: absolute;
+    z-index: 10;
+    bottom: 0.5vh;
+    right: 8.9vh;
+    display: none;
+}
+
+div#popup > p {
+    padding: 0.5vw;
+    font-size: 110%;
+}

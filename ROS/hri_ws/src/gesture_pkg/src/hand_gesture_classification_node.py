@@ -33,7 +33,8 @@ ROBOT_UUID = uuid.uuid1().node
 
 class Callback:
 
-    def __init__(self, publisher, detector, post_request):
+    
+    def __init__(self, publisher=None, detector=None, post_request=None):
         self.bridge = CvBridge()
         self.detector = detector
         self.publisher = publisher
@@ -125,7 +126,7 @@ class Callback:
                 
                 ## build classification message
                 detection = Detection2D()
-                detection.header.frame_id = gesture
+                detection.header.frame_id = str(gesture)
                 detection.bbox.size_x = window_hands_in_frame[objectID][0]
                 detection.bbox.size_y = window_hands_in_frame[objectID][1]
                 detection.bbox.center.x = centroid_x
@@ -144,7 +145,10 @@ class Callback:
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
-        self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+        if self.post_request is not None:
+            self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+        else:
+            self.publisher.publish(response)
         
 
 
@@ -158,15 +162,17 @@ class HandDetectorNode:
         pub = rospy.Publisher("hand_gesture_recognition", Detection2DArray, queue_size=1)
         
         detector = OneStageDetector(conf_thresh=DETECTOR_THRESH, size_thresh=SIZE_THRESH)
-        # detector.compat.v1.summary()
-        # classifier.compat.v1.summary()
 
         LANGUAGE = rospy.get_param("/language")
         FIWARE_CB = rospy.get_param("/fiware_cb")
-        post_request = MyRequestPost(instance_uuid=ROBOT_UUID, entity="UNISA.SpeechGestureAnalysis.Gesture", msg_type="Gesture", address=FIWARE_CB, port=1026)
-        post_request.create_entity()
 
-        callback = Callback(pub, detector, post_request)
+        if FIWARE_CB != "None":
+            post_request = MyRequestPost(instance_uuid=ROBOT_UUID, entity="UNISA.SpeechGestureAnalysis.Gesture", msg_type="Gesture", address=FIWARE_CB, port=1026)
+            post_request.create_entity()
+            callback = Callback(pub, detector, post_request)
+        else:
+            callback = Callback(pub, detector)
+        
         print ('#################\n#               #\n# MODELS LOADED #\n#               #\n#################')
         sub = rospy.Subscriber("in_rgb", Image, callback)
 

@@ -1,61 +1,46 @@
 #!/usr/bin/env python3
 from charset_normalizer import detect
 from cv_bridge import CvBridge
-from one_stage_detector import OneStageDetector
-# from demo_utils.ai.video.hand_detection import HandDetector
-from demo_utils.gesture_recognition import SlidingWindow
-from sensor_msgs.msg import Image
-from std_msgs.msg import String
-# from settings import demo_settings
-from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
 import rospy
 import time
 import cv2
 import numpy as np
-from demo_utils.overlap_tracking_hand import CentroidTracker
 import os
-# https://github.com/robertanto/DemoFramework/invitations
+import uuid
+
+from sensor_msgs.msg import Image
+from std_msgs.msg import String
+from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
+# from demo_utils.ai.video.hand_detection import HandDetector
+
+from commands import GESTURE_COMMANDS
+# from settings import demo_settings
+from demo_utils.gesture_recognition import SlidingWindow
+from demo_utils.overlap_tracking_hand import CentroidTracker
+from one_stage_detector import OneStageDetector
+from demo_utils.post_request import MyRequestPost
+
 
 os.environ['TF_GPU_ALLOCATOR'] = 'cuda_sqmalloc_async'
-
-def convert(x):
-    
-    if x == 1:
-        label = "Come here"
-    elif x == 2:
-        label = "Go"
-    elif x == 3:
-        label = "Start"
-    elif x == 4:
-        label = "Stop"
-    elif x == 5:
-        label = "Move To Right"
-    elif x == 6:    
-        label = "Move To Left"
-    elif x == 7 or x == 8:    
-        label = "Move Up"
-    elif x == 9 or x == 10:    
-        label = "Move Down"
-    elif x == 11:    
-        label = "Move Forward"
-    elif x == 12:    
-        label = "Move Backward"
-    elif x == 13 or x == 0:    
-        label = "NoGesture"
-    print(label)
-    return label
+WINDOW_SIZE = 6                                         # size of the sliding windows to average the gesture classification
+N_GESTURES = len(GESTURE_COMMANDS)                      # number of gesture considered
+MAX_DISAPPEARED = 6                                     # number of frames after wich the tracker consider an unseen entity disappeared
+LANGUAGE = "eng"                                        # "eng" or "ita"
+DETECTOR_THRESH = 0.4
+SIZE_THRESH = None
+ROBOT_UUID = uuid.uuid1().node
 
 
 class Callback:
 
-    def __init__(self, publisher, detector):
+    def __init__(self, publisher, detector, post_request):
         self.bridge = CvBridge()
         self.detector = detector
-
         self.publisher = publisher
-        self.hands_tracker = CentroidTracker(maxDisappeared=5)
-        self.window_size = 6
-        self.n_gestures = 14
+        self.post_request = post_request
+        self.hands_tracker = CentroidTracker(maxDisappeared=MAX_DISAPPEARED)
+        self.window_size = WINDOW_SIZE
+        self.n_gestures = N_GESTURES
         self.sliding_windows = dict()
         self.frame = 0
         self.timestamp = time.time()
@@ -73,7 +58,7 @@ class Callback:
         self.timestamp = time.time()
         det_time = self.timestamp - prevoius_timestamp    # -> 0.13 s
         frame_rate = round(1 / (det_time), 2)
-        print(frame_rate)
+        # print(frame_rate)
         ## NO SLIDING
         '''
         label_predicted = int(hands['label'])
@@ -81,7 +66,7 @@ class Callback:
         
         ## build classification message
         detection = Detection2D()
-        detection.header.frame_id = convert(label_predicted)
+        detection.header.frame_id = GESTURE_COMMANDS[label_predicted][LANGUAGE]
         detection.bbox.size_x = hands['roi'][2] - hands['roi'][0]
         detection.bbox.size_y = hands['roi'][3] - hands['roi'][1]
         detection.bbox.center.x = (hands['roi'][2] + hands['roi'][0]) // 2
@@ -135,7 +120,7 @@ class Callback:
                 
                 ## apply majority voting on sliding window for gesture classification
                 gesture, confidence = self.sliding_windows[objectID].get_max()
-                gesture = convert(gesture)
+                # gesture = GESTURE_COMMANDS[gesture][LANGUAGE]
                 # print('Frame: {}\nHandID: {}\nSliding window: {}\nGesture: {}\nConfidence: {}\n'.format(self.frame, objectID, self.sliding_windows[objectID].get_window(), gesture, confidence))
                 
                 ## build classification message
@@ -158,7 +143,8 @@ class Callback:
         
         self.frame += 1
         
-        self.publisher.publish(response)
+        # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
+        self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
         
 
 
@@ -166,13 +152,21 @@ class HandDetectorNode:
 
 
     def start(self):
+        global LANGUAGE, ROBOT_UUID
+
         rospy.init_node('hand_gesture_recognition_node', anonymous=True)
         pub = rospy.Publisher("hand_gesture_recognition", Detection2DArray, queue_size=1)
         
-        detector = OneStageDetector(0.4, None)
+        detector = OneStageDetector(conf_thresh=DETECTOR_THRESH, size_thresh=SIZE_THRESH)
         # detector.compat.v1.summary()
         # classifier.compat.v1.summary()
-        callback = Callback(pub, detector)
+
+        LANGUAGE = rospy.get_param("/language")
+        FIWARE_CB = rospy.get_param("/fiware_cb")
+        post_request = MyRequestPost(instance_uuid=ROBOT_UUID, entity="UNISA.SpeechGestureAnalysis.Gesture", msg_type="Gesture", address=FIWARE_CB, port=1026)
+        post_request.create_entity()
+
+        callback = Callback(pub, detector, post_request)
         print ('#################\n#               #\n# MODELS LOADED #\n#               #\n#################')
         sub = rospy.Subscriber("in_rgb", Image, callback)
 

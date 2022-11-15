@@ -67,7 +67,7 @@ set(comunication_pkg_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(comunication_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/comunication_pkg)
+  set(comunication_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/webserver_pkg)
   set(comunication_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
   set(comunication_pkg_INSTALL_PREFIX "")
   set(comunication_pkg_PREFIX ${comunication_pkg_DEVEL_PREFIX})
@@ -110,7 +110,7 @@ if(NOT "/home/felice/command_interaction/ROS/hri_ws/devel/include " STREQUAL " "
         message(FATAL_ERROR "Project 'comunication_pkg' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'comunication_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/felice/command_interaction/ROS/hri_ws/src/comunication_pkg/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'comunication_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/felice/command_interaction/ROS/hri_ws/src/webserver_pkg/${idir}'.  ${_report}")
     endif()
     _list_append_unique(comunication_pkg_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/felice/command_interaction/ROS/hri_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/felice/command_interaction/ROS/hri_ws/devel/lib;/home/felice/command_interaction/ROS/hri_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

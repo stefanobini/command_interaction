@@ -8,13 +8,12 @@ from torchvision.transforms import functional as F
 from torchvision.transforms import transforms as T, InterpolationMode
 #import torch
 
-
 # os.environ['CUDA_VISIBLE_DEVICES']=""
 PATH_MODELS = os.path.join( os.path.dirname(os.path.realpath(__file__)), "..",  "models")
 WEIGHTS_PATH = os.path.join(PATH_MODELS, "15ep_2022_10_20_09_29_2th_finetuning_model.pt")
-
-
 #WEIGHTS_PATH = os.path.join(PATH_MODELS, "10ep_2022_10_20_13_45_2th_finetuning_model_depth.pt") #depth
+PRETRAINED_WEIGHT = os.path.join(PATH_MODELS, "mobilenet_v3_large-8738ca79.pth")
+
 MAX_BBOX_DETECTABLE = 1
 # detector = os.path.join(PATH_MODELS, "detector/trained-inference-graphs_2m/output_inference_graph_v1.pb/saved_model")
 
@@ -49,7 +48,7 @@ class OneStageDetector:
 
     # Arguments
         conf_thresh: float
-            The minimum confidence to recognize a face - `default 0.5`
+            The minimum confidence to recognize a face - `default 0.3`
         size_threhsold: float 
             The minimum area for a face to be published - `default None`
         
@@ -65,7 +64,7 @@ class OneStageDetector:
         if not self.net:
             self.net = mobilenetv3ssd(pretrained_backbone = True, num_classes = 14)
             self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-            print(self.device)
+            # print(self.device)
             #self.weights = torch.load(WEIGHTS_PATH)
             self.net.load_state_dict(torch.load(WEIGHTS_PATH, map_location=self.device)["model_state_dict"])
             self.net.to(self.device)

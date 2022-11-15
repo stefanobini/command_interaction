@@ -19,3 +19,11 @@ Below is the list of hardware components used.
 - Storage unit: 32 GB microSD
 - Camera: RealSense 435
 - Microphone: ReSpeaker MicArray v2.0
+
+
+## Gesture-Command Recognition system
+<!-- <p align="center">
+    <img src="./figures/gesture_architecture.png">
+</p> -->
+
+## Speech-Command Recognition system

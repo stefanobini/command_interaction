@@ -18,24 +18,22 @@ from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA
 import time
 
 
-args = None
-
-def select_parameters(args):
+def select_parameters(language="eng", demo=7):
     models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
-    if args.demo == 3:
-        if args.lang == 'eng':
+    if demo == 3:
+        if language == 'eng':
             COMMANDS = DEMO3_CMD_ENG
             ckpt_folder = models_path.joinpath('eng', 'demo3_eng')
             ckpt_name = 'matchcboxnet--val_loss=2.2774-epoch=209.model' # demo3_eng
-        elif args.lang == 'ita':
+        elif language == 'ita':
             COMMANDS = DEMO3_CMD_ITA
             ckpt_folder = models_path.joinpath('ita', 'demo3_ita')
             # ckpt_name = r"matchcboxnet--val_loss=1.4977-epoch=129.model"  # demo3_no_pretrain_ita
             # ckpt_name = r"matchcboxnet--val_loss=8.5081-epoch=184.model"  # demo3_pretrain_ita
             ckpt_name = 'matchcboxnet--val_loss=8.5081-epoch=184.model'   # demo3_ita
 
-    elif args.demo == 7:
-        if args.lang == 'eng':
+    elif demo == 7:
+        if language == 'eng':
             COMMANDS = DEMO7_CMD_ENG
             ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
             # ckpt_name = 'matchcboxnet--val_loss=1.9024-epoch=172.model' # demo7_eng
@@ -44,7 +42,7 @@ def select_parameters(args):
 
             ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
             # ckpt_name = "matchcboxnet--val_loss=1.9424-epoch=50.model"  # demo7_phase_I_eng
-        elif args.lang == 'ita':
+        elif language == 'ita':
             COMMANDS = DEMO7_CMD_ITA
             ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
             # ckpt_name = 'matchcboxnet--val_loss=2.7598-epoch=130.model'
@@ -62,6 +60,18 @@ def select_parameters(args):
             # ckpt = r"matchcboxnet--val_loss=0.2571-epoch=242.model"     # demo7_cmds
             # ckpt = r"matchcboxnet--val_loss=0.229-epoch=155.model"      # demo7_cmds_noise
             # ckpt = r"matchcboxnet--val_loss=3.0086-epoch=129.model"     # demo7_cmds_noise_reject
+    
+    elif demo == 0:
+        if language == 'eng':
+            COMMANDS = DEMO7_CMD_ENG
+            ckpt_folder = models_path.joinpath('eng', 'full_eng')
+            ckpt_name = "matchcboxnet--val_loss=3.9556-epoch=249.model" # full_eng
+
+        elif language == 'ita':
+            COMMANDS = DEMO7_CMD_ITA
+            ckpt_folder = models_path.joinpath("ita", 'full_ita')
+            
+            ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model" # full_ita
     
     return COMMANDS, ckpt_folder, ckpt_name
 
@@ -106,15 +116,15 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, lang, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
+    def __init__(self, language, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
         self.commands = commands
         self.threshold_1 = threshold_1
         self.threshold_2 = threshold_2
 
         self.model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
-        print("# Loaded model lang:", lang)
+        print("# Loaded model language:", language)
         print("# Model loaded:", ckpt_folder)
-        # self.model = self.load_model(lang)
+        # self.model = self.load_model(language)
 
         self.model = self.model.eval()
         if torch.cuda.is_available():
@@ -185,26 +195,24 @@ class Classifier:
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
-    def load_model(self, lang, ckpt_folder, ckpt_name):
+    def load_model(self, language, ckpt_folder, ckpt_name):
         model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
-        print("# Loaded model lang:", lang)
+        print("# Loaded model language:", language)
         print("# Model loaded:", ckpt_folder)
         
         return model
 
 if __name__ == "__main__":
     THRESHOLD_1 = 0.001     # 0.004
-    THRESHOLD_2 = 0.999     # 0.999
+    THRESHOLD_2 = 0.9     # 0.999
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--lang", required=True, dest="lang", type=str)
-    parser.add_argument("--demo", required=True, dest="demo", type=int)
-    args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
+    LANGUAGE = rospy.get_param("/language")
+    DEMO = rospy.get_param("/demo")
 
-    commands, ckpt_folder, ckpt_name = select_parameters(args=args)
+    commands, ckpt_folder, ckpt_name = select_parameters(language=LANGUAGE, demo=DEMO)
 
-    if args.lang not in AVAILABLE_LANGS:
-        raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
+    if LANGUAGE not in AVAILABLE_LANGS:
+        raise Exception("Selected language not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(args.lang, THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
+    classifier = Classifier(LANGUAGE, THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)

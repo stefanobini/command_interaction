@@ -288,10 +288,10 @@ _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
 
 //Value Computed by CMake
-comunication_pkg_BINARY_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/build/comunication_pkg
+comunication_pkg_BINARY_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/build/webserver_pkg
 
 //Value Computed by CMake
-comunication_pkg_SOURCE_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/src/comunication_pkg
+comunication_pkg_SOURCE_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/src/webserver_pkg
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/melodic/share/cpp_common/cmake
@@ -428,6 +428,12 @@ vision_msgs_DIR:PATH=/home/felice/command_interaction/ROS/hri_ws/devel/share/vis
 
 //Value Computed by CMake
 vision_msgs_SOURCE_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs
+
+//Value Computed by CMake
+webview_pkg_BINARY_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/build/webview_pkg
+
+//Value Computed by CMake
+webview_pkg_SOURCE_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/src/webview_pkg
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/melodic/share/xmlrpcpp/cmake
