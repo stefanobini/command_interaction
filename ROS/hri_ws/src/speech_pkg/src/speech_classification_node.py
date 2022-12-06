@@ -69,9 +69,11 @@ def select_parameters(language="eng", demo=7):
 
         elif language == 'ita':
             COMMANDS = DEMO7_CMD_ITA
-            ckpt_folder = models_path.joinpath("ita", 'full_ita')
+            # ckpt_folder = models_path.joinpath("ita", 'full_ita')
+            ckpt_folder = models_path.joinpath("ita", 'new_full_ita')
             
-            ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model" # full_ita
+            # ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model"  # full_ita
+            ckpt_name = "matchcboxnet--val_loss=3.269-epoch=97.model"   # new_full_ita, here fix the commands
     
     return COMMANDS, ckpt_folder, ckpt_name
 

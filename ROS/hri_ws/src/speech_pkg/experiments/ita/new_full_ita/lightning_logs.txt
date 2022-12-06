@@ -1,0 +1,118 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name              | Type                       | Params
+-----------------------------------------------------------------
+0 | spec_augmentation | SpectrogramAugmentation    | 0     
+1 | preprocessor      | AudioToMFCCPreprocessor    | 0     
+2 | encoder           | ConvASREncoder             | 88.9 K
+3 | decoder           | Decoder                    | 4.1 K 
+4 | loss              | CrossEntropyLoss           | 0     
+5 | _accuracy         | TopKClassificationAccuracy | 0     
+-----------------------------------------------------------------
+93.0 K    Trainable params
+0         Non-trainable params
+93.0 K    Total params
+0.372     Total estimated model params size (MB)
+Epoch 0, global step 289: val_loss reached 3.30295 (best 3.30295), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=3.3030-epoch=0.ckpt" as top 3
+Epoch 1, global step 579: val_loss reached 2.87160 (best 2.87160), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.8716-epoch=1.ckpt" as top 3
+Epoch 2, global step 869: val_loss reached 3.23626 (best 2.87160), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=3.2363-epoch=2.ckpt" as top 3
+Epoch 3, global step 1159: val_loss was not in top 3
+Epoch 4, global step 1449: val_loss was not in top 3
+Epoch 5, global step 1739: val_loss was not in top 3
+Epoch 6, global step 2029: val_loss was not in top 3
+Epoch 7, global step 2319: val_loss reached 3.20312 (best 2.87160), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=3.2031-epoch=7.ckpt" as top 3
+Epoch 8, global step 2609: val_loss was not in top 3
+Epoch 9, global step 2899: val_loss reached 2.90605 (best 2.87160), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.9060-epoch=9.ckpt" as top 3
+Epoch 10, global step 3189: val_loss was not in top 3
+Epoch 11, global step 3479: val_loss was not in top 3
+Epoch 12, global step 3769: val_loss was not in top 3
+Epoch 13, global step 4059: val_loss was not in top 3
+Epoch 14, global step 4349: val_loss was not in top 3
+Epoch 15, global step 4639: val_loss was not in top 3
+Epoch 16, global step 4929: val_loss reached 2.94123 (best 2.87160), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.9412-epoch=16.ckpt" as top 3
+Epoch 17, global step 5219: val_loss was not in top 3
+Epoch 18, global step 5509: val_loss was not in top 3
+Epoch 19, global step 5799: val_loss was not in top 3
+Epoch 20, global step 6089: val_loss was not in top 3
+Epoch 21, global step 6379: val_loss reached 2.76332 (best 2.76332), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.7633-epoch=21.ckpt" as top 3
+Epoch 22, global step 6669: val_loss was not in top 3
+Epoch 23, global step 6959: val_loss was not in top 3
+Epoch 24, global step 7249: val_loss was not in top 3
+Epoch 25, global step 7539: val_loss was not in top 3
+Epoch 26, global step 7829: val_loss was not in top 3
+Epoch 27, global step 8119: val_loss was not in top 3
+Epoch 28, global step 8409: val_loss was not in top 3
+Epoch 29, global step 8699: val_loss was not in top 3
+Epoch 30, global step 8989: val_loss was not in top 3
+Epoch 31, global step 9279: val_loss was not in top 3
+Epoch 32, global step 9569: val_loss was not in top 3
+Epoch 33, global step 9859: val_loss was not in top 3
+Epoch 34, global step 10149: val_loss was not in top 3
+Epoch 35, global step 10439: val_loss was not in top 3
+Epoch 36, global step 10729: val_loss was not in top 3
+Epoch 37, global step 11019: val_loss was not in top 3
+Epoch 38, global step 11309: val_loss was not in top 3
+Epoch 39, global step 11599: val_loss was not in top 3
+Epoch 40, global step 11889: val_loss was not in top 3
+Epoch 41, global step 12179: val_loss reached 2.80800 (best 2.76332), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.8080-epoch=41.ckpt" as top 3
+Epoch 42, global step 12469: val_loss was not in top 3
+Epoch 43, global step 12759: val_loss was not in top 3
+Epoch 44, global step 13049: val_loss was not in top 3
+Epoch 45, global step 13339: val_loss was not in top 3
+Epoch 46, global step 13629: val_loss was not in top 3
+Epoch 47, global step 13919: val_loss reached 2.57708 (best 2.57708), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.5771-epoch=47.ckpt" as top 3
+Epoch 48, global step 14209: val_loss was not in top 3
+Epoch 49, global step 14499: val_loss was not in top 3
+Epoch 50, global step 14789: val_loss was not in top 3
+Epoch 51, global step 15079: val_loss was not in top 3
+Epoch 52, global step 15369: val_loss was not in top 3
+Epoch 53, global step 15659: val_loss was not in top 3
+Epoch 54, global step 15949: val_loss was not in top 3
+Epoch 55, global step 16239: val_loss was not in top 3
+Epoch 56, global step 16529: val_loss was not in top 3
+Epoch 57, global step 16819: val_loss was not in top 3
+Epoch 58, global step 17109: val_loss was not in top 3
+Epoch 59, global step 17399: val_loss was not in top 3
+Epoch 60, global step 17689: val_loss was not in top 3
+Epoch 61, global step 17979: val_loss reached 2.62125 (best 2.57708), saving model to "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-35-26/checkpoints/MatchboxNet-3x2x64--val_loss=2.6213-epoch=61.ckpt" as top 3
+Epoch 62, global step 18269: val_loss was not in top 3
+Epoch 63, global step 18559: val_loss was not in top 3
+Epoch 64, global step 18849: val_loss was not in top 3
+Epoch 65, global step 19139: val_loss was not in top 3
+Epoch 66, global step 19429: val_loss was not in top 3
+Epoch 67, global step 19719: val_loss was not in top 3
+Epoch 68, global step 20009: val_loss was not in top 3
+Epoch 69, global step 20299: val_loss was not in top 3
+Epoch 70, global step 20589: val_loss was not in top 3
+Epoch 71, global step 20879: val_loss was not in top 3
+Epoch 72, global step 21169: val_loss was not in top 3
+Epoch 73, global step 21459: val_loss was not in top 3
+Epoch 74, global step 21749: val_loss was not in top 3
+Epoch 75, global step 22039: val_loss was not in top 3
+Epoch 76, global step 22329: val_loss was not in top 3
+Epoch 77, global step 22619: val_loss was not in top 3
+Epoch 78, global step 22909: val_loss was not in top 3
+Epoch 79, global step 23199: val_loss was not in top 3
+Epoch 80, global step 23489: val_loss was not in top 3
+Epoch 81, global step 23779: val_loss was not in top 3
+Epoch 82, global step 24069: val_loss was not in top 3
+Epoch 83, global step 24359: val_loss was not in top 3
+Epoch 84, global step 24649: val_loss was not in top 3
+Epoch 85, global step 24939: val_loss was not in top 3
+Epoch 86, global step 25229: val_loss was not in top 3
+Epoch 87, global step 25519: val_loss was not in top 3
+Epoch 88, global step 25809: val_loss was not in top 3
+Epoch 89, global step 26099: val_loss was not in top 3
+Epoch 90, global step 26389: val_loss was not in top 3
+Epoch 91, global step 26679: val_loss was not in top 3
+Epoch 92, global step 26969: val_loss was not in top 3
+Epoch 93, global step 27259: val_loss was not in top 3
+Epoch 94, global step 27549: val_loss was not in top 3
+Epoch 95, global step 27839: val_loss was not in top 3
+Epoch 96, global step 28129: val_loss was not in top 3
+Epoch 97, global step 28419: val_loss was not in top 3
+Epoch 98, global step 28709: val_loss was not in top 3
+Epoch 99, global step 28999: val_loss was not in top 3
