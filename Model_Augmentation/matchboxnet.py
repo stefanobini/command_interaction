@@ -18,14 +18,20 @@ except Exception:
     COLAB = False
 
 
+'''
+To train change the dataset path here and in <model.py>, then change commands in <commands.py>
+Parsing input argument
+python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
+python3 matchboxnet.py --dataset_path dataset/full_dataset_v1 --config ./matchboxnet_3x2x64_no_noise.yaml --lang ita --id 0 --log 0 --synth 1
+python3 matchboxnet.py --dataset_path dataset/full_dataset_v1 --config ./matchboxnet_3x2x64_full.yaml --lang ita --id 0 --log 0 --synth 1
+
+python3 matchboxnet.py --dataset_path dataset/test_dataset --config ./matchboxnet_3x2x64_full.yaml --lang ita --id 0 --log 0 --synth 0
+'''
+
+
 if __name__ == "__main__":
-    '''
-    To train change the dataset path here and in <model.py>, then change commands in <commands.py>
-    Parsing input argument
-    python3 matchboxnet.py --dataset_path dataset/FELICE_demo3 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
-    python3 matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1 --pre_train ./pretrain_models
-    python3 matchboxnet.py --dataset_path dataset/full_dataset_v1 --config ./matchboxnet_3x2x64_FELICE.yaml --lang ita --id 0 --log 0 --synth 1
-    '''
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, dest="config", required=True, help="Yaml file containing the configuration")
     parser.add_argument("--lang", type=str, dest="lang", required=False, default="eng", help='Desired lang')
@@ -47,8 +53,10 @@ if __name__ == "__main__":
     print("Training id", args.train_id)
     print("*" * 30)
 
+    # Select the computing device
     if not COLAB and platform.system().lower() != "windows":
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(2)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(0)     # <------ GPU device
+    
     register_perturbation("mynoise", Augmentation)
     path_base = Path(get_curr_dir(__file__)).joinpath("manifests")
 
@@ -79,8 +87,9 @@ if __name__ == "__main__":
 
     OmegaConf.resolve(config)
     sample_rate = config.model.sample_rate
-    print("Trainer config - \n")
+    print("##### Trainer config #####")
     print(OmegaConf.to_yaml(config.trainer))
+    print("##########################\n")
 
     cuda = 1 if torch.cuda.is_available() else 0
     config.trainer.gpus = cuda
