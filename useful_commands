@@ -9,10 +9,11 @@ rosrun comunication_pkg cobot1_node.py
 rosrun firos core.py --conf src/firos/config
 rostopic echo comunication_pkg/Speech
 
-# Hamachi server
+# Automatically update date
+sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
 
-# Docker
+# Docker for SPEECH DEMO
 sudo docker build -t docker_felice_demo . --network=host
 
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo docker_felice_demo7
@@ -21,13 +22,28 @@ sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=
 
 sudo docker exec -it felice_demo  /bin/bash
 
+# Docker for WHOLE DEMO
+sudo docker build -t docker_command_demo . --network=host
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
+sudo docker exec -it command_demo  /bin/bash
+
+# to load pretrained model (it needs for compatibility reasons)
+mkdir -p /root/.cache/torch/hub/checkpoints/
+cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_v3_large-8738ca79.pth /root/.cache/torch/hub/checkpoints/
+
 # In the docker
-cd home/felice/speech-command_interaction/ROS/speech_ws/
-
+cd home/felice/command_interaction/ROS/hri_ws/
 source devel/setup.bash
+roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
 
-roslaunch speech_pkg start_demo.launch
-roslaunch speech_pkg start_new_demo.launch
+# roslaunch speech_pkg start_demo.launch
+# roslaunch speech_pkg start_new_demo.launch
+
+# roslaunch gesture_pkg gesture_demo_felice.launch
+# roslaunch gesture_pkg gesture_demo_pepper.launch
+# roslaunch gesture_pkg gesture_demo_webview.launch
+
+# roslaunch webserver_pkg gesture_demo.launch
 
 # Shows connected devices
 cat /proc/asound/cards

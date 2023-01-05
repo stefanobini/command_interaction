@@ -1,0 +1,13 @@
+#home > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75vw;
+    /* height: 88vh; */
+}
+
+#home {
+    display: block;
+    margin-left: 0px;
+    margin-right: 0px;
+}

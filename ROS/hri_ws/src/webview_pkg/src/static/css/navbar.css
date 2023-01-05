@@ -1,0 +1,42 @@
+.logo {
+    display: block;
+    height: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#navbar > div {
+    display: block;
+    border: 3px solid #AED3E3;
+    border-radius: 1vw 1vw 1vw 1vw;
+    color: #AED3E3; 
+    float: none;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 3.5vw;
+    margin-right: 0vw;
+    margin-bottom: 3vh;
+    text-align: center;
+    width: 10vw;
+}
+
+.nav_logo {
+    border: none !important;
+    float: left;
+    padding-right: 2vw;
+}
+
+div.tab-active {
+    background-color: #46b7e8;
+}
+
+div.view-cng {
+    background-color: #349cc9;
+}
+
+#navbar {
+    float: left;
+    padding: 0px;
+}
