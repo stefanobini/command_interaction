@@ -12,35 +12,6 @@ Activate conda environment with all the required libraries
 conda activate training
 ```
 
-## Preliminary operations
-Before starting with the training of the system you should create the dataset with command, synthetic and reject samples. Then there are the necessary commands. The source and destination paths need to be changed in the code, along with their parameters.
-
-For command samples you can load them with the right format using the script "create_full_dataset.py":
-```bash
-python3 create_full_dataset.py
-```
-
-For synthetic samples you can copy them from the original dataset:
-```bash
-cp -r /mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/dataset/full_dataset_v1/synthetics /mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1/synthetics
-```
-
-For reject samples you can load them with the right format using the scripts "include_common_voice.py" and "include_google_speech.py":
-```bash
-python3 include_common_voice.py
-python3 include_google_speech.py
-```
-
-The script "count_commands.py" allow to obtain statistics on the dataset.
-```bash
-python3 count_commands.py
-```
-
-Finally, to split dataset and obtain csv file to train the system use the following comamnd.
-```bash
-python3 split_dataset.py
-```
-
 ## Libraries and frameworks
 - cuda == 10.2
 - numpy == 1.23.4
@@ -55,3 +26,33 @@ python3 split_dataset.py
 - requests == 2.28.1
 - pysoundfile == 0.11.0
 - scipy == 1.9.3
+
+## Preliminary operations
+Before starting with the training of the system you should create the dataset with command, synthetic and reject samples. Then there are the necessary commands. The source and destination paths need to be changed in the code, along with their parameters.
+
+For command samples you can load them with the right format using the script "create_full_dataset.py" from the "Bot" folder:
+```bash
+python3 create_full_dataset.py
+```
+
+For synthetic samples you can copy them from the original dataset:
+```bash
+cp -r /mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/dataset/full_dataset_v1/synthetics /mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1/synthetics
+```
+
+For reject samples you can load them with the right format using the scripts "include_common_voice.py" and "include_google_speech.py":
+```bash
+python3 utils/include_common_voice.py
+python3 utils/include_google_speech.py
+```
+
+The script "count_commands.py" allow to obtain statistics on the dataset.
+```bash
+python3 utils/count_commands.py
+```
+
+Finally, to create the annotation file and split them in training, validation and test sets use the following commands.
+```bash
+python3 utils/make_annotation_files.py
+python3 utils/split_dataset.py
+```

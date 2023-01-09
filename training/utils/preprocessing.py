@@ -3,6 +3,7 @@ import shutil
 import matplotlib.pyplot as plt
 import math
 import librosa
+from typing import List, Tuple
 
 import torch
 import torchaudio
@@ -27,7 +28,7 @@ def audio_info(wav_path:str):
     return torchaudio.info(wav_path)
 
 
-def load_audio(wav_path:str) -> tuple:
+def load_audio(wav_path:str) -> Tuple[torch.FloatTensor, int]:
     """Load an audio file.
 
     Parameters
@@ -183,7 +184,7 @@ def resample_audio(waveform:torch.FloatTensor, sample_rate:int, resample_rate:in
 # DATA AUGMENTATION
 ## Applying effects and filtering
 ### Apply effect to file
-def get_sample(path:str, effects:list) -> tuple:
+def get_sample(path:str, effects:list) -> Tuple[torch.FloatTensor, int]:
     """Load an audio file and apply a list of effects.
     To list the available effects use: torchaudio.sox_effects.effect_names()
 
@@ -208,7 +209,7 @@ def get_sample(path:str, effects:list) -> tuple:
 
 
 ### Apply effect to tensor
-def apply_effects(waveform:torch.FloatTensor, effects:list, resample:int=16000) -> tuple:
+def apply_effects(waveform:torch.FloatTensor, effects:list, resample:int=16000) -> Tuple[torch.FloatTensor, int]:
     """Apply a list of effects to a waveform of an audio.
     To list the available effects use: torchaudio.sox_effects.effect_names()
 
@@ -263,7 +264,7 @@ def get_noisy_speech(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_s
     scale = snr * noise_power / speech_power
     return (scale * speech + noise) / 2
 
-def get_noisy_speeches(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_sample_rate:int=16000, noise_sample_rate:int=16000, SNRs:list=list()) -> list:
+def get_noisy_speeches(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_sample_rate:int=16000, noise_sample_rate:int=16000, SNRs:list=list()) -> List[torch.FloatTensor]:
     """Apply a noise with different SNRs to a speech waveform.
 
     Parameters

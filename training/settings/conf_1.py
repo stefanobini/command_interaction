@@ -1,14 +1,18 @@
+import os
 from dotmap import DotMap
 
 settings = DotMap()
 
+'''Language'''
+settings.language = "ita"   # ["ita", "eng"]
+
 '''Dataset settings'''
 settings.dataset.folder = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1"
-settings.dataset.training.sample = ""
-settings.dataset.training.noise = ""
-settings.dataset.validation.sample = ""
-settings.dataset.validation.noise = ""
-settings.dataset.test.sample = ""
+settings.dataset.train.annotations.speech = os.path.join(settings.dataset.folder, "annotations", settings.language, "train.csv")
+settings.dataset.train.noise = ""
+settings.dataset.valid.annotations.speech = os.path.join(settings.dataset.folder, "annotations", settings.language, "valid.csv")
+settings.dataset.valid.noise = ""
+settings.dataset.test.annotations.speech = os.path.join(settings.dataset.folder, "annotations", settings.language, "test.csv")
 settings.dataset.test.noise = ""
 
 '''Training settings'''

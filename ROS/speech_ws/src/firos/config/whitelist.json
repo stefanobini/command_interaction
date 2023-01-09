@@ -1,0 +1,4 @@
+{
+    "publisher" :   [".*/Speech"],
+    "subscriber":   [".*/Speech"]
+}

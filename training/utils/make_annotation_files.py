@@ -167,16 +167,16 @@ eng_data = add_reject_samples(DATASET_PATH, rjt_path, lang, eng_data)
 
 # Italian language
 lang = LANGS[1]
-ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, eng_data)  
+ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, ita_data)  
     
 
 ''' WRITE CSV FILE '''
 lang = LANGS[0]
-out_file = os.path.join(OUT_PATH, lang, "{}_dataset.csv".format(lang))
+out_file = os.path.join(OUT_PATH, lang, "dataset.csv")
 df = pd.DataFrame(data=eng_data, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
 
 lang = LANGS[1]
-out_file = os.path.join(OUT_PATH, lang, "{}_dataset.csv".format(lang))
+out_file = os.path.join(OUT_PATH, lang, "dataset.csv")
 df = pd.DataFrame(data=ita_data, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
