@@ -16,7 +16,6 @@ import pandas as pd
 from tqdm import tqdm
 
 
-
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 LANGS = ["eng", "ita"]
 DATASET_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1"

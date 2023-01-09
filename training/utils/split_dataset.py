@@ -122,16 +122,16 @@ for type in type_group.groups:
 
 ''' WRITE CSV FILES '''
 train_df = train_df.sample(frac=1)
-out_file = os.path.join(OUTPUT_PATH, "train.csv")
+out_file = os.path.join(OUTPUT_PATH, "training.csv")
 df = pd.DataFrame(data=train_df, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
 
 valid_df = valid_df.sample(frac=1)
-out_file = os.path.join(OUTPUT_PATH, "valid.csv")
+out_file = os.path.join(OUTPUT_PATH, "validation.csv")
 df = pd.DataFrame(data=valid_df, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
 
 test_df = test_df.sample(frac=1)
-out_file = os.path.join(OUTPUT_PATH, "test.csv")
+out_file = os.path.join(OUTPUT_PATH, "testing.csv")
 df = pd.DataFrame(data=test_df, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
