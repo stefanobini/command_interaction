@@ -4,6 +4,7 @@ from typing import List, Tuple
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
+import numpy as np
 
 import torch
 from torch.utils.data import Dataset
@@ -60,6 +61,8 @@ class MiviaDataset(Dataset):
         self.labels_group = self.annotations.groupby("label")
 
         self.dataset_path = settings.dataset.folder
+
+        self.compute_melspectrogram = MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.n_fft, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)
     
 
     def __len__(self) -> int:
@@ -104,8 +107,10 @@ class MiviaDataset(Dataset):
 
         item_path = os.path.join(self.dataset_path, path)
         waveform, sample_rate = torchaudio.load(item_path)
-        compute_melspectrogram = MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.n_ftt, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)
-        melspectrogram = compute_melspectrogram(waveform)
+        
+        if settings.input.type == "mel-spectrogram":
+            melspectrogram = self.compute_melspectrogram(waveform)   # (channel, n_mels, time)
+            return melspectrogram, sample_rate, item.type, item.subtype, item.speaker, label
 
         return waveform, sample_rate, item.type, item.subtype, item.speaker, label
 
@@ -162,7 +167,7 @@ def index_to_label(index:torch.IntTensor) -> int:
     return torch.IntTensor(label)
 
 
-def pad_sequence(batch:torch.FloatTensor) -> torch.FloatTensor:
+def pad_melspectrogram(batch:torch.FloatTensor) -> torch.FloatTensor:
     """ Make all tensor in a batch the same lenght by padding with zeros.
     
     Parameters
@@ -175,20 +180,19 @@ def pad_sequence(batch:torch.FloatTensor) -> torch.FloatTensor:
     torch.FloatTensor
         Batch with audio sample of the same lenght
     """
-    batch = [item.t() for item in batch]
-    batch = torch.nn.utils.rnn.pad_sequence(sequences=batch, batch_first=True, padding_value=0.)
-    return batch.permute(0, 2, 1)
+    batch = torch.nn.utils.rnn.pad_sequence(sequences=batch, batch_first=True, padding_value=0.)    # (B x L x C x F)
+    return batch.permute(0, 2, 3, 1)    # (B x C x F x L)
 
 
-def _custom_collate_fn(batch:torch.FloatTensor) -> Tuple[torch.FloatTensor, torch.IntTensor]:
+def _custom_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, torch.IntTensor]:
     """ Process the audio samples in batch to have the same duration.
     The data tuple has the form:
     (waveform, sample_rate, type, subtype, speaker, label)
     
     Parameters
     ----------
-    batch: torch.FloatTensor
-        Batch tensor
+    batch: List[torch.FloatTensor]
+        List of tensor contained in the batch
 
     Returns
     -------
@@ -197,11 +201,11 @@ def _custom_collate_fn(batch:torch.FloatTensor) -> Tuple[torch.FloatTensor, torc
     """
     
     tensors, targets = list(), list()
-    for waveform, _, _, _, _, label in batch:
-        tensors += [waveform]
+    for tensor, _, _, _, _, label in batch:
+        tensors += [tensor.permute(2, 0, 1)]    # (L x C x F)
         targets += [label_to_index(label)]
 
-    tensors = pad_sequence(tensors)
+    tensors = pad_melspectrogram(tensors)
     targets = torch.stack(targets)
 
     return tensors, targets
