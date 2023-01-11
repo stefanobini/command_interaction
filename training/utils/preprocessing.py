@@ -166,7 +166,7 @@ def plot_melspectrogram(melspectrogram:torch.FloatTensor) -> None:
     plt.savefig(path)
 
 
-def resample_audio(waveform:torch.FloatTensor, sample_rate:int, resample_rate:int, dtype=torch.FloatTensor) -> torch.FloatTensor:
+def resample_audio(waveform:torch.FloatTensor, sample_rate:int, resample_rate:int) -> torch.FloatTensor:
     """Resample a waveform of an audio.
 
     Parameters
@@ -186,7 +186,7 @@ def resample_audio(waveform:torch.FloatTensor, sample_rate:int, resample_rate:in
         Resampled waveform
     """
 
-    T.Resample(sample_rate, resample_rate, dtype)
+    T.Resample(sample_rate, resample_rate)
     
     # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
     # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies

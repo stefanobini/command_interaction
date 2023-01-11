@@ -34,9 +34,12 @@ class ResNet8(pl.LightningModule):
 
     def forward(self, x:torch.FloatTensor) -> torch.FloatTensor:
         """ """
+        #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
 
         x = x[:, :1]  # log-Mels only
+        #print(Back.BLUE + "ResNet - 'log-Mels only' shape: {}".format(x.size()))
         x = x.permute(0, 1, 3, 2).contiguous()  # Original res8 uses (time, frequency) format
+        #print(Back.BLUE + "ResNet - after permutation shape: {}".format(x.size()))
         
         for i in range(self.n_layers + 1):
             y = torch.nn.functional.relu(getattr(self, f'conv{i}')(x))

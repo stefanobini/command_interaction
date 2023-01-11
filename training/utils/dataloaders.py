@@ -9,9 +9,9 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 import torchaudio
-from torchaudio.transforms import MelSpectrogram
 
 from settings.conf_1 import settings
+from utils import preprocessing
 
 try:
     # If run from the parent folder
@@ -23,7 +23,7 @@ except ModuleNotFoundError:
 
 class MiviaDataset(Dataset):
 
-    def __init__(self, subset:str) -> Dataset:
+    def __init__(self, subset:str, transformation) -> Dataset:
         """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class. The constructor requires only the name of the partition to load. The path of the dataset and the annotation file are taken in the configuration file.
 
         Parameters
@@ -61,8 +61,9 @@ class MiviaDataset(Dataset):
         self.labels_group = self.annotations.groupby("label")
 
         self.dataset_path = settings.dataset.folder
+        self.transformation = transformation
+        self.sample_rate = settings.input.sample_rate
 
-        self.compute_melspectrogram = MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.n_fft, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)
     
 
     def __len__(self) -> int:
@@ -109,7 +110,11 @@ class MiviaDataset(Dataset):
         waveform, sample_rate = torchaudio.load(item_path)
         
         if settings.input.type == "mel-spectrogram":
-            melspectrogram = self.compute_melspectrogram(waveform)   # (channel, n_mels, time)
+            if sample_rate != self.sample_rate:
+                waveform = preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate, resample_rate=self.sample_rate)    # uniform sample rate
+            if waveform.size(0) > 1:
+                waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+            melspectrogram = self.transformation(waveform)   # (channel, n_mels, time)
             return melspectrogram, sample_rate, item.type, item.subtype, item.speaker, label
 
         return waveform, sample_rate, item.type, item.subtype, item.speaker, label

@@ -7,6 +7,7 @@ from colorama import Back, Fore
 
 import torch
 import torchaudio
+from pytorch_lightning import loggers
 import pytorch_lightning as pl
 
 from utils.dataloaders import MiviaDataset, _custom_collate_fn
@@ -25,17 +26,18 @@ pl.seed_everything(5138)
 ########################
 ### LOAD THE SUBSETS ###
 ########################
-train_set = MiviaDataset(subset="training")
-val_set = MiviaDataset(subset="validation")
-test_set = MiviaDataset(subset="testing")
-print("The dataset is splitted in:\n- TRAINING samples:\t{}\n- VALIDATION samples:\t{}\n- TESTING samples:\t{}\n".format(len(train_set), len(val_set),len(test_set)))
+transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.n_fft, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)
+train_set = MiviaDataset(subset="training", transformation=transformation)
+val_set = MiviaDataset(subset="validation", transformation=transformation)
+test_set = MiviaDataset(subset="testing", transformation=transformation)
+# print("The dataset is splitted in:\n- TRAINING samples:\t{}\n- VALIDATION samples:\t{}\n- TESTING samples:\t{}\n".format(len(train_set), len(val_set),len(test_set)))
 
 
 ########################
 ### BUILD DATALOADER ###
 ########################
 labels = train_set._get_labels()
-print("Labels list ({}): {}".format(len(labels), labels))
+# print("Labels list ({}): {}".format(len(labels), labels))
 
 # Computing the label weights to balance the dataloader
 weights = train_set._get_label_weights()
@@ -56,6 +58,8 @@ test_loader = torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.
 ###### TRAIN MODEL #####
 ########################
 model = ResNet8(num_labels=len(labels)).cuda()
-trainer = pl.Trainer(auto_lr_find=True, accelerator="gpu", gpus=settings.training.gpus) # auto_scale_batch_size=True
-# trainer.tune(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
+
+logger = loggers.TensorBoardLogger()
+trainer = pl.Trainer(auto_lr_find=True, accelerator="gpu", logger=logger, max_epochs=settings.training.max_epochs)   # auto_scale_batch_size=True
+trainer.tune(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
