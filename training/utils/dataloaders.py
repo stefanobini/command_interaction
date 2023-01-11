@@ -15,10 +15,10 @@ from settings.conf_1 import settings
 
 try:
     # If run from the parent folder
-    from utils.preprocessing import plot_waveform, plot_spectrogram, plot_db_spectrogram, get_spectrogram
+    from utils.preprocessing import plot_waveform, plot_spectrogram, plot_db_spectrogram, plot_melspectrogram, get_spectrogram
 except ModuleNotFoundError:
     # If run from the "utils" folder
-    from preprocessing import plot_waveform, plot_spectrogram, plot_db_spectrogram, get_spectrogram
+    from preprocessing import plot_waveform, plot_spectrogram, plot_db_spectrogram, plot_melspectrogram, get_spectrogram
 
 
 class MiviaDataset(Dataset):
@@ -221,16 +221,19 @@ if __name__ == "__main__":
     print(train_set._get_label_weights())
 
     sample = 0
-    waveform, sample_rate, type, subtype, speaker, label = train_set[sample]
+    melspectrogram, sample_rate, type, subtype, speaker, label = train_set[sample]
 
     # print(train_set._get_sample_from_type("reject"))
 
     labels = train_set._get_labels()
     print("Labels list ({}): {}".format(len(labels), labels))
 
-    print("Sample rate: {}\nType: {}\nSubtype: {}\nSpeaker: {}\nLabel: {}".format(sample_rate, type, subtype, speaker, label))
+    print("Mel-Spectrogram shape: {}\nSample rate: {}\nType: {}\nSubtype: {}\nSpeaker: {}\nLabel: {}".format(melspectrogram.size(), sample_rate, type, subtype, speaker, label))
 
+    plot_melspectrogram(melspectrogram=melspectrogram[0])
+    '''
     plot_waveform(waveform=waveform)
     plot_spectrogram(waveform=waveform)
     db_spectrogram = get_spectrogram(waveform=waveform)
     plot_db_spectrogram(pow_spectrogram=db_spectrogram[0])
+    '''

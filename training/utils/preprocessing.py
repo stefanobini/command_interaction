@@ -3,7 +3,9 @@ import shutil
 import matplotlib.pyplot as plt
 import math
 import librosa
+import librosa.display
 from typing import List, Tuple
+import numpy as np
 
 import torch
 import torchaudio
@@ -150,7 +152,17 @@ def plot_db_spectrogram(pow_spectrogram) -> None:
     im = axs.imshow(db_spec, origin="lower", aspect="auto")
     fig.colorbar(im, ax=axs)
     plt.show(block=False)
-    path = os.path.join("figures", "Spectrogram_dB_eaxample.png")
+    path = os.path.join("figures", "Spectrogram_dB_example.png")
+    plt.savefig(path)
+
+
+def plot_melspectrogram(melspectrogram:torch.FloatTensor) -> None:
+    fig, ax = plt.subplots()
+    melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
+    img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
+    ax.set(title='Mel spectrogram display')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
+    path = os.path.join("figures", "melspectrogram_example.png")
     plt.savefig(path)
 
 
