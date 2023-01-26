@@ -44,7 +44,7 @@ MAXSIZE = 2**32-1
 # DATASET_PATH = "dataset/FELICE_demo7_extended"
 # DATASET_PATH = "dataset/FELICE_demo3"
 DATASET_PATH = "dataset/full_dataset_v1"
-DATASET_PATH = "dataset/test_dataset"
+#DATASET_PATH = "dataset/test_dataset"
 CMD_DATASET_PATH = os.path.join(DATASET_PATH, "commands")
 RJT_DATASET_PATH = os.path.join(DATASET_PATH, "rejects")
 

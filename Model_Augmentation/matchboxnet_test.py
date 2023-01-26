@@ -69,6 +69,9 @@ import argparse
 from nemo.collections.asr.parts.preprocessing.perturb import register_perturbation
 
 
+THRESH = 0.90
+
+
 def save_predicts(predict_labels: dict, true_labels: dict):
     data = (predict_labels, true_labels)
     with open(str(predict_file_path), "wb") as fil:
@@ -107,7 +110,32 @@ def report(true_labels, predict_labels, snr, seed):
     print(f"\t{ckpt_name}\n\tsnr: {snr} - seed: {seed}\n{report}", file=fil)
     fil.close()
 
+def remove_rejection(preds, targs):
+    new_preds, new_targs = list(), list()
+    for idx in range(len(preds)):
+        if preds[idx] != len(commands.command_eng) and targs[idx] != len(commands.command_eng):
+            new_preds.append(preds[idx])
+            new_targs.append(targs[idx])
+        '''
+        elif targs[idx] != len(commands.command_eng):
+            new_preds.append(targs[idx]-1 if targs[idx]!=0 else targs[idx]+1)
+            new_targs.append(targs[idx])
+            count_rjt_fp += 1
+        elif preds[idx] != len(commands.command_eng):
+            new_preds.append(preds[idx])
+            new_targs.append(preds[idx]-1 if preds[idx]!=0 else preds[idx]+1)
+            count_rjt_fn += 1
+        else:
+            count_rjt_tp += 1
+        '''
+    new_preds = np.array(new_preds)
+    new_targs = np.array(new_targs)
+    return new_preds, new_targs
+
+
 def metrics(true_labels, predict_labels, seed, snr):
+    # predict_labels, true_labels = remove_rejection(preds=predict_labels, targs=true_labels)
+    # predict_labels = apply_thresh(predict_labels)
     acc = accuracy_score(y_true=true_labels, y_pred=predict_labels)
     rej_acc = reject_acc(true_labels, predict_labels)
     bal_acc = balanced_accuracy_score(y_true=true_labels, y_pred=predict_labels)
@@ -131,11 +159,23 @@ def is_test():
     res_path.mkdir(parents=True, exist_ok=True)
     return True
 
+
+def apply_thresh(preds):
+    preds_lab_max = np.argmax(preds, axis=1)
+    final_preds = preds_lab_max
+    preds_val_max = np.max(preds, axis=1)
+
+    for i in range(len(preds_val_max)):
+        if preds_val_max[i] < THRESH:
+            final_preds[i] = 31
+    return final_preds
+
+
 if __name__ == "__main__":
     
     PLOT = True     # If "False" we can test only snr for wich the system was trained due to Tensorflow plot
     SNR_MIN = -10    # -10
-    SNR_MAX = 20    # 20
+    SNR_MAX = 40    # 20
     SNR_STEP = 5
     NUM_CPU = 6
     seed_list  = range(0, 1, 1)
@@ -145,7 +185,8 @@ if __name__ == "__main__":
     stats = pd.DataFrame(columns=["seed", "snr", "accuracy", "bal_acc", "rejcet_acc"])
     
     if not is_windows():
-        os.environ["CUDA_VISIBLE_DEVICES"] = str(1)
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(0)
+        print("CUDA computation is available!")
     
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp_dir", type=str, required=False, default=None, dest="exp_dir")
@@ -209,15 +250,17 @@ if __name__ == "__main__":
         asr_model = Model.load_backup(trainer=None, ckpt_name=ckpt_name, exp_dir=exp_dir, new_cfg=config)
 
         dataloaders = validation_callback.dataloaders
-        predict_db, true_labels_db = {}, {}
+        predict_db, true_labels_db, pred_no_argmax_db = dict(), dict(), dict()
         for snr, dataloader in dataloaders.items():
             if test:
                 try:
                     _, true_labels, predict_labels, pred_no_argmax, logits = validation_callback.validate(asr_model, dataloader, device="gpu")
                 except RuntimeError:
                     _, true_labels, predict_labels, pred_no_argmax, logits = validation_callback.validate(asr_model, dataloader, device="cpu")
+                predict_labels = apply_thresh(pred_no_argmax)
                 predict_db[snr] = predict_labels
                 true_labels_db[snr] = true_labels
+                pred_no_argmax_db[snr] = pred_no_argmax
                 save_predicts(predict_db, true_labels_db)
             else:
                 predict_db, true_labels_db = load_predict()

@@ -1,5 +1,6 @@
 import os
 import shutil
+import random
 import matplotlib.pyplot as plt
 import math
 import librosa
@@ -11,6 +12,167 @@ import torch
 import torchaudio
 import torchaudio.transforms as T
 import torchaudio.functional as F
+
+from settings.conf_1 import settings
+
+
+class Preprocessing():
+    def __init__(self, snr:int=None):
+        self.snr = snr
+        self.sample_rate = settings.input.sample_rate
+        self.n_fft = settings.input.n_fft
+        self.win_lenght = settings.input.win_lenght
+        self.hop_lenght = settings.input.hop_lenght
+        self.n_mels = settings.input.n_mels
+        self.max_epochs = settings.training.max_epochs
+        self.min_snr = settings.noise.min_snr
+        self.max_snr = settings.noise.max_snr
+        self.descent_ratio = settings.noise.descent_ratio
+        self.distribution = settings.noise.curriculum_learning.distribution
+        self.min_sigma = settings.noise.curriculum_learning.min_sigma
+        self.max_sigma = settings.noise.curriculum_learning.max_sigma
+
+    
+    def resample_audio(self, waveform:torch.FloatTensor, sample_rate:int) -> torch.FloatTensor:
+        """Resample a waveform of an audio.
+        
+        Parameters
+        ----------
+        waveform : torch.FloatTensor
+            The waveform of the audio
+        sample_rate: int
+            Sample rate of the sample
+        resample_rate: str
+            New sample rate
+        dtype: torch.TensorType
+            Tensor type of the waveform
+
+        Returns
+        -------
+        torch.FloatTensor
+            Resampled waveform
+        """
+
+        T.Resample(sample_rate, self.sample_rate)
+        
+        # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
+        # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
+        # Window function
+        return F.resample(waveform=waveform, orig_freq=sample_rate, new_freq=self.sample_rate, lowpass_filter_width=6, rolloff=0.99, resampling_method="sinc_interpolation")
+
+    
+    def get_melspectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
+        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=self.sample_rate, n_fft=self.n_fft, win_length=self.win_lenght, hop_length=self.hop_lenght, n_mels=self.n_mels)
+
+        return transformation(waveform)
+
+    
+    def compute_snr(self, epoch:int) -> float:
+        if self.snr is not None:
+            return self.snr
+        
+        descent_epochs = epoch*self.descent_ratio
+        if self.distribution == "uniform":
+            self.snr = random.uniform(self.min_snr, self.max_snr)
+        elif self.distribution == "dynamic_uniform":
+            ### CURRICULUM LEARNING ###
+            a = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr                           # modeled as a linear descending function plus a flat phase in the end
+            # b = epoch * (self.min_snr - self.max_snr) / self.descent_epochs + self.max_snr + self.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
+            b = self.max_snr
+            if b > self.max_snr:
+                b = self.max_snr
+            self.snr = random.uniform(a=a, b=b)
+        elif self.distribution == "dynamic_normal":
+            ### CURRICULUM LEARNING ###
+            # model mu as a combination of descent linear function plus a constant  ->  \_
+            mu = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            # model sigma as a triangular function                                  ->  /\
+            s1 = epoch * (-self.max_sigma) / self.max_epochs + self.max_sigma + self.min_sigma      # modeled as a linear descending function
+            s2 = epoch * self.max_sigma / self.max_epochs + self.min_sigma                          # modeled as a linear ascending function
+            sigma = min(s1, s2)   
+            self.snr = np.random.normal(loc=mu, scale=sigma)
+            if (sigma < self.min_sigma or sigma > self.max_sigma) and self.max_sigma != 0:
+                raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, self.min_sigma, self.max_sigma))
+            
+        # pre_snr = snr
+        if self.snr > self.max_snr:
+            self.snr = self.max_snr
+        elif self.snr < self.min_snr:
+            self.snr = self.min_snr 
+        
+        # n_sample += 1
+        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, mu, sigma, snr, pre_snr, self.min_snr, self.max_snr))
+        # print("*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
+        return self.snr
+
+
+    def fix_noise_duration(self, speech:torch.FloatTensor, noise:torch.FloatTensor) -> torch.FloatTensor:
+        """Adjust the noise duration to be equal to the speech. The noise is cutted if is too long and padded (by zeros) if it is too short.
+        
+        Parameters
+        ----------
+        speech: torch.FloatTensor
+            Speech waveform tensor (1-D). Tensor whose duration should not be changed.
+        noise: torch.FloatTensor
+            Noise waveform tensor (1-D). Tensor whose duration should be changed.
+
+        Returns
+        -------
+        torch.FloatTensor
+            Noise waveform tensor (1-D) with the same duration of the speech give as input.
+        """
+        if noise.size(1) > speech.size(1):
+            start = random.randint(a=0, b=noise.size(1)-speech.size(1))
+            end = start + speech.size(1)
+            noise = noise[0, start:end]
+        elif noise.size(1) < speech.size(1):
+            start = random.randint(a=0, b=speech.size(1)-noise.size(1))
+            end = start + noise.size(1)
+            t = torch.zeros(size=speech.size())
+            t[0, start:end] = noise
+            noise = t
+        return noise        
+
+
+    def get_noisy_speech(self, speech:torch.FloatTensor, noise:torch.FloatTensor, snr_db:float) -> torch.FloatTensor:
+        """Apply a noise with specific SNR to a speech waveform.
+
+        Parameters
+        ----------
+        speech: torch.FloatTensor
+            Speech waveform
+        noise: torch.FloatTensor
+            Noise waveform
+        snr: float
+            SNR in dB applied to the speech sample
+
+        Returns
+        -------
+        torch.FloatTensor
+            Noisy speech
+        """
+        
+        noise = self.fix_noise_duration(speech=speech, noise=noise)
+
+        speech_power = speech.norm(p=2)
+        noise_power = noise.norm(p=2)
+        
+        snr = math.exp(snr_db / 10)
+        scale = speech_power / (snr * noise_power)
+        return (scale * noise + speech) / 2
+
+'''
+    data_rms = data.rms_db
+    noise_gain_db = min(data_rms - noise.rms_db - snr_db, self._max_gain_db)
+    noise.gain_db(noise_gain_db)
+
+    def rms_db(self):
+        mean_square = np.mean(self._samples ** 2)
+        return 10 * np.log10(mean_square)
+
+    def gain_db(self, gain):
+        self._samples *= 10.0 ** (gain / 20.0)
+'''
 
 
 def audio_info(wav_path:str):
@@ -166,33 +328,6 @@ def plot_melspectrogram(melspectrogram:torch.FloatTensor) -> None:
     plt.savefig(path)
 
 
-def resample_audio(waveform:torch.FloatTensor, sample_rate:int, resample_rate:int) -> torch.FloatTensor:
-    """Resample a waveform of an audio.
-
-    Parameters
-    ----------
-    waveform : torch.FloatTensor
-        The waveform of the audio
-    sample_rate: int
-        Sample rate of the sample
-    resample_rate: str
-        New sample rate
-    dtype: torch.TensorType
-        Tensor type of the waveform
-
-    Returns
-    -------
-    torch.FloatTensor
-        Resampled waveform
-    """
-
-    T.Resample(sample_rate, resample_rate)
-    
-    # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
-    # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
-    # Window function
-    return F.resample(waveform=waveform, orig_freq=sample_rate, new_freq=resample_rate, lowpass_filter_width=6, rolloff=0.99, resampling_method="sinc_interpolation")
-
 # DATA AUGMENTATION
 ## Applying effects and filtering
 ### Apply effect to file
@@ -244,37 +379,6 @@ def apply_effects(waveform:torch.FloatTensor, effects:list, resample:int=16000) 
     
     return torchaudio.sox_effects.apply_effects_tensor(tensor=waveform, sample_rate=resample, effects=effects)
 
-## Adding background noise
-def get_noisy_speech(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_sample_rate:int=16000, noise_sample_rate:int=16000, snr_db:int=100) -> torch.FloatTensor:
-    """Apply a noise with specific SNR to a speech waveform.
-
-    Parameters
-    ----------
-    speech: torch.FloatTensor
-        Speech waveform
-    noise: torch.FloatTensor
-        Noise waveform
-    speech_sample_rate: int
-        Sample rate of speech waveform
-    noise_sample_rate: int
-        Sample rate to apply to the noise waveform
-    SNRs: int
-        SNRs (in dB) to apply on the speech waveform
-
-    Returns
-    -------
-    torch.FloatTensor
-        Noisy speeches.
-    """
-    
-    noise = resample_audio(waveform=noise, sample_rate=noise_sample_rate, resample_rate=speech_sample_rate)
-
-    speech_power = speech.norm(p=2)
-    noise_power = noise.norm(p=2)
-
-    snr = math.exp(snr_db / 10)
-    scale = snr * noise_power / speech_power
-    return (scale * speech + noise) / 2
 
 def get_noisy_speeches(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_sample_rate:int=16000, noise_sample_rate:int=16000, SNRs:list=list()) -> List[torch.FloatTensor]:
     """Apply a noise with different SNRs to a speech waveform.
@@ -304,7 +408,7 @@ def get_noisy_speeches(speech:torch.FloatTensor, noise:torch.FloatTensor, speech
         noisy_speeches.append(noisy_speech)
     
     return noisy_speeches
-        
+
 
 ## Applying codec to Tensor object
 def apply_codec(waveform:torch.FloatTensor, sample_rate:int, config:dict) -> torch.FloatTensor:
@@ -328,9 +432,8 @@ def apply_codec(waveform:torch.FloatTensor, sample_rate:int, config:dict) -> tor
     
     return F.apply_codec(waveform=waveform, sample_rate=sample_rate, **config)
 
-# FEATURE EXTRACTIONS
-## Spectrogram: To get the frequency make-up of an audio signal as it varies with time, you can use Spectrogram.
-def get_spectrogram(waveform:torch.FloatTensor, n_fft:int=400, win_lenght:int=400, hop_lenght:int=200) -> torch.FloatTensor:
+
+def get_spectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
     """Get spectrogram in dB from a waveform.
 
     Parameters
@@ -351,9 +454,9 @@ def get_spectrogram(waveform:torch.FloatTensor, n_fft:int=400, win_lenght:int=40
     """
     
     spectrogram = T.Spectrogram(
-        n_fft=n_fft,
-        win_length=win_lenght,
-        hop_length=hop_lenght,
+        n_fft=self.n_fft,
+        win_length=self.win_lenght,
+        hop_length=self.hop_lenght,
         center=True,
         pad_mode="reflect",
         power=2.0

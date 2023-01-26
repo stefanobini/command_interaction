@@ -17,6 +17,7 @@ from tqdm import tqdm
 
 
 HEADING = ["path", "type", "subtype", "speaker", "label"]
+NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
 DATASET_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1"
 OUT_PATH = os.path.join(DATASET_PATH, "annotations")
@@ -24,6 +25,7 @@ OUT_PATH = os.path.join(DATASET_PATH, "annotations")
 cmd_path = "commands"
 syn_path = "synthetics"
 rjt_path = "rejects"
+noise_path = "noises"
 
 
 def add_command_samples(data, lang_path, speaker, samples):
@@ -89,6 +91,36 @@ def add_reject_samples(dataset_path, rjt_path, lang, data):
         data_iter.set_description("Working on REJECTS in {}".format(lang))
     
     return data
+
+
+def get_noise_annotations_dict():
+    noise_full_path = os.path.join(DATASET_PATH, noise_path)
+
+    noises = {"path": [], "type": [], "subtype": []}
+    noise_iter = tqdm(os.listdir(noise_full_path))
+    for type in noise_iter:
+        if ".wav" in type:
+            path = os.path.join(noise_path, type)
+            noises["path"].append(path)
+            noises["type"].append("unknown")
+            noises["subtype"].append("unknown")
+        else:
+            type_full_path = os.path.join(noise_full_path, type)
+            for subtype in os.listdir(type_full_path):
+                if ".wav" in subtype:
+                    noises["path"].append(os.path.join(noise_path, type, subtype))
+                    noises["type"].append(type)
+                    noises["subtype"].append("unknown")
+                else:
+                    subtype_full_path = os.path.join(type_full_path,subtype)
+                    for file in os.listdir(subtype_full_path):
+                        noises["path"].append(os.path.join(noise_path, type, subtype, file))
+                        noises["type"].append(type)
+                        noises["subtype"].append(subtype)
+
+        noise_iter.set_description("Working on NOISES") 
+    
+    return noises
 
 
 eng_data = {"path": [], "type": [], "subtype": [], "speaker": [], "label": []}
@@ -166,7 +198,11 @@ eng_data = add_reject_samples(DATASET_PATH, rjt_path, lang, eng_data)
 
 # Italian language
 lang = LANGS[1]
-ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, ita_data)  
+ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, ita_data)
+
+
+''' NOISE SAMPLES '''
+noise_data = get_noise_annotations_dict()
     
 
 ''' WRITE CSV FILE '''
@@ -178,4 +214,8 @@ df.to_csv(path_or_buf=out_file, index=False)
 lang = LANGS[1]
 out_file = os.path.join(OUT_PATH, lang, "dataset.csv")
 df = pd.DataFrame(data=ita_data, columns=HEADING)
+df.to_csv(path_or_buf=out_file, index=False)
+
+out_file = os.path.join(OUT_PATH, "noise", "dataset.csv")
+df = pd.DataFrame(data=noise_data, columns=NOISE_HEADING)
 df.to_csv(path_or_buf=out_file, index=False)

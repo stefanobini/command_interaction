@@ -3,11 +3,11 @@ import os
 import numpy as np
 
 
-FOLDER      = "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-12_15-30-44"
+FOLDER      = "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-41-16"
 IN_FILE     = os.path.join(FOLDER, "res/stats.csv")
 OUT_FILE    = os.path.join(FOLDER, "summary.txt")
-SEEDs       = 10
-SNRs        = range(-10, 25, 5)
+SEEDs       = 1
+SNRs        = range(-10, 40, 5)
 
 res = dict()
 acc_list, bal_acc_list, rjt_acc_list = np.zeros(shape=(len(SNRs), SEEDs)), np.zeros(shape=(len(SNRs), SEEDs)), np.zeros(shape=(len(SNRs), SEEDs))
