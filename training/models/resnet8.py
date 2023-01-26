@@ -10,7 +10,6 @@ import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
 from typing import Dict, List
-import numpy
 
 from settings.conf_1 import settings
 
@@ -204,8 +203,6 @@ class ResNet8(pl.LightningModule):
             self.log("accuracy_{}_dB".format(snr), accuracy)
             self.log("balanced_accuracy_{}_dB".format(snr), balanced_accuracy)
             self.log("reject_accuracy_{}_dB".format(snr), reject_accuracy)
-
-            self.val_loaders.loaders[snr].dataset.increase_epoch(step=1)
         
         self.log("accuracy", sum(accuracy_mean)/len(accuracy_mean))
         self.log("balanced_accuracy", sum(balanced_accuracy_mean)/len(balanced_accuracy_mean))

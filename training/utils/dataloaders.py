@@ -20,7 +20,7 @@ except ModuleNotFoundError:
     from preprocessing import plot_waveform, plot_spectrogram, plot_db_spectrogram, plot_melspectrogram, get_spectrogram, Preprocessing
 
 
-class MiviaDataset(Dataset):
+class OLD_MiviaDataset(Dataset):
 
     def __init__(self, subset:str, preprocessing:Preprocessing) -> Dataset:
         """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class. The constructor requires only the name of the partition to load. The path of the dataset and the annotation file are taken in the configuration file.
@@ -81,7 +81,7 @@ class MiviaDataset(Dataset):
     def increase_epoch(self, step:int=0) -> None:
         self.epoch += step
 
-    
+
     def _get_types(self) -> List[str]:
         return list(self.types_group.groups.keys())
     
@@ -155,14 +155,14 @@ class MiviaDataset(Dataset):
 
         indexes = range(len(self._get_labels()))
         for index, label in zip(indexes, self._get_labels()):
-            weights[index] = len(self.labels_group.get_group(name=label)) / len(self.speech_annotations)
+            weights[index] = len(self.labels_group.get_group(name=label)) / len(self.annotations)
         
         return weights
 
 
-class ValidationMiviaDataset(MiviaDataset):
+class MiviaDataset(Dataset):
     
-    def __init__(self, subset:str, preprocessing:Preprocessing) -> Dataset:
+    def __init__(self) -> Dataset:
         """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class. The constructor requires only the name of the partition to load. The path of the dataset and the annotation file are taken in the configuration file.
 
         Parameters
@@ -175,42 +175,10 @@ class ValidationMiviaDataset(MiviaDataset):
         torch.utils.data.Dataset
             Dataset object
         """
-
-        assert subset is None or subset in ["training", "validation", "testing"], (
-            "When `subset` not None, it must take a value from "
-            + "{None, 'training', 'validation', 'testing'}."
-        )
-
-        self.preprocessing = preprocessing
+        self.preprocessing = Preprocessing()
+        self.dataset_path = settings.dataset.folder
         self.speech_annotations = None
         self.noise_annotations = None
-        if subset == "training":
-            self.speech_annotations = pd.read_csv(settings.dataset.speech.training.annotations, sep=',')
-            self.noise_annotations = pd.read_csv(settings.dataset.noise.training.annotations, sep=',')
-        elif subset == "validation":
-            self.speech_annotations = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
-            self.noise_annotations = pd.read_csv(settings.dataset.noise.validation.annotations, sep=',')
-        elif subset == "testing":
-            self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
-            self.noise_annotations = pd.read_csv(settings.dataset.noise.testing.annotations, sep=',')
-        else:   # Load the entire dataset
-            train_speech_set = pd.read_csv(settings.dataset.speech.training.annotations, sep=',')
-            val_speech_set = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
-            test_speech_set = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
-            self.speech_annotations = pd.concat(objs=[train_speech_set, val_speech_set, test_speech_set])
-
-            train_noise_set = pd.read_csv(settings.dataset.noise.training.annotations, sep=',')
-            val_noise_set = pd.read_csv(settings.dataset.noise.validation.annotations, sep=',')
-            test_noise_set = pd.read_csv(settings.dataset.noise.testing.annotations, sep=',')
-            self.noise_annotations = pd.concat(objs=[train_noise_set, val_noise_set, test_noise_set])
-
-        self.types_group = self.speech_annotations.groupby("type")
-        self.subtypes_group = self.speech_annotations.groupby("subtype")
-        self.speakers_group = self.speech_annotations.groupby("speaker")
-        self.labels_group = self.speech_annotations.groupby("label")
-
-        self.dataset_path = settings.dataset.folder
-        self.epoch = 0
     
 
     def __len__(self) -> int:
@@ -226,50 +194,43 @@ class ValidationMiviaDataset(MiviaDataset):
         waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
         if settings.input.type == "mel-spectrogram":
-            melspectrogram = torchaudio.transforms.MelSpectrogram(sample_rate=sample_rate, n_fft=settings.input.n_fft, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)   # (channel, n_mels, time)
+            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
             return melspectrogram, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
 
         return waveform, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
 
-    
-    def _get_types(self) -> List[str]:
-        return list(self.types_group.groups.keys())
-    
-    def _get_subtypes(self) -> List[str]:
-        return list(self.subtypes_group.groups.keys())
-    
-    def _get_speakers(self) -> List[str]:
-        return list(self.speakers_group.groups.keys())
-    
+
     def _get_labels(self) -> List[int]:
-        return list(self.labels_group.groups.keys())
+        return list(self.speech_annotations.groupby("label").groups.keys())
 
-    
-    def _get_sample_from_type(self, name:str) -> pd.core.frame.DataFrame:
-        assert name in self._get_types(), ("The dataset does not contain type: ", name)
-        return self.types_group.get_group(name)
 
-    def _get_sample_from_subtype(self, name:str) -> pd.core.frame.DataFrame:
-        assert name in self._get_subtypes(), ("The dataset does not contain subtype: ", name)
-        return self.subtypes_group.get_group(name)
-    
-    def _get_sample_from_speaker(self, name:str) -> pd.core.frame.DataFrame:
-        assert name in self._get_speakers(), ("The dataset does not contain speaker: ", name)
-        return self.speakers_group.get_group(name)
+    def _get_label_weights(self) -> List[torch.FloatTensor]:
+        """ Calculate the percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
+        
+        Returns
+        -------
+        torch.FloatTensor
+            One-Dimensional FloatTensor of weights.
+        """
+        labels_group = self.speech_annotations.groupby("label")
+        weights = torch.zeros(len(self._get_labels()))
 
-    def _get_sample_from_labels(self, name:str) -> pd.core.frame.DataFrame:
-        assert name in self._get_labels(), ("The dataset does not contain label: ", name)
-        return self.labels_group.get_group(name)
+        indexes = range(len(self._get_labels()))
+        for index, label in zip(indexes, self._get_labels()):
+            weights[index] = len(labels_group.get_group(name=label)) / len(self.speech_annotations)
+        
+        return weights
 
 
 class TrainingMiviaDataset(MiviaDataset):
 
-    def __init__(self, subset: str, preprocessing: Preprocessing) -> Dataset:
-        super().__init__(subset, preprocessing)
-
-
-    def __len__(self) -> int:
-        return len(self.speech_annotations)
+    def __init__(self) -> Dataset:
+        super().__init__()
+        
+        self.dataset_path = os.path.join(settings.dataset.folder, "training")
+        self.speech_annotations = pd.read_csv(settings.dataset.speech.training.annotations, sep=',')
+        self.noise_annotations = pd.read_csv(settings.dataset.noise.training.annotations, sep=',')
+        self.epoch = 0
 
     
     def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int, float]:
@@ -306,6 +267,24 @@ class TrainingMiviaDataset(MiviaDataset):
         """ Shuffle noise annotation file. The method is useful to change the loading order among epochs. """
         self.noise_annotations =self.noise_annotations.sample(frac=1)
 
+
+class ValidationMiviaDataset(MiviaDataset):
+
+    def __init__(self) -> Dataset:
+        super().__init__()
+
+        self.dataset_path = os.path.join(settings.dataset.folder, "validation")
+        self.speech_annotations = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
+
+
+class TestingMiviaDataset(MiviaDataset):
+
+    def __init__(self) -> Dataset:
+        super().__init__()
+
+        self.dataset_path = os.path.join(settings.dataset.folder, "testing")
+        self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
+            
 
 #########################
 ### UTILITY FUNCTIONS ###
@@ -436,24 +415,30 @@ def approximate_snr(snr:float, multiple:int) -> int:
 
 if __name__ == "__main__":
 
-    train_set = MiviaDataset(subset="training", preprocessing=Preprocessing())
-    valid_set = MiviaDataset(subset="validation", preprocessing=Preprocessing(snr=-10))
-    test_set = MiviaDataset(subset="testing", preprocessing=Preprocessing(snr=40))
+    train_set = TrainingMiviaDataset()
+    valid_set = ValidationMiviaDataset()
+    test_set = TestingMiviaDataset()
 
     print("The dataset is splitted in:\n- TRAIN samples:\t{}\n- VALID samples:\t{}\n- TEST samples:\t\t{}".format(len(train_set), len(valid_set),len(test_set)))
     # print(train_set._get_label_weights())
 
-    sample = 3
-    waveform, sample_rate, type, subtype, speaker, label = train_set[sample]
-    print(sample_rate)
+    sample = 7
 
-    val_waveform, val_sample_rate, _, _, _, _ = valid_set[sample]
+    if settings.input.type == "waveform":
+        waveform, sample_rate, type, subtype, speaker, label = train_set[sample]
+        val_waveform, val_sample_rate, _, _, _, _ = valid_set[sample]
 
-    # print(train_set._get_sample_from_type("reject"))
-    torchaudio.save("train_sample.wav", waveform, sample_rate) 
-    torchaudio.save("val_sample.wav", val_waveform, val_sample_rate) 
+        # print(train_set._get_sample_from_type("reject"))
+        torchaudio.save("figure/waveform_train.wav", waveform, sample_rate) 
+        torchaudio.save("figure/waveform_val.wav", val_waveform, val_sample_rate)
+    else:
+        mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[sample]
+        val_mel_spectrogram, val_sample_rate, _, _, _, _ = valid_set[sample]
 
-    labels = train_set._get_labels()
+        plot_melspectrogram(path="figures/melspectrogram_train", melspectrogram=mel_spectrogram)
+        plot_melspectrogram(path="figures/melspectrogram_val", melspectrogram=val_mel_spectrogram)
+
+    # labels = train_set._get_labels()
     # print("Labels list ({}): {}".format(len(labels), labels))
 
     # print("Mel-Spectrogram shape: {}\nSample rate: {}\nType: {}\nSubtype: {}\nSpeaker: {}\nLabel: {}".format(melspectrogram.size(), sample_rate, type, subtype, speaker, label))

@@ -110,7 +110,7 @@ def build_set(subset:str):
 
             ann_iter.set_description("Building '{}-{}' set".format(lang, subset))
 
-        out_file = os.path.join(out_path, "annotations", lang, "noisy_{}.csv".format(subset))
+        out_file = os.path.join(out_path, "annotations", lang, "{}.csv".format(subset))
         df = pd.DataFrame(data=data, columns=FULL_HEADING)
         df.to_csv(path_or_buf=out_file, index=False)
 

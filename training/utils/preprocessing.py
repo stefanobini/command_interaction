@@ -17,8 +17,7 @@ from settings.conf_1 import settings
 
 
 class Preprocessing():
-    def __init__(self, snr:int=None):
-        self.snr = snr
+    def __init__(self):
         self.sample_rate = settings.input.sample_rate
         self.n_fft = settings.input.n_fft
         self.win_lenght = settings.input.win_lenght
@@ -66,13 +65,10 @@ class Preprocessing():
         return transformation(waveform)
 
     
-    def compute_snr(self, epoch:int) -> float:
-        if self.snr is not None:
-            return self.snr
-        
+    def compute_snr(self, epoch:int) -> float:        
         descent_epochs = epoch*self.descent_ratio
         if self.distribution == "uniform":
-            self.snr = random.uniform(self.min_snr, self.max_snr)
+            snr = random.uniform(self.min_snr, self.max_snr)
         elif self.distribution == "dynamic_uniform":
             ### CURRICULUM LEARNING ###
             a = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr                           # modeled as a linear descending function plus a flat phase in the end
@@ -80,7 +76,7 @@ class Preprocessing():
             b = self.max_snr
             if b > self.max_snr:
                 b = self.max_snr
-            self.snr = random.uniform(a=a, b=b)
+            snr = random.uniform(a=a, b=b)
         elif self.distribution == "dynamic_normal":
             ### CURRICULUM LEARNING ###
             # model mu as a combination of descent linear function plus a constant  ->  \_
@@ -89,20 +85,20 @@ class Preprocessing():
             s1 = epoch * (-self.max_sigma) / self.max_epochs + self.max_sigma + self.min_sigma      # modeled as a linear descending function
             s2 = epoch * self.max_sigma / self.max_epochs + self.min_sigma                          # modeled as a linear ascending function
             sigma = min(s1, s2)   
-            self.snr = np.random.normal(loc=mu, scale=sigma)
+            snr = np.random.normal(loc=mu, scale=sigma)
             if (sigma < self.min_sigma or sigma > self.max_sigma) and self.max_sigma != 0:
                 raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, self.min_sigma, self.max_sigma))
             
         # pre_snr = snr
-        if self.snr > self.max_snr:
-            self.snr = self.max_snr
-        elif self.snr < self.min_snr:
-            self.snr = self.min_snr 
+        if snr > self.max_snr:
+            snr = self.max_snr
+        elif snr < self.min_snr:
+            snr = self.min_snr 
         
         # n_sample += 1
         # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, mu, sigma, snr, pre_snr, self.min_snr, self.max_snr))
         # print("*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
-        return self.snr
+        return snr
 
 
     def fix_noise_duration(self, speech:torch.FloatTensor, noise:torch.FloatTensor) -> torch.FloatTensor:
@@ -317,13 +313,12 @@ def plot_db_spectrogram(pow_spectrogram) -> None:
     plt.savefig(path)
 
 
-def plot_melspectrogram(melspectrogram:torch.FloatTensor) -> None:
+def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
     fig, ax = plt.subplots()
     melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
     img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
     ax.set(title='Mel spectrogram display')
     fig.colorbar(img, ax=ax, format="%+2.f dB")
-    path = os.path.join("figures", "melspectrogram_example.png")
     plt.savefig(path)
 
 

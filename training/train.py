@@ -12,7 +12,7 @@ from pytorch_lightning import loggers
 import pytorch_lightning as pl
 from pytorch_lightning.profiler import SimpleProfiler, AdvancedProfiler
 
-from utils.dataloaders import MiviaDataset, _custom_collate_fn
+from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, _custom_collate_fn
 from utils.preprocessing import Preprocessing
 from settings.conf_1 import settings
 from models.resnet8 import ResNet8
@@ -31,7 +31,7 @@ pl.seed_everything(5138)
 #########################
 ### BUILD DATALOADERS ###
 #########################
-train_set = MiviaDataset(subset="training", preprocessing=Preprocessing())
+train_set = TrainingMiviaDataset()
 labels = train_set._get_labels()
 model = ResNet8(num_labels=len(labels)).cuda()  # Load model
 weights = train_set._get_label_weights()        # Computing the label weights to balance the dataloader
@@ -42,7 +42,7 @@ model.train_dataloader(dataloader=train_loader)
 val_sets = list()
 val_loaders = dict()
 for snr in range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step):
-    val_set = MiviaDataset(subset="validation", preprocessing=Preprocessing(snr=snr))
+    val_set = ValidationMiviaDataset()
     val_sampler = torch.utils.data.sampler.WeightedRandomSampler(weights=weights, num_samples=len(val_set))
     val_sets.append(val_set)
     val_loaders[snr] = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.training.batch_size, sampler=val_sampler, num_workers=settings.training.num_workers, collate_fn=_custom_collate_fn, pin_memory=pin_memory)
@@ -65,7 +65,7 @@ profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
 
 # Set trainer and train model
 trainer = pl.Trainer(
-    auto_lr_find=False,
+    auto_lr_find=settings.training.lr,
     accelerator=settings.training.device,
     gpus=settings.training.gpu,
     logger=logger,
@@ -78,5 +78,6 @@ trainer = pl.Trainer(
     # overfit_batch=                              # set to a number of batch on which overfit in order to understand if the training work well
     num_sanity_val_steps=0                      # before training, the sanity validation control performs N validation steps to check if the validation step is working correctly
 )
-# trainer.tune(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
+if settings.training.lr:
+    trainer.tune(model=model, train_dataloaders=model.train_loader, val_dataloaders=model.val_loaders)
 trainer.fit(model=model, train_dataloaders=model.train_loader, val_dataloaders=model.val_loaders)
