@@ -130,7 +130,7 @@ class MiviaDataset(Dataset):
         rel_noise_path = noise_item.path
         noise_path = os.path.join(self.dataset_path, rel_noise_path)
         noise, noise_sample_rate = torchaudio.load(noise_path)
-        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
+        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=speech_sample_rate)     # uniform sample rate
         noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
         
         snr = self.preprocessing.compute_snr(epoch=self.epoch)
@@ -138,9 +138,9 @@ class MiviaDataset(Dataset):
         
         if settings.input.type == "mel-spectrogram":
             melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
-            return melspectrogram, speech_sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+            return melspectrogram, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
 
-        return waveform, self.preprocessing.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+        return waveform, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
 
 
     def _get_label_weights(self) -> List[torch.FloatTensor]:
@@ -160,13 +160,151 @@ class MiviaDataset(Dataset):
         return weights
 
 
-class TrainMiviaDataset(MiviaDataset):
+class ValidationMiviaDataset(MiviaDataset):
+    
+    def __init__(self, subset:str, preprocessing:Preprocessing) -> Dataset:
+        """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class. The constructor requires only the name of the partition to load. The path of the dataset and the annotation file are taken in the configuration file.
+
+        Parameters
+        ----------
+        subset: str
+            Partition of the dataset between {None, "training", "validation", "testing"}. By default, it is None, in this case the whole dataset is loaded
+
+        Returns
+        -------
+        torch.utils.data.Dataset
+            Dataset object
+        """
+
+        assert subset is None or subset in ["training", "validation", "testing"], (
+            "When `subset` not None, it must take a value from "
+            + "{None, 'training', 'validation', 'testing'}."
+        )
+
+        self.preprocessing = preprocessing
+        self.speech_annotations = None
+        self.noise_annotations = None
+        if subset == "training":
+            self.speech_annotations = pd.read_csv(settings.dataset.speech.training.annotations, sep=',')
+            self.noise_annotations = pd.read_csv(settings.dataset.noise.training.annotations, sep=',')
+        elif subset == "validation":
+            self.speech_annotations = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
+            self.noise_annotations = pd.read_csv(settings.dataset.noise.validation.annotations, sep=',')
+        elif subset == "testing":
+            self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
+            self.noise_annotations = pd.read_csv(settings.dataset.noise.testing.annotations, sep=',')
+        else:   # Load the entire dataset
+            train_speech_set = pd.read_csv(settings.dataset.speech.training.annotations, sep=',')
+            val_speech_set = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
+            test_speech_set = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
+            self.speech_annotations = pd.concat(objs=[train_speech_set, val_speech_set, test_speech_set])
+
+            train_noise_set = pd.read_csv(settings.dataset.noise.training.annotations, sep=',')
+            val_noise_set = pd.read_csv(settings.dataset.noise.validation.annotations, sep=',')
+            test_noise_set = pd.read_csv(settings.dataset.noise.testing.annotations, sep=',')
+            self.noise_annotations = pd.concat(objs=[train_noise_set, val_noise_set, test_noise_set])
+
+        self.types_group = self.speech_annotations.groupby("type")
+        self.subtypes_group = self.speech_annotations.groupby("subtype")
+        self.speakers_group = self.speech_annotations.groupby("speaker")
+        self.labels_group = self.speech_annotations.groupby("label")
+
+        self.dataset_path = settings.dataset.folder
+        self.epoch = 0
+    
+
+    def __len__(self) -> int:
+        return len(self.speech_annotations)
+
+
+    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int]:
+        item = self.speech_annotations.iloc[index]
+        rel_path = item.path
+        full_path = os.path.join(self.dataset_path, rel_path)
+        waveform, sample_rate = torchaudio.load(full_path)
+        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
+        waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        
+        if settings.input.type == "mel-spectrogram":
+            melspectrogram = torchaudio.transforms.MelSpectrogram(sample_rate=sample_rate, n_fft=settings.input.n_fft, win_length=settings.input.win_lenght, hop_length=settings.input.hop_lenght, n_mels=settings.input.n_mels)   # (channel, n_mels, time)
+            return melspectrogram, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
+
+        return waveform, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
+
+    
+    def _get_types(self) -> List[str]:
+        return list(self.types_group.groups.keys())
+    
+    def _get_subtypes(self) -> List[str]:
+        return list(self.subtypes_group.groups.keys())
+    
+    def _get_speakers(self) -> List[str]:
+        return list(self.speakers_group.groups.keys())
+    
+    def _get_labels(self) -> List[int]:
+        return list(self.labels_group.groups.keys())
+
+    
+    def _get_sample_from_type(self, name:str) -> pd.core.frame.DataFrame:
+        assert name in self._get_types(), ("The dataset does not contain type: ", name)
+        return self.types_group.get_group(name)
+
+    def _get_sample_from_subtype(self, name:str) -> pd.core.frame.DataFrame:
+        assert name in self._get_subtypes(), ("The dataset does not contain subtype: ", name)
+        return self.subtypes_group.get_group(name)
+    
+    def _get_sample_from_speaker(self, name:str) -> pd.core.frame.DataFrame:
+        assert name in self._get_speakers(), ("The dataset does not contain speaker: ", name)
+        return self.speakers_group.get_group(name)
+
+    def _get_sample_from_labels(self, name:str) -> pd.core.frame.DataFrame:
+        assert name in self._get_labels(), ("The dataset does not contain label: ", name)
+        return self.labels_group.get_group(name)
+
+
+class TrainingMiviaDataset(MiviaDataset):
 
     def __init__(self, subset: str, preprocessing: Preprocessing) -> Dataset:
         super().__init__(subset, preprocessing)
 
-        self.noise_annotations = None
 
+    def __len__(self) -> int:
+        return len(self.speech_annotations)
+
+    
+    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int, float]:
+        speech_item = self.speech_annotations.iloc[index]
+        rel_speech_path = speech_item.path
+        speech_path = os.path.join(self.dataset_path, rel_speech_path)
+        speech, speech_sample_rate = torchaudio.load(speech_path)
+        speech = self.preprocessing.resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
+        speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
+        
+        noise_index = index % len(self.noise_annotations)
+        noise_item = self.noise_annotations.iloc[noise_index]
+        rel_noise_path = noise_item.path
+        noise_path = os.path.join(self.dataset_path, rel_noise_path)
+        noise, noise_sample_rate = torchaudio.load(noise_path)
+        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=speech_sample_rate)     # uniform sample rate
+        noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
+        
+        snr = self.preprocessing.compute_snr(epoch=self.epoch)
+        waveform = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr) if snr is not None else speech
+        
+        if settings.input.type == "mel-spectrogram":
+            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
+            return melspectrogram, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+
+        return waveform, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+
+
+    def increase_epoch(self, step:int=0) -> None:
+        self.epoch += step
+
+    
+    def _shuffle_noise_dataset(self) -> None:
+        """ Shuffle noise annotation file. The method is useful to change the loading order among epochs. """
+        self.noise_annotations =self.noise_annotations.sample(frac=1)
 
 
 #########################
@@ -307,6 +445,7 @@ if __name__ == "__main__":
 
     sample = 3
     waveform, sample_rate, type, subtype, speaker, label = train_set[sample]
+    print(sample_rate)
 
     val_waveform, val_sample_rate, _, _, _, _ = valid_set[sample]
 

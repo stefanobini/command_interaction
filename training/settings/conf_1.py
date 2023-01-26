@@ -9,7 +9,7 @@ settings.logger.name:str = "test"   # name of the experiment
 
 '''Input'''
 settings.input.language:str = "ita"   # ["ita", "eng"]
-settings.input.type:str = "mel-spectrogram" # mel-spectrogram, waveform
+settings.input.type:str = "mel-spectrogram" # ["mel-spectrogram", "waveform"]
 settings.input.sample_rate:int = 16000
 settings.input.n_fft:int = 400
 settings.input.window:str = "hann"

@@ -52,13 +52,12 @@ class Preprocessing():
         torch.FloatTensor
             Resampled waveform
         """
-
-        T.Resample(sample_rate, self.sample_rate)
+        resampler = T.Resample(orig_freq=sample_rate, new_freq=self.sample_rate, dtype=waveform.dtype)
         
         # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
         # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
         # Window function
-        return F.resample(waveform=waveform, orig_freq=sample_rate, new_freq=self.sample_rate, lowpass_filter_width=6, rolloff=0.99, resampling_method="sinc_interpolation")
+        return resampler(waveform)
 
     
     def get_melspectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
