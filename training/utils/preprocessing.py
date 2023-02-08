@@ -15,21 +15,33 @@ import torchaudio.functional as F
 
 from settings.conf_1 import settings
 
+import colorama
+from colorama import Back, Fore
+colorama.init(autoreset=True)
+
 
 class Preprocessing():
     def __init__(self):
         self.sample_rate = settings.input.sample_rate
-        self.n_fft = settings.input.n_fft
-        self.win_lenght = settings.input.win_lenght
-        self.hop_lenght = settings.input.hop_lenght
-        self.n_mels = settings.input.n_mels
+
+        self.n_fft = settings.input.spec.n_fft
+        self.win_lenght = settings.input.spec.win_lenght
+        self.hop_lenght = settings.input.spec.hop_lenght
+        self.n_mels = settings.input.mel.n_mels
+        self.n_mfcc = settings.input.mfcc.n_mfcc
+        self.dct_type = settings.input.mfcc.dct_type
+        self.norm = settings.input.mfcc.norm
+        self.log_mels = settings.input.mfcc.log_mels
+
         self.max_epochs = settings.training.max_epochs
+
         self.min_snr = settings.noise.min_snr
         self.max_snr = settings.noise.max_snr
         self.descent_ratio = settings.noise.descent_ratio
         self.distribution = settings.noise.curriculum_learning.distribution
-        self.min_sigma = settings.noise.curriculum_learning.min_sigma
-        self.max_sigma = settings.noise.curriculum_learning.max_sigma
+        self.ab_uniform_step = settings.noise.curriculum_learning.uniform.ab_uniform_step
+        self.min_sigma = settings.noise.curriculum_learning.gaussian.min_sigma
+        self.max_sigma = settings.noise.curriculum_learning.gaussian.max_sigma
 
     
     def resample_audio(self, waveform:torch.FloatTensor, sample_rate:int) -> torch.FloatTensor:
@@ -63,10 +75,23 @@ class Preprocessing():
         transformation = torchaudio.transforms.MelSpectrogram(sample_rate=self.sample_rate, n_fft=self.n_fft, win_length=self.win_lenght, hop_length=self.hop_lenght, n_mels=self.n_mels)
 
         return transformation(waveform)
+    
+
+    def get_mfcc(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
+        mel_arg = {"n_fft":self.n_fft, "win_length":self.win_lenght, "hop_length":self.hop_lenght, "n_mels":self.n_mels}
+        transformation = torchaudio.transforms.MFCC(sample_rate=self.sample_rate, n_mfcc=self.n_mfcc, dct_type=self.dct_type, norm=self.norm, log_mels=self.log_mels, melkwargs=mel_arg)
+        
+        return transformation(waveform)
+    
+
+    def preprocess(self, input:torch.FloatTensor) -> torch.FloatTensor:
+        return self.trasformation(input)
 
     
-    def compute_snr(self, epoch:int) -> float:        
-        descent_epochs = epoch*self.descent_ratio
+    def compute_snr(self, epoch:int) -> float:
+        # a, b, mu, sigma = 0., 0., 0., 0.
+        snr = 0.
+        descent_epochs = self.max_epochs*self.descent_ratio
         if self.distribution == "uniform":
             snr = random.uniform(self.min_snr, self.max_snr)
         elif self.distribution == "dynamic_uniform":
@@ -77,7 +102,7 @@ class Preprocessing():
             if b > self.max_snr:
                 b = self.max_snr
             snr = random.uniform(a=a, b=b)
-        elif self.distribution == "dynamic_normal":
+        elif self.distribution == "dynamic_gaussian":
             ### CURRICULUM LEARNING ###
             # model mu as a combination of descent linear function plus a constant  ->  \_
             mu = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr     # modeled as a linear descending function plus a flat phase in the end
@@ -97,7 +122,7 @@ class Preprocessing():
         
         # n_sample += 1
         # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, mu, sigma, snr, pre_snr, self.min_snr, self.max_snr))
-        # print("*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
+        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
         return snr
 
 
@@ -318,6 +343,15 @@ def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
     melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
     img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
     ax.set(title='Mel spectrogram display')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
+    plt.savefig(path)
+
+def plot_mfcc(path:str, mfcc:torch.FloatTensor) -> None:
+    fig, ax = plt.subplots()
+    mfcc_db = librosa.power_to_db(mfcc[0], ref=np.max)
+    img = librosa.display.specshow(mfcc_db, y_axis='mel', x_axis='time', ax=ax)
+    # plt.tight_layout()
+    ax.set(title='MFCC')
     fig.colorbar(img, ax=ax, format="%+2.f dB")
     plt.savefig(path)
 
