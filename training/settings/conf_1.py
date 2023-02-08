@@ -58,27 +58,30 @@ settings.model.conformer.convolution_first: bool = False
 '''Training'''
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 12
-settings.training.accelerator:str = "gpu"   # device between ["cpu", "cuda"]
-settings.training.devices:int = [0]        # list of the GPU devices to use
+settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
+settings.training.devices:int = [0]                                         # list of the GPU devices to use
 settings.training.max_epochs = 100
 settings.training.min_epochs = 20
-settings.training.batch_size:int = 128  # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
+settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
-settings.training.lr.value:float = 0.33         # 0.33 - ResNet8,  - MobileNet V2
-settings.training.optimization_mode:str = "min" # "min" to minimize the loss, "max" to maximize the loss
+settings.training.lr.value:float = 0.33                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.metric_to_track:str = "val_loss"
 settings.training.check_val_every_n_epoch:int = 1
-settings.training.early_stop.patience:int = 25  # default=3
-settings.training.scheduler.patience:int = 10    # default=10
-settings.training.optimizer.novograd.weight_decay:float = 0.001
-settings.training.optimizer.novograd.betas:List[float] = [0.95, 0.5]  
+settings.training.early_stop.patience:int = 25                              # default=3
+settings.training.reduce_lr_on_plateau.patience:int = 10                    # default=10
+settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
+settings.training.optimizer.weight_decay:float = 0.001                      # Default 0
+settings.training.optimizer.eps:float = 1e-8
+settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
+settings.training.optimizer.grad_averaging:bool = False
+settings.training.optimizer.amsgrad:bool = False
 
 '''Noise & Curriculum Learning'''
 settings.noise.min_snr:int = -10
 settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
-settings.noise.curriculum_learning.distribution:str = "dynamic_uniform"   # Between ["uniform", "dynamic_uniform", "dynamic_gaussian"]
-settings.noise.curriculum_learning.uniform.ab_uniform_step:int = 50     # 50 Uniform CL-PEM v1, Disable in the code for CL-PEM v2
-settings.noise.curriculum_learning.gaussian.min_sigma:int = 5       # 5 (Gaussian CL-PEM v2), 25 (Gaussian CL-PEM v1)
-settings.noise.curriculum_learning.gaussian.max_sigma:int = 0       # 0 (Gaussian CL-PEM v2), 50 (Gaussian CL-PEM v1)
+settings.noise.curriculum_learning.distribution:str = "dynamic_uniform"     # Between ["uniform", "dynamic_uniform", "dynamic_gaussian"]
+settings.noise.curriculum_learning.uniform.ab_uniform_step:int = 50         # 50 Uniform CL-PEM v1, Disable in the code for CL-PEM v2
+settings.noise.curriculum_learning.gaussian.min_sigma:int = 5               # 5 (Gaussian CL-PEM v2), 25 (Gaussian CL-PEM v1)
+settings.noise.curriculum_learning.gaussian.max_sigma:int = 0               # 0 (Gaussian CL-PEM v2), 50 (Gaussian CL-PEM v1)

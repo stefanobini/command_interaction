@@ -49,7 +49,7 @@ class ResNet8_PL(pl.LightningModule):
         self.learning_rate = settings.training.lr.value
         self.metric_to_track = settings.training.metric_to_track
         self.check_val_every_n_epoch = settings.training.check_val_every_n_epoch
-        self.optimization_mode = settings.training.optimization_mode
+        self.optimization_mode = settings.training.optimizer.mode
         self.early_stop_patience = settings.training.early_stop.patience
 
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
@@ -89,12 +89,10 @@ class ResNet8_PL(pl.LightningModule):
 
     def train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         self.train_loader = dataloader
-        self.train_preds, self.train_targs = list(), list()
         return self.train_loader
 
     def val_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         self.val_loader = dataloader
-        self.val_preds, self.val_targs, self.val_snrs = list(), list(), list()
         return self.val_loader
 
     def test_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
@@ -117,7 +115,6 @@ class ResNet8_PL(pl.LightningModule):
         """ """
         self.train_loader.dataset._shuffle_noise_dataset()              # shuffle noise sample among epochs
         self.train_loader.dataset.set_epoch(epoch=self.current_epoch)
-        self.train_preds, self.train_targs = list(), list()             # Clean the lists of epoch training results
 
     def training_step(self, batch, batch_idx) -> torch.FloatTensor:
         """ """
@@ -130,42 +127,11 @@ class ResNet8_PL(pl.LightningModule):
         loss = self.loss_fn(input=logits, target=y)
 
         # self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        '''
-        with torch.no_grad():
-            self.train_preds += pred
-            self.train_targs += y
-        '''
-        #print("Trainig - preds: {}, targs: {}".format(len(self.train_preds), len(self.train_targs)))
+        #print("Trainig - preds: {}, targs: {}".format(logits.size(), y.size()))
 
-        #return loss
         train_step_output = {"loss": loss, "logits": logits, "targets": y}
         return train_step_output
-
-    @torch.no_grad()
-    def NOT_USED_on_train_epoch_end(self) -> None:
-        """ """
-        preds = torch.stack(self.train_preds).cuda()
-        targs = torch.tensor(self.train_targs).cuda()
-
-        #loss = cross_entropy(input=preds, target=targs)
-        loss = self.loss_fn(input=preds, target=targs)
-
-        preds = torch.max(input=preds, dim=1).indices
-        accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs, task="multiclass", num_classes=self.num_labels, average="micro")
-        balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs, task="multiclass", num_classes=self.num_labels, average="weighted")
-
-        self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("train_accuracy", accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-
-        #print("Training - preds: {}, targs: {}, loss: {}".format(preds.size(), targs.size(), loss))
-
-        '''
-        with open("train_preds.txt", "wb") as fout:
-            pickle.dump(self.train_preds, fout)
-        with open("train_targs.txt", "wb") as fout:
-            pickle.dump(self.train_targs, fout)
-        '''
+    
     
     def training_epoch_end(self, train_step_outputs):
         """ """
@@ -188,7 +154,7 @@ class ResNet8_PL(pl.LightningModule):
 
     
     def validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]:
-        """Callback function activated in each validation step. It accumulate validation epoch results in the validation result lists (self.val_preds, self.val_targs, self.val_snrs)
+        """Callback function activated in each validation step
         
         Parameters
         ----------
@@ -198,97 +164,13 @@ class ResNet8_PL(pl.LightningModule):
         # print(Back.YELLOW + "VALIDATION STEP\ndataloader: {}\nbatch size: x:{}, y:{}\n".format(batches.keys(), batches[0][0].size(), batches[0][1].size()))
         x, y, snr = batch
         logits = self.forward(x=x)
-        # pred = self.softmax(pred)
+        # pred = self.softmax(logits)
         #print("preds: ", pred[:10])
         #print("targs: ", y[:10])
 
-        self.val_preds += logits
-        self.val_targs += y
-        self.val_snrs += snr
-        #print("Validation - preds: {}, targs: {}, snr: {}".format(len(self.val_preds), len(self.val_targs), len(self.val_snrs)))
+        #print("Validation - preds: {}, targs: {}, snr: {}".format(logits.size(), y.size(), snr.size()))
         validation_step_output = {"logits": logits, "targets": y, "snrs": snr}
         return validation_step_output
-
-
-    def NOT_USED_on_validation_epoch_start(self) -> None:
-        preds = torch.stack(self.val_preds).cuda()
-        # preds = torch.max(input=preds, dim=1).indices    # take only the most likely class
-        targs = torch.tensor(self.val_targs).cuda()
-        #targs_one_hot = F.one_hot(input=targs, num_classes=self.num_labels).type(torch.FloatTensor).cuda()  # resize targets in order to compute the metrics on the probability vectors
-        snrs = torch.tensor(self.val_snrs)
-
-        # Compute loss and metrics
-        #loss = cross_entropy(input=preds, target=targs)
-        loss = self.loss_fn(input=preds, target=targs)
-        preds = torch.max(input=preds, dim=1).indices
-        accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs, task="multiclass", num_classes=self.num_labels, average="micro")
-        balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs, task="multiclass", num_classes=self.num_labels, average="weighted")
-        #accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs_one_hot, task="multiclass", num_classes=self.num_labels, average="micro")
-        #balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targs_one_hot, task="multiclass", num_classes=self.num_labels, average="weighted")
-        #pred_reject_y = torch.max(input=preds, dim=1).indices
-        #targ_reject_y = torch.max(input=targs_one_hot, dim=1).indices
-        #pred_reject_y = pred_reject_y == (self.num_labels-1)             # '1' for reject, '0' for command
-        #targ_reject_y = targ_reject_y == (self.num_labels-1)            # '1' for reject, '0' for command
-        '''
-        pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
-        targ_reject_y = targs == (self.num_labels-1)            # '1' for reject, '0' for command
-        reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-        '''
-
-        #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
-
-        # Save for TensorBoard
-        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
-        self.log("accuracy", accuracy, on_epoch=True, prog_bar=True, logger=True)
-        self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        '''
-        self.log("reject_accuracy", reject_accuracy, on_epoch=True, prog_bar=True, logger=True)
-        '''
-
-        # Construct and fill dictionary that contains the predictions and target devided by SNR
-        outputs = dict()
-        for snr in self.snrs:
-            outputs[snr] = {"preds": list(), "targs": list()}
-        for idx in range(len(snrs)):
-            outputs[snrs[idx].item()]["preds"].append(preds[idx])
-            #outputs[snrs[idx].item()]["targs"].append(targs_one_hot[idx])
-            outputs[snrs[idx].item()]["targs"].append(targs[idx])
-        
-        # Convert lists in tensors
-        for snr in self.snrs:    
-            outputs[snr]["preds"] = torch.stack(outputs[snr]["preds"])
-            outputs[snr]["targs"] = torch.stack(outputs[snr]["targs"])
-        
-        # Compute metrics for each SNR
-        for snr in self.snrs:
-            snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
-            snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
-            #pred_reject_y = torch.max(input=outputs[snr]["preds"], dim=1).indices
-            #targ_reject_y = torch.max(input=outputs[snr]["targs"], dim=1).indices
-            #pred_reject_y = pred_reject_y == (self.num_labels-1)    # '1' for reject, '0' for command
-            #targ_reject_y = targ_reject_y == (self.num_labels-1)    # '1' for reject, '0' for command
-            '''
-            pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-            '''
-        
-            self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
-            self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
-            '''
-            self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
-            '''
-
-        '''
-        with open("val_preds.txt", "wb") as fout:
-            pickle.dump(self.val_preds, fout)
-        with open("val_targs.txt", "wb") as fout:
-            pickle.dump(self.val_targs, fout)
-        with open("val_rjts.txt", "wb") as fout:
-            pickle.dump(targ_reject_y, fout)
-        '''
-
-        self.val_preds, self.val_targs, self.val_snrs = list(), list(), list()      # Clean the lists of epoch validation results
 
 
     def validation_epoch_end(self, val_step_outputs) -> None:
@@ -355,11 +237,11 @@ class ResNet8_PL(pl.LightningModule):
 
         '''
         with open("val_preds.txt", "wb") as fout:
-            pickle.dump(self.val_preds, fout)
+            pickle.dump(preds, fout)
         with open("val_targs.txt", "wb") as fout:
-            pickle.dump(self.val_targs, fout)
+            pickle.dump(targets, fout)
         with open("val_rjts.txt", "wb") as fout:
-            pickle.dump(targ_reject_y, fout)
+            pickle.dump(targs_rejects, fout)
         '''
     
 
@@ -382,9 +264,10 @@ class ResNet8_PL(pl.LightningModule):
 
  
     def configure_optimizers(self):
-        #optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
-        optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.novograd.betas, eps=1e-08, weight_decay=settings.training.optimizer.novograd.weight_decay, grad_averaging=False, amsgrad=False)
-        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=self.optimization_mode, patience=settings.training.scheduler.patience, eps=1e-4, verbose=True)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
+        #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
+        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.novograd.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
+        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=self.optimization_mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=1e-4, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,
             "lr_scheduler": {
