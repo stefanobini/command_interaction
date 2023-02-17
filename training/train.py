@@ -1,4 +1,5 @@
 import os
+import shutil
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
@@ -46,15 +47,20 @@ pl.seed_everything(5138)
 train_set = TrainingMiviaDataset()
 val_set = ValidationMiviaDataset()
 labels = train_set._get_labels()
+# print(labels)
+
+###### Decomment following rows if you use also reject, and change annotation file path in settings #######
 # weights = train_set._get_label_weights()
 # # Computing the label weights to balance the dataloader
-#dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
-#dataset_weights.append(settings.training.reject_percentage)
-#dataset_weights = torch.tensor(dataset_weights)
+# dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
+# dataset_weights.append(settings.training.reject_percentage)
+# dataset_weights = torch.tensor(dataset_weights)
+###########################################################################################################
+
 balanced_weights = [1/len(labels) for i in range(len(labels))]
 balanced_weights = torch.tensor(balanced_weights)
 
-dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels))]
+# dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels))]
 train_sampler = torch.utils.data.sampler.WeightedRandomSampler(weights=balanced_weights, num_samples=len(train_set))
 train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, sampler=train_sampler, num_workers=settings.training.num_workers, collate_fn=_train_collate_fn, pin_memory=pin_memory)
 train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_train_collate_fn, pin_memory=pin_memory)
@@ -109,7 +115,7 @@ trainer = pl.Trainer(
     log_every_n_steps=-1,
     enable_model_summary=False,
     # reload_dataloaders_every_epoch=False,       # set True to shuffle the dataloader before start each epoch
-    # profiler=profiler,                          # set to True to see how many time was spent from the training process during the training
+    # profiler=profiler,                          # set to True to see how many time was spent from the training process during the training                           # True to activate Tensorboard logger
     # weights_summary="top",                      # set to "full" to see all the weights of each layer of the network
     benchmark=False,                            # set True if the size of the input does not change in order to speed up the training process
     fast_dev_run=False,                         # set True to check each line of the model and training process, it is useful after some change
@@ -126,6 +132,11 @@ if settings.training.lr.auto_find:
 #    Training Model    #
 ########################
 trainer.fit(model=model, train_dataloaders=model.train_loader, val_dataloaders=model.val_loader)
+
+# Copy configuration file in the folder
+src_conf_file = os.path.join("settings", settings.name)
+dst_conf_file = os.path.join(info_path, settings.name)
+shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
 '''
 import torch

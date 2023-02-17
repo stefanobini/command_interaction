@@ -14,14 +14,16 @@ import torchaudio
 
 from settings.conf_1 import settings
 
+
 try:
     # If run from the parent folder
-    from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
+    from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing, save_audio
 except ModuleNotFoundError:
     # If run from the "utils" folder
-    from preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
+    from preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing, save_audio
 
 
+it = 0
 class MiviaDataset(Dataset):
     
     def __init__(self) -> Dataset:
@@ -102,32 +104,53 @@ class TrainingMiviaDataset(MiviaDataset):
         speech_item = self.speech_annotations.iloc[index]
         rel_speech_path = speech_item.path
         speech_path = os.path.join(self.dataset_path, rel_speech_path)
-        speech, speech_sample_rate = torchaudio.load(filepath=speech_path, frame_offset=0, num_frames=-1, normalize=settings.input.normalize, channels_first=True, format=None)
+        speech, speech_sample_rate = torchaudio.load(filepath=speech_path)
         #speech, speech_sample_rate = librosa.core.load(speech_path, sr=settings.input.sample_rate, mono=True)
         speech = self.preprocessing.resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
-
         speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
-        
+
+        # Remove silences
+        '''
+        no_silent_ranges = detect_nonsilent(audio_segment=speech)
+        no_silent_indices = ranges2list(no_silent_ranges)
+        no_silent_speech = torch.index_select(input=speech, dim=0, index=torch.tensor(no_silent_indices))
+        print("Speech size: {}\tNo-silent speech size: {}\n".format(speech.size(), no_silent_speech.size()))
+        #'''
+
         noise_index = index % len(self.noise_annotations)
         noise_item = self.noise_annotations.iloc[noise_index]
         rel_noise_path = noise_item.path
         noise_path = os.path.join(self.dataset_path, rel_noise_path)
-        noise, noise_sample_rate = torchaudio.load(filepath=noise_path, frame_offset=0, num_frames=-1, normalize=settings.input.normalize, channels_first=True, format=None)
+        noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
         # noise, noise_sample_rate = librosa.core.load(noise_path, sr=settings.input.sample_rate, mono=True)
-        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=speech_sample_rate)     # uniform sample rate
+        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
         noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
         
         snr = self.preprocessing.compute_snr(epoch=self.epoch)
-        waveform = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr) if snr is not None else speech
-        
-        if settings.input.type == "mfcc":
-            mfcc = self.preprocessing.get_mfcc(waveform)
-            return rel_speech_path, mfcc, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
-        elif settings.input.type == "melspectrogram":
-            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
-            return rel_speech_path, melspectrogram, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+        item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr) if snr is not None else speech
 
-        return rel_speech_path, waveform, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+        '''
+        global it
+        if it < 1:
+            save_audio(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=settings.input.sample_rate)
+        '''
+        if settings.input.type == "waveform":
+            return rel_speech_path, item, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+        elif settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif settings.input.type == "melspectrogram":
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        #########################################################################
+        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
+        #########################################################################
+        if settings.input.spectrogram.type == "db":
+            item = self.preprocessing.power_to_db_spectrogram(spectrogram=item)
+        
+        if settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_speech_path, item, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
 
 
     def set_epoch(self, epoch:int=0) -> None:
@@ -149,22 +172,31 @@ class ValidationMiviaDataset(MiviaDataset):
     
 
     def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int, int]:
-        item = self.speech_annotations.iloc[index]
-        rel_path = item.path
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
         full_path = os.path.join(self.dataset_path, rel_path)
-        waveform, sample_rate = torchaudio.load(filepath=full_path, frame_offset=0, num_frames=-1, normalize=settings.input.normalize, channels_first=True, format=None)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
         # waveform, sample_rate = librosa.core.load(full_path, sr=settings.input.sample_rate, mono=True)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
-        waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
-        if settings.input.type == "mfcc":
-            mfcc = self.preprocessing.get_mfcc(waveform)
-            return rel_path, mfcc, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+        if settings.input.type == "waveform":
+            return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+        elif settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
         elif settings.input.type == "melspectrogram":
-            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
-            return rel_path, melspectrogram, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        #########################################################################
+        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
+        #########################################################################
+        if settings.input.spectrogram.type == "db":
+            item = self.preprocessing.power_to_db_spectrogram(spectrogram=item)
+        
+        if settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
 
-        return rel_path, waveform, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+        return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
 
 
 class TestingMiviaDataset(MiviaDataset):
@@ -213,23 +245,14 @@ def label_to_index(label:int) -> torch.IntTensor:
     return torch.tensor(label)
 
 
-def index_to_label(index:torch.IntTensor) -> int:
-    """ Convert Integer Tensor in label.
-    
-    Parameters
-    ----------
-    index: torch.IntTensor
-        Label of audiuo sample as Integer tensor
-
-    Returns
-    -------
-    int
-        Label of audio sample
-    """
-    return torch.IntTensor(label)
+def normalize_tensor(tensor:torch.Tensor) -> torch.Tensor:
+    mean = torch.mean(tensor)
+    variance = torch.var(tensor) if torch.var(tensor)>1e-6 else 1e-6
+    normalized_tensor = (tensor-mean) / variance
+    return normalized_tensor
 
 
-def pad_melspectrograms(batch:torch.FloatTensor, padding_value:float=0.) -> torch.FloatTensor:
+def pad_spectrograms(batch:torch.FloatTensor, max_lenght:int, padding_value:float=0.) -> torch.FloatTensor:
     """ Make all tensor in a batch the same lenght by padding with zeros.
     
     Parameters
@@ -242,10 +265,28 @@ def pad_melspectrograms(batch:torch.FloatTensor, padding_value:float=0.) -> torc
     torch.FloatTensor
         Batch with audio sample of the same lenght
     """
-    batch = torch.nn.utils.rnn.pad_sequence(sequences=batch, batch_first=True, padding_value=padding_value)    # (B x L x C x T)
-    return batch.permute(0, 2, 3, 1)    # (B x C x F x T)
+    resized_batch = torch.zeros(size=(len(batch), batch[0].size(0), batch[0].size(1), max_lenght))              # (B x C x F x T)
+    # to optimize try to assign block per clock the sample
+    for b in range(resized_batch.size(0)):
+        #sample_with_silent_queue = torch.ones(size=(batch[0].size(0), batch[0].size(1), batch[b].size(2)+settings.input.spectrogram.padding.stride)) * settings.input.spectrogram.padding.value
+        #sample_with_silent_queue[:, :, :batch[b].size(2)] = batch[b]                                             
+        # # add a silence part after the sample to separate each repetition of the sample in the batch
+        sample_with_silent_queue = torch.nn.ConstantPad2d((0,settings.input.spectrogram.padding.stride,0,0), value=settings.input.spectrogram.padding.value)(batch[b])  # i can pad noise instead a fixed value
+        resized_batch[b, 0, :, :batch[b].size(2)] = batch[b]
+        for f in range(resized_batch.size(2)):
+            for t in range(batch[b].size(2), resized_batch.size(3)):
+                resized_batch[b, 0, f, t] = sample_with_silent_queue[0, f, t%sample_with_silent_queue.size(2)]                                        # pad zero value replicating the spectrogram
+    # Normalize batch
+    '''
+    batch_mean = torch.mean(resized_batch)
+    batch_var = torch.var(resized_batch) if torch.var(resized_batch)>1e-6 else 1e-6
+    resized_batch = (resized_batch-batch_mean) / batch_var
+    #'''
+    # batch = torch.nn.utils.rnn.pad_sequence(sequences=batch, batch_first=True, padding_value=padding_value)    # (B x L x C x T)
+    # return batch.permute(0, 2, 3, 1)    # (B x C x F x T)
+    return resized_batch
 
-#it = 0
+
 def _train_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, torch.IntTensor]:
     """ Process the audio samples in batch to have the same duration.
     The data tuple has the form:
@@ -264,19 +305,29 @@ def _train_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor,
     #print(Back.YELLOW + "TRAIN COLLATE FN" + Back.RESET)
     tensors, targets = list(), list()
     #paths = list()
+    max_lenght = 0
     for path, tensor, _, _, _, _, label in batch:
         #paths.append(path.replace('/', '-').replace(".wav", ''))
-        tensors += [tensor.permute(2, 0, 1)]    # (T x C x F)
+        '''
+        if True in torch.isnan(tensor):
+            print(Back.RED + "{} with size {} has {} 'nan' value".format(path, tensor.size(), torch.count_nonzero(torch.isnan(tensor))))
+        if True in torch.isinf(tensor):
+            print(Back.RED + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
+        #'''
+        max_lenght = tensor.size(2) if tensor.size(2)>max_lenght else max_lenght
+        # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
+        tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
-    tensors = pad_melspectrograms(tensors)
+    tensors = pad_spectrograms(tensors, max_lenght=max_lenght, padding_value=settings.input.spectrogram.padding_value)
     targets = torch.stack(targets)
     # approx_snr = approximate_snr(snr=snr, multiple=settings.noise.snr_step)
-
+    
     """
     global it
-    for s in range(0, 2):
+    for s in range(0, 3):
         #plot_mfcc(path="check_files/{}_{}_lab{}".format(it, s, targets[s]), mfcc=tensors[s])
-        plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
+        plot_melspectrogram(path="check_files/collate_fn/{}_{}_lab{}".format(it, s, targets[s]), melspectrogram=tensors[s])
+        #plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
     it += 1
     #"""
 
@@ -298,15 +349,25 @@ def _val_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, t
     Dict[int, torch.FloatTensor]
         Combined batch (dictionary of batches) with audio sample of the same lenght
     """
+
     #print(Back.BLUE + "VALIDATION COLLATE FN" + Back.RESET)
     tensors, targets, snrs = list(), list(), list()
     #paths = list()
+    max_lenght = 0
     for path, tensor, _, _, _, _, label, snr in batch:
-        #paths.append(path.replace('/', '-').replace(".wav", ''))
-        tensors += [tensor.permute(2, 0, 1)]    # (T x C x F)
+        '''
+        paths.append(path.replace('/', '-').replace(".wav", ''))
+        if True in torch.isnan(tensor):
+            print(Back.YELLOW + "{} with size {} has {} 'nan' value".format(path, tensor.size(), torch.count_nonzero(torch.isnan(tensor))))
+        if True in torch.isinf(tensor):
+            print(Back.YELLOW + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
+        '''
+        max_lenght = tensor.size(2) if tensor.size(2)>max_lenght else max_lenght
+        # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
+        tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_melspectrograms(tensors)
+    tensors = pad_spectrograms(tensors, max_lenght=max_lenght, padding_value=settings.input.spectrogram.padding_value)
     targets = torch.stack(targets)
     snrs = torch.stack(snrs)
 
@@ -345,39 +406,39 @@ def test_dataset(samples:List[int]) -> None:
             val_waveform, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
 
             # print(train_set._get_sample_from_type("reject"))
-            torchaudio.save("figures/waveform_train_{}.wav".format(samples[i]), waveform, sample_rate) 
-            torchaudio.save("figures/waveform_val_{}.wav".format(samples[i]), val_waveform, val_sample_rate)
+            torchaudio.save("check_files/waveform_train_{}.wav".format(samples[i]), waveform, sample_rate) 
+            torchaudio.save("check_files/waveform_val_{}.wav".format(samples[i]), val_waveform, val_sample_rate)
         elif settings.input.type == "melspectrogram":
-            mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
-            val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-            plot_melspectrogram(path="figures/melspectrogram_train_{}_".format(samples[i]), melspectrogram=mel_spectrogram[0])
-            plot_melspectrogram(path="figures/melspectrogram_val_{}_".format(samples[i]), melspectrogram=val_mel_spectrogram[0])
+            speech_path, mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+            speech_path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
+            plot_melspectrogram(path="check_files/melspectrogram_train_{}_".format(samples[i]), melspectrogram=mel_spectrogram[0])
+            plot_melspectrogram(path="check_files/melspectrogram_val_{}_".format(samples[i]), melspectrogram=val_mel_spectrogram[0])
         elif settings.input.type == "mfcc":
-            mfcc, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
-            val_mfcc, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-            plot_mfcc(path="figures/mfcc_train_{}_".format(samples[i]), mfcc=mfcc[0])
-            plot_mfcc(path="figures/mfcc_val_{}_".format(samples[i]), mfcc=val_mfcc[0])
+            speech_path, mfcc, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+            speech_path, val_mfcc, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
+            plot_mfcc(path="check_files/mfcc_train_{}_".format(samples[i]), mfcc=mfcc[0])
+            plot_mfcc(path="check_files/mfcc_val_{}_".format(samples[i]), mfcc=val_mfcc[0])
 
 
 def test_dataloader(samples:List[int]) -> None:
 
     if settings.input.type == "mfcc":
-        train_path = "figures/mfcc_train_"
-        val_path = "figures/mfcc_val_"
+        train_path = "check_files/mfcc_train_"
+        val_path = "check_files/mfcc_val_"
     elif settings.input.type == "melspectrogram":
-        train_path = "figures/melspectrogram_train_"
-        val_path = "figures/melspectrogram_val_"
+        train_path = "check_files/melspectrogram_train_"
+        val_path = "check_files/melspectrogram_val_"
 
     train, val = list(), list()
     for i in range(len(samples)):
-        mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+        path, mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
         mel_spectrogram=mel_spectrogram.permute(2, 0, 1)
-        val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
+        path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
         val_mel_spectrogram=val_mel_spectrogram.permute(2, 0, 1)
         train.append(mel_spectrogram)
         val.append(val_mel_spectrogram)
-    t = pad_melspectrograms(train)
-    v = pad_melspectrograms(val)
+    t = pad_spectrograms(train, padding_value=settings.input.spectrogram.padding_value)
+    v = pad_spectrograms(val, padding_value=settings.input.spectrogram.padding_value)
     for i in range(len(samples)):
         plot_melspectrogram(path=train_path+str(samples[i]), melspectrogram=t[i][0])
         plot_melspectrogram(path=val_path+str(samples[i]), melspectrogram=v[i][0])

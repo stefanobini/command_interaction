@@ -7,6 +7,7 @@ import librosa
 import librosa.display
 from typing import List, Tuple
 import numpy as np
+import itertools
 
 import torch
 import torchaudio
@@ -22,26 +23,7 @@ colorama.init(autoreset=True)
 
 class Preprocessing():
     def __init__(self):
-        self.sample_rate = settings.input.sample_rate
-
-        self.n_fft = settings.input.spec.n_fft
-        self.win_lenght = settings.input.spec.win_lenght
-        self.hop_lenght = settings.input.spec.hop_lenght
-        self.n_mels = settings.input.mel.n_mels
-        self.n_mfcc = settings.input.mfcc.n_mfcc
-        self.dct_type = settings.input.mfcc.dct_type
-        self.norm = settings.input.mfcc.norm
-        self.log_mels = settings.input.mfcc.log_mels
-
-        self.max_epochs = settings.training.max_epochs
-
-        self.min_snr = settings.noise.min_snr
-        self.max_snr = settings.noise.max_snr
-        self.descent_ratio = settings.noise.descent_ratio
-        self.distribution = settings.noise.curriculum_learning.distribution
-        self.ab_uniform_step = settings.noise.curriculum_learning.uniform.ab_uniform_step
-        self.min_sigma = settings.noise.curriculum_learning.gaussian.min_sigma
-        self.max_sigma = settings.noise.curriculum_learning.gaussian.max_sigma
+        super().__init__()
 
     
     def resample_audio(self, waveform:torch.FloatTensor, sample_rate:int) -> torch.FloatTensor:
@@ -63,7 +45,7 @@ class Preprocessing():
         torch.FloatTensor
             Resampled waveform
         """
-        resampler = T.Resample(orig_freq=sample_rate, new_freq=self.sample_rate, dtype=waveform.dtype)
+        resampler = T.Resample(orig_freq=sample_rate, new_freq=settings.input.sample_rate, dtype=waveform.dtype)
         
         # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
         # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
@@ -72,58 +54,60 @@ class Preprocessing():
 
     
     def get_melspectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
-        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=self.sample_rate, n_fft=self.n_fft, win_length=self.win_lenght, hop_length=self.hop_lenght, n_mels=self.n_mels)
+        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.spectrogram.n_fft, win_length=settings.input.spectrogram.win_lenght, hop_length=settings.input.spectrogram.hop_lenght, n_mels=settings.input.mel.n_mels)
 
         return transformation(waveform)
     
 
     def get_mfcc(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
-        mel_arg = {"n_fft":self.n_fft, "win_length":self.win_lenght, "hop_length":self.hop_lenght, "n_mels":self.n_mels}
-        transformation = torchaudio.transforms.MFCC(sample_rate=self.sample_rate, n_mfcc=self.n_mfcc, dct_type=self.dct_type, norm=self.norm, log_mels=self.log_mels, melkwargs=mel_arg)
+        mel_arg = {"n_fft":settings.input.spectrogram.n_fft, "win_length":settings.input.spectrogram.win_lenght, "hop_length":settings.input.spectrogram.hop_lenght, "n_mels":settings.input.mel.n_mels}
+        transformation = torchaudio.transforms.MFCC(sample_rate=settings.input.sample_rate, n_mfcc=settings.input.mfcc.n_mfcc, dct_type=settings.input.mfcc.dct_type, norm=settings.input.mfcc.norm, log_mels=settings.input.mfcc.log_mels, melkwargs=mel_arg)
         
         return transformation(waveform)
-    
 
-    def preprocess(self, input:torch.FloatTensor) -> torch.FloatTensor:
-        return self.trasformation(input)
+
+    def power_to_db_spectrogram(self, spectrogram:torch.FloatTensor):
+        spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=10., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
+        # spectrogram_db = librosa.power_to_db(spectrogram, ref=np.max)
+        return spectrogram_db
 
     
     def compute_snr(self, epoch:int) -> float:
         # a, b, mu, sigma = 0., 0., 0., 0.
         snr = 0.
-        descent_epochs = self.max_epochs*self.descent_ratio
-        if self.distribution == "uniform":
-            snr = random.uniform(self.min_snr, self.max_snr)
-        elif self.distribution == "dynamic_uniform":
+        descent_epochs = settings.training.max_epochs*settings.noise.descent_ratio
+        if settings.noise.curriculum_learning.distribution == "uniform":
+            snr = random.uniform(settings.noise.min_snr, settings.noise.max_snr)
+        elif settings.noise.curriculum_learning.distribution == "dynamic_uniform":
             ### CURRICULUM LEARNING ###
-            a = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr                           # modeled as a linear descending function plus a flat phase in the end
-            # b = epoch * (self.min_snr - self.max_snr) / self.descent_epochs + self.max_snr + self.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
-            b = self.max_snr
-            if b > self.max_snr:
-                b = self.max_snr
+            a = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
+            # b = epoch * (settings.noise.min_snr - settings.noise.max_snr) / self.descent_epochs + settings.noise.max_snr + settings.noise.curriculum_learning.uniform.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
+            b = settings.noise.max_snr
+            if b > settings.noise.max_snr:
+                b = settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
-        elif self.distribution == "dynamic_gaussian":
+        elif settings.noise.curriculum_learning.distribution == "dynamic_gaussian":
             ### CURRICULUM LEARNING ###
             # model mu as a combination of descent linear function plus a constant  ->  \_
-            mu = epoch * (self.min_snr - self.max_snr) / descent_epochs + self.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
             # model sigma as a triangular function                                  ->  /\
-            s1 = epoch * (-self.max_sigma) / self.max_epochs + self.max_sigma + self.min_sigma      # modeled as a linear descending function
-            s2 = epoch * self.max_sigma / self.max_epochs + self.min_sigma                          # modeled as a linear ascending function
+            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma + settings.noise.curriculum_learning.gaussian.min_sigma      # modeled as a linear descending function
+            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.min_sigma                          # modeled as a linear ascending function
             sigma = min(s1, s2)   
             snr = np.random.normal(loc=mu, scale=sigma)
-            if (sigma < self.min_sigma or sigma > self.max_sigma) and self.max_sigma != 0:
-                raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, self.min_sigma, self.max_sigma))
+            if (sigma < settings.noise.curriculum_learning.gaussian.min_sigma or sigma > settings.noise.curriculum_learning.gaussian.max_sigma) and settings.noise.curriculum_learning.gaussian.max_sigma != 0:
+                raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, settings.noise.curriculum_learning.gaussian.min_sigma, settings.noise.curriculum_learning.gaussian.max_sigma))
             
         # pre_snr = snr
-        if snr > self.max_snr:
-            snr = self.max_snr
-        elif snr < self.min_snr:
-            snr = self.min_snr 
+        if snr > settings.noise.max_snr:
+            snr = settings.noise.max_snr
+        elif snr < settings.noise.min_snr:
+            snr = settings.noise.min_snr 
         
         # n_sample += 1
-        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, mu, sigma, snr, pre_snr, self.min_snr, self.max_snr))
-        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.max_epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
-        return snr
+        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
+        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, a, b, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
+        return int(snr)
 
 
     def fix_noise_duration(self, speech:torch.FloatTensor, noise:torch.FloatTensor) -> torch.FloatTensor:
@@ -141,17 +125,31 @@ class Preprocessing():
         torch.FloatTensor
             Noise waveform tensor (1-D) with the same duration of the speech give as input.
         """
+
         if noise.size(1) > speech.size(1):
             start = random.randint(a=0, b=noise.size(1)-speech.size(1))
             end = start + speech.size(1)
             noise = noise[0, start:end]
+            noise = torch.unsqueeze(noise, dim=0)
         elif noise.size(1) < speech.size(1):
             start = random.randint(a=0, b=speech.size(1)-noise.size(1))
             end = start + noise.size(1)
             t = torch.zeros(size=speech.size())
             t[0, start:end] = noise
             noise = t
-        return noise        
+        return noise       
+
+
+    def db_to_float(db, using_amplitude=True):
+        """
+        Converts the input db to a float, which represents the equivalent
+        ratio in power.
+        """
+        db = float(db)
+        if using_amplitude:
+            return 10 ** (db / 20)
+        else:  # using power
+            return 10 ** (db / 10)
 
 
     def get_noisy_speech(self, speech:torch.FloatTensor, noise:torch.FloatTensor, snr_db:float) -> torch.FloatTensor:
@@ -171,30 +169,158 @@ class Preprocessing():
         torch.FloatTensor
             Noisy speech
         """
-        
+
         noise = self.fix_noise_duration(speech=speech, noise=noise)
 
-        speech_power = speech.norm(p=2)
-        noise_power = noise.norm(p=2)
+        speech_rms = speech.norm(p=2)
+        noise_rms = noise.norm(p=2)
         
-        snr = math.exp(snr_db / 10)
-        scale = speech_power / (snr * noise_power)
-        return (scale * noise + speech) / 2
-
-'''
-    data_rms = data.rms_db
-    noise_gain_db = min(data_rms - noise.rms_db - snr_db, self._max_gain_db)
-    noise.gain_db(noise_gain_db)
-
-    def rms_db(self):
-        mean_square = np.mean(self._samples ** 2)
-        return 10 * np.log10(mean_square)
-
-    def gain_db(self, gain):
-        self._samples *= 10.0 ** (gain / 20.0)
-'''
+        snr = 10**(snr_db/20)   # before 10
+        #'''
+        noise_gain = speech_rms / (snr * noise_rms)
+        noise_gain = min(noise_gain, settings.input.noise.max_gain)
+        noisy_speech = (noise_gain * noise + speech) / 2
+        '''
+        speech_gain = snr * noise_rms / speech_rms
+        noisy_speech = (speech_gain * speech + noise) / 2
+        #'''
+        # print("speech_power:\t{}, noise_power:\t{}, snr_db:\t{}, snr:\t{}, noise_gain:\t{}".format(speech_power, noise_power, snr_db, snr, noise_gain))
+        return noisy_speech
 
 
+def detect_silence(audio_segment, min_silence_len=1000, silence_thresh=-16, seek_step=1):
+    """
+    Returns a list of all silent sections [start, end] in milliseconds of audio_segment.
+    Inverse of detect_nonsilent()
+    audio_segment - the segment to find silence in
+    min_silence_len - the minimum length for any silent section
+    silence_thresh - the upper bound for how quiet is silent in dFBS
+    seek_step - step size for interating over the segment in ms
+    """
+    seg_len = len(audio_segment)
+
+    # you can't have a silent portion of a sound that is longer than the sound
+    if seg_len < min_silence_len:
+        return []
+
+    # convert silence threshold to a float value (so we can compare it to rms)
+    silence_thresh = db_to_float(silence_thresh) * audio_segment.max_possible_amplitude
+
+    # find silence and add start and end indicies to the to_cut list
+    silence_starts = []
+
+    # check successive (1 sec by default) chunk of sound for silence
+    # try a chunk at every "seek step" (or every chunk for a seek step == 1)
+    last_slice_start = seg_len - min_silence_len
+    slice_starts = range(0, last_slice_start + 1, seek_step)
+
+    # guarantee last_slice_start is included in the range
+    # to make sure the last portion of the audio is searched
+    if last_slice_start % seek_step:
+        slice_starts = itertools.chain(slice_starts, [last_slice_start])
+
+    for i in slice_starts:
+        audio_slice = audio_segment[i:i + min_silence_len]
+        if audio_slice.rms <= silence_thresh:
+            silence_starts.append(i)
+
+    # short circuit when there is no silence
+    if not silence_starts:
+        return []
+
+    # combine the silence we detected into ranges (start ms - end ms)
+    silent_ranges = []
+
+    prev_i = silence_starts.pop(0)
+    current_range_start = prev_i
+
+    for silence_start_i in silence_starts:
+        continuous = (silence_start_i == prev_i + seek_step)
+
+        # sometimes two small blips are enough for one particular slice to be
+        # non-silent, despite the silence all running together. Just combine
+        # the two overlapping silent ranges.
+        silence_has_gap = silence_start_i > (prev_i + min_silence_len)
+
+        if not continuous and silence_has_gap:
+            silent_ranges.append([current_range_start,
+                                  prev_i + min_silence_len])
+            current_range_start = silence_start_i
+        prev_i = silence_start_i
+
+    silent_ranges.append([current_range_start,
+                          prev_i + min_silence_len])
+
+    return silent_ranges
+
+
+def ranges2list(ranges):
+    indices = list()
+    for r in ranges:
+        print(r)
+        indices.extend(*range(r))
+    return indices
+
+
+def detect_nonsilent(audio_segment, min_silence_len=1000, silence_thresh=-16, seek_step=1):
+    """
+    Returns a list of all nonsilent sections [start, end] in milliseconds of audio_segment.
+    Inverse of detect_silent()
+    audio_segment - the segment to find silence in
+    min_silence_len - the minimum length for any silent section
+    silence_thresh - the upper bound for how quiet is silent in dFBS
+    seek_step - step size for interating over the segment in ms
+    """
+    silent_ranges = detect_silence(audio_segment, min_silence_len, silence_thresh, seek_step)
+    len_seg = len(audio_segment)
+
+    # if there is no silence, the whole thing is nonsilent
+    if not silent_ranges:
+        return [[0, len_seg]]
+
+    # short circuit when the whole audio segment is silent
+    if silent_ranges[0][0] == 0 and silent_ranges[0][1] == len_seg:
+        return []
+
+    prev_end_i = 0
+    nonsilent_ranges = []
+    for start_i, end_i in silent_ranges:
+        nonsilent_ranges.append([prev_end_i, start_i])
+        prev_end_i = end_i
+
+    if end_i != len_seg:
+        nonsilent_ranges.append([prev_end_i, len_seg])
+
+    if nonsilent_ranges[0] == [0, 0]:
+        nonsilent_ranges.pop(0)
+
+    return nonsilent_ranges
+
+
+def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
+    fig, ax = plt.subplots()
+    #melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
+    melspectrogram_db = melspectrogram[0].numpy()
+    img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
+    ax.set(title='Mel spectrogram display')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
+    plt.savefig(path)
+
+def plot_mfcc(path:str, mfcc:torch.FloatTensor) -> None:
+    fig, ax = plt.subplots()
+    #mfcc_db = librosa.power_to_db(mfcc[0], ref=np.max)
+    mfcc_db = mfcc[0].numpy()
+    img = librosa.display.specshow(mfcc_db, y_axis='mel', x_axis='time', ax=ax)
+    # plt.tight_layout()
+    ax.set(title='MFCC')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
+    plt.savefig(path)
+
+
+
+#########################################
+#           USELESS FUNCTIONS           #
+#########################################
 def audio_info(wav_path:str):
     """Gets information about an audio sample.
 
@@ -338,24 +464,6 @@ def plot_db_spectrogram(pow_spectrogram) -> None:
     plt.savefig(path)
 
 
-def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
-    fig, ax = plt.subplots()
-    melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
-    img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
-    ax.set(title='Mel spectrogram display')
-    fig.colorbar(img, ax=ax, format="%+2.f dB")
-    plt.savefig(path)
-
-def plot_mfcc(path:str, mfcc:torch.FloatTensor) -> None:
-    fig, ax = plt.subplots()
-    mfcc_db = librosa.power_to_db(mfcc[0], ref=np.max)
-    img = librosa.display.specshow(mfcc_db, y_axis='mel', x_axis='time', ax=ax)
-    # plt.tight_layout()
-    ax.set(title='MFCC')
-    fig.colorbar(img, ax=ax, format="%+2.f dB")
-    plt.savefig(path)
-
-
 # DATA AUGMENTATION
 ## Applying effects and filtering
 ### Apply effect to file
@@ -408,36 +516,6 @@ def apply_effects(waveform:torch.FloatTensor, effects:list, resample:int=16000) 
     return torchaudio.sox_effects.apply_effects_tensor(tensor=waveform, sample_rate=resample, effects=effects)
 
 
-def get_noisy_speeches(speech:torch.FloatTensor, noise:torch.FloatTensor, speech_sample_rate:int=16000, noise_sample_rate:int=16000, SNRs:list=list()) -> List[torch.FloatTensor]:
-    """Apply a noise with different SNRs to a speech waveform.
-
-    Parameters
-    ----------
-    speech: torch.FloatTensor
-        Speech waveform
-    noise: torch.FloatTensor
-        Noise waveform
-    speech_sample_rate: int
-        Sample rate of speech waveform
-    noise_sample_rate: int
-        Sample rate to apply to the noise waveform
-    SNRs: list
-        List of the SNRs (in dB) to apply on the speech waveform
-
-    Returns
-    -------
-    list(torch.FloatTensor)
-        List of the noisy speeches.
-    """
-    
-    noisy_speeches = list()    
-    for snr_db in SNRs:
-        noisy_speech = get_noisy_speech(speech=speech, noise=noise, speech_sample_rate=speech_sample_rate, noise_sample_rate=noise_sample_rate, snr_db=snr_db)
-        noisy_speeches.append(noisy_speech)
-    
-    return noisy_speeches
-
-
 ## Applying codec to Tensor object
 def apply_codec(waveform:torch.FloatTensor, sample_rate:int, config:dict) -> torch.FloatTensor:
     """Apply a list of effects to a waveform of an audio.
@@ -482,9 +560,9 @@ def get_spectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
     """
     
     spectrogram = T.Spectrogram(
-        n_fft=self.n_fft,
-        win_length=self.win_lenght,
-        hop_length=self.hop_lenght,
+        n_fft=settings.input.spectrogram.n_fft,
+        win_length=settings.input.spectrogram.win_lenght,
+        hop_length=settings.input.spectrogram.hop_lenght,
         center=True,
         pad_mode="reflect",
         power=2.0

@@ -115,6 +115,6 @@ def build_set(subset:str):
         df.to_csv(path_or_buf=out_file, index=False)
 
 
-build_train_set()
+#build_train_set()
 build_set(subset="validation")
 build_set(subset="testing")

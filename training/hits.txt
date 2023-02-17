@@ -1,3 +1,5 @@
 1. Use PyTorch, and TorchAudio
 2. Use ONNX
 3. Use configuration file for parameter of the training and test
+
+settings.input.spectrogram.padding.value and stride can be random during training as a dynamic data augmentation

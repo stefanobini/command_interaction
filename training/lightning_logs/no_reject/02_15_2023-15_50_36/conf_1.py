@@ -4,11 +4,9 @@ from dotmap import DotMap
 
 settings = DotMap()
 
-settings.name:str = "conf_1.py"
-
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "no_reject"                                                                   # name of the experiment
+settings.logger.name:str = "reduced_class"                                                                   # name of the experiment
 
 '''Input'''
 settings.input.language:str = "ita"                                                                 # ["ita", "eng"]
@@ -17,8 +15,8 @@ settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
 #settings.input.remove_silent:bool = True
 # Spectrogram
-settings.input.spectrogram.type:str = "db"                                                          # ["power", "db"]
-settings.input.spectrogram.normalize:bool = True
+settings.input.spectrogram.type:str = "power"                                                          # ["power", "db"]
+settings.input.spectrogram.normalize:bool = False
 settings.input.spectrogram.n_fft:int = 512                                                                 # [512, 400]
 settings.input.spectrogram.window:str = "hann"
 settings.input.spectrogram.win_sec:float = settings.input.spectrogram.n_fft / settings.input.sample_rate          # default=0.025
