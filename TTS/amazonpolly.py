@@ -1,5 +1,5 @@
 # from utils import command_eng, command_ita
-from all_commands import command_eng, command_ita
+from commands_v2 import command_eng, command_ita
 from pathlib import Path
 from boto3 import Session
 
@@ -21,7 +21,12 @@ voices_eng = {
     "Justin": "both",
     "Kevin": "neural",
     "Matthew": "both",
-    "Geraint": "standard"
+    "Geraint": "standard",
+    "Arthur": "neural",
+    "Kajal": "neural",
+    "Aria": "neural",
+    "Ayanda": "neural",
+    "Kendra": "both"
 }
 
 voices_ita = {

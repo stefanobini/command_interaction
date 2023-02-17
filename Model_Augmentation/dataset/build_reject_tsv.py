@@ -7,6 +7,11 @@ from tqdm import tqdm
 
 DST_TSV_FOLDER = 'FELICE_demo7_phase_I/rejects'
 # DST_TSV_FOLDER = 'FELICE_demo3/rejects'
+<<<<<<< HEAD
+=======
+# DST_TSV_FOLDER = 'FELICE_demo3/rejects'
+DST_TSV_FOLDER = "full_dataset_v1/rejects"
+>>>>>>> prova
 
 
 for language in ['eng', 'ita']:

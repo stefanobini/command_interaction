@@ -8,8 +8,9 @@ DATASET_PATH = './saves'
 OUTPUT_PATH = './commands.json'
 
 cmds = {
-    'total': {'eng': 0, 'ita': 0},
-    'class': {}
+    "speakers": {"eng": 0, "ita": 0},
+    "total": {"eng": 0, "ita": 0},
+    "class": {}
 }
 
 user_iterator = tqdm(os.listdir(DATASET_PATH))
@@ -19,6 +20,7 @@ for user in user_iterator:
         for lang in os.listdir(user_path):
             lang_path = os.path.join(user_path, lang)
             if os.path.isdir(lang_path):
+                cmds["speakers"][lang] += 1
                 for file in os.listdir(lang_path):
                     if '.ogg' in file:
                         cmd = int(file.replace(lang+'_', '').replace('.ogg', ''))

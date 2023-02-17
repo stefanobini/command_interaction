@@ -1,0 +1,16 @@
+<div id="video_feed" class="tab">
+    <img src="{{ url_for('video_feed') }}">
+    <div id="speech_popup"><span id="command"></span></div>
+	
+	<script type="text/javascript">
+	var command_span = document.getElementById("command");
+
+	function text_updater() {
+	  fetch('/text_feed')
+	  .then(response => response.text())
+	  .then(text => (command_span.innerHTML = text));  // update page with new data
+	}
+
+	setInterval(text_updater, 200);  // run `text_updater()` every 1000ms (1s)
+	</script>
+</div>

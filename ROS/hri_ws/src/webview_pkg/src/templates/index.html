@@ -1,0 +1,53 @@
+<!doctype HTML>
+
+<header>
+    <style>
+        @font-face { 
+            font-family: CascadiaCode; 
+            src: url("{{ url_for('static', filename='assets/CascadiaCode.otf') }}");
+        }
+
+        @font-face { 
+            font-family: HelveticaNeue; 
+            src: url("{{ url_for('static', filename='assets/HelveticaNeue.woff') }}");
+        }
+
+        body {
+            font-family: CascadiaCode;
+            background-image: url("{{ url_for('static', filename='assets/background.png') }}");
+            background-color: #349cc9;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/conversation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/video_feed.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+</header>
+    
+<body>
+    <div id="main">
+        <nav id="navbar">
+            <div id="btn_video_feed" class="view-cng" onclick="updateView('video_feed')" style="margin-top: 5vh;">
+                <h3> Video feed </h3>
+            </div>
+             <!-- <div id="btn_home" class="view-cng" onclick="updateView('home')" style="margin-bottom: 5vh;"> -->
+                <!-- <h3> Cosa posso fare? </h3> -->
+            <!-- </div> -->
+            <!-- <div id="diem_logo" class="nav_logo">
+                <img class="logo" width="150px" src="{{ url_for('static', filename='assets/diem_logo.png') }}">
+            </div> -->
+            <div id="unisa_logo" class="nav_logo">
+                <img class="logo" src="{{ url_for('static', filename='assets/unisa_logo.png') }}">
+            </div>
+            <div id="mivia_logo" class="nav_logo">
+                <img class="logo" src="{{ url_for('static', filename='assets/mivia_logo.png') }}">
+            </div>
+        </nav>
+        <!-- {% include 'home.html' %} -->
+        {% include 'video_feed.html' %}
+    </div>
+    
+</body>
+
+</html>

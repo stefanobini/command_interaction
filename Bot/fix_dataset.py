@@ -3,7 +3,6 @@ Fix the data acquired through the Telegram both in which there are some commands
 """
 
 import os
-import sys
 from tqdm import tqdm
 
 

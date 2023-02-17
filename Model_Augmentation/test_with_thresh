@@ -1,0 +1,25 @@
+from pathlib import Path
+import numpy as np
+import pickle
+
+
+TRESH = 0.95
+exp_dir = "/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/nemo_experiments/MatchboxNet-3x2x64/2022-12-01_21-41-16/"
+predict_file_path = Path(exp_dir).joinpath("res/predict.data")
+
+
+def load_predict() -> np.ndarray:
+     with open(str(predict_file_path), "rb") as fil:
+         return pickle.load(fil)
+
+preds, targs = load_predict()
+
+def apply_thresh(preds):
+    preds_lab_max = np.argmax(preds, axis=1)
+    final_preds = preds_lab_max
+    preds_val_max = np.max(preds, axis=1)
+
+    for i in range(len(preds_val_max)):
+        if preds_val_max[i] < TRESH:
+            final_preds[i] = 31
+    return final_preds

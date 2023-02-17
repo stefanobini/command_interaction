@@ -1,0 +1,23 @@
+{
+  "environment": "test",
+
+  "test": {
+    "server": {
+        "port"      : 10100
+    },
+    "contextbroker": {
+        "address"   : "localhost",
+        "port"      : 1026,
+        "subscription": {
+          "throttling": 0,
+          "subscription_length": 300,
+          "subscription_refresh_delay": 0.5
+        }
+    },
+    "endpoint": {
+      "address": "192.169.100.3",
+      "port": 4321
+    },
+    "log_level": "INFO"
+  }
+}

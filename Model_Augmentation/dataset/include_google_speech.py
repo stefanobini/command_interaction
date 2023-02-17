@@ -15,11 +15,48 @@ def convert_audio(input_audio, output_audio):
 
 
 SRC_DATASET = 'GoogleSpeechCommands'
+<<<<<<< HEAD
 DST_DATASET = 'FELICE_demo7_phase_I/rejects'
 # DST_DATASET = 'FELICE_demo3/rejects'
 THRESHOLD = 167
+=======
+# DST_DATASET = 'FELICE_demo7_extended/rejects'
+# DST_DATASET = 'FELICE_demo3/rejects'
+DST_RJT_DATASET = "full_dataset_v1/rejects"
+ENG_RJT_DATASET_SIZE = 20000/2
+ITA_RJT_DATASET_SIZE = 20000/2
+THRESH = True
+>>>>>>> prova
 
-SOUND_LIST = [
+ENG_RJT_LIST = [
+    '_background_noise_',
+    'bed',
+    'bird',
+    'cat',
+    'dog',
+    'eight',
+    'five',
+    'four',
+    'happy',
+    'house',
+    'marvin',
+    'nine',
+    'no',
+    'off',
+    'on',
+    'one',
+    'seven',
+    'sheila',
+    'six',
+    'three',
+    'tree',
+    'two',
+    'wow',
+    'yes',
+    'zero'
+]
+
+ITA_RJT_LIST = [
     '_background_noise_',
     'bed',
     'bird',
@@ -43,7 +80,6 @@ SOUND_LIST = [
     'seven',
     'sheila',
     'six',
-    'stop',
     'three',
     'tree',
     'two',
@@ -53,24 +89,51 @@ SOUND_LIST = [
     'zero'
 ]
 
-for lan in ['eng', 'ita']:
-    dst_path = os.path.join(DST_DATASET, lan, 'clips')
-    sound_iter = tqdm(SOUND_LIST)
-    for sound in sound_iter:
-        src_sound_path = os.path.join(SRC_DATASET, sound)
-        dst_sound_path = os.path.join(dst_path, sound)
-        i = 0
-        for sample in os.listdir(src_sound_path):
-            src_sample_path = os.path.join(src_sound_path, sample)
-            dst_final_path = dst_sound_path.replace(sound, sound+'_'+sample)
-            
-            if '.wav' in src_sample_path:
-                shutil.copyfile(src_sample_path, dst_final_path)
-            elif '.mp3' in src_sample_path:
-                convert_audio(src_sample_path, dst_final_path.replace('.mp3', '.wav'))
-            
-            if i > THRESHOLD:
-                break
-            i += 1
+ENG_THRESHOLD = int(ENG_RJT_DATASET_SIZE / len(ENG_RJT_LIST))
+ITA_THRESHOLD = int(ITA_RJT_DATASET_SIZE / len(ITA_RJT_LIST))
+
+### ENGLISH DATASET ###
+lan = "eng"
+dst_path = os.path.join(DST_RJT_DATASET, lan, 'clips')
+sound_iter = tqdm(ENG_RJT_LIST)
+for sound in sound_iter:
+    src_sound_path = os.path.join(SRC_DATASET, sound)
+    dst_sound_path = os.path.join(dst_path, sound)
+    i = 0
+    for sample in os.listdir(src_sound_path):
+        src_sample_path = os.path.join(src_sound_path, sample)
+        dst_final_path = dst_sound_path.replace(sound, sound+'_'+sample)
         
-        sound_iter.set_description('Copying in {} folder: {}'.format(lan.upper(), sound))
+        if '.wav' in src_sample_path:
+            shutil.copyfile(src_sample_path, dst_final_path)
+        elif '.mp3' in src_sample_path:
+            convert_audio(src_sample_path, dst_final_path.replace('.mp3', '.wav'))
+        
+        if THRESH and i > ENG_THRESHOLD:
+            break
+        i += 1
+    
+    sound_iter.set_description('Copying in {} folder: {}'.format(lan.upper(), sound))
+    
+### ITALIAN DATASET ###
+lan = "ita"
+dst_path = os.path.join(DST_RJT_DATASET, lan, 'clips')
+sound_iter = tqdm(ITA_RJT_LIST)
+for sound in sound_iter:
+    src_sound_path = os.path.join(SRC_DATASET, sound)
+    dst_sound_path = os.path.join(dst_path, sound)
+    i = 0
+    for sample in os.listdir(src_sound_path):
+        src_sample_path = os.path.join(src_sound_path, sample)
+        dst_final_path = dst_sound_path.replace(sound, sound+'_'+sample)
+        
+        if '.wav' in src_sample_path:
+            shutil.copyfile(src_sample_path, dst_final_path)
+        elif '.mp3' in src_sample_path:
+            convert_audio(src_sample_path, dst_final_path.replace('.mp3', '.wav'))
+        
+        if THRESH and i > ITA_THRESHOLD:
+            break
+        i += 1
+    
+    sound_iter.set_description('Copying in {} folder: {}'.format(lan.upper(), sound))

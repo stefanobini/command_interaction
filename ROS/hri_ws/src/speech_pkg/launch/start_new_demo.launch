@@ -1,0 +1,16 @@
+<launch>
+    <arg name="lang" default="eng"/>
+    <arg name="demo" default="7"/>
+
+    <param name="vad" type="str" value="webrtcvad" />
+    <param name="save_speech" type="bool" value="False"/>
+    <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/> -->  <!-- CRF_network -->
+    <!-- <param name="fiware_cb" type="str" value="10.0.1.226"/> -->  <!-- mivia_network -->
+    <param name="fiware_cb" type="str" value="192.168.1.181"/>  <!-- beisHome_network -->
+
+    <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang) --demo $(arg demo)"/>
+    <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen" args="--demo $(arg demo)"/>
+    <node name="speech_detection_node" pkg="speech_pkg" type="speech_detection_node.py" output="screen"/>
+    <node name="microphone_node" pkg="speech_pkg" type="microphone_node.py" output="screen"/>
+    
+</launch>
