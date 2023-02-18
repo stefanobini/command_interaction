@@ -1,5 +1,4 @@
 import os
-import shutil
 import random
 import matplotlib.pyplot as plt
 import math
@@ -22,63 +21,129 @@ colorama.init(autoreset=True)
 
 
 class Preprocessing():
+    """Class that preprocesses audio samples before sending them to the network.
+    
+    Methods
+    -------
+    resample_audio(self, waveform:torch.Tensor, sample_rate:int) -> torch.Tensor
+        Resample an audio waverform given as input (waveform). The target sample rate has to be defined in configuration file, while the original one is passed as parameter (sample_rate)
+    get_melspectrogram(self, waveform:torch.Tensor) -> torch.Tensor
+        Compute Mel-Spectrogram of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
+    get_mfcc(self, waveform:torch.Tensor) -> torch.Tensor
+        Compute MFCC of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels, n_mfcc, dct_type, norm, log_mels) are taken from the configuration file.
+    power_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor
+        Convert power spectrogram in dB spectrogram.
+    approximate_snr(self, snr:float, multiple:int) -> int
+        Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
+    """
     def __init__(self):
         super().__init__()
 
     
-    def resample_audio(self, waveform:torch.FloatTensor, sample_rate:int) -> torch.FloatTensor:
-        """Resample a waveform of an audio.
+    def resample_audio(self, waveform:torch.Tensor, sample_rate:int) -> torch.Tensor:
+        """Resample an audio waveform.
+        The target sample rate has to be defined in configuration file, while the original one is passed as parameter (sample_rate).
         
         Parameters
         ----------
-        waveform : torch.FloatTensor
+        waveform: torch.Tensor
             The waveform of the audio
         sample_rate: int
-            Sample rate of the sample
-        resample_rate: str
-            New sample rate
-        dtype: torch.TensorType
-            Tensor type of the waveform
+            Sample rate of the input waveform
 
         Returns
         -------
-        torch.FloatTensor
+        torch.Tensor
             Resampled waveform
         """
         resampler = T.Resample(orig_freq=sample_rate, new_freq=settings.input.sample_rate, dtype=waveform.dtype)
-        
-        # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
-        # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
-        # Window function
         return resampler(waveform)
 
     
-    def get_melspectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
-        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.spectrogram.n_fft, win_length=settings.input.spectrogram.win_lenght, hop_length=settings.input.spectrogram.hop_lenght, n_mels=settings.input.mel.n_mels)
+    def get_melspectrogram(self, waveform:torch.Tensor) -> torch.Tensor:
+        """Compute Mel-Spectrogram of a waveform given as input (waveform).
+        The method use torchaudio library for the trasformation. All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
+        
+        Parameters
+        ----------
+        waveform: torch.Tensor
+            Waveform of an audio
 
+        Returns
+        -------
+        torch.Tensor
+            Mel spectrogram of the waveform
+        """
+        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.spectrogram.n_fft, win_length=settings.input.spectrogram.win_length, hop_length=settings.input.spectrogram.hop_length, n_mels=settings.input.mel.n_mels)
         return transformation(waveform)
     
 
-    def get_mfcc(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
-        mel_arg = {"n_fft":settings.input.spectrogram.n_fft, "win_length":settings.input.spectrogram.win_lenght, "hop_length":settings.input.spectrogram.hop_lenght, "n_mels":settings.input.mel.n_mels}
-        transformation = torchaudio.transforms.MFCC(sample_rate=settings.input.sample_rate, n_mfcc=settings.input.mfcc.n_mfcc, dct_type=settings.input.mfcc.dct_type, norm=settings.input.mfcc.norm, log_mels=settings.input.mfcc.log_mels, melkwargs=mel_arg)
+    def get_mfcc(self, waveform:torch.Tensor) -> torch.Tensor:
+        """Compute MFCC of a waveform given as input (waveform).
+        The method use torchaudio trasformation. All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels, n_mfcc, dct_type, norm, log_mels) are taken from the configuration file.
         
+        Parameters
+        ----------
+        waveform: torch.Tensor
+            Waveform of an audio
+
+        Returns
+        -------
+        torch.Tensor
+            MFCC spectrogram of the waveform
+        """
+        mel_arg = {"n_fft":settings.input.spectrogram.n_fft, "win_length":settings.input.spectrogram.win_length, "hop_length":settings.input.spectrogram.hop_length, "n_mels":settings.input.mel.n_mels}
+        transformation = torchaudio.transforms.MFCC(sample_rate=settings.input.sample_rate, n_mfcc=settings.input.mfcc.n_mfcc, dct_type=settings.input.mfcc.dct_type, norm=settings.input.mfcc.norm, log_mels=settings.input.mfcc.log_mels, melkwargs=mel_arg)
         return transformation(waveform)
 
 
-    def power_to_db_spectrogram(self, spectrogram:torch.FloatTensor):
+    def power_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor:
+        """Convert power spectrogram in dB spectrogram.
+        The method use torchaudio library.
+        
+        Parameters
+        ----------
+        spectrogram: torch.Tensor
+            Spectrogram of the audio signal (Mel or MFCC)
+
+        Returns
+        -------
+        torch.Tensor
+            dB version of the input spectrogram
+        """
         spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=10., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
-        # spectrogram_db = librosa.power_to_db(spectrogram, ref=np.max)
         return spectrogram_db
+
+
+    def approximate_snr(self, snr:float, multiple:int) -> int:
+        """Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
+        
+        Parameters
+        ----------
+        snr: float
+            SNR applied to the speech sample
+        multiple: int
+            Multiple to create the pool
+        
+        Returns
+        -------
+        int
+            Approximated SNR
+        """
+        return multiple * round(snr / multiple)
 
     
     def compute_snr(self, epoch:int) -> float:
+        """Calcola SNR da applicare allo specifico campione audio data l'epoca.
+        Il metodo usa l'epoca per applicare la strategia di Curriculum Learning (CL) desiderata tra: uniforme (senza CL), gaussiana con varianza fissata e media decrescente, gaussiana con varianza variabile e media decrescente
+        """
         # a, b, mu, sigma = 0., 0., 0., 0.
         snr = 0.
         descent_epochs = settings.training.max_epochs*settings.noise.descent_ratio
-        if settings.noise.curriculum_learning.distribution == "uniform":
+        if settings.noise.curriculum_learning.distribution == "PEM":
             snr = random.uniform(settings.noise.min_snr, settings.noise.max_snr)
-        elif settings.noise.curriculum_learning.distribution == "dynamic_uniform":
+        # TO DO
+        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
             ### CURRICULUM LEARNING ###
             a = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
             # b = epoch * (settings.noise.min_snr - settings.noise.max_snr) / self.descent_epochs + settings.noise.max_snr + settings.noise.curriculum_learning.uniform.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
@@ -86,13 +151,24 @@ class Preprocessing():
             if b > settings.noise.max_snr:
                 b = settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
-        elif settings.noise.curriculum_learning.distribution == "dynamic_gaussian":
+        # TO DO
+        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
+            pass
+        # TO DO
+        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
+            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            sigma = None
+            pass
+        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
             ### CURRICULUM LEARNING ###
             # model mu as a combination of descent linear function plus a constant  ->  \_
             mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
             # model sigma as a triangular function                                  ->  /\
-            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma + settings.noise.curriculum_learning.gaussian.min_sigma      # modeled as a linear descending function
-            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.min_sigma                          # modeled as a linear ascending function
+            #s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma + settings.noise.curriculum_learning.gaussian.min_sigma      # modeled as a linear descending function
+            #s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.min_sigma                          # modeled as a linear ascending function
+            # model sigma as a triangular function                                  ->  \/
+            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs      # modeled as a linear ascending function
+            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma                          # modeled as a linear descending function
             sigma = min(s1, s2)   
             snr = np.random.normal(loc=mu, scale=sigma)
             if (sigma < settings.noise.curriculum_learning.gaussian.min_sigma or sigma > settings.noise.curriculum_learning.gaussian.max_sigma) and settings.noise.curriculum_learning.gaussian.max_sigma != 0:
@@ -110,19 +186,19 @@ class Preprocessing():
         return int(snr)
 
 
-    def fix_noise_duration(self, speech:torch.FloatTensor, noise:torch.FloatTensor) -> torch.FloatTensor:
+    def fix_noise_duration(self, speech:torch.Tensor, noise:torch.Tensor) -> torch.Tensor:
         """Adjust the noise duration to be equal to the speech. The noise is cutted if is too long and padded (by zeros) if it is too short.
         
         Parameters
         ----------
-        speech: torch.FloatTensor
+        speech: torch.Tensor
             Speech waveform tensor (1-D). Tensor whose duration should not be changed.
-        noise: torch.FloatTensor
+        noise: torch.Tensor
             Noise waveform tensor (1-D). Tensor whose duration should be changed.
 
         Returns
         -------
-        torch.FloatTensor
+        torch.Tensor
             Noise waveform tensor (1-D) with the same duration of the speech give as input.
         """
 
@@ -152,21 +228,21 @@ class Preprocessing():
             return 10 ** (db / 10)
 
 
-    def get_noisy_speech(self, speech:torch.FloatTensor, noise:torch.FloatTensor, snr_db:float) -> torch.FloatTensor:
+    def get_noisy_speech(self, speech:torch.Tensor, noise:torch.Tensor, snr_db:float) -> torch.Tensor:
         """Apply a noise with specific SNR to a speech waveform.
 
         Parameters
         ----------
-        speech: torch.FloatTensor
+        speech: torch.Tensor
             Speech waveform
-        noise: torch.FloatTensor
+        noise: torch.Tensor
             Noise waveform
         snr: float
             SNR in dB applied to the speech sample
 
         Returns
         -------
-        torch.FloatTensor
+        torch.Tensor
             Noisy speech
         """
 
@@ -297,7 +373,7 @@ def detect_nonsilent(audio_segment, min_silence_len=1000, silence_thresh=-16, se
     return nonsilent_ranges
 
 
-def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
+def plot_melspectrogram(path:str, melspectrogram:torch.Tensor) -> None:
     fig, ax = plt.subplots()
     #melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
     melspectrogram_db = melspectrogram[0].numpy()
@@ -306,7 +382,7 @@ def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
     fig.colorbar(img, ax=ax, format="%+2.f dB")
     plt.savefig(path)
 
-def plot_mfcc(path:str, mfcc:torch.FloatTensor) -> None:
+def plot_mfcc(path:str, mfcc:torch.Tensor) -> None:
     fig, ax = plt.subplots()
     #mfcc_db = librosa.power_to_db(mfcc[0], ref=np.max)
     mfcc_db = mfcc[0].numpy()
@@ -321,71 +397,12 @@ def plot_mfcc(path:str, mfcc:torch.FloatTensor) -> None:
 #########################################
 #           USELESS FUNCTIONS           #
 #########################################
-def audio_info(wav_path:str):
-    """Gets information about an audio sample.
-
-    Parameters
-    ----------
-    wav_path : str
-        Path of the audio file (in "wav" format)
-
-    Returns
-    -------
-    torchaudio.AudioMetaData
-        AudioMetaData object with information about audio sample
-    """
-
-    return torchaudio.info(wav_path)
-
-
-def load_audio(wav_path:str) -> Tuple[torch.FloatTensor, int]:
-    """Load an audio file.
-
-    Parameters
-    ----------
-    wav_path : str
-        Path of the audio file (in "wav" format)
-
-    Returns
-    -------
-    torch.FloatTensor
-        Pytorch tensor normalized within [-1.0, 1.0] representing the waveform. The shape is (n_channel, n_frame)
-    int
-        Number of channels
-    """
-
-    return torchaudio.load(wav_path)
-
-
-def save_audio(wav_path:str, waveform:torch.FloatTensor, sample_rate:int, encoding="PCM_S", bits_per_sample:int=16, format:str="wav") -> None:
-    """Save an waveform in a audio file.
-
-    Parameters
-    ----------
-    wav_path : str
-        Path of the audio file (in "wav" format)
-    waveform: torch.FloatTensor
-        Float pytorch tensor representing the waveform of the audio
-    sample_rate: int
-        Sample rate of the audio
-    encoding: str
-        By default is "PCM-S"
-    bits_per_sample: int
-        By default is 16 
-    format: str
-        By default is "wav"
-
-    """
-
-    torchaudio.save(wav_path, waveform, sample_rate, encoding=encoding, bits_per_sample=bits_per_sample, format=format)
-
-
-def _plot(tensor:torch.FloatTensor, sample_rate:int, title:str) -> None:
+def _plot(tensor:torch.Tensor, sample_rate:int, title:str) -> None:
     """Plot waveform or power spectrogram of an audio sample.
 
     Parameters
     ----------
-    tensor: torch.FloatTensor
+    tensor: torch.Tensor
         Waveform or spectrogram of the audio sample
     sample_rate: int
         Sample rate of the sample
@@ -415,12 +432,12 @@ def _plot(tensor:torch.FloatTensor, sample_rate:int, title:str) -> None:
     plt.savefig(path)
 
 
-def plot_waveform(waveform:torch.FloatTensor, sample_rate:int=16000) -> None:
+def plot_waveform(waveform:torch.Tensor, sample_rate:int=16000) -> None:
     """Plot waveform pf an audio sample.
 
     Parameters
     ----------
-    tensor: torch.FloatTensor
+    tensor: torch.Tensor
         Waveform of the audio sample
     sample_rate: int
         Sample rate of the sample
@@ -429,12 +446,12 @@ def plot_waveform(waveform:torch.FloatTensor, sample_rate:int=16000) -> None:
     _plot(waveform, sample_rate, title="Waveform")
 
 
-def plot_spectrogram(waveform:torch.FloatTensor, sample_rate:int=16000) -> None:
+def plot_spectrogram(waveform:torch.Tensor, sample_rate:int=16000) -> None:
     """Plot power spectrogram of an audio sample.
 
     Parameters
     ----------
-    tensor: torch.FloatTensor
+    tensor: torch.Tensor
         Waveform of the audio sample
     sample_rate: int
         Sample rate of the sample
@@ -448,7 +465,7 @@ def plot_db_spectrogram(pow_spectrogram) -> None:
 
     Parameters
     ----------
-    pow_spectrogram: torch.FloatTensor
+    pow_spectrogram: torch.Tensor
         Power spectrogram of anudio sample
     """
 
@@ -462,110 +479,3 @@ def plot_db_spectrogram(pow_spectrogram) -> None:
     plt.show(block=False)
     path = os.path.join("figures", "Spectrogram_dB_example.png")
     plt.savefig(path)
-
-
-# DATA AUGMENTATION
-## Applying effects and filtering
-### Apply effect to file
-def get_sample(path:str, effects:list) -> Tuple[torch.FloatTensor, int]:
-    """Load an audio file and apply a list of effects.
-    To list the available effects use: torchaudio.sox_effects.effect_names()
-
-    Parameters
-    ----------
-    path: str
-        Path of the audio file (in "wav" format)
-    effects: list
-        List of the effects to apply, each element (effect) contain a list of strings composed by the name of the effectv and the required parameters
-    resample: int
-        Sample rate to apply to the modified audio
-
-    Returns
-    -------
-    torch.FloatTensor
-        Modified waveform
-    int
-        Sample rate
-    """
-    
-    return torchaudio.sox_effects.apply_effects_file(path=path, effects=effects)
-
-
-### Apply effect to tensor
-def apply_effects(waveform:torch.FloatTensor, effects:list, resample:int=16000) -> Tuple[torch.FloatTensor, int]:
-    """Apply a list of effects to a waveform of an audio.
-    To list the available effects use: torchaudio.sox_effects.effect_names()
-
-    Parameters
-    ----------
-    waveform: torch.FloatTensor
-        Waveform of the audio
-    effects: list
-        List of the effects to apply, each element (effect) contain a list of strings composed by the name of the effectv and the required parameters
-    resample: int
-        Sample rate to apply to the modified audio
-
-    Returns
-    -------
-    torch.FloatTensor
-        Modified waveform
-    int
-        Sample rate
-    """
-    
-    return torchaudio.sox_effects.apply_effects_tensor(tensor=waveform, sample_rate=resample, effects=effects)
-
-
-## Applying codec to Tensor object
-def apply_codec(waveform:torch.FloatTensor, sample_rate:int, config:dict) -> torch.FloatTensor:
-    """Apply a list of effects to a waveform of an audio.
-    To list the available effects use: torchaudio.sox_effects.effect_names()
-
-    Parameters
-    ----------
-    waveform: torch.FloatTensor
-        Waveform of the audio
-    sample_rate: int
-        Sample rate of the audio waveform
-    config: dict
-        Dictionary containing the parameters required by the codec
-
-    Returns
-    -------
-    torch.FloatTensor
-        Waveform with new codec
-    """
-    
-    return F.apply_codec(waveform=waveform, sample_rate=sample_rate, **config)
-
-
-def get_spectrogram(self, waveform:torch.FloatTensor) -> torch.FloatTensor:
-    """Get spectrogram in dB from a waveform.
-
-    Parameters
-    ----------
-    waveform: torch.FloatTensor
-        Waveform of the audio
-    n_ftt: int
-        Size of FFT, creates ``n_fft // 2 + 1`` bins. (Default: ``400``)
-    win_leght: int
-        Window size. (Default: ``n_fft``)
-    hop_lenght: int
-        Length of hop between STFT windows. (Default: "win_lenght // 2")
-
-    Returns
-    -------
-    torch.FloatTensor
-        Spectrogram in dB of the input waveform
-    """
-    
-    spectrogram = T.Spectrogram(
-        n_fft=settings.input.spectrogram.n_fft,
-        win_length=settings.input.spectrogram.win_lenght,
-        hop_length=settings.input.spectrogram.hop_lenght,
-        center=True,
-        pad_mode="reflect",
-        power=2.0
-    )
-
-    return spectrogram(waveform)

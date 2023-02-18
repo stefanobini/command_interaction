@@ -12,7 +12,7 @@ settings.logger.name:str = "no_reject"                                          
 
 '''Input'''
 settings.input.language:str = "ita"                                                                 # ["ita", "eng"]
-settings.input.type:str = "mfcc"                                                          # ["waveform", "melspectrogram", "mfcc"]
+settings.input.type:str = "melspectrogram"                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
 #settings.input.remove_silent:bool = True
@@ -89,7 +89,7 @@ settings.noise.min_snr:int = -10
 settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
-settings.noise.curriculum_learning.distribution:str = "PEM"             # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "uniform"             # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.ab_uniform_step:int = 50         # 50 Uniform CL-PEM v1, Disable in the code for CL-PEM v2
 settings.noise.curriculum_learning.gaussian.max_sigma:int = 50
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2

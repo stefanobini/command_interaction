@@ -21,7 +21,7 @@ from settings.conf_1 import settings
 class ResNet8_PL(pl.LightningModule):
     """ """
 
-    def __init__(self, num_labels:int, loss_weights:torch.FloatTensor):
+    def __init__(self, num_labels:int, loss_weights:torch.Tensor):
         """ """
         super().__init__()
 
@@ -38,7 +38,7 @@ class ResNet8_PL(pl.LightningModule):
         self.output = torch.nn.Linear(out_channel, 30)
         
 
-    def set_parameters(self, num_labels: int, loss_weights:torch.FloatTensor):
+    def set_parameters(self, num_labels: int, loss_weights:torch.Tensor):
         out_channel = settings.model.resnet8.out_channel
         self.output = torch.nn.Linear(out_channel, num_labels)
         # self.softmax = torch.nn.Softmax(dim=1)
@@ -55,7 +55,7 @@ class ResNet8_PL(pl.LightningModule):
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
         
 
-    def forward(self, x:torch.FloatTensor) -> torch.FloatTensor:
+    def forward(self, x:torch.Tensor) -> torch.Tensor:
         """Input size: (Batch, Channel, Frequency, Time)"""
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
         '''
@@ -122,7 +122,7 @@ class ResNet8_PL(pl.LightningModule):
         self.train_loader.dataset._shuffle_noise_dataset()              # shuffle noise sample among epochs
         self.train_loader.dataset.set_epoch(epoch=self.current_epoch)
 
-    def training_step(self, batch, batch_idx) -> torch.FloatTensor:
+    def training_step(self, batch, batch_idx) -> torch.Tensor:
         """ """
         # print(Back.BLUE + "Train step, batch size: {}".format(batch[0][0].size()))
         x, y = batch
@@ -164,7 +164,7 @@ class ResNet8_PL(pl.LightningModule):
         
         Parameters
         ----------
-        batch: torch.FloatTensor
+        batch: torch.Tensor
             Batch tensor of samples.
         """
         # print(Back.YELLOW + "VALIDATION STEP\ndataloader: {}\nbatch size: x:{}, y:{}\n".format(batches.keys(), batches[0][0].size(), batches[0][1].size()))

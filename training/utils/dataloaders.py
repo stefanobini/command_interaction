@@ -1,12 +1,6 @@
 import os
 import pandas as pd
 from typing import List, Tuple, Dict
-import colorama
-colorama.init(autoreset=True)
-from colorama import Back, Fore
-import numpy as np
-import matplotlib as mpl
-import librosa
 
 import torch
 from torch.utils.data import Dataset
@@ -14,13 +8,17 @@ import torchaudio
 
 from settings.conf_1 import settings
 
+import colorama
+colorama.init(autoreset=True)
+from colorama import Back, Fore
+
 
 try:
     # If run from the parent folder
-    from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing, save_audio
+    from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
 except ModuleNotFoundError:
     # If run from the "utils" folder
-    from preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing, save_audio
+    from preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
 
 
 it = 0
@@ -49,7 +47,7 @@ class MiviaDataset(Dataset):
         return len(self.speech_annotations)
 
 
-    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int]:
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int]:
         item = self.speech_annotations.iloc[index]
         rel_path = item.path
         full_path = os.path.join(self.dataset_path, rel_path)
@@ -71,13 +69,13 @@ class MiviaDataset(Dataset):
         return list(self.speech_annotations.groupby("label").groups.keys())
 
 
-    def _get_label_weights(self) -> List[torch.FloatTensor]:
+    def _get_label_weights(self) -> List[torch.Tensor]:
         """ Calculate the percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
         
         Returns
         -------
-        torch.FloatTensor
-            One-Dimensional FloatTensor of weights.
+        torch.Tensor
+            One-Dimensional Tensor of weights.
         """
         labels_group = self.speech_annotations.groupby("label")
         weights = torch.zeros(len(self._get_labels()))
@@ -100,12 +98,11 @@ class TrainingMiviaDataset(MiviaDataset):
         self.epoch = 0
 
     
-    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int]:
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int]:
         speech_item = self.speech_annotations.iloc[index]
         rel_speech_path = speech_item.path
         speech_path = os.path.join(self.dataset_path, rel_speech_path)
         speech, speech_sample_rate = torchaudio.load(filepath=speech_path)
-        #speech, speech_sample_rate = librosa.core.load(speech_path, sr=settings.input.sample_rate, mono=True)
         speech = self.preprocessing.resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
         speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
 
@@ -122,7 +119,6 @@ class TrainingMiviaDataset(MiviaDataset):
         rel_noise_path = noise_item.path
         noise_path = os.path.join(self.dataset_path, rel_noise_path)
         noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
-        # noise, noise_sample_rate = librosa.core.load(noise_path, sr=settings.input.sample_rate, mono=True)
         noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
         noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
         
@@ -132,8 +128,8 @@ class TrainingMiviaDataset(MiviaDataset):
         '''
         global it
         if it < 1:
-            save_audio(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=settings.input.sample_rate)
-        '''
+            torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+        #'''
         if settings.input.type == "waveform":
             return rel_speech_path, item, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
         elif settings.input.type == "mfcc":
@@ -171,12 +167,11 @@ class ValidationMiviaDataset(MiviaDataset):
         self.speech_annotations = pd.read_csv(settings.dataset.speech.validation.annotations, sep=',')
     
 
-    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int, int]:
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
         full_path = os.path.join(self.dataset_path, rel_path)
         waveform, sample_rate = torchaudio.load(filepath=full_path)
-        # waveform, sample_rate = librosa.core.load(full_path, sr=settings.input.sample_rate, mono=True)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
@@ -208,7 +203,7 @@ class TestingMiviaDataset(MiviaDataset):
         self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
 
     
-    def __getitem__(self, index) -> Tuple[torch.FloatTensor, int, str, str, str, int, int]:
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
         item = self.speech_annotations.iloc[index]
         rel_path = item.path
         full_path = os.path.join(self.dataset_path, rel_path)
@@ -252,20 +247,20 @@ def normalize_tensor(tensor:torch.Tensor) -> torch.Tensor:
     return normalized_tensor
 
 
-def pad_spectrograms(batch:torch.FloatTensor, max_lenght:int, padding_value:float=0.) -> torch.FloatTensor:
-    """ Make all tensor in a batch the same lenght by padding with zeros.
+def pad_spectrograms(batch:torch.Tensor, max_length:int, padding_value:float=0.) -> torch.Tensor:
+    """ Make all tensor in a batch the same length by padding with zeros.
     
     Parameters
     ----------
-    batch: torch.FloatTensor
+    batch: torch.Tensor
         Batch tensor with shape B x *
 
     Returns
     -------
-    torch.FloatTensor
-        Batch with audio sample of the same lenght
+    torch.Tensor
+        Batch with audio sample of the same length
     """
-    resized_batch = torch.zeros(size=(len(batch), batch[0].size(0), batch[0].size(1), max_lenght))              # (B x C x F x T)
+    resized_batch = torch.zeros(size=(len(batch), batch[0].size(0), batch[0].size(1), max_length))              # (B x C x F x T)
     # to optimize try to assign block per clock the sample
     for b in range(resized_batch.size(0)):
         #sample_with_silent_queue = torch.ones(size=(batch[0].size(0), batch[0].size(1), batch[b].size(2)+settings.input.spectrogram.padding.stride)) * settings.input.spectrogram.padding.value
@@ -287,25 +282,25 @@ def pad_spectrograms(batch:torch.FloatTensor, max_lenght:int, padding_value:floa
     return resized_batch
 
 
-def _train_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, torch.IntTensor]:
+def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """ Process the audio samples in batch to have the same duration.
     The data tuple has the form:
     (waveform, sample_rate, type, subtype, speaker, label)
     
     Parameters
     ----------
-    batch: List[torch.FloatTensor]
+    batch: List[torch.Tensor]
         List of tensor contained in the batch
 
     Returns
     -------
-    Tuple[torch.FloatTensor, torch.IntTensor]
-        Batch with audio sample of the same lenght
+    Tuple[torch.Tensor, torch.IntTensor]
+        Batch with audio sample of the same length
     """
     #print(Back.YELLOW + "TRAIN COLLATE FN" + Back.RESET)
     tensors, targets = list(), list()
     #paths = list()
-    max_lenght = 0
+    max_length = 0
     for path, tensor, _, _, _, _, label in batch:
         #paths.append(path.replace('/', '-').replace(".wav", ''))
         '''
@@ -314,11 +309,11 @@ def _train_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor,
         if True in torch.isinf(tensor):
             print(Back.RED + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
         #'''
-        max_lenght = tensor.size(2) if tensor.size(2)>max_lenght else max_lenght
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
-    tensors = pad_spectrograms(tensors, max_lenght=max_lenght, padding_value=settings.input.spectrogram.padding_value)
+    tensors = pad_spectrograms(tensors, max_length=max_length, padding_value=settings.input.spectrogram.padding_value)
     targets = torch.stack(targets)
     # approx_snr = approximate_snr(snr=snr, multiple=settings.noise.snr_step)
     
@@ -334,26 +329,26 @@ def _train_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor,
     return tensors, targets#, approx_snr
 
 
-def _val_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, torch.IntTensor]:
+def _val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """ Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
     (waveform, sample_rate, type, subtype, speaker, label, snr)
     
     Parameters
     ----------
-    batch: Dict[torch.FloatTensor]
+    batch: Dict[torch.Tensor]
         List of tensor contained in the batch
 
     Returns
     -------
-    Dict[int, torch.FloatTensor]
-        Combined batch (dictionary of batches) with audio sample of the same lenght
+    Dict[int, torch.Tensor]
+        Combined batch (dictionary of batches) with audio sample of the same length
     """
 
     #print(Back.BLUE + "VALIDATION COLLATE FN" + Back.RESET)
     tensors, targets, snrs = list(), list(), list()
     #paths = list()
-    max_lenght = 0
+    max_length = 0
     for path, tensor, _, _, _, _, label, snr in batch:
         '''
         paths.append(path.replace('/', '-').replace(".wav", ''))
@@ -362,12 +357,12 @@ def _val_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, t
         if True in torch.isinf(tensor):
             print(Back.YELLOW + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
         '''
-        max_lenght = tensor.size(2) if tensor.size(2)>max_lenght else max_lenght
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_lenght=max_lenght, padding_value=settings.input.spectrogram.padding_value)
+    tensors = pad_spectrograms(tensors, max_length=max_length, padding_value=settings.input.spectrogram.padding_value)
     targets = torch.stack(targets)
     snrs = torch.stack(snrs)
 
@@ -379,24 +374,6 @@ def _val_collate_fn(batch:List[torch.FloatTensor]) -> Tuple[torch.FloatTensor, t
     it += 1
     #'''
     return tensors, targets, snrs
-
-
-def approximate_snr(snr:float, multiple:int) -> int:
-    """Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
-    
-    Parameters
-    ----------
-    snr: float
-        SNR applied to the speech sample
-    multiple: int
-        Multiple to create the pool
-    
-    Returns
-    -------
-    int
-        Approximated SNR
-    """
-    return multiple * round(snr / multiple)
 
 
 def test_dataset(samples:List[int]) -> None:
