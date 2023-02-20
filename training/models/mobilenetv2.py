@@ -33,7 +33,7 @@ class MobileNetV2_PL(pl.LightningModule):
         self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
-        self.metric_to_track = settings.training.metric_to_track
+        self.metric_to_track = settings.training.checkpoint.metric_to_track
         self.check_val_every_n_epoch = settings.training.check_val_every_n_epoch
         self.optimization_mode = settings.training.optimization_mode
         self.early_stop_patience = settings.training.early_stop.patience

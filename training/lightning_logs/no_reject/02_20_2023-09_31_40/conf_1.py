@@ -5,7 +5,7 @@ from dotmap import DotMap
 settings = DotMap()
 
 settings.name:str = "conf_1.py"
-############# Provare AdamW come optimizer
+############# CAMBIO DI MULTIPLIER DA 10. A 20.
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = "no_reject"                                                                              # name of the experiment
@@ -28,9 +28,9 @@ settings.input.spectrogram.hop_length:int = settings.input.spectrogram.win_lengt
 settings.input.spectrogram.padding.value:float = -80. if settings.input.spectrogram.type == "db" else 0.
 settings.input.spectrogram.padding.stride:int = 10                                                                  # silence between two padding patches, in pixel
 # Mel
-settings.input.mel.n_mels:int = 40                                                                                  # [40, 64]
+settings.input.mel.n_mels:int = 64                                                                                  # [40, 64]
 # MFCC
-settings.input.mfcc.n_mfcc:int = 40
+settings.input.mfcc.n_mfcc:int = 64
 settings.input.mfcc.dct_type:int = 2
 settings.input.mfcc.norm:str = "ortho"
 settings.input.mfcc.log_mels:bool = True                                                                            # Default value [False], but NVIDIA NeMo use True

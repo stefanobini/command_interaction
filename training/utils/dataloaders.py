@@ -25,12 +25,19 @@ it = 0
 class MiviaDataset(Dataset):
     
     def __init__(self) -> Dataset:
-        """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class. The constructor requires only the name of the partition to load. The path of the dataset and the annotation file are taken in the configuration file.
-
-        Parameters
-        ----------
-        subset: str
-            Partition of the dataset between {None, "training", "validation", "testing"}. By default, it is None, in this case the whole dataset is loaded
+        """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class.
+        The path of the dataset and the annotation file are taken in the configuration file.
+        
+        Methods
+        -------
+        __len__(self) -> int
+            Get the dataset lenght
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
+            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        _get_labels(self) -> List[int]
+            Get the list of the labels
+        _get_class_weights(self)-> List[torch.Tensor]
+            Get the weights for each class calculated as a percentage of how many samples there are for each class
 
         Returns
         -------
@@ -44,33 +51,80 @@ class MiviaDataset(Dataset):
     
 
     def __len__(self) -> int:
+        """Get length of the dataset.
+        
+        Returns
+        -------
+        int
+            Lenght of the dataset.
+        """
         return len(self.speech_annotations)
 
 
-    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int]:
-        item = self.speech_annotations.iloc[index]
-        rel_path = item.path
+    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the dataset
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            Label of the item
+        """
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
         full_path = os.path.join(self.dataset_path, rel_path)
         waveform, sample_rate = torchaudio.load(full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
-        waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
-        
-        if settings.input.type == "mfcc":
-            mfcc = self.preprocessing.get_mfcc(waveform)
-            return mfcc, settings.input.sample_rate, item.type, item.subtype, item.speaker, int(item.label)
-        elif settings.input.type == "melspectrogram":
-            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
-            return melspectrogram, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
 
-        return waveform, sample_rate, item.type, item.subtype, item.speaker, int(item.label)
+        if settings.input.type == "waveform":
+            return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+        elif settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif settings.input.type == "melspectrogram":
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        #########################################################################
+        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
+        #########################################################################
+        if settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        if settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label)
 
 
     def _get_labels(self) -> List[int]:
+        """Get the list of the labels contained in the dataset.
+        
+        Returns
+        -------
+        List[int]
+            List of the labels
+        """
         return list(self.speech_annotations.groupby("label").groups.keys())
 
 
-    def _get_label_weights(self) -> List[torch.Tensor]:
-        """ Calculate the percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
+    def _get_class_weights(self) -> List[torch.Tensor]:
+        """Get the weights for each class calculated as a percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
         
         Returns
         -------
@@ -90,6 +144,17 @@ class MiviaDataset(Dataset):
 class TrainingMiviaDataset(MiviaDataset):
 
     def __init__(self) -> Dataset:
+        """Training subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
+            Access by index to the dataset returning item information
+        _set_epoch(self, epoch) -> None
+            Set the epoch parameter to the current training epoch to allow the application of the curriculum learning scheduler
+        _shuffle_noise_dataset(self) -> None
+            Shuffle noise annotation file
+        """
         super().__init__()
         
         self.dataset_path = os.path.join(settings.dataset.folder, "training")
@@ -98,7 +163,32 @@ class TrainingMiviaDataset(MiviaDataset):
         self.epoch = 0
 
     
-    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int]:
+    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        In the training set a random noise from the noise training set is chosen and applied with a specific SNR to the speech sample.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            Label of the item
+        """
         speech_item = self.speech_annotations.iloc[index]
         rel_speech_path = speech_item.path
         speech_path = os.path.join(self.dataset_path, rel_speech_path)
@@ -114,7 +204,7 @@ class TrainingMiviaDataset(MiviaDataset):
         print("Speech size: {}\tNo-silent speech size: {}\n".format(speech.size(), no_silent_speech.size()))
         #'''
 
-        noise_index = index % len(self.noise_annotations)
+        noise_index = index % len(self.noise_annotations)   # compute noise index
         noise_item = self.noise_annotations.iloc[noise_index]
         rel_noise_path = noise_item.path
         noise_path = os.path.join(self.dataset_path, rel_noise_path)
@@ -123,7 +213,7 @@ class TrainingMiviaDataset(MiviaDataset):
         noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
         
         snr = self.preprocessing.compute_snr(epoch=self.epoch)
-        item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr) if snr is not None else speech
+        item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr)
 
         '''
         global it
@@ -141,7 +231,7 @@ class TrainingMiviaDataset(MiviaDataset):
         # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
         #########################################################################
         if settings.input.spectrogram.type == "db":
-            item = self.preprocessing.power_to_db_spectrogram(spectrogram=item)
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
         if settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
@@ -150,17 +240,31 @@ class TrainingMiviaDataset(MiviaDataset):
 
 
     def set_epoch(self, epoch:int=0) -> None:
+        """Set the epoch parameter to the current training epoch to allow the application of the curriculum learning scheduler.
+        
+        Parameters
+        ----------
+        epoch: int
+            Current epoch of the training phase. (Default is 0)
+        """
         self.epoch = epoch
 
     
     def _shuffle_noise_dataset(self) -> None:
-        """ Shuffle noise annotation file. The method is useful to change the loading order among epochs. """
+        """Shuffle noise annotation file. The method is useful to change the loading order among epochs."""
         self.noise_annotations =self.noise_annotations.sample(frac=1)
 
 
 class ValidationMiviaDataset(MiviaDataset):
 
     def __init__(self) -> Dataset:
+        """Validation subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]
+            Access by index to the dataset returning item information
+        """
         super().__init__()
 
         self.dataset_path = os.path.join(settings.dataset.folder, "validation")
@@ -168,6 +272,33 @@ class ValidationMiviaDataset(MiviaDataset):
     
 
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        In the validation set the item already contains the noise applied with a specific SNR.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            Label of the item
+        int
+            SNR applied between speech and noise
+        """
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
         full_path = os.path.join(self.dataset_path, rel_path)
@@ -186,7 +317,7 @@ class ValidationMiviaDataset(MiviaDataset):
         # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
         #########################################################################
         if settings.input.spectrogram.type == "db":
-            item = self.preprocessing.power_to_db_spectrogram(spectrogram=item)
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
         if settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
@@ -197,6 +328,13 @@ class ValidationMiviaDataset(MiviaDataset):
 class TestingMiviaDataset(MiviaDataset):
 
     def __init__(self) -> Dataset:
+        """Test subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]
+            Access by index to the dataset returning item information
+        """
         super().__init__()
 
         self.dataset_path = os.path.join(settings.dataset.folder, "testing")
@@ -204,28 +342,64 @@ class TestingMiviaDataset(MiviaDataset):
 
     
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
-        item = self.speech_annotations.iloc[index]
-        rel_path = item.path
-        full_path = os.path.join(self.dataset_path, rel_path)
-        waveform, sample_rate = torchaudio.load(full_path)
-        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
-        waveform = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        In the test set the item already contains the noise applied with a specific SNR.
         
-        if settings.input.type == "mfcc":
-            mfcc = self.preprocessing.get_mfcc(waveform)
-            return rel_path, mfcc, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            Label of the item
+        int
+            SNR applied between speech and noise
+        """
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
+        full_path = os.path.join(self.dataset_path, rel_path)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
+        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        
+        if settings.input.type == "waveform":
+            return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+        elif settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
         elif settings.input.type == "melspectrogram":
-            melspectrogram = self.preprocessing.get_melspectrogram(waveform)   # (channel, n_mels, time)
-            return rel_path, melspectrogram, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        #########################################################################
+        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
+        #########################################################################
+        if settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        if settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
 
-        return rel_path, waveform, sample_rate, item.type, item.subtype, item.speaker, int(item.label), int(item.snr)
+        return rel_path, item, settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
             
 
 #########################
 ### UTILITY FUNCTIONS ###
 #########################
 def label_to_index(label:int) -> torch.IntTensor:
-    """ Convert label in Integer Tensor.
+    """Convert label in Integer Tensor.
     
     Parameters
     ----------
@@ -235,57 +409,59 @@ def label_to_index(label:int) -> torch.IntTensor:
     Returns
     -------
     torch.IntTensor
-        Label of audiuo sample as Integer tensor
+        Label of audio sample as Integer tensor
     """
     return torch.tensor(label)
 
 
 def normalize_tensor(tensor:torch.Tensor) -> torch.Tensor:
+    """Normalize a tensor by subtracting the mean and dividing by the variance.
+    
+    Parameters
+    ----------
+    tensor: torch.Tensor
+        Tensor to normalize
+
+    Returns
+    -------
+    torch.Tensor
+        Normalized tensor
+    """
     mean = torch.mean(tensor)
     variance = torch.var(tensor) if torch.var(tensor)>1e-6 else 1e-6
     normalized_tensor = (tensor-mean) / variance
     return normalized_tensor
 
 
-def pad_spectrograms(batch:torch.Tensor, max_length:int, padding_value:float=0.) -> torch.Tensor:
-    """ Make all tensor in a batch the same length by padding with zeros.
+def pad_spectrograms(batch:torch.Tensor, max_length:int) -> torch.Tensor:
+    """Pad spectrograms in a batch to have the same duration. The padding consist in the duplication of the spectrogram.
     
     Parameters
     ----------
     batch: torch.Tensor
-        Batch tensor with shape B x *
+        Batch tensor with shape Batch x Channel x Frequence x Time
 
     Returns
     -------
     torch.Tensor
-        Batch with audio sample of the same length
+        Batch with spectrograms of the same length
     """
     resized_batch = torch.zeros(size=(len(batch), batch[0].size(0), batch[0].size(1), max_length))              # (B x C x F x T)
-    # to optimize try to assign block per clock the sample
-    for b in range(resized_batch.size(0)):
-        #sample_with_silent_queue = torch.ones(size=(batch[0].size(0), batch[0].size(1), batch[b].size(2)+settings.input.spectrogram.padding.stride)) * settings.input.spectrogram.padding.value
-        #sample_with_silent_queue[:, :, :batch[b].size(2)] = batch[b]                                             
-        # # add a silence part after the sample to separate each repetition of the sample in the batch
+    # to optimize try to assign block per block the sample
+    for b in range(resized_batch.size(0)):                                           
+        # add a silence part after the sample to separate each repetition of the sample in the batch
         sample_with_silent_queue = torch.nn.ConstantPad2d((0,settings.input.spectrogram.padding.stride,0,0), value=settings.input.spectrogram.padding.value)(batch[b])  # i can pad noise instead a fixed value
         resized_batch[b, 0, :, :batch[b].size(2)] = batch[b]
         for f in range(resized_batch.size(2)):
             for t in range(batch[b].size(2), resized_batch.size(3)):
                 resized_batch[b, 0, f, t] = sample_with_silent_queue[0, f, t%sample_with_silent_queue.size(2)]                                        # pad zero value replicating the spectrogram
-    # Normalize batch
-    '''
-    batch_mean = torch.mean(resized_batch)
-    batch_var = torch.var(resized_batch) if torch.var(resized_batch)>1e-6 else 1e-6
-    resized_batch = (resized_batch-batch_mean) / batch_var
-    #'''
-    # batch = torch.nn.utils.rnn.pad_sequence(sequences=batch, batch_first=True, padding_value=padding_value)    # (B x L x C x T)
-    # return batch.permute(0, 2, 3, 1)    # (B x C x F x T)
     return resized_batch
 
 
 def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
-    """ Process the audio samples in batch to have the same duration.
+    """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
-    (waveform, sample_rate, type, subtype, speaker, label)
+    (path, item, sample_rate, type, subtype, speaker, label)
     
     Parameters
     ----------
@@ -297,25 +473,14 @@ def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.Int
     Tuple[torch.Tensor, torch.IntTensor]
         Batch with audio sample of the same length
     """
-    #print(Back.YELLOW + "TRAIN COLLATE FN" + Back.RESET)
     tensors, targets = list(), list()
-    #paths = list()
     max_length = 0
     for path, tensor, _, _, _, _, label in batch:
-        #paths.append(path.replace('/', '-').replace(".wav", ''))
-        '''
-        if True in torch.isnan(tensor):
-            print(Back.RED + "{} with size {} has {} 'nan' value".format(path, tensor.size(), torch.count_nonzero(torch.isnan(tensor))))
-        if True in torch.isinf(tensor):
-            print(Back.RED + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
-        #'''
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
-        # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, padding_value=settings.input.spectrogram.padding_value)
+    tensors = pad_spectrograms(tensors, max_length=max_length)
     targets = torch.stack(targets)
-    # approx_snr = approximate_snr(snr=snr, multiple=settings.noise.snr_step)
     
     """
     global it
@@ -326,13 +491,13 @@ def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.Int
     it += 1
     #"""
 
-    return tensors, targets#, approx_snr
+    return tensors, targets
 
 
 def _val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
-    """ Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
+    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
-    (waveform, sample_rate, type, subtype, speaker, label, snr)
+    (path, item, sample_rate, type, subtype, speaker, label, snr)
     
     Parameters
     ----------
@@ -344,25 +509,14 @@ def _val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTe
     Dict[int, torch.Tensor]
         Combined batch (dictionary of batches) with audio sample of the same length
     """
-
-    #print(Back.BLUE + "VALIDATION COLLATE FN" + Back.RESET)
     tensors, targets, snrs = list(), list(), list()
-    #paths = list()
     max_length = 0
     for path, tensor, _, _, _, _, label, snr in batch:
-        '''
-        paths.append(path.replace('/', '-').replace(".wav", ''))
-        if True in torch.isnan(tensor):
-            print(Back.YELLOW + "{} with size {} has {} 'nan' value".format(path, tensor.size(), torch.count_nonzero(torch.isnan(tensor))))
-        if True in torch.isinf(tensor):
-            print(Back.YELLOW + "{} has {} 'inf' value".format(path, tensor.size(), torch.count_nonzero(torch.isinf(tensor))))
-        '''
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
-        # tensors += [tensor.permute(2, 0, 1)]    # before: (CxFxT), after: (TxCxF)
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, padding_value=settings.input.spectrogram.padding_value)
+    tensors = pad_spectrograms(tensors, max_length=max_length)
     targets = torch.stack(targets)
     snrs = torch.stack(snrs)
 
@@ -382,7 +536,6 @@ def test_dataset(samples:List[int]) -> None:
             waveform, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
             val_waveform, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
 
-            # print(train_set._get_sample_from_type("reject"))
             torchaudio.save("check_files/waveform_train_{}.wav".format(samples[i]), waveform, sample_rate) 
             torchaudio.save("check_files/waveform_val_{}.wav".format(samples[i]), val_waveform, val_sample_rate)
         elif settings.input.type == "melspectrogram":
@@ -398,7 +551,6 @@ def test_dataset(samples:List[int]) -> None:
 
 
 def test_dataloader(samples:List[int]) -> None:
-
     if settings.input.type == "mfcc":
         train_path = "check_files/mfcc_train_"
         val_path = "check_files/mfcc_val_"
@@ -414,8 +566,8 @@ def test_dataloader(samples:List[int]) -> None:
         val_mel_spectrogram=val_mel_spectrogram.permute(2, 0, 1)
         train.append(mel_spectrogram)
         val.append(val_mel_spectrogram)
-    t = pad_spectrograms(train, padding_value=settings.input.spectrogram.padding_value)
-    v = pad_spectrograms(val, padding_value=settings.input.spectrogram.padding_value)
+    t = pad_spectrograms(train)
+    v = pad_spectrograms(val)
     for i in range(len(samples)):
         plot_melspectrogram(path=train_path+str(samples[i]), melspectrogram=t[i][0])
         plot_melspectrogram(path=val_path+str(samples[i]), melspectrogram=v[i][0])
@@ -428,21 +580,8 @@ if __name__ == "__main__":
     test_set = TestingMiviaDataset()
 
     print("The dataset is splitted in:\n- TRAIN samples:\t{}\n- VALID samples:\t{}\n- TEST samples:\t\t{}".format(len(train_set), len(valid_set),len(test_set)))
-    # print(train_set._get_label_weights())
+    # print(train_set._get_class_weights())
 
     samples = [0, 500, 1000]
     test_dataset(samples=samples)
     test_dataloader(samples=samples)
-
-    # labels = train_set._get_labels()
-    # print("Labels list ({}): {}".format(len(labels), labels))
-
-    # print("melspectrogram shape: {}\nSample rate: {}\nType: {}\nSubtype: {}\nSpeaker: {}\nLabel: {}".format(melspectrogram.size(), sample_rate, type, subtype, speaker, label))
-
-    # plot_melspectrogram(melspectrogram=melspectrogram[0])
-    '''
-    plot_waveform(waveform=waveform)
-    plot_spectrogram(waveform=waveform)
-    db_spectrogram = get_spectrogram(waveform=waveform)
-    plot_db_spectrogram(pow_spectrogram=db_spectrogram[0])
-    '''

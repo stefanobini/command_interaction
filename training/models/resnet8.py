@@ -1,13 +1,10 @@
-from math import ceil
 from typing import Dict
 import pickle
 import torch
 import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from torch.nn.functional import cross_entropy
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
-import torchvision
 import torch_optimizer
 
 import colorama
@@ -19,10 +16,44 @@ from settings.conf_1 import settings
 
 
 class ResNet8_PL(pl.LightningModule):
-    """ """
 
     def __init__(self, num_labels:int, loss_weights:torch.Tensor):
-        """ """
+        """
+        
+        Methods
+        -------
+        forward(self, x:torch.Tensor) -> torch.Tensor
+            Forward the network
+        set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader
+            Set the training loader
+        set_val_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader
+            Set the validation loader
+        set_test_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader
+            Set the test loader
+        get_train_loader(self) -> torch.utils.data.Dataset
+            Get the training loader
+        get_val_loader(self) -> torch.utils.data.Dataset
+            Get the validation loader
+        get_test_loader(self) -> torch.utils.data.Dataset
+            Get the Test loader
+        on_train_epoch_start(self) -> None
+            Hook function triggered when the training of an epoch start. The function shuffle the noise dataset
+        training_step(self, batch, batch_idx) -> torch.Tensor
+            Hook function performing the training step. Forward the model, compute the loss function and the information for TensorBoard logger.
+        training_epoch_end(self, train_step_outputs) -> None
+            Hook function triggered when training epoch ends.
+        Produce the statistics for Tensorboard logger.
+        validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]
+            Hook function performing the validation step. Forward the model, compute the loss function and the information for TensorBoard logger.
+        validation_epoch_end(self, val_step_outputs) -> None
+            Hook function triggered when validation epoch ends. Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
+        test_step(self, batch, batch_idx)
+            Hook function performing the test step
+        configure_callbacks(self)
+            Configure training callbacks (optimizers, checkpoint, schedulers, etc)
+        configure_optimizers(self)
+            Configure training optimizers
+        """
         super().__init__()
 
         out_channel = settings.model.resnet8.out_channel
@@ -37,41 +68,40 @@ class ResNet8_PL(pl.LightningModule):
             self.add_module(f'conv{i + 1}', conv)
         self.output = torch.nn.Linear(out_channel, 30)
         
-
-    def set_parameters(self, num_labels: int, loss_weights:torch.Tensor):
         out_channel = settings.model.resnet8.out_channel
         self.output = torch.nn.Linear(out_channel, num_labels)
         # self.softmax = torch.nn.Softmax(dim=1)
         self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
-
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
-        self.metric_to_track = settings.training.metric_to_track
-        self.check_val_every_n_epoch = settings.training.check_val_every_n_epoch
-        self.optimization_mode = settings.training.optimizer.mode
-        self.early_stop_patience = settings.training.early_stop.patience
-
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
+
+        self.save_hyperparameters()
         
 
     def forward(self, x:torch.Tensor) -> torch.Tensor:
-        """Input size: (Batch, Channel, Frequency, Time)"""
+        """Forward the network.
+        Input size: (Batch, Channel, Frequency, Time)
+        
+        
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor
+        
+        Returns
+        -------
+        torch.Tensor
+            Logit tensor
+        """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-        '''
-        if True in torch.isnan(x):
-            print(Back.RED + "{} 'nan' value contained in input tensor".format(torch.count_nonzero(torch.isnan(x))))
-        if True in torch.isinf(x):
-            print(Back.RED + "{} 'inf' value contained in input tensor".format(torch.count_nonzero(torch.isinf(x))))
-        '''
 
         if settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
         x = x[:, :1]  # log-Mels only
-        #print(Back.BLUE + "ResNet - 'log-Mels only' shape: {}".format(x.size()))
         x = x.permute(0, 1, 3, 2).contiguous()  # Original res8 uses (time, frequency) format -> from (B, C, F, T) to (B, C, T, F)
-        #print(Back.BLUE + "ResNet - after permutation shape: {}".format(x.size()))
         
         for i in range(self.n_layers + 1):
             y = torch.nn.functional.relu(getattr(self, f'conv{i}')(x))
@@ -93,54 +123,121 @@ class ResNet8_PL(pl.LightningModule):
         return self.output(x)
 
 
-    def train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+    def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+        """Set the training loader.
+        
+        Parameters
+        ----------
+        dataloader: torch.utils.data.DataLoader
+            Training dataloader
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Training dataloader
+        """
         self.train_loader = dataloader
         return self.train_loader
 
-    def val_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+    def set_val_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+        """Set the validation loader.
+        
+        Parameters
+        ----------
+        dataloader: torch.utils.data.DataLoader
+            Validation dataloader
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Validation dataloader
+        """
         self.val_loader = dataloader
         return self.val_loader
 
-    def test_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+    def set_test_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+        """Set the test loader.
+        
+        Parameters
+        ----------
+        dataloader: torch.utils.data.DataLoader
+            Test dataloader
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Test dataloader
+        """
         self.test_loader = dataloader
         return self.test_loader
 
 
     def get_train_loader(self) -> torch.utils.data.Dataset:
+        """Get the training loader.
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Training dataloader"""
         return self.train_loader
 
     def get_val_loader(self) -> torch.utils.data.Dataset:
+        """Get the validation loader.
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Validation dataloader"""
         return self.val_loader
     
     def get_test_loader(self) -> torch.utils.data.Dataset:
+        """Get the test loader.
+        
+        Returns
+        -------
+        torch.utils.data.DataLoader
+            Test dataloader"""
         return self.test_loader
     
 
     @torch.no_grad()
     def on_train_epoch_start(self) -> None:
-        """ """
+        """Hook function triggered when the training of an epoch start.
+        The function shuffle the noise dataset."""
         self.train_loader.dataset._shuffle_noise_dataset()              # shuffle noise sample among epochs
         self.train_loader.dataset.set_epoch(epoch=self.current_epoch)
 
     def training_step(self, batch, batch_idx) -> torch.Tensor:
-        """ """
-        # print(Back.BLUE + "Train step, batch size: {}".format(batch[0][0].size()))
+        """Hook function performing the training step.
+        Forward the model, compute the loss function and the information for TensorBoard logger.
+        
+        Parameters
+        ----------
+        batch: torch.Tensor
+            Input tensor built by "_train_collate_fn"
+        
+        Returns
+        -------
+        Dict[str, torch.Tensor]
+            Dictionary containing "loss", "logits", and "targets" of the batch
+        """
         x, y = batch
         logits = self.forward(x=x)
-        #print("preds: ", pred[:10])
-        #print("targs: ", y[:10])
-        #loss = cross_entropy(input=pred, target=y)
         loss = self.loss_fn(input=logits, target=y)
-
-        # self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        #print("Trainig - preds: {}, targs: {}".format(logits.size(), y.size()))
 
         train_step_output = {"loss": loss, "logits": logits, "targets": y}
         return train_step_output
     
     
-    def training_epoch_end(self, train_step_outputs):
-        """ """
+    def training_epoch_end(self, train_step_outputs) -> None:
+        """Hook function triggered when training epoch ends.
+        Produce the statistics for Tensorboard logger.
+
+        Parameters
+        ----------
+        train_step_outputs: torch.Tensor
+            List of dictionaries produced by repeating of training steps
+        """
         len_val = len(self.train_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
         logits = train_step_outputs[0]["logits"]
@@ -160,26 +257,35 @@ class ResNet8_PL(pl.LightningModule):
 
     
     def validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]:
-        """Callback function activated in each validation step
+        """Hook function performing the validation step.
+        Forward the model, compute the loss function and the information for TensorBoard logger.
         
         Parameters
         ----------
         batch: torch.Tensor
-            Batch tensor of samples.
+            Input tensor built by "_val_collate_fn"
+        
+        Returns
+        -------
+        Dict[str, torch.Tensor]
+            Dictionary containing "logits", "targets", "snrs" of the batch
         """
-        # print(Back.YELLOW + "VALIDATION STEP\ndataloader: {}\nbatch size: x:{}, y:{}\n".format(batches.keys(), batches[0][0].size(), batches[0][1].size()))
         x, y, snr = batch
         logits = self.forward(x=x)
-        # pred = self.softmax(logits)
-        #print("preds: ", pred[:10])
-        #print("targs: ", y[:10])
 
-        #print("Validation - preds: {}, targs: {}, snr: {}".format(logits.size(), y.size(), snr.size()))
         validation_step_output = {"logits": logits, "targets": y, "snrs": snr}
         return validation_step_output
 
 
     def validation_epoch_end(self, val_step_outputs) -> None:
+        """Hook function triggered when validation epoch ends.
+        Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
+
+        Parameters
+        ----------
+        val_step_outputs: torch.Tensor
+            List of dictionaries produced by repeating of validation steps
+        """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
         logits = val_step_outputs[0]["logits"]
@@ -252,34 +358,47 @@ class ResNet8_PL(pl.LightningModule):
     
 
     def test_step(self, batch, batch_idx):
-        """ """
+        """Hook function performing the test step.
+        Forward the model, compute the loss function and the information for TensorBoard logger.
         
-        x, y = batch
-        y_pred = self.forward(x=x)
-        #loss = cross_entropy(y_pred, y)
-        loss = self.loss_fn(input=y_pred, target=y)
-        self.log("test_loss", loss)
+        Parameters
+        ----------
+        batch: torch.Tensor
+            Input tensor built by "_val_collate_fn"
+        
+        Returns
+        -------
+        Dict[str, torch.Tensor]
+            Dictionary containing "logits", "targets", "snrs" of the batch
+        """
+        x, y, snr = batch
+        logits = self.forward(x=x)
+
+        test_step_output = {"logits": logits, "targets": y, "snrs": snr}
+        return test_step_output
     
 
     def configure_callbacks(self):
-        early_stop = EarlyStopping(monitor=self.metric_to_track, patience=self.early_stop_patience, verbose=True, mode=self.optimization_mode, check_finite=True, check_on_train_epoch_end=False)
+        """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
+        early_stop = EarlyStopping(monitor=settings.training.checkpoint.metric_to_track, patience=settings.training.early_stop.patience, verbose=True, mode=settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
-        checkpoint = ModelCheckpoint(monitor=self.metric_to_track)
+        checkpoint = ModelCheckpoint(save_top_k=settings.training.checkpoint.save_top_k, monitor=settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]
         # return [lr_monitor, checkpoint]
 
  
     def configure_optimizers(self):
+        """Configure training optimizers."""
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
         #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
         #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.novograd.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
-        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=self.optimization_mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=1e-4, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=1e-4, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": self.metric_to_track,
-                "frequency": self.check_val_every_n_epoch
+                "monitor": settings.training.checkpoint.metric_to_track,
+                "frequency": settings.training.check_val_every_n_epoch
             }
         }
         return optimizers_schedulers

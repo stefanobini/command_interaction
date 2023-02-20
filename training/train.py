@@ -50,7 +50,7 @@ labels = train_set._get_labels()
 # print(labels)
 
 ###### Decomment following rows if you use also reject, and change annotation file path in settings #######
-# weights = train_set._get_label_weights()
+# weights = train_set._get_class_weights()
 # # Computing the label weights to balance the dataloader
 # dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
 # dataset_weights.append(settings.training.reject_percentage)
@@ -75,19 +75,21 @@ model = None
 if settings.model.network == "resnet8":
     model = ResNet8_PL(num_labels=len(labels), loss_weights=balanced_weights).cuda()  # Load model
     if settings.model.pretrain:
-        model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
+        # model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
+        model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(labels), loss_weights=balanced_weights)
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
-    model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
+    # model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
 elif settings.model.network == "mobilenetv2":
     model = MobileNetV2_PL(num_labels=len(labels), loss_weights=balanced_weights).cuda()
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
+        #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
     model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
 elif settings.model.network == "conformer":
     model = Conformer_PL(num_labels=len(labels)).cuda()
-model.train_dataloader(dataloader=train_loader)
-model.val_dataloader(dataloader=val_loader)
+model.set_train_dataloader(dataloader=train_loader)
+model.set_val_dataloader(dataloader=val_loader)
 
 
 ########################

@@ -31,7 +31,7 @@ class Preprocessing():
         Compute Mel-Spectrogram of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
     get_mfcc(self, waveform:torch.Tensor) -> torch.Tensor
         Compute MFCC of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels, n_mfcc, dct_type, norm, log_mels) are taken from the configuration file.
-    power_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor
+    amplitude_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor
         Convert power spectrogram in dB spectrogram.
     approximate_snr(self, snr:float, multiple:int) -> int
         Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
@@ -97,8 +97,8 @@ class Preprocessing():
         return transformation(waveform)
 
 
-    def power_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor:
-        """Convert power spectrogram in dB spectrogram.
+    def amplitude_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor:
+        """Convert amplitude spectrogram in dB spectrogram.
         The method use torchaudio library.
         
         Parameters
@@ -111,7 +111,8 @@ class Preprocessing():
         torch.Tensor
             dB version of the input spectrogram
         """
-        spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=10., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
+        #### CHANGED HERE THE MULTIPLIER FROM 10. T0 20.
+        spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
         return spectrogram_db
 
 
@@ -134,51 +135,56 @@ class Preprocessing():
 
     
     def compute_snr(self, epoch:int) -> float:
-        """Calcola SNR da applicare allo specifico campione audio data l'epoca.
-        Il metodo usa l'epoca per applicare la strategia di Curriculum Learning (CL) desiderata tra: uniforme (senza CL), gaussiana con varianza fissata e media decrescente, gaussiana con varianza variabile e media decrescente
+        """Calculate SNR to apply to specific audio sample given the epoch.
+         The method uses the epoch to apply the desired Curriculum Learning (CL) strategy:
+         - PEM, uniform between minimum SNR and maximum SNR (without CL),
+         - UniCL_PEM_v1, uniform with increasing interval with 'b' fixed at the maximum SNR
+         - UniCL_PEM_v2, uniform at interval set at one "step"
+         - GaussCL_PEM_v1, Gaussian with fixed variance and decreasing mean
+         - GaussCL_PEM_v2, Gaussian with variable variance and decreasing mean
+
+        Parameters
+        ----------
+        epoch: int
+            Cuurrent epoch
+
+        Returns
+        -------
+        int
+            SNR to apply to the audio sample
         """
-        # a, b, mu, sigma = 0., 0., 0., 0.
-        snr = 0.
+        snr = None
         descent_epochs = settings.training.max_epochs*settings.noise.descent_ratio
         if settings.noise.curriculum_learning.distribution == "PEM":
             snr = random.uniform(settings.noise.min_snr, settings.noise.max_snr)
-        # TO DO
         elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
-            ### CURRICULUM LEARNING ###
             a = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
-            # b = epoch * (settings.noise.min_snr - settings.noise.max_snr) / self.descent_epochs + settings.noise.max_snr + settings.noise.curriculum_learning.uniform.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
             b = settings.noise.max_snr
-            if b > settings.noise.max_snr:
-                b = settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
-        # TO DO
-        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
-            pass
-        # TO DO
-        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
-            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
-            sigma = None
-            pass
+        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v2":
+            a = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr - settings.noise.curriculum_learning.uniform.step
+            b = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / self.descent_epochs + settings.noise.max_snr
+            snr = random.uniform(a=a, b=b)
         elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
-            ### CURRICULUM LEARNING ###
             # model mu as a combination of descent linear function plus a constant  ->  \_
             mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
-            # model sigma as a triangular function                                  ->  /\
-            #s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma + settings.noise.curriculum_learning.gaussian.min_sigma      # modeled as a linear descending function
-            #s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.min_sigma                          # modeled as a linear ascending function
             # model sigma as a triangular function                                  ->  \/
-            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs      # modeled as a linear ascending function
-            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma                          # modeled as a linear descending function
-            sigma = min(s1, s2)   
+            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
+            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs                          # modeled as a linear ascending function
+            sigma = max(s1, s2)   
             snr = np.random.normal(loc=mu, scale=sigma)
-            if (sigma < settings.noise.curriculum_learning.gaussian.min_sigma or sigma > settings.noise.curriculum_learning.gaussian.max_sigma) and settings.noise.curriculum_learning.gaussian.max_sigma != 0:
-                raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, settings.noise.curriculum_learning.gaussian.min_sigma, settings.noise.curriculum_learning.gaussian.max_sigma))
+        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
+            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            sigma = settings.noise.curriculum_learning.gaussian.sigma
+            snr = np.random.normal(loc=mu, scale=sigma)
             
         # pre_snr = snr
         if snr > settings.noise.max_snr:
-            snr = settings.noise.max_snr
+            snr = settings.noise.max_snr - snr + settings.noise.max_snr
+            raise Exception("Computed SNR ({}) greater than maximum SNR ({})".format(snr, settings.noise.max_snr))
         elif snr < settings.noise.min_snr:
-            snr = settings.noise.min_snr 
+            snr = settings.noise.min_snr - snr + settings.noise.min_snr
+            raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, settings.noise.min_snr))
         
         # n_sample += 1
         # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
@@ -213,19 +219,7 @@ class Preprocessing():
             t = torch.zeros(size=speech.size())
             t[0, start:end] = noise
             noise = t
-        return noise       
-
-
-    def db_to_float(db, using_amplitude=True):
-        """
-        Converts the input db to a float, which represents the equivalent
-        ratio in power.
-        """
-        db = float(db)
-        if using_amplitude:
-            return 10 ** (db / 20)
-        else:  # using power
-            return 10 ** (db / 10)
+        return noise
 
 
     def get_noisy_speech(self, speech:torch.Tensor, noise:torch.Tensor, snr_db:float) -> torch.Tensor:
@@ -237,143 +231,35 @@ class Preprocessing():
             Speech waveform
         noise: torch.Tensor
             Noise waveform
-        snr: float
+        snr_db: float
             SNR in dB applied to the speech sample
 
         Returns
         -------
         torch.Tensor
-            Noisy speech
+            Noisy speech tensor
         """
-
         noise = self.fix_noise_duration(speech=speech, noise=noise)
-
+        # Compute Root Mean Square of the speech and noise
         speech_rms = speech.norm(p=2)
         noise_rms = noise.norm(p=2)
-        
-        snr = 10**(snr_db/20)   # before 10
-        #'''
+
+        snr = 10**(snr_db/20)   # Compute SNR in amplitude domain. Before 10 (power domain)
         noise_gain = speech_rms / (snr * noise_rms)
         noise_gain = min(noise_gain, settings.input.noise.max_gain)
-        noisy_speech = (noise_gain * noise + speech) / 2
-        '''
-        speech_gain = snr * noise_rms / speech_rms
-        noisy_speech = (speech_gain * speech + noise) / 2
-        #'''
-        # print("speech_power:\t{}, noise_power:\t{}, snr_db:\t{}, snr:\t{}, noise_gain:\t{}".format(speech_power, noise_power, snr_db, snr, noise_gain))
-        return noisy_speech
-
-
-def detect_silence(audio_segment, min_silence_len=1000, silence_thresh=-16, seek_step=1):
-    """
-    Returns a list of all silent sections [start, end] in milliseconds of audio_segment.
-    Inverse of detect_nonsilent()
-    audio_segment - the segment to find silence in
-    min_silence_len - the minimum length for any silent section
-    silence_thresh - the upper bound for how quiet is silent in dFBS
-    seek_step - step size for interating over the segment in ms
-    """
-    seg_len = len(audio_segment)
-
-    # you can't have a silent portion of a sound that is longer than the sound
-    if seg_len < min_silence_len:
-        return []
-
-    # convert silence threshold to a float value (so we can compare it to rms)
-    silence_thresh = db_to_float(silence_thresh) * audio_segment.max_possible_amplitude
-
-    # find silence and add start and end indicies to the to_cut list
-    silence_starts = []
-
-    # check successive (1 sec by default) chunk of sound for silence
-    # try a chunk at every "seek step" (or every chunk for a seek step == 1)
-    last_slice_start = seg_len - min_silence_len
-    slice_starts = range(0, last_slice_start + 1, seek_step)
-
-    # guarantee last_slice_start is included in the range
-    # to make sure the last portion of the audio is searched
-    if last_slice_start % seek_step:
-        slice_starts = itertools.chain(slice_starts, [last_slice_start])
-
-    for i in slice_starts:
-        audio_slice = audio_segment[i:i + min_silence_len]
-        if audio_slice.rms <= silence_thresh:
-            silence_starts.append(i)
-
-    # short circuit when there is no silence
-    if not silence_starts:
-        return []
-
-    # combine the silence we detected into ranges (start ms - end ms)
-    silent_ranges = []
-
-    prev_i = silence_starts.pop(0)
-    current_range_start = prev_i
-
-    for silence_start_i in silence_starts:
-        continuous = (silence_start_i == prev_i + seek_step)
-
-        # sometimes two small blips are enough for one particular slice to be
-        # non-silent, despite the silence all running together. Just combine
-        # the two overlapping silent ranges.
-        silence_has_gap = silence_start_i > (prev_i + min_silence_len)
-
-        if not continuous and silence_has_gap:
-            silent_ranges.append([current_range_start,
-                                  prev_i + min_silence_len])
-            current_range_start = silence_start_i
-        prev_i = silence_start_i
-
-    silent_ranges.append([current_range_start,
-                          prev_i + min_silence_len])
-
-    return silent_ranges
-
-
-def ranges2list(ranges):
-    indices = list()
-    for r in ranges:
-        print(r)
-        indices.extend(*range(r))
-    return indices
-
-
-def detect_nonsilent(audio_segment, min_silence_len=1000, silence_thresh=-16, seek_step=1):
-    """
-    Returns a list of all nonsilent sections [start, end] in milliseconds of audio_segment.
-    Inverse of detect_silent()
-    audio_segment - the segment to find silence in
-    min_silence_len - the minimum length for any silent section
-    silence_thresh - the upper bound for how quiet is silent in dFBS
-    seek_step - step size for interating over the segment in ms
-    """
-    silent_ranges = detect_silence(audio_segment, min_silence_len, silence_thresh, seek_step)
-    len_seg = len(audio_segment)
-
-    # if there is no silence, the whole thing is nonsilent
-    if not silent_ranges:
-        return [[0, len_seg]]
-
-    # short circuit when the whole audio segment is silent
-    if silent_ranges[0][0] == 0 and silent_ranges[0][1] == len_seg:
-        return []
-
-    prev_end_i = 0
-    nonsilent_ranges = []
-    for start_i, end_i in silent_ranges:
-        nonsilent_ranges.append([prev_end_i, start_i])
-        prev_end_i = end_i
-
-    if end_i != len_seg:
-        nonsilent_ranges.append([prev_end_i, len_seg])
-
-    if nonsilent_ranges[0] == [0, 0]:
-        nonsilent_ranges.pop(0)
-
-    return nonsilent_ranges
+        return (noise_gain * noise + speech) / 2
 
 
 def plot_melspectrogram(path:str, melspectrogram:torch.Tensor) -> None:
+    """Produce the plot of a Mel-spectrogram tensor and save it to a specific path.
+    
+    Parameters
+    ----------
+    path: str
+        Where to save the plotting
+    melspectrogram: torch.Tensor
+        Mel-spectrogram to plot
+    """
     fig, ax = plt.subplots()
     #melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
     melspectrogram_db = melspectrogram[0].numpy()
@@ -383,6 +269,15 @@ def plot_melspectrogram(path:str, melspectrogram:torch.Tensor) -> None:
     plt.savefig(path)
 
 def plot_mfcc(path:str, mfcc:torch.Tensor) -> None:
+    """Produce the plot of a MFCC tensor and save it to a specific path.
+    
+    Parameters
+    ----------
+    path: str
+        Where to save the plotting
+    melspectrogram: torch.Tensor
+       MFCC to plot
+    """
     fig, ax = plt.subplots()
     #mfcc_db = librosa.power_to_db(mfcc[0], ref=np.max)
     mfcc_db = mfcc[0].numpy()
