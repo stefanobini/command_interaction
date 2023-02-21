@@ -1,11 +1,14 @@
 import pandas as pd
 from pathlib import Path
 import os
-from utils import command_eng, command_ita
+# from utils import command_eng, command_ita
+from all_commands import command_eng, command_ita
 from global_utils import select_analyzator, EXCLUDES
 
 curr_dir = os.path.abspath(os.path.dirname(os.path.relpath(__file__)))
-path_base = Path(f"{curr_dir}/dataset/Dataset_synth")
+# path_base = Path(f"{curr_dir}/dataset/Dataset_synth")
+
+path_base = Path(f"/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/dataset/full_dataset_v1/synthetics")
 
 keys = ["#speaker_ita", "#speaker_eng", "#cmds_ita", "#cmds_eng", "service_name"]
 
@@ -69,9 +72,9 @@ if __name__ == "__main__":
     keys_eng, keys_ita = init_keys()
     count("azure")
     count("google")
-    count("ibm")
+    # count("ibm")
     count("nemo")
     count("polly")
     count("vocalware")
-    count("naturaltts")
+    #count("naturaltts")
     count("naturalreaders")

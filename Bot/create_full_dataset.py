@@ -5,10 +5,13 @@ from commands_dict import FULL_DATASET, MOSTRINA_CMDS
 
 
 SRC_DATABASE_PATH = './saves'
-OUT_DATASET_PATH = '../Model_Augmentation/dataset/full_dataset_v1'
+OUT_DATASET_PATH = '../training/datasets/full_dataset_v1'
 
 
 ds_cmd_path = os.path.join(OUT_DATASET_PATH, 'commands')
+if not os.path.isdir(ds_cmd_path):
+    os.mkdir(ds_cmd_path)
+
 user_iterator = tqdm(os.listdir(SRC_DATABASE_PATH))
 for user in user_iterator:
     bot_user_path = os.path.join(SRC_DATABASE_PATH, user)

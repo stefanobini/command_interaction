@@ -63,5 +63,5 @@ command_ita = {
     27: "Vai su",
     28: "Vai giù",
     29: "Vai avanti",
-    30:"Vai indietro"
+    30: "Vai indietro"
 }

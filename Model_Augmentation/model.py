@@ -33,7 +33,10 @@ from pytorch_lightning.utilities import rank_zero_warn
 from omegaconf import OmegaConf
 import logging
 import pytorch_lightning as pl
-from colorama import Fore
+import colorama
+from colorama import Fore, Back
+
+colorama.init(autoreset=True)
 
 MAXSIZE = 2**32-1
 
@@ -41,6 +44,7 @@ MAXSIZE = 2**32-1
 # DATASET_PATH = "dataset/FELICE_demo7_extended"
 # DATASET_PATH = "dataset/FELICE_demo3"
 DATASET_PATH = "dataset/full_dataset_v1"
+#DATASET_PATH = "dataset/test_dataset"
 CMD_DATASET_PATH = os.path.join(DATASET_PATH, "commands")
 RJT_DATASET_PATH = os.path.join(DATASET_PATH, "rejects")
 
@@ -52,6 +56,19 @@ When epoch end it performs the validation step, analyzing the model performance 
 '''
 class ValidationCallback(Callback):
     '''
+    Builds the class respect to tran or test phase.
+    To configure the class for the test phase set to True the key argument "test"
+    '''
+    def __init__(self, *args, **kwargs):
+        test = kwargs.get("test", False)
+        if test:
+            labels, batch_size, snr_range, sample_rate, lang, seed, max_gain_db, noise_test_path, test_manifest_path = args
+            self.init_test(labels, batch_size, snr_range, sample_rate, lang, seed, max_gain_db, noise_test_path, test_manifest_path)
+        else:
+            cfg, labels, batch_size, train_id = args
+            self.init_validation(cfg, labels, batch_size, train_id)
+
+    '''
     Builds the class for validation phase.
     In this function the Augmentation object is created
     :param cfg configuration of mynoise augmentator contained into yaml configuration file like dict object
@@ -59,6 +76,7 @@ class ValidationCallback(Callback):
     :param batch_size
     :param id of the training
     '''
+
     def init_validation(self, cfg, labels, batch_size, train_id):
         cfg = copy.deepcopy(cfg)
         del cfg["prob"]
@@ -72,10 +90,11 @@ class ValidationCallback(Callback):
         working_dir = Path(get_curr_dir(__file__)).joinpath(f".working_dir/train_id_{train_id}")
         self.working_dir = working_dir
         self.augmentation = Augmentation(**cfg)
-        self.validation_path = Path(get_curr_dir(__file__)).joinpath(f"manifests/validation_{self.lang}_manifest.json")
-        self.cross_entropy_loss = torch.nn.CrossEntropyLoss()
+        # self.cross_entropy_loss = torch.nn.CrossEntropyLoss()   # this was used by giusepper but was wrong
+        self.cross_entropy_loss = CrossEntropyLoss()
         self.validation_step = 0
-        self.num_cpu = 6
+        self.num_cpu = 6        
+        self.validation_path = Path(get_curr_dir(__file__)).joinpath(f"manifests/validation_{self.lang}_manifest.json")
         self.validation_df = self.augmentation.preprocessing.validation_set
         self.snr_range = range(self.augmentation.min_snr_val,
                                self.augmentation.max_snr_val + self.augmentation.snr_val_step,
@@ -97,15 +116,16 @@ class ValidationCallback(Callback):
     '''
     def init_test(self, labels, batch_size, snr_range, sample_rate, lang, seed, max_gain_db, noise_test_path, test_manifest_path):
         self.batch_size = batch_size
-        working_dir = Path(get_curr_dir(__file__)).joinpath(".working_dir/test")
         self.augmentation = Augmentation(seed=seed, sample_rate=sample_rate, max_gain_db=max_gain_db, lang=lang,
                                          train_frac=None, val_frac=None, test_frac=None,
                                          min_snr=None, max_snr=None, dataset_path_real=None,
                                          test=True, batch_size=self.batch_size)
+        
+        working_dir = Path(get_curr_dir(__file__)).joinpath(".working_dir/test")
         self.working_dir = working_dir
         self.lang = lang
         self.test = True
-        self.cross_entropy_loss = torch.nn.CrossEntropyLoss()
+        self.cross_entropy_loss = CrossEntropyLoss()
         self.validation_path = str(test_manifest_path).split(".")[0] + ".json"
         self.validation_df = pd.read_csv(test_manifest_path, index_col=0)
         self.validation_df = self.check_path_validation(self.validation_df)
@@ -116,6 +136,7 @@ class ValidationCallback(Callback):
         self.snr_range = snr_range
         self.validation_dataset = ValidationDataset(sample_rate, labels)
         self._dataloaders = self.get_dataloaders()
+    
 
     '''
     Get the class weight for the training set
@@ -145,29 +166,17 @@ class ValidationCallback(Callback):
         self._exp_dir = exp_dir
 
     '''
-    Builds the class respect to tran or test phase.
-    To configure the class for the test phase set to True the key argument "test"
-    '''
-    def __init__(self, *args, **kwargs):
-        test = kwargs.get("test", False)
-        if test:
-            labels, batch_size, snr_range, sample_rate, lang, seed, max_gain_db, noise_test_path, test_manifest_path = args
-            self.init_test(labels, batch_size, snr_range, sample_rate, lang, seed, max_gain_db, noise_test_path, test_manifest_path)
-        else:
-            cfg, labels, batch_size, train_id = args
-            self.init_validation(cfg, labels, batch_size, train_id)
-    '''
     Converts the audio file path contained into csv file from Linux to Windows platform
     :param validation_df csv file that contains the paths to convert
     :param noise_set if the csv file corresponds to noise set, it must be True else False
     '''
     def check_path_validation(self, validation_df: pd.DataFrame, noise_set=False):
-        split_param = "fsd" if noise_set else "dataset"
+        split_param = "noise_db" if noise_set else "dataset"
         validation_df_out = pd.DataFrame(columns=validation_df.columns)
         for index, row in validation_df.iterrows():
             audio_path = Path(row["path"])
             if audio_path.anchor != r"C:\\":
-                path = str(audio_path).split(split_param)[1]
+                path = str(audio_path).split(split_param, maxsplit=1)[1]
                 if path[0] == '\\':
                     path = path[1:]
                 nw_path = Path(get_curr_dir(__file__)).joinpath(split_param, path)
@@ -249,6 +258,7 @@ class ValidationCallback(Callback):
                 dataloaders[snr] = dataloader
             break
         return dataloaders
+    
     '''
     Computes the validation loss, logtis and predicted labels
     :param model model to validate
@@ -264,11 +274,12 @@ class ValidationCallback(Callback):
         logits = logits.cpu()
         true_labels = true_labels.cpu()
         predict_labels = predict_labels.cpu()
-        loss = self.cross_entropy_loss(logits.float(), true_labels).item()
+        loss = self.cross_entropy_loss(logits=logits.float(), labels=true_labels).item()        # this was used by giusepper but was wrong
         true_labels = true_labels.cpu().detach().numpy()
         predict_labels = predict_labels.cpu().detach().numpy()
+        pred_no_argmax = predict_labels
         predict_labels = np.argmax(predict_labels, axis=1)
-        return loss, true_labels, predict_labels, logits
+        return loss, true_labels, predict_labels, pred_no_argmax, logits
 
     '''
     Before fit starts, it copy the audio clips, train, validation and test set files into experiment dir.
@@ -313,6 +324,16 @@ class ValidationCallback(Callback):
         stats = {}
         for snr, dataloader in self.dataloaders.items():
             res = self.validate(model, dataloader=dataloader, device="gpu")
+            
+            """
+            print("################### SAVING THE VALIDATION INFORMATION ###################")
+            with open("validation_info.txt", "a") as f_out:
+                f_out.write("\n" + "#"*50 + "\n")
+                f_out.write("LOSS: {}\tTRUE_LABEL: {}\tPREDICT_LABEL: {}\tLOGITS: {}".format(res[0], res[1], res[2], res[3], res[4]))
+                f_out.write("\n" + "#"*50 + "\n")
+            print("\n")
+            #"""
+
             true_labels = res[1]
             predict_labels = res[2]
             bal_acc = balanced_accuracy_score(y_true=true_labels, y_pred=predict_labels)
@@ -321,12 +342,42 @@ class ValidationCallback(Callback):
         acc = list(map(lambda x: x[2], stats.values()))
         bal_acc = list(map(lambda x: x[1], stats.values()))
         loss = list(map(lambda x: x[0], stats.values()))
+
         acc = np.array(acc)
         bal_acc = np.array(bal_acc)
         loss = np.array(loss)
+
+        # Averanging among SNRs
         accuracy_mean = acc.mean()
         bal_acc_mean = bal_acc.mean()
         loss_mean = loss.mean()
+
+        # Save class and reject distributions for produce Tensorboard histograms
+        class_distribution = list()
+        commands_distribution = list()
+        reject_distribution = list()
+        for i in range(0, true_labels.shape[0]):
+            gt = true_labels[i]
+            pred_vect = res[3][i]
+            # print("### {}: {} -> {}: {} ###\n".format(np.argmax(pred_vect), np.amax(pred_vect), gt, pred_vect[gt]))
+            class_distribution.append(pred_vect[gt])
+            if gt == 31:
+                reject_distribution.append(pred_vect[gt])
+            else:
+                commands_distribution.append(pred_vect[gt])
+        with open(self.exp_dir+"/class_distributions.txt", "a") as f_out:
+            for prob in class_distribution:
+                f_out.write(str(prob) + " ")
+            f_out.write("\n")
+        with open(self.exp_dir+"/commands_distributions.txt", "a") as f_out:
+            for prob in commands_distribution:
+                f_out.write(str(prob) + " ")
+            f_out.write("\n")
+        with open(self.exp_dir+"/reject_distributions.txt", "a") as f_out:
+            for prob in reject_distribution:
+                f_out.write(str(prob) + " ")
+            f_out.write("\n")
+
         trainer.logger.log_metrics({f"accuracy_mean": accuracy_mean}, step=self.validation_step)
         trainer.logger.log_metrics({f"bal_acc_mean": bal_acc_mean}, step=self.validation_step)
         pl_module.log("val_loss", loss_mean)
@@ -439,6 +490,7 @@ class Model(EncDecClassificationModel):
     '''
     @classmethod
     def load_backup(cls, trainer, ckpt_name, exp_dir, new_cfg):
+        # ckpt_rricupath = Path(exp_dir).joinpath("checkpoints_backup", ckpt_name)
         ckpt_path = Path(exp_dir).joinpath("checkpoints_backup", ckpt_name)
         checkpoint = torch.load(ckpt_path)
         state_dict = checkpoint["state_dict"]
@@ -447,7 +499,7 @@ class Model(EncDecClassificationModel):
         
         # convert old dataset parth
         # print(Fore.YELLOW + 'Old: {}'.format(checkpoint) + Fore.RESET)
-        # print(Fore.BLUE + 'New: {}'.format(new_cfg['train_ds']['manifest_filepath']) + Fore.RESET)
+        # print(Fore.BLUE + 'New: {}'.format(new_cfg) + Fore.RESET)
         #'''
         checkpoint['cfg']['train_ds']['manifest_filepath'] = new_cfg['train_ds']['manifest_filepath']
         checkpoint['cfg']['train_ds']['augmentor']['mynoise']['dataset_path_real'] = new_cfg['train_ds']['augmentor']['mynoise']['dataset_path_real']
@@ -464,7 +516,10 @@ class Model(EncDecClassificationModel):
         #'''
         
         # del state_dict["loss.weight"]
-        model = cls(checkpoint['cfg'], trainer=trainer, class_weight=class_weight)
+        if trainer is not None:
+            model = cls(checkpoint['cfg'], trainer=trainer, class_weight=class_weight)
+        else:
+            model = cls(checkpoint['cfg'], class_weight=class_weight)
         # print(model.cfg)
         # model = cls(new_cfg, class_weight=class_weight)
         model.load_state_dict(checkpoint["state_dict"], strict=True)
@@ -692,7 +747,7 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
     '''
     def __init__(self, seed, sample_rate, max_gain_db, train_frac, val_frac, test_frac, min_snr, max_snr,
                  dataset_path_real,  lang, batch_size, train_id=None,
-                 dataset_path_reject=None, dataset_path_synth=None, test=False):
+                 dataset_path_reject=None, dataset_path_synth=None, test=False, epochs=0, distribution="uniform", descent_ratio=1.0, ab_uniform_step=0, sigma_min=5, sigma_max=5):
         if not test:
             self.preprocessing = Preprocessing(train_frac=train_frac, val_frac=val_frac, test_frac=test_frac,
                                                dataset_path_real=dataset_path_real,
@@ -700,6 +755,7 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
                                                dataset_path_reject=dataset_path_reject,
                                                sample_rate=sample_rate, seed=seed, lang=lang, batch_size=batch_size,
                                                train_id=train_id)
+            self.samples_per_epoch = len(self.preprocessing.train_set)
         self.db = pd.DataFrame(columns=["fname", "noise", "start_time"])
         self.test = test
         self.seed = seed
@@ -707,9 +763,17 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
         self.noise_instances_validation = {}
         self.rng = random.Random(self.seed)
         self._sample_rate = sample_rate
-        self.min_snr, self.max_snr = max_snr,  min_snr
+        # self.min_snr, self.max_snr = max_snr,  min_snr  # Giusepper defines in reverse way
+        self.min_snr, self.max_snr = min_snr, max_snr
         self.min_snr_val, self.max_snr_val, self.snr_val_step = min_snr, max_snr, 5
         self._max_gain_db = max_gain_db
+        self.distribution = distribution
+        self.ab_uniform_step = ab_uniform_step
+        self.sigma_min = sigma_min
+        self.sigma_max = sigma_max
+        self.epochs = epochs
+        self.descent_epochs = epochs*descent_ratio
+        self.n_sample = 0
         if not test:
             self._noise_df_train = self.preprocessing.noise_train_set
             self._noise_df_val = self.preprocessing.noise_validation_set
@@ -736,7 +800,7 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
     @noise_df_val.setter
     def noise_df_val(self, path):
         if not self.test:
-            raise Exception("Cannot modify this path during the train step")
+            raise Exception("Cannot modify this path Augmentationduring the train step")
         self._noise_df_val = path
 
     @noise_df_test.setter
@@ -824,7 +888,7 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
                 noise_path = self.get_test_noise(data_hash)
                 suffx = str(noise_path).split("noise_set")[1]
                 suffx = suffx[1:]
-                noise_path = Path(get_curr_dir(__file__)).joinpath("fsd", "noise_set", suffx)
+                noise_path = Path(get_curr_dir(__file__)).joinpath("noise_db", "noise_set", suffx)
             else:
                 noise_path = self.get_validation_noise(data_hash)
             instance = self.noise_instances_validation.get(noise_path, None)
@@ -852,7 +916,8 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
     The snr level is chosen randomly
     The starting point for the noise subsegment is chosen randomly
     '''
-    def perturb(self, data: AudioSegment, dataset_split="train"):
+    def perturb(self, data: AudioSegment, dataset_split="train"):   # Add epoch as parameter and epochs in constructor
+        print(Back.YELLOW + Fore.BLUE + "*\t\t\t\tPERTURB in Augmentaiton of model.py\t\t\t*")
         assert self.sample_rate == data.sample_rate
         noise_path = self.sample(dataset_split)
         instance = self.noise_instances.get(noise_path, None)
@@ -866,7 +931,46 @@ class Augmentation(Perturbation, metaclass=SingletonMeta):
             start_time = 0
         else:
             start_time = self.rng.uniform(0.0, diff)
-        snr = self.rng.uniform(self.min_snr, self.max_snr)
+        
+        # Add dynamic uniform (the one yet presented in a paper)
+        if self.distribution == "uniform":
+            snr = self.rng.uniform(self.min_snr, self.max_snr)
+
+        elif self.distribution == "dynamic_uniform":
+            epoch = int(self.n_sample / self.samples_per_epoch)
+
+            ### CURRICULUM LEARNING ###
+            a = epoch * (self.min_snr - self.max_snr) / self.descent_epochs + self.max_snr                           # modeled as a linear descending function plus a flat phase in the end
+            # b = epoch * (self.min_snr - self.max_snr) / self.descent_epochs + self.max_snr + self.ab_uniform_step    # modeled as a linear descending function plus a flat phase in the end
+            b = 40
+            if b > self.max_snr:
+                b = self.max_snr
+            snr = self.rng.uniform(a=a, b=b)
+
+        elif self.distribution == "dynamic_normal":
+            epoch = int(self.n_sample / self.samples_per_epoch)
+            
+            ### CURRICULUM LEARNING ###
+            # model mu as a combination of descent linear function plus a constant  ->  \_
+            mu = epoch * (self.min_snr - self.max_snr) / self.descent_epochs + self.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            # model sigma as a triangular function                                  ->  /\
+            s1 = epoch * (-self.sigma_max) / self.epochs + self.sigma_max + self.sigma_min      # modeled as a linear descending function
+            s2 = epoch * self.sigma_max / self.epochs + self.sigma_min                          # modeled as a linear ascending function
+            sigma = min(s1, s2)   
+            snr = np.random.normal(loc=mu, scale=sigma)
+            if (sigma < self.sigma_min or sigma > self.sigma_max) and self.sigma_max != 0:
+                raise Exception("Error on sigma computation: {} [{}, {}]".format(sigma, self.sigma_min, self.sigma_max))
+            
+        # pre_snr = snr
+        if snr > self.max_snr:
+            snr = self.max_snr
+        elif snr < self.min_snr:
+            snr = self.min_snr 
+        
+        self.n_sample += 1
+        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.epochs, mu, sigma, snr, pre_snr, self.min_snr, self.max_snr))
+        # print("*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.epochs, a, b, snr, pre_snr, self.min_snr, self.max_snr))
+        
         self.perturb_with_input_noise(data, copy.deepcopy(noise), snr, start_time)
 
     '''
@@ -961,19 +1065,22 @@ class DatasetSampler(Sampler):
 
     def __len__(self):
         return len(self.dataset)
+
     def __iter__(self):
         for index in self.get_batch():
             yield index
+
     def balance(self):
         df_out = self.balance_dataset.balancing()
         return df_out
+        
     def get_batch(self):
         df = self.balance()
         return df["index"].tolist()
 
 '''
 This class creates a copy of dataset. 
-In this copy each batch contains the same number of samples per class.
+In this copy each batch contains half of reject an half of commands uniform sampled.
 Each class has its own iterator.
 At each iteration the iterators of the classes are chosen sequentially. 
 When a class iterator ends, it is reset
@@ -985,6 +1092,8 @@ class BalanceDataset:
         self.seed = seed
         self.batch_db = self._split()
         self.batch_iter = self._iterate()
+        self.n_cmds = len(self.batch_db.keys())
+        self.reject_rate = 0.5
 
     def _split(self):
         cmds = list(self.train_set.groupby("cmd_index").groups.keys())
@@ -993,22 +1102,31 @@ class BalanceDataset:
         for k in cmds:
             batch_db[k] = self.train_set.loc[self.train_set["cmd_index"] == k]
         return batch_db
+
     def _iterate(self):
         batch_iter = {}
         for k, v in self.batch_db.items():
             batch_iter[k] = v.iterrows()
         return batch_iter
+
     def log(self, batch):
         for k, v in batch.groupby("cmd_index").groups.items():
             print(f"{k}:\t{len(v)}", end="\t")
         print()
         print("*" * 50)
+
     def balancing(self):
+        print(Back.YELLOW + Fore.BLUE + "*\t\t\t\tBALANCING in BalancedDataset of model.py\t\t\t*")
         rng = np.random.RandomState(self.seed)
         batch = pd.DataFrame(columns=self.train_set.columns)
         db_out = pd.DataFrame(columns=self.train_set.columns)
         for j in range(len(self.train_set)):
-            k = j % len(self.batch_db.keys())
+            #''' for batch balanced on reject and classes
+            k = rng.randint(0, self.n_cmds-2)
+            if rng.randint(0, int(1/self.reject_rate)) == 0:  # in order to include a fixed number of reject samples in batch, standard=batch_size/2
+                k = self.n_cmds-1
+            #'''
+            # k = j % len(self.batch_db.keys())   # for batch balanced on classes
             batch_iterator = self.batch_iter[k]
             try:
                 sample = next(batch_iterator)[1]

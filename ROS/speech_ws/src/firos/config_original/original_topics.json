@@ -1,0 +1,16 @@
+{
+	"/cobot1/speech":	["comunication_pkg/Speech",		"publisher"	],
+	"/cobot1/gesture":	["comunication_pkg/Gesture",	"publisher"	],
+
+	"/cobot2/speech":	["comunication_pkg/Speech",		"publisher"	],
+	"/cobot2/gesture":	["comunication_pkg/Gesture",	"publisher"	],
+
+	"/cobot3/speech":	["comunication_pkg/Speech",		"publisher"	],
+	"/cobot3/gesture":	["comunication_pkg/Gesture",	"publisher"	],
+
+	"/aws1/speech":		["comunication_pkg/Speech",		"publisher"	],
+	"/aws1/gesture":	["comunication_pkg/Gesture",	"publisher"	],
+
+	"/aws2/speech":		["comunication_pkg/Speech",		"publisher"	],
+	"/aws2/gesture":	["comunication_pkg/Gesture",	"publisher"	]
+}

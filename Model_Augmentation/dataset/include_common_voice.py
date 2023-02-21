@@ -20,8 +20,8 @@ SRC_PATH = 'FELICE_demo7/reject_plus_common_voice'
 # DST_PATH = 'FELICE_demo3/rejects'
 DST_PATH = "full_dataset_v1/rejects"
 THRESH = True
-# N_SAMPLES = 2000
-N_SAMPLES = 8000
+# N_SAMPLES = 8000
+N_SAMPLES = 10000
 
 for lan in ['eng', 'ita']:
 # for lan in ['ita']:

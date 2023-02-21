@@ -128,12 +128,16 @@ ENG_STR = {
 }
 
 WELCOME_STR = {
-    0: "Ciao, sono Speech Command bot e ti assisterò durante tutta la procedura.😊\n" \
+    0: "Ciao, sono Speech Command bot, il bot Telegream del Laboratorio MIVIA dell'Università degli Studi di Salerno e ti assisterò durante tutta la procedura.😊\n" \
        "Ti invierò una serie di comandi, il tuo compito sarà quello di registrare tali comandi ed inviarmeli.\n"
-       "Inoltre, man mano che prosegui ti invierò dei premi per rigraziarti del tuo impegno 🥳\n\n"
+       "Inoltre, man mano che prosegui ti invierò dei premi per rigraziarti del tuo impegno 🥳\n"
+       "Nel caso tu voglia partecipare alla procedura si preoccupi di compilare il questionario al seguente link prima di procedere.\n"
+       "https://docs.google.com/forms/d/e/1FAIpQLScTSPx1nHk8c06vOQs5-jxOEcVFfWawO-TxHk8MNlZKP-ogww/viewform?vc=0&c=0&w=1&flr=0\n\n"
        "Hi, I'm Speech Command bot and I will assist you throughout the procedure.😊\n"
        "I will send you a series of commands, your task will be to record these commands and send them to me.\n"
-       "Also, as you proceed, I'll send you some rewards to thank you for your effort🥳",
+       "Also, as you proceed, I'll send you some rewards to thank you for your effort🥳\n"
+       "If you want to participate in the procedure, fill out the questionnaire at the following link before proceeding.\n"
+       "https://docs.google.com/forms/d/e/1FAIpQLSc_5ZZexxQ4rRtyV3jXpU8OaFumn1BozWHG7kQoohU0TSDXSQ/viewform?vc=0&c=0&w=1&flr=0\n\n",
     1: "Prima di iniziare dimmi se vuoi ricevere i comandi in lingua italiana, inglese o entrambe.\n"
        "Se selezioni entrambe le lingue avrai un maggior numero di premi\n\n"
        "Before starting tell me if you want to receive the commands in Italian, English or both.\n"

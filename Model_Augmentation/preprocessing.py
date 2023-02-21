@@ -61,7 +61,7 @@ class Preprocessing:
                                                                  dataset_path_synth=dataset_path_synth,
                                                                  dataset_path_reject=dataset_path_reject)
         self.write_manifest(db_train=self.db_train, db_val=self.db_val, db_test=self.db_test)
-        self.noise_path_base = Path(get_curr_dir(__file__)).joinpath("fsd") #Aggiustare il path
+        self.noise_path_base = Path(get_curr_dir(__file__)).joinpath("noise_db") #Aggiustare il path
         self.noise_data = self.noise_path_base.joinpath("noise_set")
         self.noise_df = self.create_noise_db()
         self.noise_convert()

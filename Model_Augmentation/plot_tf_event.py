@@ -23,9 +23,15 @@ class PlotManager:
     def get_scalars(self):
         scalars = {}
         event_acc = event_accumulator.EventAccumulator(self.exp_dir)
+        event_acc.accumulated_attrs
         event_acc.Reload()
         tags: list = event_acc.Tags()["scalars"]
         tags.remove("hp_metric"), tags.remove('training_batch_accuracy_top@1'), tags.remove('train_backward_timing')
+        for snr in range(self.min_snr, self.max_snr+self.snr_step, self.snr_step):
+            tag = "accuracy_snr_"+str(snr)+"dB"
+            tags.append(tag)
+            tag = "accuracy_snr_"+str(snr)+"dB"
+            tags.append(tag)
         for tag in tags:
             x, y = [], []
             scalars[tag] = {}
@@ -42,6 +48,8 @@ class PlotManager:
         plt.plot(x, y, label=label)
 
     def plot_acc(self):
+        # print(self.scalars.keys())
+        # print(self.acc_list)
         for e in self.acc_list:
             title = e
             scalars = self.scalars[e]
@@ -92,6 +100,7 @@ class PlotManager:
         self._plot(epoch_list, y, title="", label="train_loss", xlabel="")
         val_loss = self.scalars["val_loss"]
         x, y = val_loss["x"], val_loss["y"]
+        epoch_list = list(range(len(x)))
         self._plot(epoch_list, y, title="", label="val_loss", xlabel="")
         plt.legend(loc="best")
         self._plot_save("loss")
