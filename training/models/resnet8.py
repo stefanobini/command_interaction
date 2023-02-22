@@ -75,7 +75,8 @@ class ResNet8_PL(pl.LightningModule):
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
-        self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
+        # self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
+        self.snrs = list(range(0, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
 
         self.save_hyperparameters()
         
@@ -207,7 +208,7 @@ class ResNet8_PL(pl.LightningModule):
         self.train_loader.dataset._shuffle_noise_dataset()              # shuffle noise sample among epochs
         self.train_loader.dataset.set_epoch(epoch=self.current_epoch)
 
-    def training_step(self, batch, batch_idx) -> torch.Tensor:
+    def training_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]:
         """Hook function performing the training step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
         
@@ -219,13 +220,15 @@ class ResNet8_PL(pl.LightningModule):
         Returns
         -------
         Dict[str, torch.Tensor]
-            Dictionary containing "loss", "logits", and "targets" of the batch
+            Dictionary containing "loss", "logits", "targets" and average "snr" of the batch
         """
-        x, y = batch
+        # x, y = batch
+        x, y, snr = batch
         logits = self.forward(x=x)
         loss = self.loss_fn(input=logits, target=y)
 
-        train_step_output = {"loss": loss, "logits": logits, "targets": y}
+        # train_step_output = {"loss": loss, "logits": logits, "targets": y}
+        train_step_output = {"loss": loss, "logits": logits, "targets": y, "snr": snr}
         return train_step_output
     
     
@@ -238,22 +241,26 @@ class ResNet8_PL(pl.LightningModule):
         train_step_outputs: torch.Tensor
             List of dictionaries produced by repeating of training steps
         """
-        len_val = len(self.train_loader)              # compute size of validation set
+        len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
         logits = train_step_outputs[0]["logits"]
         targets = train_step_outputs[0]["targets"]
-        for i in range(1, len_val):
+        avg_snr = train_step_outputs[0]["snr"]
+        for i in range(1, len_train):
             logits = torch.concat(tensors=[logits, train_step_outputs[i]["logits"]])
             targets = torch.concat(tensors=[targets, train_step_outputs[i]["targets"]])
+            avg_snr += train_step_outputs[i]["snr"]
         
         loss = self.loss_fn(input=logits, target=targets)
         preds = torch.max(input=logits, dim=1).indices
         accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
         # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+        avg_snr /= len(train_step_outputs)
 
         self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
         self.log("train_accuracy", accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
     def validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]:
@@ -296,7 +303,7 @@ class ResNet8_PL(pl.LightningModule):
             targets = torch.concat(tensors=[targets, val_step_outputs[i]["targets"]])
             snrs = torch.concat(tensors=[snrs, val_step_outputs[i]["snrs"]])
 
-        # Compute mean metrics
+        # Compute average metrics
         loss = self.loss_fn(input=logits, target=targets)
         preds = torch.max(input=logits, dim=1).indices
         accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
@@ -391,7 +398,7 @@ class ResNet8_PL(pl.LightningModule):
         """Configure training optimizers."""
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
         #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
-        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.novograd.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
+        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
         scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=1e-4, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,

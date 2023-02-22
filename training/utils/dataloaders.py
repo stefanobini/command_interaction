@@ -163,7 +163,7 @@ class TrainingMiviaDataset(MiviaDataset):
         self.epoch = 0
 
     
-    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]:
+    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]:
         """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
         In the training set a random noise from the noise training set is chosen and applied with a specific SNR to the speech sample.
         
@@ -188,6 +188,8 @@ class TrainingMiviaDataset(MiviaDataset):
             Speaker in the item
         int
             Label of the item
+        int
+            SNR applied to the speech
         """
         speech_item = self.speech_annotations.iloc[index]
         rel_speech_path = speech_item.path
@@ -236,7 +238,7 @@ class TrainingMiviaDataset(MiviaDataset):
         if settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_speech_path, item, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+        return rel_speech_path, item, settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label), snr
 
 
     def set_epoch(self, epoch:int=0) -> None:
@@ -458,7 +460,7 @@ def pad_spectrograms(batch:torch.Tensor, max_length:int) -> torch.Tensor:
     return resized_batch
 
 
-def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
+def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
     (path, item, sample_rate, type, subtype, speaker, label)
@@ -470,17 +472,24 @@ def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.Int
 
     Returns
     -------
-    Tuple[torch.Tensor, torch.IntTensor]
-        Batch with audio sample of the same length
+    torch.Tensor
+        Audio samples contained in the batch
+    torch.IntTensor
+        Labels of the samples contained in the batch
+    torch.Tensor
+        Average SNR of the samples contained in the batch
     """
     tensors, targets = list(), list()
+    avg_snr = 0
     max_length = 0
-    for path, tensor, _, _, _, _, label in batch:
+    for path, tensor, _, _, _, _, label, snr in batch:
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
+        avg_snr += snr
     tensors = pad_spectrograms(tensors, max_length=max_length)
     targets = torch.stack(targets)
+    avg_snr = torch.tensor(avg_snr/len(tensors))
     
     """
     global it
@@ -491,7 +500,7 @@ def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.Int
     it += 1
     #"""
 
-    return tensors, targets
+    return tensors, targets, avg_snr
 
 
 def _val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:

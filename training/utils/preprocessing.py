@@ -163,7 +163,7 @@ class Preprocessing():
             snr = random.uniform(a=a, b=b)
         elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v2":
             a = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr - settings.noise.curriculum_learning.uniform.step
-            b = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / self.descent_epochs + settings.noise.max_snr
+            b = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
         elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
             # model mu as a combination of descent linear function plus a constant  ->  \_
@@ -171,7 +171,7 @@ class Preprocessing():
             # model sigma as a triangular function                                  ->  \/
             s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
             s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs                          # modeled as a linear ascending function
-            sigma = max(s1, s2)   
+            sigma = max(s1, s2)
             snr = np.random.normal(loc=mu, scale=sigma)
         elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
             mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
@@ -180,11 +180,13 @@ class Preprocessing():
             
         # pre_snr = snr
         if snr > settings.noise.max_snr:
-            snr = settings.noise.max_snr - snr + settings.noise.max_snr
-            raise Exception("Computed SNR ({}) greater than maximum SNR ({})".format(snr, settings.noise.max_snr))
+            snr = settings.noise.max_snr
+            # snr = settings.noise.max_snr - snr + settings.noise.max_snr
+            # raise Exception("Computed SNR ({}) greater than maximum SNR ({})".format(snr, settings.noise.max_snr))
         elif snr < settings.noise.min_snr:
-            snr = settings.noise.min_snr - snr + settings.noise.min_snr
-            raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, settings.noise.min_snr))
+            snr = settings.noise.min_snr
+            # snr = settings.noise.min_snr - snr + settings.noise.min_snr
+            # raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, settings.noise.min_snr))
         
         # n_sample += 1
         # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))

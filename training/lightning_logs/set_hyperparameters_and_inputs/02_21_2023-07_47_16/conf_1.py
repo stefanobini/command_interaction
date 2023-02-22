@@ -5,7 +5,7 @@ from dotmap import DotMap
 settings = DotMap()
 
 settings.name:str = "conf_1.py"
-############# Provare AdamW come optimizer
+############# Provare NovoGrad come optimizer
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = "no_reject"                                                                              # name of the experiment
@@ -38,7 +38,7 @@ settings.input.mfcc.log_mels:bool = True                                        
 '''Dataset'''
 settings.dataset.folder = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset"
 settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "class_training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation_0_40.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
@@ -86,11 +86,11 @@ settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
 
 '''Noise & Curriculum Learning'''
-settings.noise.min_snr:int = -10                                              # [-10, 0]
+settings.noise.min_snr:int = -10
 settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
-settings.noise.curriculum_learning.distribution:str = "GaussCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "PEM"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = 50
