@@ -75,8 +75,7 @@ class ResNet8_PL(pl.LightningModule):
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
-        # self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
-        self.snrs = list(range(0, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
+        self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
 
         self.save_hyperparameters()
         
@@ -307,22 +306,20 @@ class ResNet8_PL(pl.LightningModule):
         loss = self.loss_fn(input=logits, target=targets)
         preds = torch.max(input=logits, dim=1).indices
         accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
-        # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
-        '''
+        balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+        #'''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
-        targ_reject_y = targs == (self.num_labels-1)            # '1' for reject, '0' for command
+        targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
         reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-        '''
+        #'''
 
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
         self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
         self.log("accuracy", accuracy, on_epoch=True, prog_bar=True, logger=True)
-        # self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        '''
+        self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("reject_accuracy", reject_accuracy, on_epoch=True, prog_bar=True, logger=True)
-        '''
 
         ## Compute metrics for each SNR
         # Construct and fill dictionary that contains the predictions and target devided by SNR
@@ -341,18 +338,14 @@ class ResNet8_PL(pl.LightningModule):
         # Compute metrics for each SNR
         for snr in self.snrs:
             snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
-            # snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
-            '''
+            snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
             pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
             targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
             snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-            '''
         
             self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
-            # self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
-            '''
+            self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
             self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
-            '''
 
         '''
         with open("val_preds.txt", "wb") as fout:
@@ -399,7 +392,7 @@ class ResNet8_PL(pl.LightningModule):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
         #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
         #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
-        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=1e-4, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=settings.training.optimizer.eps, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,
             "lr_scheduler": {

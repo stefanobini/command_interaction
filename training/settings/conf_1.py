@@ -8,7 +8,7 @@ settings.name:str = "conf_1.py"
 ############# Provare AdamW come optimizer
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "no_reject"                                                                              # name of the experiment
+settings.logger.name:str = "with_reject"                                                                              # name of the experiment
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
@@ -37,8 +37,8 @@ settings.input.mfcc.log_mels:bool = True                                        
 
 '''Dataset'''
 settings.dataset.folder = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset"
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "class_training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation_0_40.csv")
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation_0_40.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
@@ -68,30 +68,31 @@ settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.devices:int = [0]                                         # list of the GPU devices to use
-settings.training.max_epochs = 100
-settings.training.min_epochs = 20
+settings.training.max_epochs:int = 100
+settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
 settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
 settings.training.checkpoint.save_top_k:int = 3
 settings.training.check_val_every_n_epoch:int = 1
-settings.training.early_stop.patience:int = 12                              # default=3
+settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
 settings.training.optimizer.weight_decay:float = 0.001                      # Default 0
-settings.training.optimizer.eps:float = 1e-8
+settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
 
 '''Noise & Curriculum Learning'''
-settings.noise.min_snr:int = -10                                              # [-10, 0]
+settings.noise.min_snr:int = 0                                              # [-10, 0]
 settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
-settings.noise.curriculum_learning.distribution:str = "GaussCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.epoch_saturation_time:int = 50
+settings.noise.curriculum_learning.distribution:str = "PEM"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
-settings.noise.curriculum_learning.gaussian.max_sigma:int = 50
+settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2

@@ -112,7 +112,8 @@ class Preprocessing():
             dB version of the input spectrogram
         """
         #### CHANGED HERE THE MULTIPLIER FROM 10. T0 20.
-        spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
+        # spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)).numpy(), top_db=80)
+        spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.max(), 1e-10)), top_db=80)
         return spectrogram_db
 
 
@@ -154,7 +155,7 @@ class Preprocessing():
             SNR to apply to the audio sample
         """
         snr = None
-        descent_epochs = settings.training.max_epochs*settings.noise.descent_ratio
+        descent_epochs = settings.noise.curriculum_learning.epoch_saturation_time*settings.noise.descent_ratio
         if settings.noise.curriculum_learning.distribution == "PEM":
             snr = random.uniform(settings.noise.min_snr, settings.noise.max_snr)
         elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
@@ -169,8 +170,8 @@ class Preprocessing():
             # model mu as a combination of descent linear function plus a constant  ->  \_
             mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
             # model sigma as a triangular function                                  ->  \/
-            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.training.max_epochs + settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
-            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.training.max_epochs                          # modeled as a linear ascending function
+            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.noise.curriculum_learning.epoch_saturation_time + settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
+            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.noise.curriculum_learning.epoch_saturation_time                          # modeled as a linear ascending function
             sigma = max(s1, s2)
             snr = np.random.normal(loc=mu, scale=sigma)
         elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
@@ -189,8 +190,8 @@ class Preprocessing():
             # raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, settings.noise.min_snr))
         
         # n_sample += 1
-        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
-        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.training.max_epochs, a, b, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
+        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.noise.curriculum_learning.epoch_saturation_time, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
+        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.noise.curriculum_learning.epoch_saturation_time, a, b, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
         return int(snr)
 
 

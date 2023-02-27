@@ -50,11 +50,11 @@ labels = train_set._get_labels()
 # print(labels)
 
 ###### Decomment following rows if you use also reject, and change annotation file path in settings #######
-# weights = train_set._get_class_weights()
-# # Computing the label weights to balance the dataloader
-# dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
-# dataset_weights.append(settings.training.reject_percentage)
-# dataset_weights = torch.tensor(dataset_weights)
+weights = train_set._get_class_weights()
+# Computing the label weights to balance the dataloader
+dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
+dataset_weights.append(settings.training.reject_percentage)
+dataset_weights = torch.tensor(dataset_weights)
 ###########################################################################################################
 
 balanced_weights = [1/len(labels) for i in range(len(labels))]
