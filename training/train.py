@@ -25,7 +25,7 @@ torch.autograd.detect_anomaly()
 #     Setting CUDA     #
 ########################
 if torch.cuda.is_available():
-    print(Back.GREEN + "CUDA acceleration available on devices: {}".format(settings.training.devices))
+    print(Back.GREEN + "CUDA acceleration available on {} devices, you select {}".format(torch.cuda.device_count(), settings.training.devices))
 # Set CUDA device
 devices = ""
 for device in settings.training.devices:
