@@ -36,7 +36,7 @@ pl.seed_everything(220295)
 # Building Dataloaders  #
 #########################
 test_loaders = list()
-for fold in range(settings.testing.n_fold):
+for fold in range(settings.testing.n_folds):
     test_set = TestingMiviaDataset(fold=fold)
     test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_val_collate_fn, pin_memory=pin_memory))
 
