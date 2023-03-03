@@ -11,8 +11,8 @@ SAMPLE_1_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/PEM.txt"
 
 #SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/PEM.txt"
 #SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/UniCL_PEM_v1.txt"
-SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/UniCL_PEM_v2.txt"
-#SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/GaussCL_PEM_v1.txt"
+#SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/UniCL_PEM_v2.txt"
+SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/GaussCL_PEM_v1.txt"
 #SAMPLE_2_PATH = "/mnt/sdc1/sbini/command_interaction/training/testing/GaussCL_PEM_v2.txt"
 
 sample_1 = list()

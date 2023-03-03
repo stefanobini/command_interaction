@@ -1,6 +1,7 @@
 from typing import Dict
 import os
 import pickle
+import shutil
 import numpy as np
 import torch
 import torchmetrics
@@ -201,6 +202,12 @@ class ResNet8_PL(pl.LightningModule):
             Test dataloader"""
         return self.test_loaders
     
+
+    def on_train_start(self) -> None:
+        src_conf_file = os.path.join("settings", settings.name)
+        dst_conf_file = os.path.join(self.trainer.logger.log_dir, settings.name)
+        shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
+
 
     @torch.no_grad()
     def on_train_epoch_start(self) -> None:

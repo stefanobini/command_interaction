@@ -1,4 +1,4 @@
-"""UniCL_PEM_v2 with ENG commands"""
+"""PEM with ENG commands"""
 import os
 from typing import List
 from dotmap import DotMap
@@ -10,7 +10,7 @@ settings.mode:str = "testing"                                                   
 
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "no_reject"                                                                              # name of the experiment
+settings.logger.name:str = "UniCL_PEM_v1"                                                                              # name of the experiment
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
@@ -38,7 +38,7 @@ settings.input.mfcc.norm:str = "ortho"
 settings.input.mfcc.log_mels:bool = True                                                                            # Default value [False], but NVIDIA NeMo use True
 
 '''Dataset'''
-settings.dataset.folder = "/mnt/sdc1/sbini/command_interaction/training/datasets/final_dataset"
+settings.dataset.folder = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset"
 settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
 settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation_0_40.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "class_testing_0_40.csv")
@@ -67,9 +67,9 @@ settings.model.conformer.convolution_first: bool = False
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 64
+settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.devices:int = [3]                                         # list of the GPU devices to use
+settings.training.devices:int = [5]                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -93,7 +93,7 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "UniCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "PEM"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr

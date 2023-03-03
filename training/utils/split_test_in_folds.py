@@ -9,11 +9,11 @@ import random
 
 
 LANGUAGE = "ita"
-DATASET_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset"
+DATASET_PATH = "/mnt/sdc1/sbini/command_interaction/training/datasets/final_dataset"
 ANNOTATION_FILE = "class_testing_0_40.csv"
 ANNOTATION_FILE_PATH = os.path.join(DATASET_PATH, "testing", "annotations", LANGUAGE, ANNOTATION_FILE)
 OUTPUT_PATH = os.path.join(DATASET_PATH, "testing", "annotations", LANGUAGE)
-N_FOLDS = 10
+N_FOLDS = 20
 HEADINGS = {"path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"}
 
 

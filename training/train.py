@@ -134,8 +134,3 @@ if settings.training.lr.auto_find:
 #    Training Model    #
 ########################
 trainer.fit(model=model, train_dataloaders=model.train_loader, val_dataloaders=model.val_loader)
-
-# Copy configuration file in the folder
-src_conf_file = os.path.join("settings", settings.name)
-dst_conf_file = os.path.join(info_path, settings.name)
-shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
