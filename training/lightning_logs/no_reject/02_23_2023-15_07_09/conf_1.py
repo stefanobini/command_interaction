@@ -1,4 +1,4 @@
-"""Official Experimentation: GaussCL_PEM_v1 without reject"""
+"""GaussCL_PEM_v1 without reject in ITA language"""
 
 import os
 from typing import List
@@ -7,7 +7,7 @@ from dotmap import DotMap
 settings = DotMap()
 
 settings.name:str = "conf_1.py"
-############# Provare AdamW come optimizer
+
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = "no_reject"                                                                              # name of the experiment

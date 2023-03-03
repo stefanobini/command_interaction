@@ -1,12 +1,13 @@
 from typing import Dict
 import os
 import pickle
+import numpy as np
 import torch
 import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
-import torch_optimizer
+# import torch_optimizer
 
 import colorama
 colorama.init(autoreset=True)
@@ -406,8 +407,12 @@ class ResNet8_PL(pl.LightningModule):
         os.makedirs(settings.testing.folder, exist_ok=True)
         self.results_path = os.path.join(settings.testing.folder, "{}.txt".format(settings.logger.name))
         with open(self.results_path, 'w') as fout:
+            avg = 0
             for dataloader in range(len(accuracies)):
-                fout.write("Dataloader {}: {:.2f} %\n".format(dataloader, accuracies[dataloader]*100))
+                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100))
+                avg += accuracies[dataloader]*100
+            fout.write("-------------------------\n")
+            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(accuracies)))
     
 
     def configure_callbacks(self):

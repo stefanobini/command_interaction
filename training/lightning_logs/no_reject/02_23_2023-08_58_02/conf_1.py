@@ -1,4 +1,4 @@
-"""Official Experimentation: GaussCL_PEM_v2 without reject"""
+"""GaussCL_PEM_v2 without reject in ITA language"""
 
 import os
 from typing import List

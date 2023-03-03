@@ -1,4 +1,4 @@
-"""Official Experimentation: PEM without reject"""
+"""PEM without reject in ITA language"""
 
 import os
 from typing import List

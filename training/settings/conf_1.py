@@ -6,14 +6,14 @@ from dotmap import DotMap
 settings = DotMap()
 
 settings.name:str = "conf_1.py"
-settings.mode:str = "training"                                                                                          # ["training", "test"]
+settings.mode:str = "testing"                                                                                          # ["training", "test"]
 
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "no_reject"                                                                              # name of the experiment
+settings.logger.name:str = "PEM"                                                                              # name of the experiment
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -70,7 +70,7 @@ settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.devices:int = [0]                                         # list of the GPU devices to use
-settings.training.max_epochs:int = 100
+settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
@@ -102,5 +102,5 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 '''Test'''
 settings.testing.folder:str = "testing"
 settings.testing.n_fold:int = 10
-settings.testing.ckpt_path:str = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/lightning_logs/no_reject/02_23_2023-08_58_02/checkpoints/epoch=103-step=4160.ckpt"
+settings.testing.ckpt_path:str = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
 settings.testing.results_path:str = None
