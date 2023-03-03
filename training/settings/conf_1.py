@@ -1,4 +1,4 @@
-"""UniCL_PEM_v2 with ENG commands"""
+"""GaussCL_PEM_v1 with ENG commands"""
 import os
 from typing import List
 from dotmap import DotMap
@@ -67,7 +67,7 @@ settings.model.conformer.convolution_first: bool = False
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 64
+settings.training.num_workers:str = 32
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.devices:int = [3]                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
@@ -93,7 +93,7 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "UniCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "GaussCL_PEM_v1"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr

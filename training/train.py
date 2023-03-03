@@ -44,8 +44,9 @@ pl.seed_everything(5138)
 ########################
 #   Setting Profiler   #
 ########################
-now = datetime.now()
-version = now.strftime("%m_%d_%Y-%H_%M_%S")
+# now = datetime.now()
+# version = now.strftime("%m_%d_%Y-%H_%M_%S")
+version = settings.noise.curriculum_learning.distribution
 logger = loggers.TensorBoardLogger(save_dir=settings.logger.folder, name=settings.logger.name, version=version)
 info_path = os.path.join(settings.logger.folder, settings.logger.name, version)
 profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
