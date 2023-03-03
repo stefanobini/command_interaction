@@ -1,4 +1,5 @@
 from typing import Dict
+import os
 import pickle
 import torch
 import torchmetrics
@@ -17,7 +18,7 @@ from settings.conf_1 import settings
 
 class ResNet8_PL(pl.LightningModule):
 
-    def __init__(self, num_labels:int, loss_weights:torch.Tensor):
+    def __init__(self, num_labels:int, loss_weights:torch.Tensor=None):
         """
         
         Methods
@@ -155,7 +156,7 @@ class ResNet8_PL(pl.LightningModule):
         self.val_loader = dataloader
         return self.val_loader
 
-    def set_test_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
+    def set_test_dataloaders(self, dataloaders:List[torch.utils.data.DataLoader]) -> torch.utils.data.DataLoader:
         """Set the test loader.
         
         Parameters
@@ -168,8 +169,8 @@ class ResNet8_PL(pl.LightningModule):
         torch.utils.data.DataLoader
             Test dataloader
         """
-        self.test_loader = dataloader
-        return self.test_loader
+        self.test_loaders = dataloaders
+        return self.test_loaders        
 
 
     def get_train_loader(self) -> torch.utils.data.Dataset:
@@ -197,7 +198,7 @@ class ResNet8_PL(pl.LightningModule):
         -------
         torch.utils.data.DataLoader
             Test dataloader"""
-        return self.test_loader
+        return self.test_loaders
     
 
     @torch.no_grad()
@@ -306,8 +307,8 @@ class ResNet8_PL(pl.LightningModule):
         loss = self.loss_fn(input=logits, target=targets)
         preds = torch.max(input=logits, dim=1).indices
         accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
-        balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
-        #'''
+        # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+        '''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
         targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
         reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
@@ -318,9 +319,10 @@ class ResNet8_PL(pl.LightningModule):
         # Save for TensorBoard
         self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
         self.log("accuracy", accuracy, on_epoch=True, prog_bar=True, logger=True)
+        '''
         self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("reject_accuracy", reject_accuracy, on_epoch=True, prog_bar=True, logger=True)
-
+        '''
         ## Compute metrics for each SNR
         # Construct and fill dictionary that contains the predictions and target devided by SNR
         outputs = dict()
@@ -338,14 +340,17 @@ class ResNet8_PL(pl.LightningModule):
         # Compute metrics for each SNR
         for snr in self.snrs:
             snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
+            '''
             snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
             pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
             targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
             snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-        
+            '''
             self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
+            '''
             self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
             self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
+            '''
 
         '''
         with open("val_preds.txt", "wb") as fout:
@@ -357,7 +362,7 @@ class ResNet8_PL(pl.LightningModule):
         '''
     
 
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch, batch_idx, dataloader_idx=0):
         """Hook function performing the test step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
         
@@ -376,6 +381,33 @@ class ResNet8_PL(pl.LightningModule):
 
         test_step_output = {"logits": logits, "targets": y, "snrs": snr}
         return test_step_output
+    
+    def test_epoch_end(self, outputs):
+        accuracies = list()
+        for dataloader in range(len(outputs)):
+            test_len = len(self.test_loaders[dataloader])              # compute size of validation set
+            # Build the epoch logits, targets and snrs tensors from the values of each iteration
+            logits = outputs[dataloader][0]["logits"]
+            targets = outputs[dataloader][0]["targets"]
+            snrs = outputs[dataloader][0]["snrs"]
+            for step in range(1, test_len):
+                logits = torch.concat(tensors=[logits, outputs[dataloader][step]["logits"]])
+                targets = torch.concat(tensors=[targets, outputs[dataloader][step]["targets"]])
+                snrs = torch.concat(tensors=[snrs, outputs[dataloader][step]["snrs"]])
+
+            # Compute average metrics
+            #loss = self.loss_fn(input=logits, target=targets)
+            preds = torch.max(input=logits, dim=1).indices
+            accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
+    
+            accuracies.append(accuracy)
+
+        '''ADD STATITICAL ANALYSIS ON <accuracies>'''
+        os.makedirs(settings.testing.folder, exist_ok=True)
+        self.results_path = os.path.join(settings.testing.folder, "{}.txt".format(settings.logger.name))
+        with open(self.results_path, 'w') as fout:
+            for dataloader in range(len(accuracies)):
+                fout.write("Dataloader {}: {:.2f} %\n".format(dataloader, accuracies[dataloader]*100))
     
 
     def configure_callbacks(self):

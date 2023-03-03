@@ -41,6 +41,16 @@ pin_memory = True if settings.training.device=="cuda" else False
 pl.seed_everything(5138)
 
 
+########################
+#   Setting Profiler   #
+########################
+now = datetime.now()
+version = now.strftime("%m_%d_%Y-%H_%M_%S")
+logger = loggers.TensorBoardLogger(save_dir=settings.logger.folder, name=settings.logger.name, version=version)
+info_path = os.path.join(settings.logger.folder, settings.logger.name, version)
+profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
+
+
 #########################
 # Building Dataloaders  #
 #########################
@@ -93,16 +103,6 @@ model.set_val_dataloader(dataloader=val_loader)
 
 
 ########################
-#   Setting Profiler   #
-########################
-now = datetime.now()
-version = now.strftime("%m_%d_%Y-%H_%M_%S")
-logger = loggers.TensorBoardLogger(save_dir=settings.logger.folder, name=settings.logger.name, version=version)
-info_path = os.path.join(settings.logger.folder, settings.logger.name, version)
-profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
-
-
-########################
 #   Setting Trainer    #
 ########################
 trainer = pl.Trainer(
@@ -139,26 +139,3 @@ trainer.fit(model=model, train_dataloaders=model.train_loader, val_dataloaders=m
 src_conf_file = os.path.join("settings", settings.name)
 dst_conf_file = os.path.join(info_path, settings.name)
 shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
-
-'''
-import torch
-import pickle
-
-with open('train_preds.txt', 'rb') as handle:
-    p = pickle.load(handle)
-with open('train_targs.txt', 'rb') as handle:
-    t = pickle.load(handle)
-
-with open('val_preds.txt', 'rb') as handle:
-    p = pickle.load(handle)
-with open('val_targs.txt', 'rb') as handle:
-    t = pickle.load(handle)
-
-torch.max(p[len(i)], 0).indices.item(), t[len(i)].item()
-
-l=list()
-for i in range(len(t)):
-    if t[i].item() != 31:
-        l.append(i)
-torch.max(p[l[i]], 0).indices.item(), t[l[i]].item()
-'''

@@ -329,7 +329,7 @@ class ValidationMiviaDataset(MiviaDataset):
 
 class TestingMiviaDataset(MiviaDataset):
 
-    def __init__(self) -> Dataset:
+    def __init__(self, fold:str) -> Dataset:
         """Test subset of the MiviaDataset dataset class.
 
         Methods
@@ -339,8 +339,8 @@ class TestingMiviaDataset(MiviaDataset):
         """
         super().__init__()
 
-        self.dataset_path = os.path.join(settings.dataset.folder, "testing")
-        self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations, sep=',')
+        self.dataset_path = os.path.join(settings.dataset.folder, "testing", )
+        self.speech_annotations = pd.read_csv(settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
 
     
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:

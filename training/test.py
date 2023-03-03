@@ -1,131 +1,95 @@
-import torchaudio
-import torchaudio.transforms as T
+import os
+import colorama
+colorama.init(autoreset=True)
+from colorama import Back, Fore
+
 import torch
-import matplotlib.pyplot as plt
-import librosa
-import librosa.display
-import numpy as np
-import math
-import random
-from colorama import Back
+import pytorch_lightning as pl
+
+from utils.dataloaders import TestingMiviaDataset, _val_collate_fn
+from settings.conf_1 import settings
+
+from models.resnet8 import ResNet8_PL
+from models.mobilenetv2 import MobileNetV2_PL
+from models.conformer import Conformer_PL
 
 
-def get_melspectrogram(waveform:torch.FloatTensor) -> torch.FloatTensor:
-        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_fft=512, win_length=400, hop_length=200, n_mels=64)
+########################
+#     Setting CUDA     #
+########################
+if torch.cuda.is_available():
+    print(Back.GREEN + "CUDA acceleration available on devices: {}".format(settings.training.devices))
+# Set CUDA device
+devices = ""
+for device in settings.training.devices:
+    devices += str(device) + ", "
+devices = devices[:-2]
+os.environ["CUDA_VISIBLE_DEVICES"] = devices
+pin_memory = True if settings.training.device=="cuda" else False
 
-        return transformation(waveform)
+########################
+#     Setting Seed     #
+########################
+pl.seed_everything(220295)
 
-def plot_melspectrogram(path:str, melspectrogram:torch.FloatTensor) -> None:
-    fig, ax = plt.subplots()
-    melspectrogram_db = librosa.power_to_db(melspectrogram, ref=np.max)
-    img = librosa.display.specshow(melspectrogram_db, y_axis='mel', x_axis='time', ax=ax)
-    ax.set(title='Mel spectrogram display')
-    fig.colorbar(img, ax=ax, format="%+2.f dB")
-    plt.savefig(path)
+#########################
+# Building Dataloaders  #
+#########################
+test_loaders = list()
+for fold in range(settings.testing.n_fold):
+    test_set = TestingMiviaDataset(fold=fold)
+    test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_val_collate_fn, pin_memory=pin_memory))
 
-def fix_noise_duration(speech:torch.FloatTensor, noise:torch.FloatTensor) -> torch.FloatTensor:
-    """Adjust the noise duration to be equal to the speech. The noise is cutted if is too long and padded (by zeros) if it is too short.
-    
-    Parameters
-    ----------
-    speech: torch.FloatTensor
-        Speech waveform tensor (1-D). Tensor whose duration should not be changed.
-    noise: torch.FloatTensor
-        Noise waveform tensor (1-D). Tensor whose duration should be changed.
+#########################
+#    Building Model     #
+#########################
+assert settings.model.network in ["resnet8", "mobilenetv2"]
+model = None
+labels = test_set._get_labels()
+if settings.model.network == "resnet8":
+    model = ResNet8_PL(num_labels=len(labels)).cuda()  # Load model
+    if settings.model.pretrain:
+        # model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
+        model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(labels))
+        print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
+    # model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
+elif settings.model.network == "mobilenetv2":
+    model = MobileNetV2_PL(num_labels=len(labels)).cuda()
+    if settings.model.pretrain:
+        model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
+        #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
+        print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
+    model.set_parameters(num_labels=len(labels))
+elif settings.model.network == "conformer":
+    model = Conformer_PL(num_labels=len(labels)).cuda()
 
-    Returns
-    -------
-    torch.FloatTensor
-        Noise waveform tensor (1-D) with the same duration of the speech give as input.
-    """
-    if noise.size(1) > speech.size(1):
-        start = random.randint(a=0, b=noise.size(1)-speech.size(1))
-        end = start + speech.size(1)
-        noise = noise[0, start:end]
-    elif noise.size(1) < speech.size(1):
-        start = random.randint(a=0, b=speech.size(1)-noise.size(1))
-        end = start + noise.size(1)
-        t = torch.zeros(size=speech.size())
-        t[0, start:end] = noise
-        noise = t
-    return noise
+########################
+#   Setting Trainer    #
+########################
+trainer = pl.Trainer(
+    resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
+    # auto_lr_find=settings.training.lr.auto_find,
+    accelerator=settings.training.accelerator,
+    devices=settings.training.devices,
+    # logger=logger,
+    # max_epochs=settings.training.max_epochs,
+    # min_epochs=settings.training.min_epochs,
+    # track_grad_norm=2,
+    # log_every_n_steps=-1,
+    enable_model_summary=False
+    # reload_dataloaders_every_epoch=False,       # set True to shuffle the dataloader before start each epoch
+    # profiler=profiler,                          # set to True to see how many time was spent from the training process during the training                           # True to activate Tensorboard logger
+    # weights_summary="top",                      # set to "full" to see all the weights of each layer of the network
+    # benchmark=False,                            # set True if the size of the input does not change in order to speed up the training process
+    # fast_dev_run=False,                         # set True to check each line of the model and training process, it is useful after some change
+    # overfit_batches=1,                              # set to a number of batch on which overfit in order to understand if the training work well
+    # detect_anomaly=False,
+    # num_sanity_val_steps=0                      # before training, the sanity validation control performs N validation steps to check if the validation step is working correctly
+)
 
-def get_noisy_speech(speech:torch.FloatTensor, noise:torch.FloatTensor, snr_db:float) -> torch.FloatTensor:
-        """Apply a noise with specific SNR to a speech waveform.
-
-        Parameters
-        ----------
-        speech: torch.FloatTensor
-            Speech waveform
-        noise: torch.FloatTensor
-            Noise waveform
-        snr: float
-            SNR in dB applied to the speech sample
-
-        Returns
-        -------
-        torch.FloatTensor
-            Noisy speech
-        """
-        
-        noise = fix_noise_duration(speech=speech, noise=noise)
-
-        speech_power = speech.norm(p=2)
-        noise_power = noise.norm(p=2)
-        
-        snr = math.exp(snr_db / 10)
-        scale = speech_power / (snr * noise_power)
-        return (scale * noise + speech) / 2
-
-def resample_audio(waveform:torch.FloatTensor, sample_rate:int) -> torch.FloatTensor:
-    """Resample a waveform of an audio.
-    
-    Parameters
-    ----------
-    waveform : torch.FloatTensor
-        The waveform of the audio
-    sample_rate: int
-        Sample rate of the sample
-    resample_rate: str
-        New sample rate
-    dtype: torch.TensorType
-        Tensor type of the waveform
-
-    Returns
-    -------
-    torch.FloatTensor
-        Resampled waveform
-    """
-    resampler = T.Resample(orig_freq=sample_rate, new_freq=16000, dtype=waveform.dtype)
-    
-    # Lowpass filter width: larger lowpass_filter_width -> more precise filter, but more computationally expensive
-    # Rolloff: lower rolloff reduces the amount of aliasing, but it will also reduce some of the higher frequencies
-    # Window function
-    return resampler(waveform)
-
-
-full_path = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset/training/commands/1202998179/ita/ita_21.wav"
-noise_path = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1/noises/drill/89099.wav"
-out_path = "test.png"
-speech, speech_sample_rate = torchaudio.load(full_path)
-speech = resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
-speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
-
-noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
-noise = resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
-noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
-
-waveform = get_noisy_speech(speech=speech, noise=noise, snr_db=40.)
-
-#print(speech.size(), noise.size(), torch.max(waveform), torch.min(waveform), torch.max(speech), torch.min(speech), torch.max(noise), torch.min(noise))
-vet = noise[:, 170469:184599]
-print(torch.min(vet), torch.max(vet))
-
-if True in torch.isnan(waveform):
-    print(Back.RED + "{} with size {} has {} 'nan' value".format(full_path, waveform.size(), torch.count_nonzero(torch.isnan(waveform))))
-    print(torch.max(waveform), torch.min(waveform), torch.max(speech), torch.min(speech), torch.max(noise), torch.min(noise))
-if True in torch.isinf(waveform):
-    print(Back.RED + "{} has {} 'inf' value".format(full_path, waveform.size(), torch.count_nonzero(torch.isinf(waveform))))
-
-melspectrogram = get_melspectrogram(waveform=waveform)
-plot_melspectrogram(path=out_path, melspectrogram=melspectrogram[0])
+########################
+#      Test Model      #
+########################
+model = ResNet8_PL.load_from_checkpoint(settings.testing.ckpt_path, num_labels=len(labels))
+model.set_test_dataloaders(dataloaders=test_loaders)
+trainer.test(model=model, dataloaders=test_loaders, ckpt_path=settings.testing.ckpt_path, verbose=True, datamodule=None)

@@ -1,0 +1,686 @@
+subtype,noise_path,path,noise_type,noise_subtype,speaker,snr,label,type
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr15.wav,crf_melfi,human_talk,911154958,15,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr20.wav,crf_melfi,human_talk,911154958,20,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr25.wav,crf_melfi,human_talk,911154958,25,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr30.wav,crf_melfi,human_talk,911154958,30,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr35.wav,crf_melfi,human_talk,911154958,35,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_11.wav,commands/911154958/ita/ita_0_snr40.wav,crf_melfi,human_talk,911154958,40,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr0.wav,crf_melfi,human_talk,787588380,0,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr5.wav,crf_melfi,human_talk,787588380,5,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr10.wav,crf_melfi,human_talk,787588380,10,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr15.wav,crf_melfi,human_talk,787588380,15,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr20.wav,crf_melfi,human_talk,787588380,20,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr25.wav,crf_melfi,human_talk,787588380,25,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr30.wav,crf_melfi,human_talk,787588380,30,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr35.wav,crf_melfi,human_talk,787588380,35,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_15.wav,commands/787588380/ita/ita_0_snr40.wav,crf_melfi,human_talk,787588380,40,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,0,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,5,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,10,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,15,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,20,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,25,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,30,0,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/937390897/ita/ita_0_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,937390897,35,0,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/892001330/ita/ita_1_snr30.wav,crf_melfi,human_talk,892001330,30,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/892001330/ita/ita_1_snr35.wav,crf_melfi,human_talk,892001330,35,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/892001330/ita/ita_1_snr40.wav,crf_melfi,human_talk,892001330,40,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr0.wav,crf_melfi,human_talk,94638325,0,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr5.wav,crf_melfi,human_talk,94638325,5,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr10.wav,crf_melfi,human_talk,94638325,10,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr15.wav,crf_melfi,human_talk,94638325,15,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr20.wav,crf_melfi,human_talk,94638325,20,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr25.wav,crf_melfi,human_talk,94638325,25,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr30.wav,crf_melfi,human_talk,94638325,30,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr35.wav,crf_melfi,human_talk,94638325,35,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/94638325/ita/ita_1_snr40.wav,crf_melfi,human_talk,94638325,40,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr0.wav,crf_melfi,human_talk,899529674,0,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr5.wav,crf_melfi,human_talk,899529674,5,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr10.wav,crf_melfi,human_talk,899529674,10,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr15.wav,crf_melfi,human_talk,899529674,15,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr20.wav,crf_melfi,human_talk,899529674,20,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr25.wav,crf_melfi,human_talk,899529674,25,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr30.wav,crf_melfi,human_talk,899529674,30,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr35.wav,crf_melfi,human_talk,899529674,35,1,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_1_snr40.wav,crf_melfi,human_talk,899529674,40,1,command
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_11.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd1_snr0.wav,crf_melfi,human_talk,engine7,0,1,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr0.wav,crf_melfi,human_talk,engine7,0,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr5.wav,crf_melfi,human_talk,engine7,5,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr10.wav,crf_melfi,human_talk,engine7,10,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr15.wav,crf_melfi,human_talk,engine7,15,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr20.wav,crf_melfi,human_talk,engine7,20,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr25.wav,crf_melfi,human_talk,engine7,25,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr30.wav,crf_melfi,human_talk,engine7,30,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr35.wav,crf_melfi,human_talk,engine7,35,2,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_2.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd2_snr40.wav,crf_melfi,human_talk,engine7,40,2,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr0.wav,crf_melfi,human_talk,842899160,0,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr5.wav,crf_melfi,human_talk,842899160,5,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr10.wav,crf_melfi,human_talk,842899160,10,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr15.wav,crf_melfi,human_talk,842899160,15,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr20.wav,crf_melfi,human_talk,842899160,20,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr25.wav,crf_melfi,human_talk,842899160,25,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr30.wav,crf_melfi,human_talk,842899160,30,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr35.wav,crf_melfi,human_talk,842899160,35,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/842899160/ita/ita_2_snr40.wav,crf_melfi,human_talk,842899160,40,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr0.wav,crf_melfi,human_talk,787588380,0,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr5.wav,crf_melfi,human_talk,787588380,5,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr10.wav,crf_melfi,human_talk,787588380,10,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr15.wav,crf_melfi,human_talk,787588380,15,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr20.wav,crf_melfi,human_talk,787588380,20,2,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/787588380/ita/ita_2_snr25.wav,crf_melfi,human_talk,787588380,25,2,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,15,3,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,20,3,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,25,3,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,30,3,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,35,3,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_3_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,40,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr0.wav,crf_melfi,human_talk,802314253,0,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr5.wav,crf_melfi,human_talk,802314253,5,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr10.wav,crf_melfi,human_talk,802314253,10,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr15.wav,crf_melfi,human_talk,802314253,15,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr20.wav,crf_melfi,human_talk,802314253,20,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr25.wav,crf_melfi,human_talk,802314253,25,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr30.wav,crf_melfi,human_talk,802314253,30,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr35.wav,crf_melfi,human_talk,802314253,35,3,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802314253/ita/ita_3_snr40.wav,crf_melfi,human_talk,802314253,40,3,command
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,0,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,5,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,10,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,15,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,20,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,25,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,30,3,synthetic
+polly_standard,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/polly/standard/ita/Giorgio_3_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,Giorgio,35,3,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr15.wav,crf_melfi,human_talk,892001330,15,4,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr20.wav,crf_melfi,human_talk,892001330,20,4,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr25.wav,crf_melfi,human_talk,892001330,25,4,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr30.wav,crf_melfi,human_talk,892001330,30,4,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr35.wav,crf_melfi,human_talk,892001330,35,4,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/892001330/ita/ita_4_snr40.wav,crf_melfi,human_talk,892001330,40,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,0,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,5,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,10,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,15,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,20,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,25,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,30,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,35,4,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/787588380/ita/ita_4_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,787588380,40,4,command
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,0,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,5,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,10,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,15,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,20,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,25,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,30,4,synthetic
+vocalware_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd4_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,engine7,35,4,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr0.wav,crf_melfi,human_talk,engine7,0,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr5.wav,crf_melfi,human_talk,engine7,5,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr10.wav,crf_melfi,human_talk,engine7,10,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr15.wav,crf_melfi,human_talk,engine7,15,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr20.wav,crf_melfi,human_talk,engine7,20,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr25.wav,crf_melfi,human_talk,engine7,25,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr30.wav,crf_melfi,human_talk,engine7,30,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr35.wav,crf_melfi,human_talk,engine7,35,5,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd5_snr40.wav,crf_melfi,human_talk,engine7,40,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr0.wav,crf_melfi,human_talk,IT_Wavenet_D,0,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr5.wav,crf_melfi,human_talk,IT_Wavenet_D,5,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr10.wav,crf_melfi,human_talk,IT_Wavenet_D,10,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr15.wav,crf_melfi,human_talk,IT_Wavenet_D,15,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr20.wav,crf_melfi,human_talk,IT_Wavenet_D,20,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr25.wav,crf_melfi,human_talk,IT_Wavenet_D,25,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr30.wav,crf_melfi,human_talk,IT_Wavenet_D,30,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr35.wav,crf_melfi,human_talk,IT_Wavenet_D,35,5,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd5_snr40.wav,crf_melfi,human_talk,IT_Wavenet_D,40,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr0.wav,crf_melfi,human_talk,vittorio,0,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr5.wav,crf_melfi,human_talk,vittorio,5,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr10.wav,crf_melfi,human_talk,vittorio,10,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr15.wav,crf_melfi,human_talk,vittorio,15,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr20.wav,crf_melfi,human_talk,vittorio,20,5,synthetic
+naturalreaders_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/naturalreaders/neural/ita/vittorio_it_5_snr25.wav,crf_melfi,human_talk,vittorio,25,5,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_6_snr30.wav,crf_melfi,human_talk,IsabellaNeural,30,6,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_6_snr35.wav,crf_melfi,human_talk,IsabellaNeural,35,6,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_6_snr40.wav,crf_melfi,human_talk,IsabellaNeural,40,6,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr0.wav,crf_melfi,human_talk,914604355,0,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr5.wav,crf_melfi,human_talk,914604355,5,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr10.wav,crf_melfi,human_talk,914604355,10,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr15.wav,crf_melfi,human_talk,914604355,15,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr20.wav,crf_melfi,human_talk,914604355,20,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr25.wav,crf_melfi,human_talk,914604355,25,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr30.wav,crf_melfi,human_talk,914604355,30,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr35.wav,crf_melfi,human_talk,914604355,35,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/914604355/ita/ita_6_snr40.wav,crf_melfi,human_talk,914604355,40,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr0.wav,crf_melfi,human_talk,881567288,0,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr5.wav,crf_melfi,human_talk,881567288,5,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr10.wav,crf_melfi,human_talk,881567288,10,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr15.wav,crf_melfi,human_talk,881567288,15,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr20.wav,crf_melfi,human_talk,881567288,20,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr25.wav,crf_melfi,human_talk,881567288,25,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr30.wav,crf_melfi,human_talk,881567288,30,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr35.wav,crf_melfi,human_talk,881567288,35,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/881567288/ita/ita_6_snr40.wav,crf_melfi,human_talk,881567288,40,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/911154958/ita/ita_6_snr0.wav,crf_melfi,human_talk,911154958,0,6,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_7_snr30.wav,crf_melfi,human_talk,914604355,30,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_7_snr35.wav,crf_melfi,human_talk,914604355,35,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_7_snr40.wav,crf_melfi,human_talk,914604355,40,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr0.wav,crf_melfi,human_talk,924061663,0,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr5.wav,crf_melfi,human_talk,924061663,5,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr10.wav,crf_melfi,human_talk,924061663,10,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr15.wav,crf_melfi,human_talk,924061663,15,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr20.wav,crf_melfi,human_talk,924061663,20,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr25.wav,crf_melfi,human_talk,924061663,25,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr30.wav,crf_melfi,human_talk,924061663,30,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr35.wav,crf_melfi,human_talk,924061663,35,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/924061663/ita/ita_7_snr40.wav,crf_melfi,human_talk,924061663,40,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr0.wav,crf_melfi,human_talk,927800987,0,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr5.wav,crf_melfi,human_talk,927800987,5,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr10.wav,crf_melfi,human_talk,927800987,10,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr15.wav,crf_melfi,human_talk,927800987,15,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr20.wav,crf_melfi,human_talk,927800987,20,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr25.wav,crf_melfi,human_talk,927800987,25,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr30.wav,crf_melfi,human_talk,927800987,30,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr35.wav,crf_melfi,human_talk,927800987,35,7,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/927800987/ita/ita_7_snr40.wav,crf_melfi,human_talk,927800987,40,7,command
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd7_snr0.wav,crf_melfi,human_talk,engine7,0,7,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd7_snr5.wav,crf_melfi,human_talk,engine7,5,7,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd7_snr10.wav,crf_melfi,human_talk,engine7,10,7,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_14.wav,synthetics/vocalware/neural/ita/engine7_voice2_cmd7_snr15.wav,crf_melfi,human_talk,engine7,15,7,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr15.wav,crf_melfi,human_talk,Giorgio,15,8,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr20.wav,crf_melfi,human_talk,Giorgio,20,8,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr25.wav,crf_melfi,human_talk,Giorgio,25,8,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr30.wav,crf_melfi,human_talk,Giorgio,30,8,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr35.wav,crf_melfi,human_talk,Giorgio,35,8,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/polly/standard/ita/Giorgio_8_snr40.wav,crf_melfi,human_talk,Giorgio,40,8,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr0.wav,crf_melfi,human_talk,802288530,0,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr5.wav,crf_melfi,human_talk,802288530,5,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr10.wav,crf_melfi,human_talk,802288530,10,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr15.wav,crf_melfi,human_talk,802288530,15,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr20.wav,crf_melfi,human_talk,802288530,20,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr25.wav,crf_melfi,human_talk,802288530,25,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr30.wav,crf_melfi,human_talk,802288530,30,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr35.wav,crf_melfi,human_talk,802288530,35,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/802288530/ita/ita_8_snr40.wav,crf_melfi,human_talk,802288530,40,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,0,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,5,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,10,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,15,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,20,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,25,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,30,8,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/899529674/ita/ita_8_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,35,8,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/927800987/ita/ita_9_snr30.wav,crf_melfi,human_talk,927800987,30,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/927800987/ita/ita_9_snr35.wav,crf_melfi,human_talk,927800987,35,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_7.wav,commands/927800987/ita/ita_9_snr40.wav,crf_melfi,human_talk,927800987,40,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr0.wav,crf_melfi,human_talk,899529674,0,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr5.wav,crf_melfi,human_talk,899529674,5,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr10.wav,crf_melfi,human_talk,899529674,10,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr15.wav,crf_melfi,human_talk,899529674,15,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr20.wav,crf_melfi,human_talk,899529674,20,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr25.wav,crf_melfi,human_talk,899529674,25,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr30.wav,crf_melfi,human_talk,899529674,30,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr35.wav,crf_melfi,human_talk,899529674,35,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/899529674/ita/ita_9_snr40.wav,crf_melfi,human_talk,899529674,40,9,command
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr0.wav,crf_melfi,human_talk,engine7,0,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr5.wav,crf_melfi,human_talk,engine7,5,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr10.wav,crf_melfi,human_talk,engine7,10,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr15.wav,crf_melfi,human_talk,engine7,15,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr20.wav,crf_melfi,human_talk,engine7,20,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr25.wav,crf_melfi,human_talk,engine7,25,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr30.wav,crf_melfi,human_talk,engine7,30,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr35.wav,crf_melfi,human_talk,engine7,35,9,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd9_snr40.wav,crf_melfi,human_talk,engine7,40,9,synthetic
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/985961747/ita/ita_9_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,0,9,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/834582285/ita/ita_10_snr30.wav,crf_melfi,human_talk,834582285,30,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/834582285/ita/ita_10_snr35.wav,crf_melfi,human_talk,834582285,35,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/834582285/ita/ita_10_snr40.wav,crf_melfi,human_talk,834582285,40,10,command
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr0.wav,crf_melfi,human_talk,IT_Standard_D,0,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr5.wav,crf_melfi,human_talk,IT_Standard_D,5,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr10.wav,crf_melfi,human_talk,IT_Standard_D,10,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr15.wav,crf_melfi,human_talk,IT_Standard_D,15,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr20.wav,crf_melfi,human_talk,IT_Standard_D,20,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr25.wav,crf_melfi,human_talk,IT_Standard_D,25,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr30.wav,crf_melfi,human_talk,IT_Standard_D,30,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr35.wav,crf_melfi,human_talk,IT_Standard_D,35,10,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_17.wav,synthetics/google/neural/ita/IT_Standard_D_cmd10_snr40.wav,crf_melfi,human_talk,IT_Standard_D,40,10,synthetic
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,0,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,5,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,10,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,15,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,20,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,25,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,30,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,35,10,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/946730582/ita/ita_10_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,946730582,40,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/873992744/ita/ita_10_snr0.wav,crf_melfi,human_talk,873992744,0,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/873992744/ita/ita_10_snr5.wav,crf_melfi,human_talk,873992744,5,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/873992744/ita/ita_10_snr10.wav,crf_melfi,human_talk,873992744,10,10,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/873992744/ita/ita_10_snr15.wav,crf_melfi,human_talk,873992744,15,10,command
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr15.wav,crf_melfi,human_talk,IT_Standard_D,15,11,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr20.wav,crf_melfi,human_talk,IT_Standard_D,20,11,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr25.wav,crf_melfi,human_talk,IT_Standard_D,25,11,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr30.wav,crf_melfi,human_talk,IT_Standard_D,30,11,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr35.wav,crf_melfi,human_talk,IT_Standard_D,35,11,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd11_snr40.wav,crf_melfi,human_talk,IT_Standard_D,40,11,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr0.wav,crf_melfi,human_talk,94638325,0,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr5.wav,crf_melfi,human_talk,94638325,5,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr10.wav,crf_melfi,human_talk,94638325,10,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr15.wav,crf_melfi,human_talk,94638325,15,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr20.wav,crf_melfi,human_talk,94638325,20,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr25.wav,crf_melfi,human_talk,94638325,25,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr30.wav,crf_melfi,human_talk,94638325,30,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr35.wav,crf_melfi,human_talk,94638325,35,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/94638325/ita/ita_11_snr40.wav,crf_melfi,human_talk,94638325,40,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr0.wav,crf_melfi,human_talk,950255171,0,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr5.wav,crf_melfi,human_talk,950255171,5,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr10.wav,crf_melfi,human_talk,950255171,10,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr15.wav,crf_melfi,human_talk,950255171,15,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr20.wav,crf_melfi,human_talk,950255171,20,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr25.wav,crf_melfi,human_talk,950255171,25,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr30.wav,crf_melfi,human_talk,950255171,30,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/950255171/ita/ita_11_snr35.wav,crf_melfi,human_talk,950255171,35,11,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr15.wav,crf_melfi,human_talk,957543608,15,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr20.wav,crf_melfi,human_talk,957543608,20,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr25.wav,crf_melfi,human_talk,957543608,25,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr30.wav,crf_melfi,human_talk,957543608,30,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr35.wav,crf_melfi,human_talk,957543608,35,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_16.wav,commands/957543608/ita/ita_12_snr40.wav,crf_melfi,human_talk,957543608,40,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr0.wav,crf_melfi,human_talk,873992744,0,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr5.wav,crf_melfi,human_talk,873992744,5,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr10.wav,crf_melfi,human_talk,873992744,10,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr15.wav,crf_melfi,human_talk,873992744,15,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr20.wav,crf_melfi,human_talk,873992744,20,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr25.wav,crf_melfi,human_talk,873992744,25,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr30.wav,crf_melfi,human_talk,873992744,30,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr35.wav,crf_melfi,human_talk,873992744,35,12,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/873992744/ita/ita_12_snr40.wav,crf_melfi,human_talk,873992744,40,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,0,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,5,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,10,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,15,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,20,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,25,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,30,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/899529674/ita/ita_12_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,899529674,35,12,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,15,13,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,20,13,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,25,13,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,30,13,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,35,13,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,commands/94638325/ita/ita_13_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,94638325,40,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr0.wav,crf_melfi,human_talk,834582285,0,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr5.wav,crf_melfi,human_talk,834582285,5,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr10.wav,crf_melfi,human_talk,834582285,10,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr15.wav,crf_melfi,human_talk,834582285,15,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr20.wav,crf_melfi,human_talk,834582285,20,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr25.wav,crf_melfi,human_talk,834582285,25,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr30.wav,crf_melfi,human_talk,834582285,30,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr35.wav,crf_melfi,human_talk,834582285,35,13,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/834582285/ita/ita_13_snr40.wav,crf_melfi,human_talk,834582285,40,13,command
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr0.wav,crf_melfi,human_talk,IsabellaNeural,0,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr5.wav,crf_melfi,human_talk,IsabellaNeural,5,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr10.wav,crf_melfi,human_talk,IsabellaNeural,10,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr15.wav,crf_melfi,human_talk,IsabellaNeural,15,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr20.wav,crf_melfi,human_talk,IsabellaNeural,20,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr25.wav,crf_melfi,human_talk,IsabellaNeural,25,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr30.wav,crf_melfi,human_talk,IsabellaNeural,30,13,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/azure/neural/ita/IsabellaNeural_13_snr35.wav,crf_melfi,human_talk,IsabellaNeural,35,13,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr15.wav,crf_melfi,human_talk,899529674,15,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr20.wav,crf_melfi,human_talk,899529674,20,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr25.wav,crf_melfi,human_talk,899529674,25,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr30.wav,crf_melfi,human_talk,899529674,30,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr35.wav,crf_melfi,human_talk,899529674,35,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/899529674/ita/ita_14_snr40.wav,crf_melfi,human_talk,899529674,40,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr0.wav,crf_melfi,human_talk,911154958,0,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr5.wav,crf_melfi,human_talk,911154958,5,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr10.wav,crf_melfi,human_talk,911154958,10,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr15.wav,crf_melfi,human_talk,911154958,15,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr20.wav,crf_melfi,human_talk,911154958,20,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr25.wav,crf_melfi,human_talk,911154958,25,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr30.wav,crf_melfi,human_talk,911154958,30,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr35.wav,crf_melfi,human_talk,911154958,35,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/911154958/ita/ita_14_snr40.wav,crf_melfi,human_talk,911154958,40,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,0,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,5,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,10,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,15,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,20,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,25,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,30,14,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/137950__benboncan__wheel-lathe.wav,commands/985961747/ita/ita_14_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,985961747,35,14,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr15.wav,crf_melfi,human_talk,914604355,15,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr20.wav,crf_melfi,human_talk,914604355,20,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr25.wav,crf_melfi,human_talk,914604355,25,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr30.wav,crf_melfi,human_talk,914604355,30,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr35.wav,crf_melfi,human_talk,914604355,35,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/914604355/ita/ita_15_snr40.wav,crf_melfi,human_talk,914604355,40,15,command
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr0.wav,crf_melfi,human_talk,Giorgio,0,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr5.wav,crf_melfi,human_talk,Giorgio,5,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr10.wav,crf_melfi,human_talk,Giorgio,10,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr15.wav,crf_melfi,human_talk,Giorgio,15,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr20.wav,crf_melfi,human_talk,Giorgio,20,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr25.wav,crf_melfi,human_talk,Giorgio,25,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr30.wav,crf_melfi,human_talk,Giorgio,30,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr35.wav,crf_melfi,human_talk,Giorgio,35,15,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/polly/standard/ita/Giorgio_15_snr40.wav,crf_melfi,human_talk,Giorgio,40,15,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr0.wav,crf_melfi,human_talk,924061663,0,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr5.wav,crf_melfi,human_talk,924061663,5,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr10.wav,crf_melfi,human_talk,924061663,10,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr15.wav,crf_melfi,human_talk,924061663,15,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr20.wav,crf_melfi,human_talk,924061663,20,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr25.wav,crf_melfi,human_talk,924061663,25,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr30.wav,crf_melfi,human_talk,924061663,30,15,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/924061663/ita/ita_15_snr35.wav,crf_melfi,human_talk,924061663,35,15,command
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr15.wav,crf_melfi,human_talk,Giorgio,15,16,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr20.wav,crf_melfi,human_talk,Giorgio,20,16,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr25.wav,crf_melfi,human_talk,Giorgio,25,16,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr30.wav,crf_melfi,human_talk,Giorgio,30,16,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr35.wav,crf_melfi,human_talk,Giorgio,35,16,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/polly/standard/ita/Giorgio_16_snr40.wav,crf_melfi,human_talk,Giorgio,40,16,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr0.wav,crf_melfi,human_talk,914604355,0,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr5.wav,crf_melfi,human_talk,914604355,5,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr10.wav,crf_melfi,human_talk,914604355,10,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr15.wav,crf_melfi,human_talk,914604355,15,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr20.wav,crf_melfi,human_talk,914604355,20,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr25.wav,crf_melfi,human_talk,914604355,25,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr30.wav,crf_melfi,human_talk,914604355,30,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_8.wav,commands/914604355/ita/ita_16_snr35.wav,crf_melfi,human_talk,914604355,35,16,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr15.wav,crf_melfi,human_talk,802288530,15,17,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr20.wav,crf_melfi,human_talk,802288530,20,17,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr25.wav,crf_melfi,human_talk,802288530,25,17,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr30.wav,crf_melfi,human_talk,802288530,30,17,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr35.wav,crf_melfi,human_talk,802288530,35,17,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_3.wav,commands/802288530/ita/ita_17_snr40.wav,crf_melfi,human_talk,802288530,40,17,command
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,0,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,5,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,10,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,15,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,20,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,25,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,30,17,synthetic
+naturalreaders_neural,noises/strumenti di lavoro (lavorazione metalli)/tornio/209213__mark646__drehmaschiene-start-01.wav,synthetics/naturalreaders/neural/ita/vittorio_it_17_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,vittorio,35,17,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr15.wav,crf_melfi,human_talk,927800987,15,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr20.wav,crf_melfi,human_talk,927800987,20,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr25.wav,crf_melfi,human_talk,927800987,25,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr30.wav,crf_melfi,human_talk,927800987,30,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr35.wav,crf_melfi,human_talk,927800987,35,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_14.wav,commands/927800987/ita/ita_18_snr40.wav,crf_melfi,human_talk,927800987,40,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/937390897/ita/ita_18_snr0.wav,crf_melfi,human_talk,937390897,0,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/937390897/ita/ita_18_snr5.wav,crf_melfi,human_talk,937390897,5,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/937390897/ita/ita_18_snr10.wav,crf_melfi,human_talk,937390897,10,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/937390897/ita/ita_18_snr15.wav,crf_melfi,human_talk,937390897,15,18,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/937390897/ita/ita_18_snr20.wav,crf_melfi,human_talk,937390897,20,18,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,0,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,5,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,10,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,15,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,20,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,25,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,30,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,35,19,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_19_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,40,19,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/946730582/ita/ita_19_snr0.wav,crf_melfi,human_talk,946730582,0,19,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/946730582/ita/ita_19_snr5.wav,crf_melfi,human_talk,946730582,5,19,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/946730582/ita/ita_19_snr10.wav,crf_melfi,human_talk,946730582,10,19,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr0.wav,crf_melfi,human_talk,802288530,0,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr5.wav,crf_melfi,human_talk,802288530,5,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr10.wav,crf_melfi,human_talk,802288530,10,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr15.wav,crf_melfi,human_talk,802288530,15,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr20.wav,crf_melfi,human_talk,802288530,20,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr25.wav,crf_melfi,human_talk,802288530,25,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr30.wav,crf_melfi,human_talk,802288530,30,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr35.wav,crf_melfi,human_talk,802288530,35,20,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/802288530/ita/ita_20_snr40.wav,crf_melfi,human_talk,802288530,40,20,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_20_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,0,20,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_20_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,5,20,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/892001330/ita/ita_20_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,892001330,10,20,command
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr0.wav,crf_melfi,human_talk,Giorgio,0,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr5.wav,crf_melfi,human_talk,Giorgio,5,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr10.wav,crf_melfi,human_talk,Giorgio,10,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr15.wav,crf_melfi,human_talk,Giorgio,15,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr20.wav,crf_melfi,human_talk,Giorgio,20,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr25.wav,crf_melfi,human_talk,Giorgio,25,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr30.wav,crf_melfi,human_talk,Giorgio,30,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr35.wav,crf_melfi,human_talk,Giorgio,35,21,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_4.wav,synthetics/polly/standard/ita/Giorgio_21_snr40.wav,crf_melfi,human_talk,Giorgio,40,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr0.wav,crf_melfi,human_talk,engine7,0,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr5.wav,crf_melfi,human_talk,engine7,5,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr10.wav,crf_melfi,human_talk,engine7,10,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr15.wav,crf_melfi,human_talk,engine7,15,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr20.wav,crf_melfi,human_talk,engine7,20,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr25.wav,crf_melfi,human_talk,engine7,25,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr30.wav,crf_melfi,human_talk,engine7,30,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr35.wav,crf_melfi,human_talk,engine7,35,21,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_16.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd21_snr40.wav,crf_melfi,human_talk,engine7,40,21,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr0.wav,crf_melfi,human_talk,911154958,0,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr5.wav,crf_melfi,human_talk,911154958,5,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr10.wav,crf_melfi,human_talk,911154958,10,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr15.wav,crf_melfi,human_talk,911154958,15,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr20.wav,crf_melfi,human_talk,911154958,20,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_13.wav,commands/911154958/ita/ita_21_snr25.wav,crf_melfi,human_talk,911154958,25,21,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr15.wav,crf_melfi,human_talk,924061663,15,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr20.wav,crf_melfi,human_talk,924061663,20,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr25.wav,crf_melfi,human_talk,924061663,25,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr30.wav,crf_melfi,human_talk,924061663,30,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr35.wav,crf_melfi,human_talk,924061663,35,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/924061663/ita/ita_22_snr40.wav,crf_melfi,human_talk,924061663,40,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,0,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,5,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,10,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,15,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,20,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,25,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,30,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,35,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/873992744/ita/ita_22_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,873992744,40,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,0,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,5,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,10,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,15,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,20,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,25,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,30,22,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_22_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,35,22,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/911154958/ita/eng_23_snr30.wav,crf_melfi,human_talk,911154958,30,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/911154958/ita/eng_23_snr35.wav,crf_melfi,human_talk,911154958,35,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_0.wav,commands/911154958/ita/eng_23_snr40.wav,crf_melfi,human_talk,911154958,40,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,0,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,5,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,10,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,15,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,20,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,25,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,30,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,35,23,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/industrial-lathe_z1CvEfVu_NWM.wav,commands/881567288/ita/ita_23_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,40,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr0.wav,crf_melfi,human_talk,911154958,0,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr5.wav,crf_melfi,human_talk,911154958,5,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr10.wav,crf_melfi,human_talk,911154958,10,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr15.wav,crf_melfi,human_talk,911154958,15,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr20.wav,crf_melfi,human_talk,911154958,20,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr25.wav,crf_melfi,human_talk,911154958,25,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr30.wav,crf_melfi,human_talk,911154958,30,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr35.wav,crf_melfi,human_talk,911154958,35,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/911154958/ita/ita_23_snr40.wav,crf_melfi,human_talk,911154958,40,23,command
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr0.wav,crf_melfi,human_talk,IsabellaNeural,0,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr5.wav,crf_melfi,human_talk,IsabellaNeural,5,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr10.wav,crf_melfi,human_talk,IsabellaNeural,10,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr15.wav,crf_melfi,human_talk,IsabellaNeural,15,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr20.wav,crf_melfi,human_talk,IsabellaNeural,20,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr25.wav,crf_melfi,human_talk,IsabellaNeural,25,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr30.wav,crf_melfi,human_talk,IsabellaNeural,30,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr35.wav,crf_melfi,human_talk,IsabellaNeural,35,23,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_8.wav,synthetics/azure/neural/ita/IsabellaNeural_23_snr40.wav,crf_melfi,human_talk,IsabellaNeural,40,23,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr0.wav,crf_melfi,human_talk,891999531,0,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr5.wav,crf_melfi,human_talk,891999531,5,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr10.wav,crf_melfi,human_talk,891999531,10,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr15.wav,crf_melfi,human_talk,891999531,15,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr20.wav,crf_melfi,human_talk,891999531,20,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr25.wav,crf_melfi,human_talk,891999531,25,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr30.wav,crf_melfi,human_talk,891999531,30,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr35.wav,crf_melfi,human_talk,891999531,35,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_2.wav,commands/891999531/ita/eng_23_snr40.wav,crf_melfi,human_talk,891999531,40,23,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/924061663/ita/eng_23_snr0.wav,crf_melfi,human_talk,924061663,0,23,command
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr0.wav,crf_melfi,human_talk,IT_Wavenet_D,0,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr5.wav,crf_melfi,human_talk,IT_Wavenet_D,5,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr10.wav,crf_melfi,human_talk,IT_Wavenet_D,10,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr15.wav,crf_melfi,human_talk,IT_Wavenet_D,15,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr20.wav,crf_melfi,human_talk,IT_Wavenet_D,20,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr25.wav,crf_melfi,human_talk,IT_Wavenet_D,25,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr30.wav,crf_melfi,human_talk,IT_Wavenet_D,30,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr35.wav,crf_melfi,human_talk,IT_Wavenet_D,35,24,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_1.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd24_snr40.wav,crf_melfi,human_talk,IT_Wavenet_D,40,24,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr0.wav,crf_melfi,human_talk,94638325,0,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr5.wav,crf_melfi,human_talk,94638325,5,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr10.wav,crf_melfi,human_talk,94638325,10,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr15.wav,crf_melfi,human_talk,94638325,15,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr20.wav,crf_melfi,human_talk,94638325,20,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr25.wav,crf_melfi,human_talk,94638325,25,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr30.wav,crf_melfi,human_talk,94638325,30,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr35.wav,crf_melfi,human_talk,94638325,35,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_1.wav,commands/94638325/ita/ita_24_snr40.wav,crf_melfi,human_talk,94638325,40,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr0.wav,crf_melfi,human_talk,899529674,0,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr5.wav,crf_melfi,human_talk,899529674,5,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr10.wav,crf_melfi,human_talk,899529674,10,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr15.wav,crf_melfi,human_talk,899529674,15,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr20.wav,crf_melfi,human_talk,899529674,20,24,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_10.wav,commands/899529674/ita/ita_24_snr25.wav,crf_melfi,human_talk,899529674,25,24,command
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr15.wav,crf_melfi,human_talk,IT_Standard_D,15,25,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr20.wav,crf_melfi,human_talk,IT_Standard_D,20,25,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr25.wav,crf_melfi,human_talk,IT_Standard_D,25,25,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr30.wav,crf_melfi,human_talk,IT_Standard_D,30,25,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr35.wav,crf_melfi,human_talk,IT_Standard_D,35,25,synthetic
+google_neural,noises/crf_melfi/human_talk/human_talk_13.wav,synthetics/google/neural/ita/IT_Standard_D_cmd25_snr40.wav,crf_melfi,human_talk,IT_Standard_D,40,25,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr0.wav,crf_melfi,human_talk,867055321,0,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr5.wav,crf_melfi,human_talk,867055321,5,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr10.wav,crf_melfi,human_talk,867055321,10,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr15.wav,crf_melfi,human_talk,867055321,15,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr20.wav,crf_melfi,human_talk,867055321,20,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr25.wav,crf_melfi,human_talk,867055321,25,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr30.wav,crf_melfi,human_talk,867055321,30,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr35.wav,crf_melfi,human_talk,867055321,35,25,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/867055321/ita/ita_25_snr40.wav,crf_melfi,human_talk,867055321,40,25,command
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr0.wav,crf_melfi,human_talk,IT_Wavenet_D,0,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr5.wav,crf_melfi,human_talk,IT_Wavenet_D,5,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr10.wav,crf_melfi,human_talk,IT_Wavenet_D,10,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr15.wav,crf_melfi,human_talk,IT_Wavenet_D,15,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr20.wav,crf_melfi,human_talk,IT_Wavenet_D,20,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr25.wav,crf_melfi,human_talk,IT_Wavenet_D,25,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr30.wav,crf_melfi,human_talk,IT_Wavenet_D,30,25,synthetic
+google_standard,noises/crf_melfi/human_talk/human_talk_12.wav,synthetics/google/standard/ita/IT_Wavenet_D_cmd25_snr35.wav,crf_melfi,human_talk,IT_Wavenet_D,35,25,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr0.wav,crf_melfi,human_talk,881567288,0,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr5.wav,crf_melfi,human_talk,881567288,5,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr10.wav,crf_melfi,human_talk,881567288,10,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr15.wav,crf_melfi,human_talk,881567288,15,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr20.wav,crf_melfi,human_talk,881567288,20,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr25.wav,crf_melfi,human_talk,881567288,25,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr30.wav,crf_melfi,human_talk,881567288,30,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr35.wav,crf_melfi,human_talk,881567288,35,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_5.wav,commands/881567288/ita/ita_26_snr40.wav,crf_melfi,human_talk,881567288,40,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr0.wav,crf_melfi,human_talk,946730582,0,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr5.wav,crf_melfi,human_talk,946730582,5,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr10.wav,crf_melfi,human_talk,946730582,10,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr15.wav,crf_melfi,human_talk,946730582,15,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr20.wav,crf_melfi,human_talk,946730582,20,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr25.wav,crf_melfi,human_talk,946730582,25,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr30.wav,crf_melfi,human_talk,946730582,30,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr35.wav,crf_melfi,human_talk,946730582,35,26,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/946730582/ita/ita_26_snr40.wav,crf_melfi,human_talk,946730582,40,26,command
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr0.wav,crf_melfi,human_talk,IsabellaNeural,0,26,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr5.wav,crf_melfi,human_talk,IsabellaNeural,5,26,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr10.wav,crf_melfi,human_talk,IsabellaNeural,10,26,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr15.wav,crf_melfi,human_talk,IsabellaNeural,15,26,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr20.wav,crf_melfi,human_talk,IsabellaNeural,20,26,synthetic
+azure_neural,noises/crf_melfi/human_talk/human_talk_15.wav,synthetics/azure/neural/ita/IsabellaNeural_26_snr25.wav,crf_melfi,human_talk,IsabellaNeural,25,26,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr15.wav,crf_melfi,human_talk,892001330,15,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr20.wav,crf_melfi,human_talk,892001330,20,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr25.wav,crf_melfi,human_talk,892001330,25,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr30.wav,crf_melfi,human_talk,892001330,30,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr35.wav,crf_melfi,human_talk,892001330,35,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_6.wav,commands/892001330/ita/ita_27_snr40.wav,crf_melfi,human_talk,892001330,40,27,command
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr0.wav,crf_melfi,human_talk,Giorgio,0,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr5.wav,crf_melfi,human_talk,Giorgio,5,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr10.wav,crf_melfi,human_talk,Giorgio,10,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr15.wav,crf_melfi,human_talk,Giorgio,15,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr20.wav,crf_melfi,human_talk,Giorgio,20,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr25.wav,crf_melfi,human_talk,Giorgio,25,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr30.wav,crf_melfi,human_talk,Giorgio,30,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr35.wav,crf_melfi,human_talk,Giorgio,35,27,synthetic
+polly_standard,noises/crf_melfi/human_talk/human_talk_5.wav,synthetics/polly/standard/ita/Giorgio_27_snr40.wav,crf_melfi,human_talk,Giorgio,40,27,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr0.wav,crf_melfi,human_talk,927800987,0,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr5.wav,crf_melfi,human_talk,927800987,5,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr10.wav,crf_melfi,human_talk,927800987,10,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr15.wav,crf_melfi,human_talk,927800987,15,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr20.wav,crf_melfi,human_talk,927800987,20,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr25.wav,crf_melfi,human_talk,927800987,25,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr30.wav,crf_melfi,human_talk,927800987,30,27,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/927800987/ita/ita_27_snr35.wav,crf_melfi,human_talk,927800987,35,27,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,15,28,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,20,28,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,25,28,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,30,28,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,35,28,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/881567288/ita/ita_28_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,881567288,40,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr0.wav,crf_melfi,human_talk,924061663,0,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr5.wav,crf_melfi,human_talk,924061663,5,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr10.wav,crf_melfi,human_talk,924061663,10,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr15.wav,crf_melfi,human_talk,924061663,15,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr20.wav,crf_melfi,human_talk,924061663,20,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr25.wav,crf_melfi,human_talk,924061663,25,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr30.wav,crf_melfi,human_talk,924061663,30,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr35.wav,crf_melfi,human_talk,924061663,35,28,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_9.wav,commands/924061663/ita/ita_28_snr40.wav,crf_melfi,human_talk,924061663,40,28,command
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr0.wav,crf_melfi,human_talk,engine7,0,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr5.wav,crf_melfi,human_talk,engine7,5,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr10.wav,crf_melfi,human_talk,engine7,10,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr15.wav,crf_melfi,human_talk,engine7,15,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr20.wav,crf_melfi,human_talk,engine7,20,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr25.wav,crf_melfi,human_talk,engine7,25,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr30.wav,crf_melfi,human_talk,engine7,30,28,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_7.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd28_snr35.wav,crf_melfi,human_talk,engine7,35,28,synthetic
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,15,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,20,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,25,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,30,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,35,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/927800987/ita/ita_29_snr40.wav,strumenti di lavoro (lavorazione metalli),tornio,927800987,40,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr0.wav,crf_melfi,human_talk,892001330,0,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr5.wav,crf_melfi,human_talk,892001330,5,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr10.wav,crf_melfi,human_talk,892001330,10,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr15.wav,crf_melfi,human_talk,892001330,15,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr20.wav,crf_melfi,human_talk,892001330,20,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr25.wav,crf_melfi,human_talk,892001330,25,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr30.wav,crf_melfi,human_talk,892001330,30,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr35.wav,crf_melfi,human_talk,892001330,35,29,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_17.wav,commands/892001330/ita/ita_29_snr40.wav,crf_melfi,human_talk,892001330,40,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr0.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,0,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr5.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,5,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr10.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,10,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr15.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,15,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr20.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,20,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr25.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,25,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr30.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,30,29,command
+telegram_bot,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,commands/802314253/ita/ita_29_snr35.wav,strumenti di lavoro (lavorazione metalli),tornio,802314253,35,29,command
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr0.wav,crf_melfi,human_talk,engine7,0,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr5.wav,crf_melfi,human_talk,engine7,5,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr10.wav,crf_melfi,human_talk,engine7,10,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr15.wav,crf_melfi,human_talk,engine7,15,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr20.wav,crf_melfi,human_talk,engine7,20,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr25.wav,crf_melfi,human_talk,engine7,25,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr30.wav,crf_melfi,human_talk,engine7,30,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr35.wav,crf_melfi,human_talk,engine7,35,30,synthetic
+vocalware_neural,noises/crf_melfi/human_talk/human_talk_3.wav,synthetics/vocalware/neural/ita/engine7_voice1_cmd30_snr40.wav,crf_melfi,human_talk,engine7,40,30,synthetic
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr0.wav,crf_melfi,human_talk,892001330,0,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr5.wav,crf_melfi,human_talk,892001330,5,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr10.wav,crf_melfi,human_talk,892001330,10,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr15.wav,crf_melfi,human_talk,892001330,15,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr20.wav,crf_melfi,human_talk,892001330,20,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr25.wav,crf_melfi,human_talk,892001330,25,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr30.wav,crf_melfi,human_talk,892001330,30,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr35.wav,crf_melfi,human_talk,892001330,35,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_4.wav,commands/892001330/ita/ita_30_snr40.wav,crf_melfi,human_talk,892001330,40,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr0.wav,crf_melfi,human_talk,802314253,0,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr5.wav,crf_melfi,human_talk,802314253,5,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr10.wav,crf_melfi,human_talk,802314253,10,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr15.wav,crf_melfi,human_talk,802314253,15,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr20.wav,crf_melfi,human_talk,802314253,20,30,command
+telegram_bot,noises/crf_melfi/human_talk/human_talk_12.wav,commands/802314253/ita/ita_30_snr25.wav,crf_melfi,human_talk,802314253,25,30,command
