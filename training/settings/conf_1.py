@@ -47,7 +47,7 @@ settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8

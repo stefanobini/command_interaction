@@ -10,12 +10,13 @@ from pytorch_lightning import loggers
 import pytorch_lightning as pl
 from pytorch_lightning.profiler import SimpleProfiler, AdvancedProfiler
 
-from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, _train_collate_fn, _val_collate_fn
+from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, _train_collate_fn, _val_collate_fn, _MT_train_collate_fn, _MT_val_collate_fn
 from settings.conf_1 import settings
 
 from models.resnet8 import ResNet8_PL
 from models.mobilenetv2 import MobileNetV2_PL
 from models.conformer import Conformer_PL
+from models.multitask import Multitask_SCR_SI
 
 
 torch.autograd.detect_anomaly()
@@ -57,25 +58,32 @@ profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
 #########################
 train_set = TrainingMiviaDataset()
 val_set = ValidationMiviaDataset()
-labels = train_set._get_labels()
+commands = train_set._get_labels()
+speakers = train_set._get_speakers()
 # print(labels)
 
 ###### Decomment following rows if you use also reject, and change annotation file path in settings #######
 weights = train_set._get_class_weights()
 # Computing the label weights to balance the dataloader
-dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels)-1)]
+dataset_weights = [((1-settings.training.reject_percentage)/len(commands)) for i in range(len(commands)-1)]
 dataset_weights.append(settings.training.reject_percentage)
 dataset_weights = torch.tensor(dataset_weights)
 ###########################################################################################################
 
-balanced_weights = [1/len(labels) for i in range(len(labels))]
+balanced_weights = [1/len(commands) for i in range(len(commands))]
 balanced_weights = torch.tensor(balanced_weights)
 
 # dataset_weights = [((1-settings.training.reject_percentage)/len(labels)) for i in range(len(labels))]
 train_sampler = torch.utils.data.sampler.WeightedRandomSampler(weights=balanced_weights, num_samples=len(train_set))
-train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, sampler=train_sampler, num_workers=settings.training.num_workers, collate_fn=_train_collate_fn, pin_memory=pin_memory)
-train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_train_collate_fn, pin_memory=pin_memory)
-val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_val_collate_fn, pin_memory=pin_memory)
+if settings.model.network == "multitask_scr_si":
+    train_collate_fn = _MT_train_collate_fn
+    val_collate_fn = _MT_val_collate_fn
+else:
+    train_collate_fn = _train_collate_fn
+    val_collate_fn = _val_collate_fn
+train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, sampler=train_sampler, num_workers=settings.training.num_workers, collate_fn=train_collate_fn, pin_memory=pin_memory)
+train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=train_collate_fn, pin_memory=pin_memory)
+val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=val_collate_fn, pin_memory=pin_memory)
 
 
 #########################
@@ -84,21 +92,23 @@ val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.tr
 assert settings.model.network in ["resnet8", "mobilenetv2"]
 model = None
 if settings.model.network == "resnet8":
-    model = ResNet8_PL(num_labels=len(labels), loss_weights=balanced_weights).cuda()  # Load model
+    model = ResNet8_PL(num_labels=len(commands), loss_weights=balanced_weights).cuda()  # Load model
     if settings.model.pretrain:
         # model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
-        model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(labels), loss_weights=balanced_weights)
+        model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(commands), loss_weights=balanced_weights)
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
     # model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
 elif settings.model.network == "mobilenetv2":
-    model = MobileNetV2_PL(num_labels=len(labels), loss_weights=balanced_weights).cuda()
+    model = MobileNetV2_PL(num_labels=len(commands), loss_weights=balanced_weights).cuda()
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
-    model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
+    model.set_parameters(num_labels=len(commands), loss_weights=balanced_weights)
 elif settings.model.network == "conformer":
-    model = Conformer_PL(num_labels=len(labels)).cuda()
+    model = Conformer_PL(num_labels=len(commands)).cuda()
+elif settings.model.network == "multitask_scr_si":
+    model = Multitask_SCR_SI(num_commands=len(commands), num_speakers=len(speakers), command_loss_weights=None, speaker_loss_weights=None)
 model.set_train_dataloader(dataloader=train_loader)
 model.set_val_dataloader(dataloader=val_loader)
 

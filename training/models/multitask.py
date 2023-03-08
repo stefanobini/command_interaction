@@ -18,9 +18,9 @@ from typing import Dict, List
 from settings.conf_1 import settings
 
 
-class ResNet8_PL(pl.LightningModule):
+class Multitask_SCR_SI(pl.LightningModule):
 
-    def __init__(self, num_labels:int, loss_weights:torch.Tensor=None):
+    def __init__(self, num_commands:int, num_speakers:int, command_loss_weights:torch.Tensor=None, speaker_loss_weights:torch.Tensor=None):
         """
         
         Methods
@@ -59,21 +59,26 @@ class ResNet8_PL(pl.LightningModule):
         """
         super().__init__()
 
-        out_channel = settings.model.resnet8.out_channel
+        embedding_size = settings.model.resnet8.out_channel
 
-        self.conv0 = torch.nn.Conv2d(1, out_channel, (3, 3), padding=(1, 1), bias=False)
+        self.conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
         self.pool = torch.nn.AvgPool2d(settings.model.resnet8.pooling_size)  # flipped -- better for 80 log-Mels
 
         self.n_layers = n_layers = 6
-        self.convs = [torch.nn.Conv2d(out_channel, out_channel, (3, 3), padding=1, bias=False) for _ in range(n_layers)]
+        self.convs = [torch.nn.Conv2d(embedding_size, embedding_size, (3, 3), padding=1, bias=False) for _ in range(n_layers)]
         for i, conv in enumerate(self.convs):
-            self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(out_channel, affine=False))
-            self.add_module(f'conv{i + 1}', conv)        
-        self.output = torch.nn.Linear(out_channel, num_labels)
+            self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
+            self.add_module(f'conv{i + 1}', conv)
+        self.command_output = torch.nn.Linear(embedding_size, num_commands)
+        self.speaker_output = torch.nn.Linear(embedding_size, num_speakers)
         # self.softmax = torch.nn.Softmax(dim=1)
+
+        self.command_loss_fn = torch.nn.CrossEntropyLoss(weight=command_loss_weights)
+        self.speaker_loss_fn = torch.nn.CrossEntropyLoss(weight=speaker_loss_weights)
+        self.loss_fn = self.command_loss_fn + self.speaker_loss_fn
         
-        self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
-        self.num_labels = num_labels
+        self.num_commands = num_commands
+        self.num_speakers = num_speakers
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
@@ -121,7 +126,7 @@ class ResNet8_PL(pl.LightningModule):
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
         x = torch.mean(x, 2)
 
-        return self.output(x)
+        return self.command_output(x), self.speaker_output(x)
 
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
@@ -228,12 +233,21 @@ class ResNet8_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "loss", "logits", "targets" and average "snr" of the batch
         """
-        x, y, snr = batch
-        logits = self.forward(x=x)
-        loss = self.loss_fn(input=logits, target=y)
+        x, speakers, commands, snr = batch
+        command_logits, speaker_logits = self.forward(x=x)
+        command_loss = self.command_loss_fn(input=command_logits, target=commands)
+        speaker_loss = self.speaker_loss_fn(input=speaker_logits, target=speakers)
+        loss = command_loss + speaker_loss
 
         # train_step_output = {"loss": loss, "logits": logits, "targets": y}
-        train_step_output = {"loss": loss, "logits": logits, "targets": y, "snr": snr}
+        train_step_output = {"loss": loss,
+                             "command_loss": command_loss,
+                             "speaker_loss": speaker_loss,
+                             "command_logits": command_logits,
+                             "speaker_logits": speaker_logits,
+                             "commands": commands,
+                             "speakers": speakers,
+                             "snr": snr}
         return train_step_output
     
     
@@ -248,23 +262,37 @@ class ResNet8_PL(pl.LightningModule):
         """
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
-        logits = train_step_outputs[0]["logits"]
-        targets = train_step_outputs[0]["targets"]
+        command_logits = train_step_outputs[0]["command_logits"]
+        speaker_logits = train_step_outputs[0]["speaker_logits"]
+        commands = train_step_outputs[0]["commands"]
+        speakers = train_step_outputs[0]["speakers"]
         avg_snr = train_step_outputs[0]["snr"]
         for i in range(1, len_train):
-            logits = torch.concat(tensors=[logits, train_step_outputs[i]["logits"]])
-            targets = torch.concat(tensors=[targets, train_step_outputs[i]["targets"]])
+            command_logits = torch.concat(tensors=[command_logits, train_step_outputs[i]["command_logits"]])
+            commands = torch.concat(tensors=[commands, train_step_outputs[i]["commands"]])
+            speaker_logits = torch.concat(tensors=[speaker_logits, train_step_outputs[i]["speaker_logits"]])
+            speakers = torch.concat(tensors=[speakers, train_step_outputs[i]["speakers"]])
             avg_snr += train_step_outputs[i]["snr"]
         
-        loss = self.loss_fn(input=logits, target=targets)
-        preds = torch.max(input=logits, dim=1).indices
-        accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
-        # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+        command_loss = self.loss_fn(input=command_logits, target=commands)
+        speaker_loss = self.loss_fn(input=speaker_logits, target=speakers)
+        loss = command_loss + speaker_loss
+        command_predictions = torch.max(input=command_logits, dim=1).indices
+        speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
+        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_commands, average="micro")
+        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_speakers, average="micro")
+        # command_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_commands, average="weighted")
+        # speaker_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_speakers, average="weighted")
         avg_snr /= len(train_step_outputs)
 
+        # self.logger.experiment.add_scalars("train_accuracy", {"command": command_accuracy, "speaker": speaker_accuracy}, global_step=self.global_step)
+        # self.logger.experiment.add_scalars("train_accuracy", {"train_loss": loss, "command": command_loss, "speaker": speaker_loss}, global_step=self.global_step)
         self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("train_accuracy", accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("command_train_loss", command_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("command_train_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("speaker_train_loss", speaker_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("speaker_train_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
@@ -282,10 +310,14 @@ class ResNet8_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "logits", "targets", "snrs" of the batch
         """
-        x, y, snr = batch
-        logits = self.forward(x=x)
+        x, speakers, commands, snr = batch
+        command_logits, speaker_logits = self.forward(x=x)
 
-        validation_step_output = {"logits": logits, "targets": y, "snrs": snr}
+        validation_step_output = {"command_logits": command_logits,
+                                  "speaker_logits": speaker_logits,
+                                  "commands": commands,
+                                  "speakers": speakers,
+                                  "snr": snr}
         return validation_step_output
 
 
@@ -300,18 +332,26 @@ class ResNet8_PL(pl.LightningModule):
         """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
-        logits = val_step_outputs[0]["logits"]
-        targets = val_step_outputs[0]["targets"]
+        command_logits = val_step_outputs[0]["command_logits"]
+        speaker_logits = val_step_outputs[0]["speaker_logits"]
+        commands = val_step_outputs[0]["commands"]
+        speakers = val_step_outputs[0]["speakers"]
         snrs = val_step_outputs[0]["snrs"]
         for i in range(1, len_val):
-            logits = torch.concat(tensors=[logits, val_step_outputs[i]["logits"]])
-            targets = torch.concat(tensors=[targets, val_step_outputs[i]["targets"]])
+            command_logits = torch.concat(tensors=[command_logits, val_step_outputs[i]["command_logits"]])
+            commands = torch.concat(tensors=[commands, val_step_outputs[i]["commands"]])
+            speaker_logits = torch.concat(tensors=[speaker_logits, val_step_outputs[i]["speaker_logits"]])
+            speakers = torch.concat(tensors=[speakers, val_step_outputs[i]["speakers"]])
             snrs = torch.concat(tensors=[snrs, val_step_outputs[i]["snrs"]])
 
         # Compute average metrics
-        loss = self.loss_fn(input=logits, target=targets)
-        preds = torch.max(input=logits, dim=1).indices
-        accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
+        command_loss = self.loss_fn(input=command_logits, target=commands)
+        speaker_loss = self.loss_fn(input=speaker_logits, target=speakers)
+        loss = command_loss + speaker_loss
+        command_predictions = torch.max(input=command_logits, dim=1).indices
+        speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
+        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_commands, average="micro")
+        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_speakers, average="micro")
         # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
         '''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
@@ -322,49 +362,13 @@ class ResNet8_PL(pl.LightningModule):
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
-        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
-        self.log("accuracy", accuracy, on_epoch=True, prog_bar=True, logger=True)
-        '''
-        self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("reject_accuracy", reject_accuracy, on_epoch=True, prog_bar=True, logger=True)
-        '''
-        ## Compute metrics for each SNR
-        # Construct and fill dictionary that contains the predictions and target devided by SNR
-        outputs = dict()
-        for snr in self.snrs:
-            outputs[snr] = {"preds": list(), "targs": list()}
-        for idx in range(len_val):
-            outputs[snrs[idx].item()]["preds"].append(preds[idx])
-            outputs[snrs[idx].item()]["targs"].append(targets[idx])
+        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
+        self.log("command_val_loss", command_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("command_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("speaker_val_loss", speaker_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("speaker_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         
-        # Convert lists in tensors
-        for snr in self.snrs:    
-            outputs[snr]["preds"] = torch.stack(outputs[snr]["preds"])
-            outputs[snr]["targs"] = torch.stack(outputs[snr]["targs"])
-        
-        # Compute metrics for each SNR
-        for snr in self.snrs:
-            snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
-            '''
-            snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
-            pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-            '''
-            self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
-            '''
-            self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
-            self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
-            '''
-
-        '''
-        with open("val_preds.txt", "wb") as fout:
-            pickle.dump(preds, fout)
-        with open("val_targs.txt", "wb") as fout:
-            pickle.dump(targets, fout)
-        with open("val_rjts.txt", "wb") as fout:
-            pickle.dump(targs_rejects, fout)
-        '''
     
 
     def test_step(self, batch, batch_idx, dataloader_idx=0):
