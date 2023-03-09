@@ -5,7 +5,7 @@ from commands_dict import FULL_DATASET, MOSTRINA_CMDS
 
 
 SRC_DATABASE_PATH = './saves'
-OUT_DATASET_PATH = '../training/datasets/full_dataset_v1'
+OUT_DATASET_PATH = '../training/datasets/MTL_experimentation'
 
 
 ds_cmd_path = os.path.join(OUT_DATASET_PATH, 'commands')
