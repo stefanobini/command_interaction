@@ -19,8 +19,8 @@ from tqdm import tqdm
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
-DATASET_PATH = "/mnt/sdc1/sbini/command_interaction/training/datasets/full_dataset_v1"
-REJECT_ANNOTATION_PATH = "/mnt/sdc1/sbini/command_interaction/training/datasets/google_speech_commands_v1/google_annotations.csv"
+DATASET_PATH = "./datasets/MIVIA_ISC"
+REJECT_ANNOTATION_PATH = "./datasets/MIVIA_ISC/google_speech_commands_v1/google_annotations.csv"
 OUT_PATH = os.path.join(DATASET_PATH, "annotations")
 
 cmd_path = "commands"
@@ -35,7 +35,7 @@ def add_command_samples(data, lang_path, speaker, samples):
     for sample in samples:
         sample_path = os.path.join(lang_path, sample)
         subtype = "telegram_bot"
-        command = int(sample.split("_")[1].split(".")[0])
+        command = int(sample.split("_")[1].split(".")[0]) if sample.split("_")[1] not in LANGS else int(sample.split("_")[2].split(".")[0])
 
         data["path"].append(sample_path)
         data["type"].append(type)
@@ -74,7 +74,7 @@ def add_reject_samples(path, lang, data):
     rejects_df = pd.read_csv(path)
     data_iter = tqdm(rejects_df.index)
     for idx in data_iter:
-        data["path"].append(rejects_df["path"][idx])
+        data["path"].append(os.path.join("google_speech_commands_v1", rejects_df["path"][idx]))
         data["type"].append(rejects_df["type"][idx])
         data["subtype"].append(rejects_df["subtype"][idx])
         data["speaker"].append(rejects_df["speaker"][idx])
@@ -152,6 +152,7 @@ for speaker in data_iter:
 syn_full_path = os.path.join(DATASET_PATH, syn_path)
 data_iter = tqdm(os.listdir(syn_full_path))
 for service in data_iter:
+    print(service)
     service_path = os.path.join(syn_path, service)
     syn_full_service_path = os.path.join(syn_full_path, service)
     for voice in os.listdir(syn_full_service_path):
@@ -186,11 +187,11 @@ for service in data_iter:
 ''' REJECT SAMPLES '''
 # English language
 lang = LANGS[0]
-eng_data = add_reject_samples(DATASET_PATH, rjt_path, lang, eng_data)
+eng_data = add_reject_samples(REJECT_ANNOTATION_PATH, lang, eng_data)
 
 # Italian language
 lang = LANGS[1]
-ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, ita_data)
+ita_data = add_reject_samples(REJECT_ANNOTATION_PATH, lang, ita_data)
 
 
 ''' NOISE SAMPLES '''

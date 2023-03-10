@@ -1,4 +1,5 @@
 import os
+import shutil
 import pandas as pd
 from tqdm import tqdm
 import torch
@@ -8,8 +9,8 @@ import preprocessing
 from settings.conf_1 import settings
 
 
-SRC_DATASET_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1"
-OUT_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/final_dataset"
+SRC_DATASET_PATH = "./datasets/MIVIA_ISC"
+OUT_PATH = "./datasets/MTL_experimentation"
 LANGs = ["ita", "eng"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -70,11 +71,17 @@ def build_train_set():
 
             ann_iter.set_description("Building '{}-training' set".format(lang))
 
-        out_file = os.path.join(out_path, "annotations", lang, "training.csv")
+        out_folder = os.path.join(out_path, "annotations", lang)
+        if not os.path.isdir(out_folder):
+            os.makedirs(out_folder)
+        out_file = os.path.join(out_folder, "training.csv")
         df = pd.DataFrame(data=speech_data, columns=SPEECH_HEADING)
         df.to_csv(path_or_buf=out_file, index=False)
 
-        out_file = os.path.join(out_path, "annotations", "noise", "training.csv")
+        out_folder = os.path.join(out_path, "annotations", "noise")
+        if not os.path.isdir(out_folder):
+            os.makedirs(out_folder)
+        out_file = os.path.join(out_folder, "training.csv")
         df = pd.DataFrame(data=noise_data, columns=NOISE_HEADING)
         df.to_csv(path_or_buf=out_file, index=False)
 
@@ -110,11 +117,20 @@ def build_set(subset:str):
 
             ann_iter.set_description("Building '{}-{}' set".format(lang, subset))
 
-        out_file = os.path.join(out_path, "annotations", lang, "{}.csv".format(subset))
+        out_folder = os.path.join(out_path, "annotations", lang)
+        if not os.path.isdir(out_folder):
+            os.makedirs(out_folder)
+        out_file = os.path.join(out_folder, "{}.csv".format(subset))
         df = pd.DataFrame(data=data, columns=FULL_HEADING)
         df.to_csv(path_or_buf=out_file, index=False)
 
+        out_folder = os.path.join(out_path, "annotations", "noise")
+        if not os.path.isdir(out_folder):
+            os.makedirs(out_folder)
+        out_file = os.path.join(out_folder, "{}.csv".format(subset))
+        shutil.copyfile(src=os.path.join(SRC_DATASET_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
 
-#build_train_set()
+
+# build_train_set()
 build_set(subset="validation")
 build_set(subset="testing")

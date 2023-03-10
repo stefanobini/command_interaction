@@ -1,9 +1,8 @@
 import os
-import shutil
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
-from datetime import datetime
+import argparse
 
 import torch
 from pytorch_lightning import loggers
@@ -11,7 +10,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.profiler import SimpleProfiler, AdvancedProfiler
 
 from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, _train_collate_fn, _val_collate_fn, _MT_train_collate_fn, _MT_val_collate_fn
-from settings.conf_1 import settings
+#from settings.conf_1 import settings
 
 from models.resnet8 import ResNet8_PL
 from models.mobilenetv2 import MobileNetV2_PL
@@ -19,6 +18,14 @@ from models.conformer import Conformer_PL
 from models.multitask import Multitask_SCR_SI
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--configuration", type=str, dest="configuration", required=True, help="Configuration file (e.g., 'conf_1')")
+args = parser.parse_args()
+args.configuration = "settings.{}".format(args.configuration)
+settings = getattr(__import__(args.configuration, fromlist=["settings"]), "settings")
+print(Back.CYAN + "Loaded <{}> as configuration file.".format(settings.name))
+
+# Disable 'autograd' after testing the framework
 torch.autograd.detect_anomaly()
 
 
