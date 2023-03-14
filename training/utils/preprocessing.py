@@ -1,19 +1,16 @@
 import os
 import random
 import matplotlib.pyplot as plt
-import math
 import librosa
 import librosa.display
 from typing import List, Tuple
 import numpy as np
-import itertools
+from dotmap import DotMap
 
 import torch
 import torchaudio
 import torchaudio.transforms as T
 import torchaudio.functional as F
-
-from settings.conf_1 import settings
 
 import colorama
 from colorama import Back, Fore
@@ -21,23 +18,35 @@ colorama.init(autoreset=True)
 
 
 class Preprocessing():
-    """Class that preprocesses audio samples before sending them to the network.
     
-    Methods
-    -------
-    resample_audio(self, waveform:torch.Tensor, sample_rate:int) -> torch.Tensor
-        Resample an audio waverform given as input (waveform). The target sample rate has to be defined in configuration file, while the original one is passed as parameter (sample_rate)
-    get_melspectrogram(self, waveform:torch.Tensor) -> torch.Tensor
-        Compute Mel-Spectrogram of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
-    get_mfcc(self, waveform:torch.Tensor) -> torch.Tensor
-        Compute MFCC of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels, n_mfcc, dct_type, norm, log_mels) are taken from the configuration file.
-    amplitude_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor
-        Convert power spectrogram in dB spectrogram.
-    approximate_snr(self, snr:float, multiple:int) -> int
-        Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
-    """
-    def __init__(self):
+    def __init__(self, settings:DotMap):
+        """Class that preprocesses audio samples before sending them to the network.
+    
+        Parameters
+        ----------
+        settings: DotMap
+            DotMap object containing the configuration.
+
+        Methods
+        -------
+        resample_audio(self, waveform:torch.Tensor, sample_rate:int) -> torch.Tensor
+            Resample an audio waverform given as input (waveform). The target sample rate has to be defined in configuration file, while the original one is passed as parameter (sample_rate)
+        get_melspectrogram(self, waveform:torch.Tensor) -> torch.Tensor
+            Compute Mel-Spectrogram of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
+        get_mfcc(self, waveform:torch.Tensor) -> torch.Tensor
+            Compute MFCC of a waveform given as input (waveform). All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels, n_mfcc, dct_type, norm, log_mels) are taken from the configuration file.
+        amplitude_to_db_spectrogram(self, spectrogram:torch.Tensor) -> torch.Tensor
+            Convert power spectrogram in dB spectrogram.
+        approximate_snr(self, snr:float, multiple:int) -> int
+            Approximate SNR to have a pool of values grouped in multiples of "multiple" to allow for performance evaluation
+        
+        Returns
+        -------
+        Object
+            Preprocessing object with all the methods useful for the audio preprocessing
+        """
         super().__init__()
+        self.settings = settings
 
     
     def resample_audio(self, waveform:torch.Tensor, sample_rate:int) -> torch.Tensor:
@@ -56,7 +65,7 @@ class Preprocessing():
         torch.Tensor
             Resampled waveform
         """
-        resampler = T.Resample(orig_freq=sample_rate, new_freq=settings.input.sample_rate, dtype=waveform.dtype)
+        resampler = T.Resample(orig_freq=sample_rate, new_freq=self.settings.input.sample_rate, dtype=waveform.dtype)
         return resampler(waveform)
 
     
@@ -74,7 +83,7 @@ class Preprocessing():
         torch.Tensor
             Mel spectrogram of the waveform
         """
-        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.spectrogram.n_fft, win_length=settings.input.spectrogram.win_length, hop_length=settings.input.spectrogram.hop_length, n_mels=settings.input.mel.n_mels)
+        transformation = torchaudio.transforms.MelSpectrogram(sample_rate=self.settings.input.sample_rate, n_fft=self.settings.input.spectrogram.n_fft, win_length=self.settings.input.spectrogram.win_length, hop_length=self.settings.input.spectrogram.hop_length, n_mels=self.settings.input.mel.n_mels)
         return transformation(waveform)
     
 
@@ -92,8 +101,8 @@ class Preprocessing():
         torch.Tensor
             MFCC spectrogram of the waveform
         """
-        mel_arg = {"n_fft":settings.input.spectrogram.n_fft, "win_length":settings.input.spectrogram.win_length, "hop_length":settings.input.spectrogram.hop_length, "n_mels":settings.input.mel.n_mels}
-        transformation = torchaudio.transforms.MFCC(sample_rate=settings.input.sample_rate, n_mfcc=settings.input.mfcc.n_mfcc, dct_type=settings.input.mfcc.dct_type, norm=settings.input.mfcc.norm, log_mels=settings.input.mfcc.log_mels, melkwargs=mel_arg)
+        mel_arg = {"n_fft":self.settings.input.spectrogram.n_fft, "win_length":self.settings.input.spectrogram.win_length, "hop_length":self.settings.input.spectrogram.hop_length, "n_mels":self.settings.input.mel.n_mels}
+        transformation = torchaudio.transforms.MFCC(sample_rate=self.settings.input.sample_rate, n_mfcc=self.settings.input.mfcc.n_mfcc, dct_type=self.settings.input.mfcc.dct_type, norm=self.settings.input.mfcc.norm, log_mels=self.settings.input.mfcc.log_mels, melkwargs=mel_arg)
         return transformation(waveform)
 
 
@@ -155,43 +164,43 @@ class Preprocessing():
             SNR to apply to the audio sample
         """
         snr = None
-        descent_epochs = settings.noise.curriculum_learning.epoch_saturation_time*settings.noise.descent_ratio
-        if settings.noise.curriculum_learning.distribution == "PEM":
-            snr = random.uniform(settings.noise.min_snr, settings.noise.max_snr)
-        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
-            a = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
-            b = settings.noise.max_snr
+        descent_epochs = self.settings.noise.curriculum_learning.epoch_saturation_time*self.settings.noise.descent_ratio
+        if self.settings.noise.curriculum_learning.distribution == "PEM":
+            snr = random.uniform(self.settings.noise.min_snr, self.settings.noise.max_snr)
+        elif self.settings.noise.curriculum_learning.distribution == "UniCL_PEM_v1":
+            a = epoch * (self.settings.noise.min_snr - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
+            b = self.settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
-        elif settings.noise.curriculum_learning.distribution == "UniCL_PEM_v2":
-            a = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr - settings.noise.curriculum_learning.uniform.step
-            b = epoch * (settings.noise.min_snr + settings.noise.curriculum_learning.uniform.step - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr
+        elif self.settings.noise.curriculum_learning.distribution == "UniCL_PEM_v2":
+            a = epoch * (self.settings.noise.min_snr + self.settings.noise.curriculum_learning.uniform.step - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr - self.settings.noise.curriculum_learning.uniform.step
+            b = epoch * (self.settings.noise.min_snr + self.settings.noise.curriculum_learning.uniform.step - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
-        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
+        elif self.settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
             # model mu as a combination of descent linear function plus a constant  ->  \_
-            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            mu = epoch * (self.settings.noise.min_snr - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
             # model sigma as a triangular function                                  ->  \/
-            s1 = epoch * (-settings.noise.curriculum_learning.gaussian.max_sigma) / settings.noise.curriculum_learning.epoch_saturation_time + settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
-            s2 = epoch * settings.noise.curriculum_learning.gaussian.max_sigma / settings.noise.curriculum_learning.epoch_saturation_time                          # modeled as a linear ascending function
+            s1 = epoch * (-self.settings.noise.curriculum_learning.gaussian.max_sigma) / self.settings.noise.curriculum_learning.epoch_saturation_time + self.settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
+            s2 = epoch * self.settings.noise.curriculum_learning.gaussian.max_sigma / self.settings.noise.curriculum_learning.epoch_saturation_time                          # modeled as a linear ascending function
             sigma = max(s1, s2)
             snr = np.random.normal(loc=mu, scale=sigma)
-        elif settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
-            mu = epoch * (settings.noise.min_snr - settings.noise.max_snr) / descent_epochs + settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
-            sigma = settings.noise.curriculum_learning.gaussian.sigma
+        elif self.settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
+            mu = epoch * (self.settings.noise.min_snr - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            sigma = self.settings.noise.curriculum_learning.gaussian.sigma
             snr = np.random.normal(loc=mu, scale=sigma)
             
         # pre_snr = snr
-        if snr > settings.noise.max_snr:
-            snr = settings.noise.max_snr
-            # snr = settings.noise.max_snr - snr + settings.noise.max_snr
-            # raise Exception("Computed SNR ({}) greater than maximum SNR ({})".format(snr, settings.noise.max_snr))
-        elif snr < settings.noise.min_snr:
-            snr = settings.noise.min_snr
-            # snr = settings.noise.min_snr - snr + settings.noise.min_snr
-            # raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, settings.noise.min_snr))
+        if snr > self.settings.noise.max_snr:
+            snr = self.settings.noise.max_snr
+            # snr = self.settings.noise.max_snr - snr + self.settings.noise.max_snr
+            # raise Exception("Computed SNR ({}) greater than maximum SNR ({})".format(snr, self.settings.noise.max_snr))
+        elif snr < self.settings.noise.min_snr:
+            snr = self.settings.noise.min_snr
+            # snr = self.settings.noise.min_snr - snr + self.settings.noise.min_snr
+            # raise Exception("Computed SNR ({}) lower than minimum SNR ({})".format(snr, self.settings.noise.min_snr))
         
         # n_sample += 1
-        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.noise.curriculum_learning.epoch_saturation_time, mu, sigma, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
-        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, settings.noise.curriculum_learning.epoch_saturation_time, a, b, snr, pre_snr, settings.noise.min_snr, settings.noise.max_snr))
+        # print("*****\nEpoch: {}/{}\tmu: {}\tsigma: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.settings.noise.curriculum_learning.epoch_saturation_time, mu, sigma, snr, pre_snr, self.settings.noise.min_snr, self.settings.noise.max_snr))
+        # print(Back.YELLOW + "*****\nEpoch: {}/{}\ta: {}\tb: {}\tsnr: {}({})[{}, {}]\n******\n".format(epoch, self.settings.noise.curriculum_learning.epoch_saturation_time, a, b, snr, pre_snr, self.settings.noise.min_snr, self.settings.noise.max_snr))
         return int(snr)
 
 
@@ -249,7 +258,7 @@ class Preprocessing():
 
         snr = 10**(snr_db/20)   # Compute SNR in amplitude domain. Before 10 (power domain)
         noise_gain = speech_rms / (snr * noise_rms)
-        noise_gain = min(noise_gain, settings.input.noise.max_gain)
+        noise_gain = min(noise_gain, self.settings.input.noise.max_gain)
         return (noise_gain * noise + speech) / 2
 
 

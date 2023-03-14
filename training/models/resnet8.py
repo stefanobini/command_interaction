@@ -8,6 +8,7 @@ import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
+from dotmap import DotMap
 # import torch_optimizer
 
 import colorama
@@ -15,12 +16,12 @@ colorama.init(autoreset=True)
 from colorama import Back, Fore
 from typing import Dict, List
 
-from settings.conf_1 import settings
+#from settings.conf_1 import settings
 
 
 class ResNet8_PL(pl.LightningModule):
 
-    def __init__(self, num_labels:int, loss_weights:torch.Tensor=None):
+    def __init__(self, settings:DotMap, num_labels:int, loss_weights:torch.Tensor=None):
         """
         
         Methods
@@ -72,6 +73,7 @@ class ResNet8_PL(pl.LightningModule):
         self.output = torch.nn.Linear(out_channel, num_labels)
         # self.softmax = torch.nn.Softmax(dim=1)
         
+        self.settings = settings
         self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
@@ -98,7 +100,7 @@ class ResNet8_PL(pl.LightningModule):
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
 
-        if settings.model.input.normalize:
+        if self.settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
         x = x[:, :1]  # log-Mels only
@@ -202,8 +204,8 @@ class ResNet8_PL(pl.LightningModule):
     
 
     def on_train_start(self) -> None:
-        src_conf_file = os.path.join("settings", settings.name)
-        dst_conf_file = os.path.join(self.trainer.logger.log_dir, settings.name)
+        src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
+        dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
         shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
 
@@ -408,8 +410,8 @@ class ResNet8_PL(pl.LightningModule):
             accuracies.append(accuracy)
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        os.makedirs(settings.testing.folder, exist_ok=True)
-        self.results_path = os.path.join(settings.testing.folder, "{}.txt".format(settings.logger.name))
+        os.makedirs(self.settings.testing.folder, exist_ok=True)
+        self.results_path = os.path.join(self.settings.testing.folder, "{}.txt".format(self.settings.logger.name))
         with open(self.results_path, 'w') as fout:
             avg = 0
             for dataloader in range(len(accuracies)):
@@ -421,25 +423,25 @@ class ResNet8_PL(pl.LightningModule):
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
-        early_stop = EarlyStopping(monitor=settings.training.checkpoint.metric_to_track, patience=settings.training.early_stop.patience, verbose=True, mode=settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
+        early_stop = EarlyStopping(monitor=self.settings.training.checkpoint.metric_to_track, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
-        checkpoint = ModelCheckpoint(save_top_k=settings.training.checkpoint.save_top_k, monitor=settings.training.checkpoint.metric_to_track)
+        checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]
         # return [lr_monitor, checkpoint]
 
  
     def configure_optimizers(self):
         """Configure training optimizers."""
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
-        #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
-        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
-        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=settings.training.optimizer.eps, verbose=True)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)
+        #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)
+        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, grad_averaging=self.settings.training.optimizer.grad_averaging, amsgrad=self.settings.training.optimizer.amsgrad)
+        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=self.settings.training.optimizer.mode, patience=self.settings.training.reduce_lr_on_plateau.patience, eps=self.settings.training.optimizer.eps, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": settings.training.checkpoint.metric_to_track,
-                "frequency": settings.training.check_val_every_n_epoch
+                "monitor": self.settings.training.checkpoint.metric_to_track,
+                "frequency": self.settings.training.check_val_every_n_epoch
             }
         }
         return optimizers_schedulers

@@ -9,7 +9,7 @@ from torchvision.models import MobileNetV2, mobilenet_v2
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 
-from settings.conf_1 import settings
+from settings.SCR_conf import settings
 
 
 class MobileNetV2_PL(pl.LightningModule):

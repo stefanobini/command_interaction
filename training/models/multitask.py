@@ -8,6 +8,8 @@ import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
+from dotmap import DotMap
+
 # import torch_optimizer
 
 import colorama
@@ -15,12 +17,13 @@ colorama.init(autoreset=True)
 from colorama import Back, Fore
 from typing import Dict, List
 
-from settings.conf_1 import settings
+# from settings.MTL_conf import settings
+from utils.scr_si_loss import MT_loss
 
 
 class Multitask_SCR_SI(pl.LightningModule):
 
-    def __init__(self, num_commands:int, num_speakers:int, command_loss_weights:torch.Tensor=None, speaker_loss_weights:torch.Tensor=None):
+    def __init__(self, settings:DotMap, num_commands:int, num_speakers:int, scr_loss_weights:torch.Tensor=None, si_loss_weights:torch.Tensor=None):
         """
         
         Methods
@@ -59,6 +62,7 @@ class Multitask_SCR_SI(pl.LightningModule):
         """
         super().__init__()
 
+        self.settings = settings
         embedding_size = settings.model.resnet8.out_channel
 
         self.conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
@@ -73,9 +77,7 @@ class Multitask_SCR_SI(pl.LightningModule):
         self.speaker_output = torch.nn.Linear(embedding_size, num_speakers)
         # self.softmax = torch.nn.Softmax(dim=1)
 
-        self.command_loss_fn = torch.nn.CrossEntropyLoss(weight=command_loss_weights)
-        self.speaker_loss_fn = torch.nn.CrossEntropyLoss(weight=speaker_loss_weights)
-        self.loss_fn = self.command_loss_fn + self.speaker_loss_fn
+        self.loss_fn = MT_loss(scr_weight=scr_loss_weights, si_weight=si_loss_weights)
         
         self.num_commands = num_commands
         self.num_speakers = num_speakers
@@ -103,7 +105,7 @@ class Multitask_SCR_SI(pl.LightningModule):
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
 
-        if settings.model.input.normalize:
+        if self.settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
         x = x[:, :1]  # log-Mels only
@@ -207,8 +209,8 @@ class Multitask_SCR_SI(pl.LightningModule):
     
 
     def on_train_start(self) -> None:
-        src_conf_file = os.path.join("settings", settings.name)
-        dst_conf_file = os.path.join(self.trainer.logger.log_dir, settings.name)
+        src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
+        dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
         shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
 
@@ -235,14 +237,17 @@ class Multitask_SCR_SI(pl.LightningModule):
         """
         x, speakers, commands, snr = batch
         command_logits, speaker_logits = self.forward(x=x)
-        command_loss = self.command_loss_fn(input=command_logits, target=commands)
-        speaker_loss = self.speaker_loss_fn(input=speaker_logits, target=speakers)
-        loss = command_loss + speaker_loss
+        '''
+        scr_loss = self.scr_loss_fn(input=command_logits, target=commands)
+        si_loss = self.si_loss_fn(input=speaker_logits, target=speakers)
+        loss = scr_loss + si_loss
+        '''
+        loss, scr_loss, si_loss = self.loss_fn(command_logits=command_logits, commands=commands, speaker_logits=speaker_logits, speakers=speakers)
 
         # train_step_output = {"loss": loss, "logits": logits, "targets": y}
         train_step_output = {"loss": loss,
-                             "command_loss": command_loss,
-                             "speaker_loss": speaker_loss,
+                             "scr_loss": scr_loss,
+                             "si_loss": si_loss,
                              "command_logits": command_logits,
                              "speaker_logits": speaker_logits,
                              "commands": commands,
@@ -273,10 +278,13 @@ class Multitask_SCR_SI(pl.LightningModule):
             speaker_logits = torch.concat(tensors=[speaker_logits, train_step_outputs[i]["speaker_logits"]])
             speakers = torch.concat(tensors=[speakers, train_step_outputs[i]["speakers"]])
             avg_snr += train_step_outputs[i]["snr"]
-        
-        command_loss = self.loss_fn(input=command_logits, target=commands)
-        speaker_loss = self.loss_fn(input=speaker_logits, target=speakers)
-        loss = command_loss + speaker_loss
+        '''
+        scr_loss = self.scr_loss_fn(input=command_logits, target=commands)
+        si_loss = self.si_loss_fn(input=speaker_logits, target=speakers)
+        loss = scr_loss + si_loss
+        '''
+        loss, scr_loss, si_loss = self.loss_fn(command_logits=command_logits, commands=commands, speaker_logits=speaker_logits, speakers=speakers)
+  
         command_predictions = torch.max(input=command_logits, dim=1).indices
         speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
         command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_commands, average="micro")
@@ -286,13 +294,13 @@ class Multitask_SCR_SI(pl.LightningModule):
         avg_snr /= len(train_step_outputs)
 
         # self.logger.experiment.add_scalars("train_accuracy", {"command": command_accuracy, "speaker": speaker_accuracy}, global_step=self.global_step)
-        # self.logger.experiment.add_scalars("train_accuracy", {"train_loss": loss, "command": command_loss, "speaker": speaker_loss}, global_step=self.global_step)
+        # self.logger.experiment.add_scalars("train_accuracy", {"train_loss": loss, "command": scr_loss, "speaker": si_loss}, global_step=self.global_step)
         self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("command_train_loss", command_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("command_train_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("scr_train_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("scr_train_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("speaker_train_loss", speaker_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("speaker_train_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("si_train_loss", si_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("si_train_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
@@ -317,7 +325,7 @@ class Multitask_SCR_SI(pl.LightningModule):
                                   "speaker_logits": speaker_logits,
                                   "commands": commands,
                                   "speakers": speakers,
-                                  "snr": snr}
+                                  "snrs": snr}
         return validation_step_output
 
 
@@ -345,9 +353,13 @@ class Multitask_SCR_SI(pl.LightningModule):
             snrs = torch.concat(tensors=[snrs, val_step_outputs[i]["snrs"]])
 
         # Compute average metrics
-        command_loss = self.loss_fn(input=command_logits, target=commands)
-        speaker_loss = self.loss_fn(input=speaker_logits, target=speakers)
-        loss = command_loss + speaker_loss
+        '''
+        scr_loss = self.scr_loss_fn(input=command_logits, target=commands)
+        si_loss = self.si_loss_fn(input=speaker_logits, target=speakers)
+        loss = scr_loss + si_loss
+        '''
+        loss, scr_loss, si_loss = self.loss_fn(command_logits=command_logits, commands=commands, speaker_logits=speaker_logits, speakers=speakers)
+
         command_predictions = torch.max(input=command_logits, dim=1).indices
         speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
         command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_commands, average="micro")
@@ -363,11 +375,11 @@ class Multitask_SCR_SI(pl.LightningModule):
 
         # Save for TensorBoard
         self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("command_val_loss", command_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("command_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("scr_val_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("scr_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("speaker_val_loss", speaker_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("speaker_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("si_val_loss", si_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+        self.log("si_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         
     
 
@@ -412,8 +424,8 @@ class Multitask_SCR_SI(pl.LightningModule):
             accuracies.append(accuracy)
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        os.makedirs(settings.testing.folder, exist_ok=True)
-        self.results_path = os.path.join(settings.testing.folder, "{}.txt".format(settings.logger.name))
+        os.makedirs(self.settings.testing.folder, exist_ok=True)
+        self.results_path = os.path.join(self.settings.testing.folder, "{}.txt".format(self.settings.logger.name))
         with open(self.results_path, 'w') as fout:
             avg = 0
             for dataloader in range(len(accuracies)):
@@ -425,25 +437,25 @@ class Multitask_SCR_SI(pl.LightningModule):
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
-        early_stop = EarlyStopping(monitor=settings.training.checkpoint.metric_to_track, patience=settings.training.early_stop.patience, verbose=True, mode=settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
+        early_stop = EarlyStopping(monitor=self.settings.training.checkpoint.metric_to_track, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
-        checkpoint = ModelCheckpoint(save_top_k=settings.training.checkpoint.save_top_k, monitor=settings.training.checkpoint.metric_to_track)
+        checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]
         # return [lr_monitor, checkpoint]
 
  
     def configure_optimizers(self):
         """Configure training optimizers."""
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
-        #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, amsgrad=settings.training.optimizer.amsgrad)
-        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=settings.training.optimizer.betas, eps=settings.training.optimizer.eps, weight_decay=settings.training.optimizer.weight_decay, grad_averaging=settings.training.optimizer.grad_averaging, amsgrad=settings.training.optimizer.amsgrad)
-        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=settings.training.optimizer.mode, patience=settings.training.reduce_lr_on_plateau.patience, eps=settings.training.optimizer.eps, verbose=True)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)
+        #optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)
+        #optimizer = torch_optimizer.NovoGrad(params=self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, grad_averaging=self.settings.training.optimizer.grad_averaging, amsgrad=self.settings.training.optimizer.amsgrad)
+        scheduler = ReduceLROnPlateau(optimizer=optimizer, mode=self.settings.training.optimizer.mode, patience=self.settings.training.reduce_lr_on_plateau.patience, eps=self.settings.training.optimizer.eps, verbose=True)
         optimizers_schedulers = {
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": settings.training.checkpoint.metric_to_track,
-                "frequency": settings.training.check_val_every_n_epoch
+                "monitor": self.settings.training.checkpoint.metric_to_track,
+                "frequency": self.settings.training.check_val_every_n_epoch
             }
         }
         return optimizers_schedulers

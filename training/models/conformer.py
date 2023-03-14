@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 
-from settings.conf_1 import settings
+from settings.SCR_conf import settings
 
 
 class Conformer_PL(pl.LightningModule):

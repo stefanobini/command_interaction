@@ -1,5 +1,4 @@
 import os
-import random
 import pandas as pd
 from tqdm import tqdm
 from math import floor
@@ -7,8 +6,10 @@ from typing import Tuple
 
 
 LANGS = ["eng", "ita"]
-DATASET_PATH = "./datasets/MIVIA_ISC"
+DATASET_PATH = "./datasets/MTL_experimentation"
 NOISE_OUTPUT_PATH = os.path.join(DATASET_PATH, "annotations", "noise")
+if not os.path.isdir(NOISE_OUTPUT_PATH):
+        os.makedirs(NOISE_OUTPUT_PATH)
 NOISE_ANNOTATIONS_FILE = os.path.join(NOISE_OUTPUT_PATH, "dataset.csv")
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 NOISE_HEADING = ["path", "type", "subtype"]

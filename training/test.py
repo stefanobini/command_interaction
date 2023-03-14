@@ -7,7 +7,7 @@ import torch
 import pytorch_lightning as pl
 
 from utils.dataloaders import TestingMiviaDataset, _val_collate_fn
-from settings.conf_1 import settings
+from .settings.SCR_conf import settings
 
 from models.resnet8 import ResNet8_PL
 from models.mobilenetv2 import MobileNetV2_PL

@@ -54,20 +54,21 @@ pl.seed_everything(5138)
 ########################
 # now = datetime.now()
 # version = now.strftime("%m_%d_%Y-%H_%M_%S")
-version = settings.noise.curriculum_learning.distribution
-logger = loggers.TensorBoardLogger(save_dir=settings.logger.folder, name=settings.logger.name, version=version)
-info_path = os.path.join(settings.logger.folder, settings.logger.name, version)
+logger = loggers.TensorBoardLogger(save_dir=settings.logger.folder, name=settings.logger.name, version=settings.logger.version)
+print(Back.CYAN + "The TensorBoard logggers will be saved in <{}>.".format(logger.log_dir))
+info_path = os.path.join(settings.logger.folder, settings.logger.name, settings.logger.version)
 profiler = AdvancedProfiler(dirpath=info_path, filename="profiler_summary.txt")
 
 
 #########################
 # Building Dataloaders  #
 #########################
-train_set = TrainingMiviaDataset()
-val_set = ValidationMiviaDataset()
+train_set = TrainingMiviaDataset(settings=settings)
+val_set = ValidationMiviaDataset(settings=settings)
 commands = train_set._get_labels()
 speakers = train_set._get_speakers()
-# print(labels)
+#print(commands, len(commands))
+#print(speakers, len(speakers)) # 44, 85
 
 ###### Decomment following rows if you use also reject, and change annotation file path in settings #######
 weights = train_set._get_class_weights()
@@ -96,26 +97,29 @@ val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.tr
 #########################
 #    Building Model     #
 #########################
-assert settings.model.network in ["resnet8", "mobilenetv2"]
+assert settings.model.network in ["resnet8", "mobilenetv2", "multitask_scr_si"]
 model = None
 if settings.model.network == "resnet8":
-    model = ResNet8_PL(num_labels=len(commands), loss_weights=balanced_weights).cuda()  # Load model
+    model = ResNet8_PL(settings=settings, num_labels=len(commands), loss_weights=balanced_weights).cuda()  # Load model
     if settings.model.pretrain:
         # model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
         model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(commands), loss_weights=balanced_weights)
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
     # model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
+
 elif settings.model.network == "mobilenetv2":
-    model = MobileNetV2_PL(num_labels=len(commands), loss_weights=balanced_weights).cuda()
+    model = MobileNetV2_PL(settings=settings, num_labels=len(commands), loss_weights=balanced_weights).cuda()
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
     model.set_parameters(num_labels=len(commands), loss_weights=balanced_weights)
+
 elif settings.model.network == "conformer":
-    model = Conformer_PL(num_labels=len(commands)).cuda()
+    model = Conformer_PL(settings=settings, num_labels=len(commands)).cuda()
+
 elif settings.model.network == "multitask_scr_si":
-    model = Multitask_SCR_SI(num_commands=len(commands), num_speakers=len(speakers), command_loss_weights=None, speaker_loss_weights=None)
+    model = Multitask_SCR_SI(settings=settings, num_commands=len(commands), num_speakers=len(speakers), scr_loss_weights=None, si_loss_weights=None)
 model.set_train_dataloader(dataloader=train_loader)
 model.set_val_dataloader(dataloader=val_loader)
 
@@ -133,7 +137,7 @@ trainer = pl.Trainer(
     min_epochs=settings.training.min_epochs,
     track_grad_norm=2,
     log_every_n_steps=-1,
-    enable_model_summary=False,
+    enable_model_summary=True,
     # reload_dataloaders_every_epoch=False,       # set True to shuffle the dataloader before start each epoch
     # profiler=profiler,                          # set to True to see how many time was spent from the training process during the training                           # True to activate Tensorboard logger
     # weights_summary="top",                      # set to "full" to see all the weights of each layer of the network

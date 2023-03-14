@@ -6,7 +6,7 @@ import torch
 import torchaudio
 
 import preprocessing
-from settings.conf_1 import settings
+from settings.MTL_conf import settings
 
 
 SRC_DATASET_PATH = "./datasets/MIVIA_ISC"
@@ -38,11 +38,11 @@ def get_item(speech_annotations, noise_annotations, index, preprocess):
 
 
 def build_train_set():
-    preprocess = preprocessing.Preprocessing()
+    preprocess = preprocessing.Preprocessing(settings=settings)
     out_path = os.path.join(OUT_PATH, "training")
     for lang in LANGs:
-        speech_annotations = pd.read_csv(os.path.join(SRC_DATASET_PATH, "annotations", lang, "training.csv"), sep=',')
-        noise_annotations = pd.read_csv(os.path.join(SRC_DATASET_PATH, "annotations", "noise", "training.csv"), sep=',')
+        speech_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", lang, "training.csv"), sep=',')
+        noise_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", "noise", "training.csv"), sep=',')
 
         speech_data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
         noise_data = {"path": list(), "type": list(), "subtype": list()}
@@ -87,11 +87,11 @@ def build_train_set():
 
 
 def build_set(subset:str):
-    preprocess = preprocessing.Preprocessing()
+    preprocess = preprocessing.Preprocessing(settings=settings)
     out_path = os.path.join(OUT_PATH, subset)
     for lang in LANGs:
-        speech_annotations = pd.read_csv(os.path.join(SRC_DATASET_PATH, "annotations", lang, "{}.csv".format(subset)), sep=',')
-        noise_annotations = pd.read_csv(os.path.join(SRC_DATASET_PATH, "annotations", "noise", "{}.csv".format(subset)), sep=',')
+        speech_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", lang, "{}.csv".format(subset)), sep=',')
+        noise_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), sep=',')
 
         data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list(), "noise_path": list(), "noise_type": list(), "noise_subtype": list(), "snr": list()}
         ann_iter = tqdm(range(len(speech_annotations)))
@@ -128,9 +128,9 @@ def build_set(subset:str):
         if not os.path.isdir(out_folder):
             os.makedirs(out_folder)
         out_file = os.path.join(out_folder, "{}.csv".format(subset))
-        shutil.copyfile(src=os.path.join(SRC_DATASET_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
+        shutil.copyfile(src=os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
 
 
-# build_train_set()
+build_train_set()
 build_set(subset="validation")
 build_set(subset="testing")
