@@ -74,7 +74,8 @@ class ResNet8_PL(pl.LightningModule):
         # self.softmax = torch.nn.Softmax(dim=1)
         
         self.settings = settings
-        self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
+        # self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights)
+        self.loss_weights = loss_weights
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
@@ -121,10 +122,15 @@ class ResNet8_PL(pl.LightningModule):
                 x = getattr(self, f'bn{i}')(x)
                 
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
-        x = torch.mean(x, 2)
+        x = torch.mean(x, 2)      # Global Average Pooling
 
         return self.output(x)
 
+
+    def set_parameters(self, settings:DotMap, num_labels:int, loss_weights:torch.Tensor=None) -> None:
+        self.settings = settings
+        self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
+        self.num_labels = num_labels
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         """Set the training loader.
@@ -208,8 +214,9 @@ class ResNet8_PL(pl.LightningModule):
         dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
         shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
+        self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights).cuda()
 
-    @torch.no_grad()
+
     def on_train_epoch_start(self) -> None:
         """Hook function triggered when the training of an epoch start.
         The function shuffle the noise dataset."""

@@ -43,7 +43,7 @@ class MiviaDataset(Dataset):
             Get the dataset lenght
         __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
             Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
-        _get_labels(self) -> List[int]
+        _get_commands(self) -> List[int]
             Get the list of the labels
         _get_class_weights(self)-> List[torch.Tensor]
             Get the weights for each class calculated as a percentage of how many samples there are for each class
@@ -122,7 +122,7 @@ class MiviaDataset(Dataset):
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label)
 
 
-    def _get_labels(self) -> List[int]:
+    def _get_commands(self) -> List[int]:
         """Get the list of the labels contained in the dataset.
         
         Returns
@@ -152,10 +152,10 @@ class MiviaDataset(Dataset):
             One-Dimensional Tensor of weights.
         """
         labels_group = self.speech_annotations.groupby("label")
-        weights = torch.zeros(len(self._get_labels()))
+        weights = torch.zeros(len(self._get_commands()))
 
-        indexes = range(len(self._get_labels()))
-        for index, label in zip(indexes, self._get_labels()):
+        indexes = range(len(self._get_commands()))
+        for index, label in zip(indexes, self._get_commands()):
             weights[index] = len(labels_group.get_group(name=label)) / len(self.speech_annotations)
         
         return weights
@@ -480,7 +480,7 @@ def pad_spectrograms(batch:torch.Tensor, max_length:int, value:float, stride:int
     return resized_batch
 
 
-def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
+def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
     (path, item, sample_rate, type, subtype, speaker, label)
@@ -522,6 +522,107 @@ def _train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.Int
 
     return tensors, targets, avg_snr
 
+def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
+    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    
+    Parameters
+    ----------
+    batch: Dict[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    Dict[int, torch.Tensor]
+        Combined batch (dictionary of batches) with audio sample of the same length
+    """
+    tensors, targets, snrs = list(), list(), list()
+    max_length = 0
+    for path, tensor, _, _, _, _, label, snr in batch:
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        targets += [label_to_index(label)]
+        snrs += [torch.tensor(snr)]
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    targets = torch.stack(targets)
+    snrs = torch.stack(snrs)
+    return tensors, targets, snrs
+
+
+def _SI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
+    """Process the audio samples in batch to have the same duration.
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, label)
+    
+    Parameters
+    ----------
+    batch: List[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    torch.Tensor
+        Audio samples contained in the batch
+    torch.IntTensor
+        Speakers of the samples contained in the batch
+    torch.Tensor
+        Average SNR of the samples contained in the batch
+    """
+    tensors, targets = list(), list()
+    avg_snr = 0
+    max_length = 0
+    for path, tensor, _, _, _, speaker, label, snr in batch:
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        targets += [label_to_index(speaker)]
+        avg_snr += snr
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    targets = torch.stack(targets)
+    avg_snr = torch.tensor(avg_snr/len(tensors))
+    
+    """
+    global it
+    for s in range(0, 3):
+        #plot_mfcc(path="check_files/{}_{}_lab{}".format(it, s, targets[s]), mfcc=tensors[s])
+        plot_melspectrogram(path="check_files/collate_fn/{}_{}_lab{}".format(it, s, targets[s]), melspectrogram=tensors[s])
+        #plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
+    it += 1
+    #"""
+
+    return tensors, targets, avg_snr
+
+def _SI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
+    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    
+    Parameters
+    ----------
+    batch: Dict[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    torch.Tensor
+        Audio samples contained in the batch
+    torch.IntTensor
+        Speakers of the samples contained in the batch
+    torch.Tensor
+        SNRs of the samples contained in the batch
+    """
+    tensors, targets, snrs = list(), list(), list()
+    max_length = 0
+    for path, tensor, _, _, _, speaker, label, snr in batch:
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        targets += [label_to_index(speaker)]
+        snrs += [torch.tensor(snr)]
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    targets = torch.stack(targets)
+    snrs = torch.stack(snrs)
+    return tensors, targets, snrs
+
 
 def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
@@ -557,34 +658,6 @@ def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
     avg_snr = torch.tensor(avg_snr/len(tensors))
 
     return tensors, speakers, commands, avg_snr
-
-
-def _val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
-    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
-    The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label, snr)
-    
-    Parameters
-    ----------
-    batch: Dict[torch.Tensor]
-        List of tensor contained in the batch
-
-    Returns
-    -------
-    Dict[int, torch.Tensor]
-        Combined batch (dictionary of batches) with audio sample of the same length
-    """
-    tensors, targets, snrs = list(), list(), list()
-    max_length = 0
-    for path, tensor, _, _, _, _, label, snr in batch:
-        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
-        tensors += [tensor]    # tensor size (CxFxT)
-        targets += [label_to_index(label)]
-        snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
-    targets = torch.stack(targets)
-    snrs = torch.stack(snrs)
-    return tensors, targets, snrs
 
 def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader

@@ -1,18 +1,23 @@
+import torch
 import torch.nn as nn
 
 
 class MT_loss(nn.Module):
-    def __init__(self, scr_weight, si_weight):
+    def __init__(self, weights1, weights2):
         super(MT_loss, self).__init__()
 
-        self.scr_weight, self.si_weight = scr_weight, si_weight
+        self.weights1, self.weights2 = weights1, weights2
+        self.loss_fn1 = nn.CrossEntropyLoss(weight=self.weights1)
+        self.loss_fn2 = nn.CrossEntropyLoss(weight=self.weights2)
+        # self.coefficient1, self.coefficient2 = coefficient1, coefficient2
 
 
-    def forward(self, command_logits, commands, speaker_logits, speakers):
-        scr_loss_fn = nn.CrossEntropyLoss(weight=self.scr_weight)
-        si_loss_fn = nn.CrossEntropyLoss(weight=self.si_weight)
+    def forward(self, logits1, targets1, logits2, targets2):
 
-        scr_loss = scr_loss_fn(input=command_logits, target=commands)
-        si_loss = si_loss_fn(input=speaker_logits, target=speakers)
+        loss1 = self.loss_fn1(input=logits1, target=targets1)
+        loss2 = self.loss_fn2(input=logits2, target=targets2)
+        # total_loss = self.coefficient1*loss1 + self.coefficient2*loss2
 
-        return scr_loss + si_loss, scr_loss, si_loss
+        outputs = torch.stack(tensors=(loss1, loss2))
+
+        return outputs

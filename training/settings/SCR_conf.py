@@ -8,10 +8,6 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 
-'''Logger'''
-settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "trial_0"                                                                              # name of the experiment
-
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
@@ -39,7 +35,7 @@ settings.input.mfcc.log_mels:bool = True                                        
 
 '''Dataset'''
 settings.dataset.folder = "./datasets/SCR_experimentation"
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "class_training.csv")
 settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation_0_40.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "class_testing_0_40.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
@@ -93,11 +89,17 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "UniCL_PEM_v1"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "UniCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2
+
+'''Logger'''
+settings.logger.folder:str = "lightning_logs"
+settings.logger.name:str = os.path.join("SCR", settings.input.language)                                                                             # name of the experiment
+additional_info = "_pretrained"
+settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
 settings.testing.folder:str = "testing"
