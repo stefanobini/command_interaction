@@ -24,7 +24,7 @@ from utils.scr_si_loss import MT_loss
 
 class HardSharing_PL(pl.LightningModule):
 
-    def __init__(self, settings:DotMap, task_n_labels:np.int, task_loss_weights:np.float=None):
+    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float=None):
         """
         
         Methods
@@ -75,11 +75,13 @@ class HardSharing_PL(pl.LightningModule):
             self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
             self.add_module(f'conv{i + 1}', conv)
         self.command_output = torch.nn.Linear(embedding_size, task_n_labels[0])
-        self.speaker_output = torch.nn.Linear(embedding_size, task_n_labels[1])
+        self.speaker_features = torch.nn.Linear(embedding_size, settings.model.resnet8.speaker_embedding_size)
+        self.speaker_output = torch.nn.Linear(settings.model.resnet8.speaker_embedding_size, task_n_labels[1])
         # self.softmax = torch.nn.Softmax(dim=1)
 
         self.n_tasks = 2    # SCR and SI
-        self.loss_weights = torch.nn.Parameter(data=(torch.ones(self.n_tasks) / self.n_tasks).float(), requires_grad=True)
+        self.grad_norm = self.settings.training.loss.type == "grad_norm"
+        self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks), requires_grad=self.grad_norm)
         self.loss_fn = MT_loss(weights1=task_loss_weights[0], weights2=task_loss_weights[1])
         
         self.task_n_labels = task_n_labels
@@ -129,8 +131,9 @@ class HardSharing_PL(pl.LightningModule):
                 
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
         x = torch.mean(x, 2)      # Global Average Pooling
+        speaker_embedding = self.speaker_features(x)
 
-        return self.command_output(x), self.speaker_output(x)
+        return self.command_output(x), self.speaker_output(speaker_embedding)
 
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
@@ -215,9 +218,10 @@ class HardSharing_PL(pl.LightningModule):
 
 
     def on_train_start(self) -> None:
-        src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
-        dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
-        shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
+        if not self.settings.training.lr.auto_find:
+            src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
+            dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
+            shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
     def on_train_epoch_start(self) -> None:
         """Hook function triggered when the training of an epoch start.
@@ -242,15 +246,16 @@ class HardSharing_PL(pl.LightningModule):
         x, speakers, commands, snr = batch
         command_logits, speaker_logits = self.forward(x=x)
 
+        # Computing loss
         self.losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
         weighted_task_loss = torch.mul(self.loss_weights, self.losses)
-        # initialize the initial loss L(0) if t=0
-        if self.current_epoch == 0:
-            # set L(0) to the Log(C) because we use CrossEntropy for both the tasks
-            self.initial_task_loss = np.log(self.task_n_labels)
         loss = torch.sum(weighted_task_loss)
 
-        # train_step_output = {"loss": loss, "logits": logits, "targets": y}
+        # initialize the initial loss L(0) if t=0
+        if self.current_epoch == 0 and self.grad_norm:
+            # set L(0) to the Log(C) because we use CrossEntropy for both the tasks
+            self.initial_task_loss = np.log(self.task_n_labels)
+
         train_step_output = {"loss": loss,
                              "command_logits": command_logits.detach(),
                              "speaker_logits": speaker_logits.detach(),
@@ -262,16 +267,15 @@ class HardSharing_PL(pl.LightningModule):
 
     def backward(self, loss, optimizer, optimizer_idx):
         # do a custom way of backward
-        # optimizer.zero_grad(set_to_none=True)
-        loss.backward(retain_graph=True)
+        loss.backward(retain_graph=self.grad_norm)
 
     def on_after_backward(self):
-        self.loss_weights.grad.data *= 0.0
-
         ######################
         # GradNorm algorithm #
         ######################
-        if self.settings.training.loss.type == "grad_norm":
+        if self.grad_norm:
+            self.loss_weights.grad.data *= 0.0
+            
             # get layer of shared weights
             shared_weights = self.get_last_shared_layer()
 
@@ -294,19 +298,12 @@ class HardSharing_PL(pl.LightningModule):
             mean_norm = np.mean(norms.data.cpu().numpy())
 
             constant_term = torch.tensor(mean_norm * (inverse_train_rate ** self.settings.training.loss.grad_norm.alpha), requires_grad=False).cuda()
-            #print('Constant term: {}'.format(constant_term))
             # this is the GradNorm loss itself
             grad_norm_loss = torch.sum(torch.abs(norms - constant_term))
-            #print('GradNorm loss {}'.format(grad_norm_loss))
-            '''
-            grad_loss = torch.nn.L1Loss(reduction="sum")
-            grad_norm_loss = 0
-            for loss_index in range (0, len(self.losses)):
-                grad_norm_loss = torch.add(grad_norm_loss, grad_loss(norms[loss_index], constant_term[loss_index]))
-            '''
 
             # compute the gradient for the weights
             self.loss_weights.grad = torch.autograd.grad(grad_norm_loss, self.loss_weights)[0]
+
 
     def on_train_batch_end(self, out, batch, batch_idx):
         '''
@@ -327,9 +324,10 @@ class HardSharing_PL(pl.LightningModule):
         train_step_outputs: torch.Tensor
             List of dictionaries produced by repeating of training steps
         """
-        # renormalize (for GradNorm algorithm)
-        normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
-        self.loss_weights.data *= normalize_coeff
+        if self.grad_norm:
+            # renormalize (for GradNorm algorithm)
+            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
+            self.loss_weights.data *= normalize_coeff
 
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
@@ -446,7 +444,6 @@ class HardSharing_PL(pl.LightningModule):
         self.log("si_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         
     
-
     def test_step(self, batch, batch_idx, dataloader_idx=0):
         """Hook function performing the test step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
@@ -506,7 +503,6 @@ class HardSharing_PL(pl.LightningModule):
         return [early_stop, lr_monitor, checkpoint]
         # return [lr_monitor, checkpoint]
 
- 
     def configure_optimizers(self):
         """Configure training optimizers."""
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)

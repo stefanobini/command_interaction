@@ -60,6 +60,7 @@ class ResNet8_PL(pl.LightningModule):
         """
         super().__init__()
 
+        self.task = settings.task.lower()
         out_channel = settings.model.resnet8.out_channel
 
         self.conv0 = torch.nn.Conv2d(1, out_channel, (3, 3), padding=(1, 1), bias=False)
@@ -69,13 +70,13 @@ class ResNet8_PL(pl.LightningModule):
         self.convs = [torch.nn.Conv2d(out_channel, out_channel, (3, 3), padding=1, bias=False) for _ in range(n_layers)]
         for i, conv in enumerate(self.convs):
             self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(out_channel, affine=False))
-            self.add_module(f'conv{i + 1}', conv)        
+            self.add_module(f'conv{i + 1}', conv)
         self.output = torch.nn.Linear(out_channel, num_labels)
         # self.softmax = torch.nn.Softmax(dim=1)
         
         self.settings = settings
-        # self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights)
         self.loss_weights = loss_weights
+        self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights)
         self.num_labels = num_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
@@ -125,12 +126,7 @@ class ResNet8_PL(pl.LightningModule):
         x = torch.mean(x, 2)      # Global Average Pooling
 
         return self.output(x)
-
-
-    def set_parameters(self, settings:DotMap, num_labels:int, loss_weights:torch.Tensor=None) -> None:
-        self.settings = settings
-        self.loss_fn = torch.nn.CrossEntropyLoss(weight=loss_weights)
-        self.num_labels = num_labels
+    
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         """Set the training loader.
@@ -214,9 +210,6 @@ class ResNet8_PL(pl.LightningModule):
         dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
         shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
-        self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights).cuda()
-
-
     def on_train_epoch_start(self) -> None:
         """Hook function triggered when the training of an epoch start.
         The function shuffle the noise dataset."""
@@ -241,10 +234,8 @@ class ResNet8_PL(pl.LightningModule):
         logits = self.forward(x=x)
         loss = self.loss_fn(input=logits, target=y)
 
-        # train_step_output = {"loss": loss, "logits": logits, "targets": y}
         train_step_output = {"loss": loss, "logits": logits, "targets": y, "snr": snr}
         return train_step_output
-    
     
     def training_epoch_end(self, train_step_outputs) -> None:
         """Hook function triggered when training epoch ends.
@@ -271,8 +262,8 @@ class ResNet8_PL(pl.LightningModule):
         # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
         avg_snr /= len(train_step_outputs)
 
-        self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("train_accuracy", accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("train_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
+        self.log("{}_train_accuracy".format(self.task), accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
@@ -296,7 +287,6 @@ class ResNet8_PL(pl.LightningModule):
 
         validation_step_output = {"logits": logits, "targets": y, "snrs": snr}
         return validation_step_output
-
 
     def validation_epoch_end(self, val_step_outputs) -> None:
         """Hook function triggered when validation epoch ends.
@@ -331,8 +321,8 @@ class ResNet8_PL(pl.LightningModule):
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
-        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
-        self.log("accuracy", accuracy, on_epoch=True, prog_bar=True, logger=True)
+        self.log("val_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)
+        self.log("{}_val_accuracy".format(self.task), accuracy, on_epoch=True, prog_bar=True, logger=True)
         '''
         self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("reject_accuracy", reject_accuracy, on_epoch=True, prog_bar=True, logger=True)
@@ -360,7 +350,7 @@ class ResNet8_PL(pl.LightningModule):
             targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
             snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
             '''
-            self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
+            # self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
             '''
             self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
             self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
@@ -436,7 +426,6 @@ class ResNet8_PL(pl.LightningModule):
         return [early_stop, lr_monitor, checkpoint]
         # return [lr_monitor, checkpoint]
 
- 
     def configure_optimizers(self):
         """Configure training optimizers."""
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)

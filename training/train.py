@@ -18,7 +18,9 @@ from models.resnet8 import ResNet8_PL
 from models.mobilenetv2 import MobileNetV2_PL
 from models.conformer import Conformer_PL
 from models.hardsharing import HardSharing_PL
+# from models.hardsharing_mobilenetv2 import HardSharing_PL
 from models.softsharing import SoftSharing_PL
+# from models.softsharing_mobilenetv2 import SoftSharing_PL
 
 
 parser = argparse.ArgumentParser()
@@ -129,14 +131,12 @@ elif settings.model.network == "mobilenetv2":
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
-        print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
-    model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
 elif settings.model.network == "conformer":
     model = Conformer_PL(settings=settings, num_labels=len(labels)).cuda()
 elif settings.model.network == "HS":
     model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda()
 elif settings.model.network == "SS":
-    model = SoftSharing_PL(settings=settings, num_label1=len(labels_1), num_label2=len(labels_2), loss_weights1=None, loss_weights2=None).cuda()
+    model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda()
 
 
 model.set_train_dataloader(dataloader=train_loader)

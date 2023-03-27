@@ -10,7 +10,7 @@ from utils.settings.MTL_conf import settings
 
 
 SRC_DATASET_PATH = "./datasets/MIVIA_ISC"
-OUT_PATH = "./datasets/MTL_experimentation_0"
+OUT_PATH = "./datasets/MTL_scr_sid"
 LANGs = ["ita", "eng"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -133,4 +133,4 @@ def build_set(subset:str):
 
 build_train_set()
 build_set(subset="validation")
-build_set(subset="testing")
+# build_set(subset="testing")

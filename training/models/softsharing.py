@@ -23,7 +23,7 @@ from utils.scr_si_loss import MT_loss
 
 class SoftSharing_PL(pl.LightningModule):
 
-    def __init__(self, settings:DotMap, num_label1:int, num_label2:int, loss_weights1:torch.Tensor=None, loss_weights2:torch.Tensor=None):
+    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float=None):
         """
         
         Methods
@@ -83,14 +83,16 @@ class SoftSharing_PL(pl.LightningModule):
         for i, conv in enumerate(self.branch2_convs):
             self.add_module(f'branch2_bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
             self.add_module(f'branch2_conv{i + 1}', conv)
-        self.branch1_output = torch.nn.Linear(embedding_size, num_label1)
-        self.branch2_output = torch.nn.Linear(embedding_size, num_label2)
+        self.branch1_output = torch.nn.Linear(embedding_size, task_n_labels[0])
+        self.branch2_output = torch.nn.Linear(embedding_size, task_n_labels[1])
         # self.softmax = torch.nn.Softmax(dim=1)
 
-        self.loss_fn = MT_loss(coefficient1=0.5, weights1=loss_weights1, coefficient2=0.5, weights2=loss_weights2)
+        self.n_tasks = 2    # SCR and SI
+        self.grad_norm = self.settings.training.loss.type == "grad_norm"
+        self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks), requires_grad=self.grad_norm)
+        self.loss_fn = MT_loss(weights1=task_loss_weights[0], weights2=task_loss_weights[1])
         
-        self.num_label1 = num_label1
-        self.num_label2 = num_label2
+        self.task_n_labels = task_n_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
@@ -246,11 +248,15 @@ class SoftSharing_PL(pl.LightningModule):
         return self.test_loaders
     
 
-    def on_train_start(self) -> None:
-        src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
-        dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
-        shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
+    def get_last_shared_layer(self):
+        return getattr(self, f'shared_conv{self.n_shared_layer}')
 
+
+    def on_train_start(self) -> None:
+        if not self.settings.training.lr.auto_find:
+            src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
+            dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
+            shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
     def on_train_epoch_start(self) -> None:
         """Hook function triggered when the training of an epoch start.
@@ -274,21 +280,76 @@ class SoftSharing_PL(pl.LightningModule):
         """
         x, speakers, commands, snr = batch
         command_logits, speaker_logits = self.forward(x=x)
-        
-        loss, scr_loss, si_loss = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
 
-        # train_step_output = {"loss": loss, "logits": logits, "targets": y}
+        self.losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        weighted_task_loss = torch.mul(self.loss_weights, self.losses)
+        loss = torch.sum(weighted_task_loss)
+
+        # initialize the initial loss L(0) if t=0
+        if self.current_epoch == 0 and self.grad_norm:
+            # set L(0) to the Log(C) because we use CrossEntropy for both the tasks
+            self.initial_task_loss = np.log(self.task_n_labels)
+
         train_step_output = {"loss": loss,
-                             "scr_loss": scr_loss,
-                             "si_loss": si_loss,
-                             "command_logits": command_logits,
-                             "speaker_logits": speaker_logits,
-                             "commands": commands,
-                             "speakers": speakers,
+                             "command_logits": command_logits.detach(),
+                             "speaker_logits": speaker_logits.detach(),
+                             "commands": commands.detach(),
+                             "speakers": speakers.detach(),
                              "snr": snr}
         return train_step_output
-    
-    
+
+
+    def backward(self, loss, optimizer, optimizer_idx):
+        # do a custom way of backward
+        loss.backward(retain_graph=self.grad_norm)
+
+    def on_after_backward(self):
+
+        ######################
+        # GradNorm algorithm #
+        ######################
+        if self.grad_norm:
+            self.loss_weights.grad.data *= 0.0
+            
+            # get layer of shared weights
+            shared_weights = self.get_last_shared_layer()
+
+            # get the gradient norms for each of the tasks
+            # G^{(i)}_w(t) 
+            norms = list()
+            for i in range(len(self.losses)):
+                # get the gradient of this task loss with respect to the shared parameters
+                gygw = torch.autograd.grad(self.losses[i], shared_weights.parameters(), retain_graph=True)
+                # compute the norm
+                norms.append(torch.norm(torch.mul(self.loss_weights[i], gygw[0])))
+            norms = torch.stack(norms)
+
+            # compute the inverse training rate r_i(t)
+            loss_ratio = self.losses.data.cpu().numpy() / self.initial_task_loss
+            # r_i(t)
+            inverse_train_rate = loss_ratio / np.mean(loss_ratio)
+
+            # compute the mean norm \tilde{G}_w(t)
+            mean_norm = np.mean(norms.data.cpu().numpy())
+
+            constant_term = torch.tensor(mean_norm * (inverse_train_rate ** self.settings.training.loss.grad_norm.alpha), requires_grad=False).cuda()
+            # this is the GradNorm loss itself
+            grad_norm_loss = torch.sum(torch.abs(norms - constant_term))
+
+            # compute the gradient for the weights
+            self.loss_weights.grad = torch.autograd.grad(grad_norm_loss, self.loss_weights)[0]
+
+
+    def on_train_batch_end(self, out, batch, batch_idx):
+        '''
+        thresh = 0.001
+        self.loss_weights.data = torch.where(self.loss_weights > thresh, self.loss_weights.data, thresh)
+        '''
+        # Clean all the gradient
+        # self.loss_weights.
+        # Check memoty occupation
+        # print(Back.YELLOW + "CUDA memory occupation: {:.2f}".format(torch.cuda.memory_allocated("cuda:3")/1e9))
+
     def training_epoch_end(self, train_step_outputs) -> None:
         """Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
@@ -298,6 +359,11 @@ class SoftSharing_PL(pl.LightningModule):
         train_step_outputs: torch.Tensor
             List of dictionaries produced by repeating of training steps
         """
+        if self.grad_norm:
+            # renormalize (for GradNorm algorithm)
+            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
+            self.loss_weights.data *= normalize_coeff
+
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
         command_logits = train_step_outputs[0]["command_logits"]
@@ -311,12 +377,16 @@ class SoftSharing_PL(pl.LightningModule):
             speaker_logits = torch.concat(tensors=[speaker_logits, train_step_outputs[i]["speaker_logits"]])
             speakers = torch.concat(tensors=[speakers, train_step_outputs[i]["speakers"]])
             avg_snr += train_step_outputs[i]["snr"]
-        loss, scr_loss, si_loss = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        
+        losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        weighted_task_loss = torch.mul(self.loss_weights, losses)
+        loss = torch.sum(weighted_task_loss)
+        scr_loss, si_loss = losses[0], losses[1]
   
         command_predictions = torch.max(input=command_logits, dim=1).indices
         speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
-        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_label1, average="micro")
-        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_label2, average="micro")
+        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
+        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
         # command_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_label1, average="weighted")
         # speaker_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_label2, average="weighted")
         avg_snr /= len(train_step_outputs)
@@ -326,9 +396,11 @@ class SoftSharing_PL(pl.LightningModule):
         self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
         self.log("scr_train_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("scr_train_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("scr_loss_weight", self.loss_weights[0].data, on_epoch=True, prog_bar=True, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("si_train_loss", si_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("si_train_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("si_loss_weight", self.loss_weights[1].data, on_epoch=True, prog_bar=True, logger=True)
         self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
@@ -356,7 +428,6 @@ class SoftSharing_PL(pl.LightningModule):
                                   "snrs": snr}
         return validation_step_output
 
-
     def validation_epoch_end(self, val_step_outputs) -> None:
         """Hook function triggered when validation epoch ends.
         Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
@@ -381,12 +452,15 @@ class SoftSharing_PL(pl.LightningModule):
             snrs = torch.concat(tensors=[snrs, val_step_outputs[i]["snrs"]])
 
         # Compute average metrics
-        loss, scr_loss, si_loss = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        weighted_task_loss = torch.mul(self.loss_weights, losses)
+        loss = torch.sum(weighted_task_loss)
+        scr_loss, si_loss = losses[0], losses[1]
 
         command_predictions = torch.max(input=command_logits, dim=1).indices
         speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
-        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_label1, average="micro")
-        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_label2, average="micro")
+        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
+        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
         # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
         '''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
@@ -405,7 +479,6 @@ class SoftSharing_PL(pl.LightningModule):
         self.log("si_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
         
     
-
     def test_step(self, batch, batch_idx, dataloader_idx=0):
         """Hook function performing the test step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
@@ -463,9 +536,7 @@ class SoftSharing_PL(pl.LightningModule):
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
         checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]
-        # return [lr_monitor, checkpoint]
 
- 
     def configure_optimizers(self):
         """Configure training optimizers."""
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, betas=self.settings.training.optimizer.betas, eps=self.settings.training.optimizer.eps, weight_decay=self.settings.training.optimizer.weight_decay, amsgrad=self.settings.training.optimizer.amsgrad)
