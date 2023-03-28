@@ -16,7 +16,7 @@ from dotmap import DotMap
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 # from settings.MTL_conf import settings
 from utils.scr_si_loss import MT_loss
@@ -96,7 +96,6 @@ class HardSharing_PL(pl.LightningModule):
         """Forward the network.
         Input size: (Batch, Channel, Frequency, Time)
         
-        
         Parameters
         ----------
         x: torch.Tensor
@@ -108,7 +107,25 @@ class HardSharing_PL(pl.LightningModule):
             Logit tensor
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-
+        shared_embedding, speaker_embedding = self.get_embeddings(x=x)
+        return self.command_output(shared_embedding), self.speaker_output(speaker_embedding)
+    
+    def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
+        """Extract the shared and speaker embeddings from the input.
+        Input size: (Batch, Channel, Frequency, Time)
+        
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor
+        
+        Returns
+        -------
+        torch.Tensor
+            Shared embedding obtained from the shared part of the multitask network
+        torch.Tensor
+            Speaker embedding obtained from the second-last layer of the speaker branch
+        """
         if self.settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
@@ -133,7 +150,11 @@ class HardSharing_PL(pl.LightningModule):
         x = torch.mean(x, 2)      # Global Average Pooling
         speaker_embedding = self.speaker_features(x)
 
-        return self.command_output(x), self.speaker_output(speaker_embedding)
+        return x, speaker_embedding
+
+    def predict_srid(self, x:torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        shared_embedding, speaker_embedding = self.get_embeddings(x=x)
+        return self.command_output(shared_embedding), speaker_embedding
 
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:

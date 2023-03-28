@@ -23,6 +23,9 @@ from models.softsharing import SoftSharing_PL
 # from models.softsharing_mobilenetv2 import SoftSharing_PL
 
 
+########################
+# Acquiring parameters #
+########################
 parser = argparse.ArgumentParser()
 parser.add_argument("--configuration", type=str, dest="configuration", required=True, help="Configuration file (e.g., 'conf_1')")
 args = parser.parse_args()
@@ -31,7 +34,7 @@ settings = getattr(__import__(args.configuration, fromlist=["settings"]), "setti
 print(Back.CYAN + "Loaded <{}> as configuration file.".format(settings.name))
 
 # Disable 'autograd' after testing the framework
-torch.autograd.detect_anomaly()
+# torch.autograd.detect_anomaly()
 
 
 ########################

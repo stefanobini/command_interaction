@@ -1,7 +1,8 @@
 import os
 import pandas as pd
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Hashable
 from dotmap import DotMap
+import pandas
 
 import torch
 from torch.utils.data import Dataset
@@ -99,20 +100,17 @@ class MiviaDataset(Dataset):
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
         full_path = os.path.join(self.dataset_path, rel_path)
-        waveform, sample_rate = torchaudio.load(full_path)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label)
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
             item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
         
-        #########################################################################
-        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
-        #########################################################################
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
@@ -141,7 +139,6 @@ class MiviaDataset(Dataset):
             List of the speakers
         """
         return list(self.speech_annotations.groupby("speaker").groups.keys())
-
 
     def _get_class_weights(self) -> List[torch.Tensor]:
         """Get the weights for each class calculated as a percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
@@ -249,9 +246,6 @@ class TrainingMiviaDataset(MiviaDataset):
         elif self.settings.input.type == "melspectrogram":
             item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
         
-        #########################################################################
-        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
-        #########################################################################
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
@@ -416,6 +410,26 @@ class TestingMiviaDataset(MiviaDataset):
 
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
             
+
+class knnMiviaDataset(MiviaDataset):
+    def __init__(self, settings:DotMap, subset:str="all", n_samples_per_speaker:int=1) -> Dataset:
+        super().__init__(settings=settings)
+        
+        self.dataset_path = os.path.join(self.settings.dataset.knn.folder)
+        self.n_samples_per_speaker = n_samples_per_speaker
+        
+        if subset == "all":
+            self.speech_annotations = pd.read_csv(self.settings.dataset.knn.training.annotations.replace("training", "dataset"), sep=',')
+        elif subset == "training":
+            self.speech_annotations = pd.read_csv(self.settings.dataset.knn.training.annotations.replace(".csv", "_{}_samples.csv".format(n_samples_per_speaker)), sep=',')
+        elif subset == "testing":
+            self.speech_annotations = pd.read_csv(self.settings.dataset.knn.testing.annotations.replace(".csv", "_{}_samples.csv".format(n_samples_per_speaker)), sep=',')
+        
+        self.speaker_group = self.speech_annotations.groupby(self.speech_annotations.speaker)
+    
+    def _get_speaker_group(self) -> pandas.core.groupby.generic.DataFrameGroupBy:
+        return self.speaker_group
+
 
 #########################
 ### UTILITY FUNCTIONS ###

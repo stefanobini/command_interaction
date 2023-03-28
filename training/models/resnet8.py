@@ -101,7 +101,23 @@ class ResNet8_PL(pl.LightningModule):
             Logit tensor
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-
+        x = self.get_embeddings(x=x)
+        return self.output(x)
+    
+    def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
+        """Extract the embedding from the input.
+        Input size: (Batch, Channel, Frequency, Time)
+        
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor
+        
+        Returns
+        -------
+        torch.Tensor
+            Embedding obtained from the second-last layer of the network
+        """
         if self.settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
@@ -120,13 +136,12 @@ class ResNet8_PL(pl.LightningModule):
             else:
                 x = y
             if i > 0:
-                x = getattr(self, f'bn{i}')(x)
-                
+                x = getattr(self, f'bn{i}')(x)    
+        
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
         x = torch.mean(x, 2)      # Global Average Pooling
+        return x
 
-        return self.output(x)
-    
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         """Set the training loader.

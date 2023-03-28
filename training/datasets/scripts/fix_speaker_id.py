@@ -4,7 +4,7 @@ import numpy
 
 
 LANGS = ["eng", "ita"]
-DATASET_PATH = "./datasets/MTL_scr_sid/annotations"
+DATASET_PATH = "./datasets/MTL_scr_srid/annotations"
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 
 speaker_dict = dict()

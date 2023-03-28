@@ -26,6 +26,7 @@ conda activate training
 ## Preliminary operations
 Before starting with the training of the system you should create the dataset with command, synthetic and reject samples. Then there are the necessary commands. The source and destination paths need to be changed in the code, along with their parameters.
 
+### Dataset and annotation file for SCR and SID
 To create annotation files:
 ```bash
 python3 datasets/scripts/remove_underrepresented_speakers.py
@@ -49,4 +50,15 @@ python3 datasets/scripts/check_speakers.py
 To build the dataset (audio file):
 ```bash
 python3 datasets/scripts/build_dataset.py
+```
+
+### Dataset and annotation file for SCR and SRID
+After moving the previous annotation file in the new experiemntation folder and renamed it in "dataset_no_speaker_id.csv", use the following command to convert the name of the speaker in an ID:
+```bash
+python3 datasets/scripts/fix_speaker_id.py
+```
+
+To split dataset in training and validation set for training SCR-SID multitask network:
+```bash
+python3 datasets/scripts/split_annotations_MTL_knn.py
 ```

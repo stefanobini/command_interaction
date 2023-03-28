@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Tuple
 import os
 import pickle
 import shutil
@@ -116,7 +116,25 @@ class SoftSharing_PL(pl.LightningModule):
             Logit tensor
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
+        embedding1, embedding2 = self.get_embeddings(x=x)
+        return self.branch1_output(embedding1), self.branch2_output(embedding2)
 
+    def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
+        """Extract the shared and speaker embeddings from the input.
+        Input size: (Batch, Channel, Frequency, Time)
+        
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor
+        
+        Returns
+        -------
+        torch.Tensor
+            Shared embedding obtained from the shared part of the multitask network
+        torch.Tensor
+            Speaker embedding obtained from the second-last layer of the speaker branch
+        """
         if self.settings.model.input.normalize:
             x = torch.nn.functional.normalize(input=x)
 
@@ -167,8 +185,11 @@ class SoftSharing_PL(pl.LightningModule):
             x2 = getattr(self, f'branch2_bn{i}')(x2)
         x2 = x1.view(x2.size(0), x2.size(1), -1)  # shape: (batch, feats, o3)
         x2 = torch.mean(x2, 2)      # Global Average Pooling
-
-        return self.branch1_output(x1), self.branch2_output(x2)
+        return x1, x2
+    
+    def predict_srid(self, x:torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        shared_embedding, speaker_embedding = self.get_embeddings(x=x)
+        return self.branch1_output(shared_embedding), speaker_embedding
 
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:

@@ -70,7 +70,7 @@ settings.model.conformer.convolution_first: bool = False
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 16
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.devices:int = [1]                                         # list of the GPU devices to use
+settings.training.devices:int = [3]                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -82,7 +82,7 @@ settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
-settings.training.optimizer.weight_decay:float = 0.001                      # Default 0
+settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
 settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
