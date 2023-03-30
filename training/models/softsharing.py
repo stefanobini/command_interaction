@@ -323,7 +323,7 @@ class SoftSharing_PL(pl.LightningModule):
         return loss
 
 
-    def backward(self, loss, optimizer, optimizer_idx):
+    def backward(self, loss):
         # do a custom way of backward
         loss.backward(retain_graph=self.grad_norm)
 
@@ -449,7 +449,7 @@ class SoftSharing_PL(pl.LightningModule):
                                              "speakers": speakers,
                                              "snrs": snr})
 
-    def validation_epoch_end(self) -> None:
+    def on_validation_epoch_end(self) -> None:
         """Hook function triggered when validation epoch ends.
         Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
         """
@@ -472,8 +472,7 @@ class SoftSharing_PL(pl.LightningModule):
 
         # Compute average metrics
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
-        weighted_task_loss = torch.mul(self.loss_weights, losses)
-        loss = torch.sum(weighted_task_loss)
+        loss = torch.sum(losses)
         scr_loss, si_loss = losses[0], losses[1]
 
         command_predictions = torch.max(input=command_logits, dim=1).indices
@@ -519,7 +518,7 @@ class SoftSharing_PL(pl.LightningModule):
                                        "targets": y,
                                        "snrs": snr})
     
-    def test_epoch_end(self, outputs):
+    def on_test_epoch_end(self):
         accuracies = list()
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set

@@ -408,7 +408,7 @@ class ResNet8_PL(pl.LightningModule):
                                        "targets": y,
                                        "snrs": snr})
     
-    def test_epoch_end(self):
+    def on_test_epoch_end(self):
         accuracies = list()
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set

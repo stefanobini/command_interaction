@@ -6,6 +6,8 @@ colorama.init(autoreset=True)
 from colorama import Back, Fore
 import argparse
 from tqdm import tqdm
+from typing import Tuple
+from dotmap import DotMap
 
 import numpy as np
 import torch
@@ -24,6 +26,33 @@ from models.softsharing import SoftSharing_PL
 from models.knn import NearestNeighbor
 
 
+def build_embeddings(settings:DotMap, set_name:str, subset:torch.Tensor, model:torch.nn.Module) -> Tuple[torch.Tensor, torch.Tensor]:
+    # Initialiaze prototypes list
+    #prototypes = np.zeros(shape=(len(train_set), settings.model.resnet8.out_channel)), np.zeros(shape=len(train_set))
+    x_set = torch.zeros(size=(len(subset), settings.model.resnet8.out_channel), device=settings.training.device)
+    y_set = torch.zeros(len(subset), device=settings.training.device)
+    index = 0
+
+    # Build prototypes with training samples
+    set_iter = tqdm(subset)
+    for _, x, _, _, _, speaker, command in set_iter:
+        # Predict the outputs
+        if settings.task == "SCR_SI":
+            predicted_command, speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=settings.training.device))
+        elif settings.task == "SI":
+            speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=settings.training.device))
+        elif settings.task == "SCR":
+            predicted_command = model(x=x)
+        # Collect prototypes
+        x_set[index] = speaker_embedding.squeeze().detach()
+        y_set[index] = speaker
+        index += 1
+
+        set_iter.set_description("Loading the speakers embedding of the {} set".format(set_name))
+
+    return x_set, y_set
+
+
 # Acquiring parameters
 parser = argparse.ArgumentParser()
 parser.add_argument("--configuration", type=str, dest="configuration", required=True, help="Configuration file (e.g., 'conf_1')")
@@ -37,14 +66,11 @@ print(Back.CYAN + "Loaded <{}> as configuration file.".format(settings.name))
 #          CUDA         #
 #########################
 if torch.cuda.is_available():
-    print(Back.GREEN + "CUDA acceleration available on {} devices, you select {}".format(torch.cuda.device_count(), settings.training.devices))
-# Set CUDA device
-devices = ""
-for device in settings.training.devices:
-    devices += str(device) + ", "
-devices = devices[:-2]
-os.environ["CUDA_VISIBLE_DEVICES"] = devices
-device = settings.training.devices[0]
+    available_devices = [i for i in range(torch.cuda.device_count())]
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(available_devices)
+    print(Back.GREEN + "CUDA acceleration available on <{}> devices: <{}>".format(torch.cuda.device_count(), available_devices))
+    print(Back.GREEN + "The current device is <{}>, you select device <{}>".format(torch.cuda.current_device(), settings.training.device))
+    pin_memory = True if settings.training.device=="cuda" else False
 
 # Setting seed for reproducibility
 # pl.seed_everything(5138)
@@ -66,7 +92,7 @@ labels_1 = dataset._get_commands()
 labels_2 = dataset._get_speakers()
 
 if settings.task == "SCR_SI":
-    labels = labels_1
+    labels = labels_2
     task_n_labels = list((len(labels_1), len(labels_2)))
 elif settings.task == "SCR":
     labels = labels_1
@@ -74,7 +100,8 @@ elif settings.task == "SI":
     labels = labels_2
 else:
     sys.exit("The <{}> task is not allowed.".format(settings.task))
-
+num_speakers = len(labels)
+# print("Number of speakers: {}".format(num_speakers))
 
 #########################
 #         Model         #
@@ -109,77 +136,49 @@ elif settings.model.network == "SS":
 # Model summary
 input_shape = (1, 40, 100)
 summary(model, input_shape, device="cpu")
-model = model.cuda(device=device)
+model = model.cuda(device=settings.training.device)
 
 #########################
 #   k-Nearest Neighbor  #
 #########################
 # Set similarity metric
-if settings.model.knn.similarity_fn == "cosine_similarity":
-    similarity_fn = nn.CosineSimilarity(dim=settings.model.knn.dim, eps=settings.model.knn.eps)
+if settings.knn.metric == "similarity" and settings.knn.function == "cosine":
+    metric_fn = nn.CosineSimilarity(dim=settings.knn.cosine_similarity.dim, eps=settings.knn.cosine_similarity.eps)
+elif settings.knn.metric == "distance" and settings.knn.function == "euclidean":
+    metric_fn = nn.PairwiseDistance(p=2, eps=settings.knn.cosine_similarity.eps)
 # Initialize Nearest neighbor classifier
-knn_classifier = NearestNeighbor(settings=settings, similarity_fn=similarity_fn)
+knn_classifier = NearestNeighbor(settings=settings, metric_fn=metric_fn)
 
 accuracies = {"sampleXspeaker":list(), "accuracy":list()}
-for n_samples_per_speaker in settings.dataset.knn.n_samples_per_speaker:
+for n_samples_per_speaker in settings.knn.n_samples_per_speaker:
+    print("################################")
+    print("#   <{:2d}> samples per speaker   #".format(n_samples_per_speaker))
+    print("################################")
+
     # Load the dataloaders
     train_set = knnMiviaDataset(settings=settings, subset="training", n_samples_per_speaker=n_samples_per_speaker)
     test_set = knnMiviaDataset(settings=settings, subset="testing", n_samples_per_speaker=n_samples_per_speaker)
 
-    # Initialiaze prototypes list
-    #prototypes = np.zeros(shape=(len(train_set), settings.model.resnet8.out_channel)), np.zeros(shape=len(train_set))
-    x_train = torch.zeros(size=(len(train_set), settings.model.resnet8.out_channel), device="cuda:{}".format(device))
-    y_train = torch.zeros(len(train_set), device="cuda:{}".format(device))
-    index = 0
-
-    # Build prototypes with training samples
-    train_iter = tqdm(train_set)
-    for _, x, _, _, _, speaker, command in train_iter:
-        # Predict the outputs
-        if settings.task == "SCR_SI":
-            predicted_command, speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=device))
-        elif settings.task == "SI":
-            speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=device))
-        elif settings.task == "SCR":
-            predicted_command = model(x=x)
-        # Collect prototypes
-        x_train[index] = speaker_embedding.squeeze()
-        y_train[index] = speaker
-        index += 1
-
-        train_iter.set_description("Training phase with <{}> samples per speaker".format(n_samples_per_speaker))
+    # Compute training embeddings
+    x_train, y_train = build_embeddings(settings=settings, set_name="Training", subset=train_set, model=model)
     
     # Train k-Nearest Neighbor
-    knn_classifier.train(X=x_train, y=y_train)            
+    knn_classifier.train(X=x_train, y=y_train)
+    if settings.knn.plotting:
+        figure_path = os.path.join(results_path, "{:2d}_train_distribution.png".format(n_samples_per_speaker))
+        knn_classifier.plot_train_samples(figure_path=figure_path)     # Plot training embedding represented with T-SNE
     
-    # Testing phase
-    y_test = torch.zeros(len(test_set), device="cuda:{}".format(device))
-    predictions = torch.zeros(len(test_set), device="cuda:{}".format(device))
-    index = 0
-
-    test_iter = tqdm(test_set)
-    for _, x, _, _, _, speaker, command in test_iter:
-        # Predict the outputs
-        if settings.task == "SCR_SI":
-            predicted_command, speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=device))
-        elif settings.task == "SI":
-            speaker_embedding = model.get_embeddings(x=x.unsqueeze(dim=0).cuda(device=device))
-        elif settings.task == "SCR":
-            predicted_command = model(x=x)
-        predicted_speaker = knn_classifier.predict(X=speaker_embedding.squeeze())
-        
-        # Collect results
-        y_test[index] = speaker
-        predictions[index] = predicted_speaker
-        index += 1
-
-        test_iter.set_description("Testing phase with <{}> samples per speaker".format(n_samples_per_speaker))
+    # Compute embeddings
+    x_test, y_test = build_embeddings(settings=settings, set_name="Testing", subset=test_set, model=model)
+    
+    # Test k-Nearest Neighbor
+    predictions = knn_classifier.predict(X=x_test)
 
     # Compute metrics
-    accuracy = torchmetrics.functional.classification.accuracy(preds=predictions, target=y_test, task="multiclass", num_classes=task_n_labels[1], average="micro")
+    accuracy = torchmetrics.functional.classification.accuracy(preds=predictions, target=y_test, task="multiclass", num_classes=num_speakers, average="micro")
     accuracies["sampleXspeaker"].append(n_samples_per_speaker)
-    accuracies["accuracy"].append(accuracy*100)
-    print("ACCURACY with <{}> samples per speaker is: {:.2f} %".format(n_samples_per_speaker, accuracy*100))
+    accuracies["accuracy"].append("{:.2f}".format(accuracy.item()*100))
+    print("Accuracy: {:.2f} %\n".format(accuracy*100))
 
 # Save results
 os.makedirs(results_path, exist_ok=True)
@@ -187,6 +186,6 @@ results_file = os.path.join(results_path, "srid_results.csv")
 
 HEADINGS = ["sampleXspeaker", "accuracy"]
 df = pandas.DataFrame(data=accuracies, columns=HEADINGS)
-pandas.to_csv(path_or_buf=df, index=False)
+df.to_csv(path_or_buf=results_file, index=False)
 
 # https://github.com/Kulbear/pytorch-the-hard-way/blob/master/Solutions/Nearest%20Neighbor.ipynb

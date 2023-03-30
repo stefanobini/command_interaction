@@ -437,8 +437,7 @@ class HardSharing_PL(pl.LightningModule):
 
         # Compute average metrics
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
-        weighted_task_loss = torch.mul(self.loss_weights, losses)
-        loss = torch.sum(weighted_task_loss)
+        loss = torch.sum(losses)
         scr_loss, si_loss = losses[0], losses[1]
 
         command_predictions = torch.max(input=command_logits, dim=1).indices

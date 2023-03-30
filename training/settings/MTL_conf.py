@@ -9,7 +9,7 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
-settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
+settings.task:str = "SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
 info = ""
 
 '''Input'''
@@ -47,12 +47,11 @@ settings.dataset.knn.folder = "./datasets/MIVIA_ISC"
 settings.dataset.knn.annotations = "./datasets/MTL_scr_srid/annotations"
 settings.dataset.knn.training.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "training.csv")
 settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "testing.csv")
-settings.dataset.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 15, 20]
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "SS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
 settings.model.pretrain:bool = True
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -82,16 +81,20 @@ settings.model.hard_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI
 # Multitask - Soft Sharing, resnet8
 #settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/eng/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=193-step=23280.ckpt"  # eng
 settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=95-step=10656.ckpt"   # ita
-# k-Nearest Neighbor
-settings.model.knn.similarity_fn:str = "cosine_similarity"
-settings.model.knn.eps:float = 1e-8
-settings.model.knn.dim:int = 1
+
+'''k-Nearest Neighbor'''
+settings.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 20]
+settings.knn.metric:str = "distance"  # ["similarity", "distance"]
+settings.knn.function:str = "euclidean"    # ["cosine", "euclidean"]
+settings.knn.cosine_similarity.eps:float = 1e-8
+settings.knn.cosine_similarity.dim:int = 0
+settings.knn.plotting:bool = False  # If <True> plot the train example on two dimension through T-SNE reduction
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 32
+settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:str = 3                                        # list of the GPU devices to use
+settings.training.device:str = 1                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -127,7 +130,7 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = os.path.join(settings.experimentation, settings.input.language, settings.task)       # name of the experiment
 temp = "_"+settings.training.loss.type if settings.task == "SCR_SI" else ""
-additional_info = "{}_{}".format(temp, info)
+additional_info = "{}{}".format(temp, info)
 settings.logger.version:str = "{}_{}{}".format(settings.model.network, settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''

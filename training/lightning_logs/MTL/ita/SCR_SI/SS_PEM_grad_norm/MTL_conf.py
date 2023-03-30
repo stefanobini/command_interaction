@@ -4,11 +4,13 @@ from typing import List
 from dotmap import DotMap
 
 settings = DotMap()
+''' IN THE SINGLE TASK AND SOFTSHARE THE SPEAKER EMBEDDING SIZE IS HALF THAN THE HARDSHARE -> I HAVE TO FIX THIS'''
 
 settings.name:str = __file__
-settings.mode:str = "training"                                                                                          # ["training", "test"]
+settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
 settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
+info = ""
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
@@ -41,21 +43,31 @@ settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset
 settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
+settings.dataset.knn.folder = "./datasets/MIVIA_ISC"
+settings.dataset.knn.annotations = "./datasets/MTL_scr_srid/annotations"
+settings.dataset.knn.training.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "training.csv")
+settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "testing.csv")
+settings.dataset.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 15, 20]
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
 settings.model.network:str = "SS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
-settings.model.pretrain:bool = False
+settings.model.pretrain:bool = True
 settings.model.input.normalize:bool = False
 # ResNet8
 settings.model.resnet8.pooling_size = (4, 3)                            # Default: (4, 3)
 settings.model.resnet8.out_channel = 90                                 # Default: 45
-settings.model.resnet8.speaker_embedding_size:int = settings.model.resnet8.out_channel * 2
+settings.model.resnet8.speaker_embedding_size:int = settings.model.resnet8.out_channel      # beforre was multiplied by 2
 settings.model.resnet8.pretrain_path:str = "./pretrained_models/res8_0/model-best.pt.bin"
+#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/eng/SCR/resnet8_PEM/checkpoints/epoch=42-step=5160.ckpt"       # SCR, eng
+#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/eng/SI/resnet8_PEM/checkpoints/epoch=103-step=12480.ckpt"      # SI, eng
+#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/ita/SCR/resnet8_PEM/checkpoints/epoch=60-step=6771.ckpt"       # SCR, ita
+settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/ita/SI/resnet8_PEM/checkpoints/epoch=60-step=6771.ckpt"        # SI, ita
 # MobileNet V2
 settings.model.mobilenetv2.speaker_embedding_size:int = 100
 settings.model.mobilenetv2.pretrain_path:str = "./pretrained_models/mobilenetv2_0/model-best.pt.bin"
+# settings.model.mobilenetv2.pretrain_path:str = ""
 # Conformer
 settings.model.conformer.num_heads: int = 4
 settings.model.conformer.ffn_dim: int = 128
@@ -64,12 +76,22 @@ settings.model.conformer.depthwise_conv_kernel_size: int = 31
 settings.model.conformer.dropout: float = 0.0
 settings.model.conformer.use_group_norm: bool = False
 settings.model.conformer.convolution_first: bool = False
+# Multitask - Hard Sharing, resnet8
+#settings.model.hard_sharing.pretrain_path:str = "./lightning_logs/MTL/eng/SCR_SI/HS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=71-step=8640.ckpt"    # eng
+settings.model.hard_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI/HS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=122-step=13653.ckpt"  # ita
+# Multitask - Soft Sharing, resnet8
+#settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/eng/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=193-step=23280.ckpt"  # eng
+settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=95-step=10656.ckpt"   # ita
+# k-Nearest Neighbor
+settings.model.knn.similarity_fn:str = "cosine_similarity"
+settings.model.knn.eps:float = 1e-8
+settings.model.knn.dim:int = 0
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 16
+settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.devices:int = [3]                                         # list of the GPU devices to use
+settings.training.device:str = 0                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -81,13 +103,13 @@ settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
-settings.training.optimizer.weight_decay:float = 0.001                      # Default 0
+settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
 settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
 settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights"]
-settings.training.loss.grad_norm.alpha:float = 1.5                         # Default = 0.12. For task with different level of complexity ah higher value of alpha should be used to enforce the stronger training rate balancing
+settings.training.loss.grad_norm.alpha:float = 0.05                         # Default = 0.12. For task with different level of complexity ah higher value of alpha should be used to enforce the stronger training rate balancing
 
 '''Noise & Curriculum Learning'''
 settings.noise.min_snr:int = 40                                              # [-10, 20]
@@ -104,9 +126,9 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = os.path.join(settings.experimentation, settings.input.language, settings.task)       # name of the experiment
-additional_info = "_grad_norm"
+temp = "_"+settings.training.loss.type if settings.task == "SCR_SI" else ""
+additional_info = "{}{}".format(temp, info)
 settings.logger.version:str = "{}_{}{}".format(settings.model.network, settings.noise.curriculum_learning.distribution, additional_info)
-
 
 '''Test'''
 settings.testing.folder:str = "testing"
