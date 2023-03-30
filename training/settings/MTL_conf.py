@@ -10,10 +10,10 @@ settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
 settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
-info = "alfa_0o05_speaker_emb_90_trial2"
+info = ""
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -52,7 +52,7 @@ settings.dataset.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 15, 20]
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "HS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
+settings.model.network:str = "SS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
 settings.model.pretrain:bool = True
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -89,7 +89,7 @@ settings.model.knn.dim:int = 1
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 16
+settings.training.num_workers:str = 32
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1

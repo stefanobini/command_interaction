@@ -89,7 +89,7 @@ settings.model.knn.dim:int = 1
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 16
+settings.training.num_workers:str = 32
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1

@@ -88,9 +88,11 @@ class HardSharing_PL(pl.LightningModule):
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
-        self.training_step_outputs = list()
-        self.validation_step_outputs = list()
-        self.test_step_output = list()
+        
+        # Store the output of each step for analyze them at the end of the epoch
+        self.train_step_outputs = list()
+        self.val_step_outputs = list()
+        self.test_step_outputs = list()
 
         self.save_hyperparameters()
         
@@ -242,10 +244,9 @@ class HardSharing_PL(pl.LightningModule):
 
 
     def on_train_start(self) -> None:
-        if not self.settings.training.lr.auto_find:
-            src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
-            dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
-            shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
+        src_conf_file = os.path.join("settings", self.settings.name.split('/')[-1])
+        dst_conf_file = os.path.join(self.trainer.logger.log_dir, self.settings.name.split('/')[-1])
+        shutil.copyfile(src=src_conf_file, dst=dst_conf_file)
 
     def on_train_epoch_start(self) -> None:
         """Hook function triggered when the training of an epoch start.
@@ -280,7 +281,7 @@ class HardSharing_PL(pl.LightningModule):
             # set L(0) to the Log(C) because we use CrossEntropy for both the tasks
             self.initial_task_loss = np.log(self.task_n_labels)
 
-        self.training_step_outputs.append({"command_logits": command_logits.detach(),
+        self.train_step_outputs.append({"command_logits": command_logits.detach(),
                                             "speaker_logits": speaker_logits.detach(),
                                             "commands": commands.detach(),
                                             "speakers": speakers.detach(),
@@ -338,7 +339,7 @@ class HardSharing_PL(pl.LightningModule):
         # Check memoty occupation
         # print(Back.YELLOW + "CUDA memory occupation: {:.2f}".format(torch.cuda.memory_allocated("cuda:3")/1e9))
 
-    def on_training_epoch_end(self) -> None:
+    def on_train_epoch_end(self) -> None:
         """Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
         """
@@ -349,17 +350,17 @@ class HardSharing_PL(pl.LightningModule):
 
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
-        command_logits = self.training_step_outputs[0]["command_logits"]
-        speaker_logits = self.training_step_outputs[0]["speaker_logits"]
-        commands = self.training_step_outputs[0]["commands"]
-        speakers = self.training_step_outputs[0]["speakers"]
-        avg_snr = self.training_step_outputs[0]["snr"]
+        command_logits = self.train_step_outputs[0]["command_logits"]
+        speaker_logits = self.train_step_outputs[0]["speaker_logits"]
+        commands = self.train_step_outputs[0]["commands"]
+        speakers = self.train_step_outputs[0]["speakers"]
+        avg_snr = self.train_step_outputs[0]["snr"]
         for i in range(1, len_train):
-            command_logits = torch.concat(tensors=[command_logits, self.training_step_outputs[i]["command_logits"]])
-            commands = torch.concat(tensors=[commands, self.training_step_outputs[i]["commands"]])
-            speaker_logits = torch.concat(tensors=[speaker_logits, self.training_step_outputs[i]["speaker_logits"]])
-            speakers = torch.concat(tensors=[speakers, self.training_step_outputs[i]["speakers"]])
-            avg_snr += self.training_step_outputs[i]["snr"]
+            command_logits = torch.concat(tensors=[command_logits, self.train_step_outputs[i]["command_logits"]])
+            commands = torch.concat(tensors=[commands, self.train_step_outputs[i]["commands"]])
+            speaker_logits = torch.concat(tensors=[speaker_logits, self.train_step_outputs[i]["speaker_logits"]])
+            speakers = torch.concat(tensors=[speakers, self.train_step_outputs[i]["speakers"]])
+            avg_snr += self.train_step_outputs[i]["snr"]
         
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
         weighted_task_loss = torch.mul(self.loss_weights, losses)
@@ -372,10 +373,10 @@ class HardSharing_PL(pl.LightningModule):
         speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
         # command_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_label1, average="weighted")
         # speaker_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_label2, average="weighted")
-        avg_snr /= len(self.training_step_outputs)
+        avg_snr /= len(self.train_step_outputs)
 
         # Clean list of the step outputs
-        self.training_step_outputs.clear()  # free memory
+        self.train_step_outputs.clear()  # free memory
 
         # self.logger.experiment.add_scalars("train_accuracy", {"command": command_accuracy, "speaker": speaker_accuracy}, global_step=self.global_step)
         # self.logger.experiment.add_scalars("train_accuracy", {"train_loss": loss, "command": scr_loss, "speaker": si_loss}, global_step=self.global_step)
@@ -407,11 +408,11 @@ class HardSharing_PL(pl.LightningModule):
         x, speakers, commands, snr = batch
         command_logits, speaker_logits = self.forward(x=x)
 
-        self.validation_step_outputs.append({"command_logits": command_logits,
-                                            "speaker_logits": speaker_logits,
-                                            "commands": commands,
-                                            "speakers": speakers,
-                                            "snrs": snr})
+        self.val_step_outputs.append({"command_logits": command_logits,
+                                             "speaker_logits": speaker_logits,
+                                             "commands": commands,
+                                             "speakers": speakers,
+                                             "snrs": snr})
 
     def on_validation_epoch_end(self) -> None:
         """Hook function triggered when validation epoch ends.
@@ -419,20 +420,20 @@ class HardSharing_PL(pl.LightningModule):
         """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
-        command_logits = self.validation_step_outputs[0]["command_logits"]
-        speaker_logits = self.validation_step_outputs[0]["speaker_logits"]
-        commands = self.validation_step_outputs[0]["commands"]
-        speakers = self.validation_step_outputs[0]["speakers"]
-        snrs = self.validation_step_outputs[0]["snrs"]
+        command_logits = self.val_step_outputs[0]["command_logits"]
+        speaker_logits = self.val_step_outputs[0]["speaker_logits"]
+        commands = self.val_step_outputs[0]["commands"]
+        speakers = self.val_step_outputs[0]["speakers"]
+        snrs = self.val_step_outputs[0]["snrs"]
         for i in range(1, len_val):
-            command_logits = torch.concat(tensors=[command_logits, self.validation_step_outputs[i]["command_logits"]])
-            commands = torch.concat(tensors=[commands, self.validation_step_outputs[i]["commands"]])
-            speaker_logits = torch.concat(tensors=[speaker_logits, self.validation_step_outputs[i]["speaker_logits"]])
-            speakers = torch.concat(tensors=[speakers, self.validation_step_outputs[i]["speakers"]])
-            snrs = torch.concat(tensors=[snrs, self.validation_step_outputs[i]["snrs"]])
+            command_logits = torch.concat(tensors=[command_logits, self.val_step_outputs[i]["command_logits"]])
+            commands = torch.concat(tensors=[commands, self.val_step_outputs[i]["commands"]])
+            speaker_logits = torch.concat(tensors=[speaker_logits, self.val_step_outputs[i]["speaker_logits"]])
+            speakers = torch.concat(tensors=[speakers, self.val_step_outputs[i]["speakers"]])
+            snrs = torch.concat(tensors=[snrs, self.val_step_outputs[i]["snrs"]])
         
         # Clean list of the step outputs
-        self.validation_step_outputs.clear()  # free memory
+        self.val_step_outputs.clear()  # free memory
 
         # Compute average metrics
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
@@ -478,23 +479,25 @@ class HardSharing_PL(pl.LightningModule):
         """
         x, y, snr = batch
         logits = self.forward(x=x)
-        self.test_step_output.append({"logits": logits, "targets": y, "snrs": snr})
+        self.test_step_outputs.append({"logits": logits,
+                                      "targets": y,
+                                      "snrs": snr})
     
     def on_test_epoch_end(self):
         accuracies = list()
-        for dataloader in range(len(self.test_step_output)):
+        for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
-            logits = self.test_step_output[dataloader][0]["logits"]
-            targets = self.test_step_output[dataloader][0]["targets"]
-            snrs = self.test_step_output[dataloader][0]["snrs"]
+            logits = self.test_step_outputs[dataloader][0]["logits"]
+            targets = self.test_step_outputs[dataloader][0]["targets"]
+            snrs = self.test_step_outputs[dataloader][0]["snrs"]
             for step in range(1, test_len):
-                logits = torch.concat(tensors=[logits, self.test_step_output[dataloader][step]["logits"]])
-                targets = torch.concat(tensors=[targets, self.test_step_output[dataloader][step]["targets"]])
-                snrs = torch.concat(tensors=[snrs, self.test_step_output[dataloader][step]["snrs"]])
+                logits = torch.concat(tensors=[logits, self.test_step_outputs[dataloader][step]["logits"]])
+                targets = torch.concat(tensors=[targets, self.test_step_outputs[dataloader][step]["targets"]])
+                snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][step]["snrs"]])
 
             # Clean list of the step outputs
-            self.test_step_output.clear()   # free memory
+            self.test_step_outputs.clear()   # free memory
 
             # Compute average metrics
             preds = torch.max(input=logits, dim=1).indices

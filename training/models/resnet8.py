@@ -44,12 +44,12 @@ class ResNet8_PL(pl.LightningModule):
             Hook function triggered when the training of an epoch start. The function shuffle the noise dataset
         training_step(self, batch, batch_idx) -> torch.Tensor
             Hook function performing the training step. Forward the model, compute the loss function and the information for TensorBoard logger.
-        training_epoch_end(self, train_step_outputs) -> None
+        training_epoch_end(self) -> None
             Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
         validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]
             Hook function performing the validation step. Forward the model, compute the loss function and the information for TensorBoard logger.
-        validation_epoch_end(self, val_step_outputs) -> None
+        validation_epoch_end(self) -> None
             Hook function triggered when validation epoch ends. Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
         test_step(self, batch, batch_idx)
             Hook function performing the test step
@@ -81,6 +81,11 @@ class ResNet8_PL(pl.LightningModule):
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
+
+        # Store the output of each step for analyze them at the end of the epoch
+        self.train_step_outputs = list()
+        self.val_step_outputs = list()
+        self.test_step_outputs = list()
 
         self.save_hyperparameters()
         
@@ -142,6 +147,10 @@ class ResNet8_PL(pl.LightningModule):
         x = torch.mean(x, 2)      # Global Average Pooling
         return x
 
+    def predict_srid(self, x:torch.Tensor) -> torch.Tensor:
+        """Return the embedding representing the speaker of the sample."""
+        return self.get_embeddings(x=x)
+    
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         """Set the training loader.
@@ -249,38 +258,36 @@ class ResNet8_PL(pl.LightningModule):
         logits = self.forward(x=x)
         loss = self.loss_fn(input=logits, target=y)
 
-        train_step_output = {"loss": loss, "logits": logits, "targets": y, "snr": snr}
-        return train_step_output
+        self.train_step_outputs.append({"logits": logits, "targets": y, "snr": snr})
+        return loss
     
-    def training_epoch_end(self, train_step_outputs) -> None:
+    def on_train_epoch_end(self) -> None:
         """Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
-
-        Parameters
-        ----------
-        train_step_outputs: torch.Tensor
-            List of dictionaries produced by repeating of training steps
         """
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
-        logits = train_step_outputs[0]["logits"]
-        targets = train_step_outputs[0]["targets"]
-        avg_snr = train_step_outputs[0]["snr"]
+        logits = self.train_step_outputs[0]["logits"]
+        targets = self.train_step_outputs[0]["targets"]
+        avg_snr = self.train_step_outputs[0]["snr"]
         for i in range(1, len_train):
-            logits = torch.concat(tensors=[logits, train_step_outputs[i]["logits"]])
-            targets = torch.concat(tensors=[targets, train_step_outputs[i]["targets"]])
-            avg_snr += train_step_outputs[i]["snr"]
+            logits = torch.concat(tensors=[logits, self.train_step_outputs[i]["logits"]])
+            targets = torch.concat(tensors=[targets, self.train_step_outputs[i]["targets"]])
+            avg_snr += self.train_step_outputs[i]["snr"]
         
         loss = self.loss_fn(input=logits, target=targets)
         preds = torch.max(input=logits, dim=1).indices
         accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
         # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
-        avg_snr /= len(train_step_outputs)
+        avg_snr /= len(self.train_step_outputs)
 
-        self.log("train_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
+        # Clean list of the step outputs
+        self.train_step_outputs.clear()  # free memory
+
+        self.log("{}_train_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
         self.log("{}_train_accuracy".format(self.task), accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
+        # self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
     def validation_step(self, batch, batch_idx) -> Dict[str, torch.Tensor]:
@@ -300,27 +307,26 @@ class ResNet8_PL(pl.LightningModule):
         x, y, snr = batch
         logits = self.forward(x=x)
 
-        validation_step_output = {"logits": logits, "targets": y, "snrs": snr}
-        return validation_step_output
+        self.val_step_outputs.append({"logits": logits,
+                                             "targets": y,
+                                             "snrs": snr})
 
-    def validation_epoch_end(self, val_step_outputs) -> None:
+    def on_validation_epoch_end(self) -> None:
         """Hook function triggered when validation epoch ends.
         Produce the statistics for Tensorboard logger. The statistics are computed for each SNR pool.
-
-        Parameters
-        ----------
-        val_step_outputs: torch.Tensor
-            List of dictionaries produced by repeating of validation steps
         """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
-        logits = val_step_outputs[0]["logits"]
-        targets = val_step_outputs[0]["targets"]
-        snrs = val_step_outputs[0]["snrs"]
+        logits = self.val_step_outputs[0]["logits"]
+        targets = self.val_step_outputs[0]["targets"]
+        snrs = self.val_step_outputs[0]["snrs"]
         for i in range(1, len_val):
-            logits = torch.concat(tensors=[logits, val_step_outputs[i]["logits"]])
-            targets = torch.concat(tensors=[targets, val_step_outputs[i]["targets"]])
-            snrs = torch.concat(tensors=[snrs, val_step_outputs[i]["snrs"]])
+            logits = torch.concat(tensors=[logits, self.val_step_outputs[i]["logits"]])
+            targets = torch.concat(tensors=[targets, self.val_step_outputs[i]["targets"]])
+            snrs = torch.concat(tensors=[snrs, self.val_step_outputs[i]["snrs"]])
+        
+        # Clean list of the step outputs
+        self.val_step_outputs.clear()  # free memory
 
         # Compute average metrics
         loss = self.loss_fn(input=logits, target=targets)
@@ -336,7 +342,7 @@ class ResNet8_PL(pl.LightningModule):
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
-        self.log("val_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)
+        self.log("{}_val_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)
         self.log("{}_val_accuracy".format(self.task), accuracy, on_epoch=True, prog_bar=True, logger=True)
         '''
         self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
@@ -398,21 +404,25 @@ class ResNet8_PL(pl.LightningModule):
         x, y, snr = batch
         logits = self.forward(x=x)
 
-        test_step_output = {"logits": logits, "targets": y, "snrs": snr}
-        return test_step_output
+        self.test_step_outputs.append({"logits": logits,
+                                       "targets": y,
+                                       "snrs": snr})
     
-    def test_epoch_end(self, outputs):
+    def test_epoch_end(self):
         accuracies = list()
-        for dataloader in range(len(outputs)):
+        for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
-            logits = outputs[dataloader][0]["logits"]
-            targets = outputs[dataloader][0]["targets"]
-            snrs = outputs[dataloader][0]["snrs"]
+            logits = self.test_step_outputs[dataloader][0]["logits"]
+            targets = self.test_step_outputs[dataloader][0]["targets"]
+            snrs = self.test_step_outputs[dataloader][0]["snrs"]
             for step in range(1, test_len):
-                logits = torch.concat(tensors=[logits, outputs[dataloader][step]["logits"]])
-                targets = torch.concat(tensors=[targets, outputs[dataloader][step]["targets"]])
-                snrs = torch.concat(tensors=[snrs, outputs[dataloader][step]["snrs"]])
+                logits = torch.concat(tensors=[logits, self.test_step_outputs[dataloader][step]["logits"]])
+                targets = torch.concat(tensors=[targets, self.test_step_outputs[dataloader][step]["targets"]])
+                snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][step]["snrs"]])
+
+            # Clean list of the step outputs
+            self.test_step_outputs.clear()   # free memory
 
             # Compute average metrics
             #loss = self.loss_fn(input=logits, target=targets)

@@ -502,7 +502,7 @@ settings: !!python/object/apply:dotmap.DotMap
             _prevent_method_masking: false
         max_epochs: -1
         min_epochs: 1
-        num_workers: 16
+        num_workers: 32
         optimizer: &id033 !!python/object/apply:dotmap.DotMap
           dictitems:
             amsgrad: false
@@ -545,7 +545,7 @@ settings: !!python/object/apply:dotmap.DotMap
         - - - reject_percentage
             - 0.5
           - - num_workers
-            - 16
+            - 32
           - - accelerator
             - gpu
           - - device
