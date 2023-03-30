@@ -9,7 +9,7 @@ import numpy as np
 import torch
 from pytorch_lightning import loggers
 import pytorch_lightning as pl
-from pytorch_lightning.profiler import SimpleProfiler, AdvancedProfiler
+from pytorch_lightning.profilers import SimpleProfiler, AdvancedProfiler
 
 from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, _SCR_train_collate_fn, _SCR_val_collate_fn, _SI_train_collate_fn, _SI_val_collate_fn, _MT_train_collate_fn, _MT_val_collate_fn
 #from settings.conf_1 import settings
@@ -41,14 +41,11 @@ print(Back.CYAN + "Loaded <{}> as configuration file.".format(settings.name))
 #     Setting CUDA     #
 ########################
 if torch.cuda.is_available():
-    print(Back.GREEN + "CUDA acceleration available on {} devices, you select {}".format(torch.cuda.device_count(), settings.training.devices))
-# Set CUDA device
-devices = ""
-for device in settings.training.devices:
-    devices += str(device) + ", "
-devices = devices[:-2]
-os.environ["CUDA_VISIBLE_DEVICES"] = devices
-pin_memory = True if settings.training.device=="cuda" else False
+    available_devices = [i for i in range(torch.cuda.device_count())]
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(available_devices)
+    print(Back.GREEN + "CUDA acceleration available on <{}> devices: <{}>".format(torch.cuda.device_count(), available_devices))
+    print(Back.GREEN + "The current device is <{}>, you select device <{}>".format(torch.cuda.current_device(), settings.training.device))
+    pin_memory = True if settings.training.device=="cuda" else False
 
 
 ########################
@@ -118,7 +115,7 @@ val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.tr
 assert settings.model.network in ["resnet8", "mobilenetv2", "HS", "SS"]
 model = None
 if settings.model.network == "resnet8":
-    model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda()  # Load model
+    model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
     if settings.model.pretrain:
         #'''
         state_dict = torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s)
@@ -130,16 +127,16 @@ if settings.model.network == "resnet8":
         # model = ResNet8_PL.load_from_checkpoint(checkpoint_path=settings.model.resnet8.pretrain_path, settings=settings, num_labels=len(labels), loss_weights=balanced_weights)
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
 elif settings.model.network == "mobilenetv2":
-    model = MobileNetV2_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda()
+    model = MobileNetV2_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda(settings.training.device)
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
 elif settings.model.network == "conformer":
-    model = Conformer_PL(settings=settings, num_labels=len(labels)).cuda()
+    model = Conformer_PL(settings=settings, num_labels=len(labels)).cuda(settings.training.device)
 elif settings.model.network == "HS":
-    model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda()
+    model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
 elif settings.model.network == "SS":
-    model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda()
+    model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
 
 
 model.set_train_dataloader(dataloader=train_loader)
@@ -150,14 +147,14 @@ model.set_val_dataloader(dataloader=val_loader)
 #   Setting Trainer    #
 ########################
 trainer = pl.Trainer(
-    resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
-    auto_lr_find=settings.training.lr.auto_find,
+    #resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
+    #auto_lr_find=settings.training.lr.auto_find,
     accelerator=settings.training.accelerator,
-    devices=settings.training.devices,
+    devices=[settings.training.device],
     logger=logger,
     max_epochs=settings.training.max_epochs,
     min_epochs=settings.training.min_epochs,
-    track_grad_norm=2,
+    #track_grad_norm=2,
     log_every_n_steps=-1,
     enable_model_summary=True,
     # reload_dataloaders_every_epoch=False,       # set True to shuffle the dataloader before start each epoch

@@ -353,7 +353,7 @@ class SoftSharing_PL(pl.LightningModule):
             # compute the mean norm \tilde{G}_w(t)
             mean_norm = np.mean(norms.data.cpu().numpy())
 
-            constant_term = torch.tensor(mean_norm * (inverse_train_rate ** self.settings.training.loss.grad_norm.alpha), requires_grad=False).cuda()
+            constant_term = torch.tensor(mean_norm * (inverse_train_rate ** self.settings.training.loss.grad_norm.alpha), requires_grad=False).cuda(self.settings.training.device)
             # this is the GradNorm loss itself
             grad_norm_loss = torch.sum(torch.abs(norms - constant_term))
 

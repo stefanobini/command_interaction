@@ -13,7 +13,7 @@ import torchaudio
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
-
+from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
 
 try:
     # If run from the parent folder

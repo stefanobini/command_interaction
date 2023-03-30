@@ -9,11 +9,11 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
-settings.task:str = "SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
-info = "alfa_0o05_speaker_emb_90"
+settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
+info = "alfa_0o05_speaker_emb_90_trial2"
 
 '''Input'''
-settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -52,7 +52,7 @@ settings.dataset.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 15, 20]
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
+settings.model.network:str = "HS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
 settings.model.pretrain:bool = True
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -91,7 +91,7 @@ settings.model.knn.dim:int = 1
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 16
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.devices:int = [3]                                         # list of the GPU devices to use
+settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -108,7 +108,7 @@ settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
-settings.training.loss.type:str = "equal_weights"                               # ["grad_norm", "equal_weights"]
+settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights"]
 settings.training.loss.grad_norm.alpha:float = 0.05                         # Default = 0.12. For task with different level of complexity ah higher value of alpha should be used to enforce the stronger training rate balancing
 
 '''Noise & Curriculum Learning'''

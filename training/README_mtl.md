@@ -5,7 +5,14 @@
 ## Conda environment
 Activate conda environment with all the required libraries
 ```bash
-conda activate training
+conda activate TO_BUILD
+```
+
+Alternatively you can type the following commands.
+```bash
+conda create -n <env_name> python=3.9
+conda activate <env_name>
+python3 -m pip install numpy torch torchvision torchaudio pytorch-lightning pandas colorama tqdm librosa matplotlib dotmap torchmetrics torchsummary tensorboard
 ```
 
 ## Libraries and frameworks
