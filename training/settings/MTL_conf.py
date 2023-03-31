@@ -4,16 +4,15 @@ from typing import List
 from dotmap import DotMap
 
 settings = DotMap()
-''' IN THE SINGLE TASK AND SOFTSHARE THE SPEAKER EMBEDDING SIZE IS HALF THAN THE HARDSHARE -> I HAVE TO FIX THIS'''
 
 settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
-settings.task:str = "SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
+settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
 info = ""
 
 '''Input'''
-settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -38,21 +37,21 @@ settings.input.mfcc.norm:str = "ortho"
 settings.input.mfcc.log_mels:bool = True                                                                            # Default value [False], but NVIDIA NeMo use True
 
 '''Dataset'''
-settings.dataset.folder = "./datasets/MTL_scr_sid"
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
-settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
-settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
-settings.dataset.knn.folder = "./datasets/MIVIA_ISC"
-settings.dataset.knn.annotations = "./datasets/MTL_scr_srid/annotations"
+settings.dataset.folder = os.path.join("datasets", "MIVIA_ISC")
+settings.dataset.annotations = os.path.join("datasets", "MTL_scr_sr", "annotations")
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "training.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "validation.csv")
+settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "testing.csv")
+settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.annotations, "noise", "training.csv")
+settings.dataset.knn.annotations = os.path.join("datasets", "MTL_scr_srid", "annotations")
 settings.dataset.knn.training.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "training.csv")
 settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "testing.csv")
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
-settings.model.pretrain:bool = True
+settings.model.network:str = "SS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
+settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
 settings.model.resnet8.pooling_size = (4, 3)                            # Default: (4, 3)
@@ -94,12 +93,12 @@ settings.knn.plotting:bool = False  # If <True> plot the train example on two di
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 12
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:str = 1                                        # list of the GPU devices to use
+settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
-settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
+settings.training.lr.value:float = 0.001                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
 settings.training.checkpoint.save_top_k:int = 3
 settings.training.check_val_every_n_epoch:int = 1
@@ -111,7 +110,7 @@ settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
-settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights"]
+settings.training.loss.type:str = "equal_weights"                               # ["grad_norm", "equal_weights"]
 settings.training.loss.grad_norm.alpha:float = 0.05                         # Default = 0.12. For task with different level of complexity ah higher value of alpha should be used to enforce the stronger training rate balancing
 
 '''Noise & Curriculum Learning'''

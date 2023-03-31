@@ -133,4 +133,4 @@ def build_set(subset:str):
 
 build_train_set()
 build_set(subset="validation")
-# build_set(subset="testing")
+build_set(subset="testing")

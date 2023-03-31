@@ -342,7 +342,7 @@ class ResNet8_PL(pl.LightningModule):
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
-        self.log("{}_val_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)
+        self.log("val_loss".format(self.task), loss, on_epoch=True, prog_bar=True, logger=True)
         self.log("{}_val_accuracy".format(self.task), accuracy, on_epoch=True, prog_bar=True, logger=True)
         '''
         self.log("balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
