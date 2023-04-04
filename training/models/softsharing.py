@@ -369,6 +369,12 @@ class SoftSharing_PL(pl.LightningModule):
         thresh = 0.001
         self.loss_weights.data = torch.where(self.loss_weights > thresh, self.loss_weights.data, thresh)
         '''
+        if self.grad_norm:
+            # renormalize before use the weight for the validation loss
+            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
+            self.loss_weights.data *= normalize_coeff
+            self.loss_weights.data.clamp_(min=0.1, max=2.0)
+        
         # Clean all the gradient
         # self.loss_weights.
         # Check memoty occupation
@@ -378,11 +384,6 @@ class SoftSharing_PL(pl.LightningModule):
         """Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
         """
-        if self.grad_norm:
-            # renormalize (for GradNorm algorithm)
-            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
-            self.loss_weights.data *= normalize_coeff
-
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
         command_logits = self.train_step_outputs[0]["command_logits"]
@@ -472,7 +473,9 @@ class SoftSharing_PL(pl.LightningModule):
 
         # Compute average metrics
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
-        loss = torch.sum(losses)
+        weighted_task_loss = torch.mul(self.loss_weights, losses)
+        gradNorm_loss = torch.sum(weighted_task_loss)
+        loss = torch.sum((losses))
         scr_loss, si_loss = losses[0], losses[1]
 
         command_predictions = torch.max(input=command_logits, dim=1).indices
@@ -490,6 +493,7 @@ class SoftSharing_PL(pl.LightningModule):
 
         # Save for TensorBoard
         self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
+        self.log("val_gradNorm_loss", gradNorm_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("scr_val_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("scr_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
@@ -554,7 +558,8 @@ class SoftSharing_PL(pl.LightningModule):
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
-        early_stop = EarlyStopping(monitor=self.settings.training.checkpoint.metric_to_track, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
+        monitored_metric = "val_gradNorm_loss" if self.settings.training.loss.type == "grad_norm" and self.settings.task == "SCR_SI" else self.settings.training.checkpoint.metric_to_track
+        early_stop = EarlyStopping(monitor=monitored_metric, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
         checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]

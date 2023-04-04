@@ -74,9 +74,12 @@ class HardSharing_PL(pl.LightningModule):
         for i, conv in enumerate(self.convs):
             self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
             self.add_module(f'conv{i + 1}', conv)
-        self.command_output = torch.nn.Linear(embedding_size, task_n_labels[0])
+        #'''For SrID
         self.speaker_features = torch.nn.Linear(embedding_size, settings.model.resnet8.speaker_embedding_size)
         self.speaker_output = torch.nn.Linear(settings.model.resnet8.speaker_embedding_size, task_n_labels[1])
+        #'''
+        self.command_output = torch.nn.Linear(embedding_size, task_n_labels[0])
+        # self.speaker_output = torch.nn.Linear(embedding_size, task_n_labels[1])
         # self.softmax = torch.nn.Softmax(dim=1)
 
         self.n_tasks = 2    # SCR and SI
@@ -112,9 +115,13 @@ class HardSharing_PL(pl.LightningModule):
             Logit tensor
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-        shared_embedding, speaker_embedding = self.get_embeddings(x=x)
+        #'''For SrID
+        shared_embedding, speaker_embedding = self.get_embeddings(x=x) # For SrID
         return self.command_output(shared_embedding), self.speaker_output(speaker_embedding)
-    
+        #
+        shared_embedding = self.get_embeddings(x=x)
+        return self.command_output(shared_embedding), self.speaker_output(shared_embedding)
+
     def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
         """Extract the shared and speaker embeddings from the input.
         Input size: (Batch, Channel, Frequency, Time)
@@ -153,9 +160,11 @@ class HardSharing_PL(pl.LightningModule):
                 
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
         x = torch.mean(x, 2)      # Global Average Pooling
+        #'''For SrID
         speaker_embedding = self.speaker_features(x)
-
         return x, speaker_embedding
+        #'''
+        return x
 
     def predict_srid(self, x:torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         shared_embedding, speaker_embedding = self.get_embeddings(x=x)
@@ -330,10 +339,11 @@ class HardSharing_PL(pl.LightningModule):
 
 
     def on_train_batch_end(self, out, batch, batch_idx):
-        '''
-        thresh = 0.001
-        self.loss_weights.data = torch.where(self.loss_weights > thresh, self.loss_weights.data, thresh)
-        '''
+        if self.grad_norm:
+            # renormalize before use the weight for the validation loss
+            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
+            self.loss_weights.data *= normalize_coeff
+            self.loss_weights.data.clamp_(min=0.1, max=2.0)
         # Clean all the gradient
         # self.loss_weights.
         # Check memoty occupation
@@ -343,11 +353,6 @@ class HardSharing_PL(pl.LightningModule):
         """Hook function triggered when training epoch ends.
         Produce the statistics for Tensorboard logger.
         """
-        if self.grad_norm:
-            # renormalize (for GradNorm algorithm)
-            normalize_coeff = self.n_tasks / torch.sum(self.loss_weights.data, dim=0)
-            self.loss_weights.data *= normalize_coeff
-
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
         command_logits = self.train_step_outputs[0]["command_logits"]
@@ -437,7 +442,9 @@ class HardSharing_PL(pl.LightningModule):
 
         # Compute average metrics
         losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
-        loss = torch.sum(losses)
+        weighted_task_loss = torch.mul(self.loss_weights, losses)
+        gradNorm_loss = torch.sum(weighted_task_loss)
+        loss = torch.sum((losses))
         scr_loss, si_loss = losses[0], losses[1]
 
         command_predictions = torch.max(input=command_logits, dim=1).indices
@@ -455,6 +462,7 @@ class HardSharing_PL(pl.LightningModule):
 
         # Save for TensorBoard
         self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
+        self.log("val_gradNorm_loss", gradNorm_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("scr_val_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
         self.log("scr_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
         # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
@@ -518,7 +526,8 @@ class HardSharing_PL(pl.LightningModule):
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
-        early_stop = EarlyStopping(monitor=self.settings.training.checkpoint.metric_to_track, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
+        monitored_metric = "val_gradNorm_loss" if self.settings.training.loss.type == "grad_norm" and self.settings.task == "SCR_SI" else self.settings.training.checkpoint.metric_to_track
+        early_stop = EarlyStopping(monitor=monitored_metric, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
         checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
         return [early_stop, lr_monitor, checkpoint]

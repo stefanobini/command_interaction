@@ -38,3 +38,7 @@ for lang in LANGS:
     out_df = in_df.loc[in_df["speaker"].isin(speakers)]
     # print(out_df.groupby(["speaker"])["path"].count().reset_index(name="count").sort_values(["count"], ascending=False).reset_index().iloc[-10:])
     out_df.to_csv(path_or_buf=output_annotation_file, index=False)
+
+    output_speaker_count = os.path.join(output_annotation_folder, "dataset_speakers_count.csv")
+    # print(out_df.groupby(["speaker"])["path"].count().reset_index(name="count").sort_values(["count"], ascending=False).reset_index().iloc[-10:])
+    sort_speaker_df.to_csv(path_or_buf=output_speaker_count, index=False)

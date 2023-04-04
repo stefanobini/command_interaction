@@ -4,8 +4,8 @@ loss_weights: !!python/object/apply:torch._utils._rebuild_tensor_v2
     gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
     AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
     aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-    Z2UKcQFYCQAAADE0MzQ0NDY1NnECWAMAAABjcHVxA032AU50cQRRLoACXXEAWAkAAAAxNDM0NDQ2
-    NTZxAWEu9gEAAAAAAADAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwC
+    Z2UKcQFYCQAAADEzMjY1NjIwOHECWAMAAABjcHVxA032AU50cQRRLoACXXEAWAkAAAAxMzI2NTYy
+    MDhxAWEu9gEAAAAAAADAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwC
     O8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7
     wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvA
     jAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CMAjvAjAI7wIwCO8CM
@@ -512,14 +512,14 @@ settings: !!python/object/apply:dotmap.DotMap
         checkpoint: &id030 !!python/object/apply:dotmap.DotMap
           dictitems:
             metric_to_track: val_loss
-            save_top_k: 3
+            save_top_k: 1
           state:
             _dynamic: true
             _map: !!python/object/apply:collections.OrderedDict
             - - - metric_to_track
                 - val_loss
               - - save_top_k
-                - 3
+                - 1
             _prevent_method_masking: false
         device: 1
         early_stop: &id031 !!python/object/apply:dotmap.DotMap
@@ -554,14 +554,14 @@ settings: !!python/object/apply:dotmap.DotMap
         lr: &id029 !!python/object/apply:dotmap.DotMap
           dictitems:
             auto_find: false
-            value: 0.001
+            value: 0.01
           state:
             _dynamic: true
             _map: !!python/object/apply:collections.OrderedDict
             - - - auto_find
                 - false
               - - value
-                - 0.001
+                - 0.01
             _prevent_method_masking: false
         max_epochs: -1
         min_epochs: 1

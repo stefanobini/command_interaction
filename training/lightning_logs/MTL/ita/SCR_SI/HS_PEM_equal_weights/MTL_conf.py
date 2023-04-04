@@ -91,22 +91,22 @@ settings.knn.plotting:bool = False  # If <True> plot the train example on two di
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 12
+settings.training.num_workers:str = 24
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:str = 0                                        # list of the GPU devices to use
+settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
-settings.training.lr.value:float = 0.001                                     # 0.33 - ResNet8,  - MobileNet V2
+settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
-settings.training.checkpoint.save_top_k:int = 3
+settings.training.checkpoint.save_top_k:int = 1
 settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
 settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
-settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
+settings.training.optimizer.eps:float = settings.training.lr.value * 1e-3
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False

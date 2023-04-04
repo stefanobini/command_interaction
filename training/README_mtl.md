@@ -82,3 +82,10 @@ To create annotation files for training, validation, and testing phase:
 ```bash
 python3 datasets/scripts/SCR_SR_split_annotations.py
 ```
+
+
+# Training phase
+All the information for training phase are included in a configuration file placed in the "./settings/" folder. You can create more configuration files and select the one to use passing it as parameter in the following command (only name, without ".py").
+```bash
+python3 train.py --configuration MTL_conf
+```

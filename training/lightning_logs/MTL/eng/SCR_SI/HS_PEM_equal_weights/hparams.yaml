@@ -460,14 +460,14 @@ settings: !!python/object/apply:dotmap.DotMap
         checkpoint: &id030 !!python/object/apply:dotmap.DotMap
           dictitems:
             metric_to_track: val_loss
-            save_top_k: 3
+            save_top_k: 1
           state:
             _dynamic: true
             _map: !!python/object/apply:collections.OrderedDict
             - - - metric_to_track
                 - val_loss
               - - save_top_k
-                - 3
+                - 1
             _prevent_method_masking: false
         device: 2
         early_stop: &id031 !!python/object/apply:dotmap.DotMap
@@ -502,14 +502,14 @@ settings: !!python/object/apply:dotmap.DotMap
         lr: &id029 !!python/object/apply:dotmap.DotMap
           dictitems:
             auto_find: false
-            value: 0.001
+            value: 0.01
           state:
             _dynamic: true
             _map: !!python/object/apply:collections.OrderedDict
             - - - auto_find
                 - false
               - - value
-                - 0.001
+                - 0.01
             _prevent_method_masking: false
         max_epochs: -1
         min_epochs: 1
