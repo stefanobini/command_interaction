@@ -25,7 +25,7 @@ for device in settings.training.devices:
     devices += str(device) + ", "
 devices = devices[:-2]
 os.environ["CUDA_VISIBLE_DEVICES"] = devices
-pin_memory = True if settings.training.device=="cuda" else False
+pin_memory = True if settings.training.accelerator=="gpu" else False
 
 ########################
 #     Setting Seed     #
@@ -70,7 +70,7 @@ trainer = pl.Trainer(
     resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
     # auto_lr_find=settings.training.lr.auto_find,
     accelerator=settings.training.accelerator,
-    devices=settings.training.devices,
+    devices=[settings.training.device],
     # logger=logger,
     # max_epochs=settings.training.max_epochs,
     # min_epochs=settings.training.min_epochs,

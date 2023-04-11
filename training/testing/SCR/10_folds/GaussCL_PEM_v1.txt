@@ -1,0 +1,12 @@
+Dataloader 0:	<87.30> %
+Dataloader 1:	<92.26> %
+Dataloader 2:	<92.99> %
+Dataloader 3:	<92.99> %
+Dataloader 4:	<89.34> %
+Dataloader 5:	<93.87> %
+Dataloader 6:	<94.01> %
+Dataloader 7:	<87.88> %
+Dataloader 8:	<93.28> %
+Dataloader 9:	<95.03> %
+-------------------------
+Total average:	<91.90> %

@@ -3,13 +3,15 @@ import os
 import sys
 import pickle
 import shutil
+from dotmap import DotMap
+import pandas
+
 import numpy as np
 import torch
 import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
-from dotmap import DotMap
 
 # import torch_optimizer
 
@@ -74,17 +76,18 @@ class HardSharing_PL(pl.LightningModule):
         for i, conv in enumerate(self.convs):
             self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
             self.add_module(f'conv{i + 1}', conv)
-        #'''For SrID
+        '''For SrID
         self.speaker_features = torch.nn.Linear(embedding_size, settings.model.resnet8.speaker_embedding_size)
         self.speaker_output = torch.nn.Linear(settings.model.resnet8.speaker_embedding_size, task_n_labels[1])
         #'''
         self.command_output = torch.nn.Linear(embedding_size, task_n_labels[0])
-        # self.speaker_output = torch.nn.Linear(embedding_size, task_n_labels[1])
+        self.speaker_output = torch.nn.Linear(embedding_size, task_n_labels[1])
         # self.softmax = torch.nn.Softmax(dim=1)
 
         self.n_tasks = 2    # SCR and SI
         self.grad_norm = self.settings.training.loss.type == "grad_norm"
-        self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks), requires_grad=self.grad_norm)
+        weights = torch.tensor(data=[0.8, 1.2]) if settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1., 1.])
+        self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks) * weights, requires_grad=self.grad_norm)
         self.loss_fn = MT_loss(weights1=task_loss_weights[0], weights2=task_loss_weights[1])
         
         self.task_n_labels = task_n_labels
@@ -96,6 +99,12 @@ class HardSharing_PL(pl.LightningModule):
         self.train_step_outputs = list()
         self.val_step_outputs = list()
         self.test_step_outputs = list()
+        for fold in range(settings.testing.n_folds):
+            self.test_step_outputs.append(list())
+        self.results_folder = os.path.join(settings.logger.folder, settings.logger.name, settings.logger.version)
+        self.results_file = os.path.join(self.results_folder, "test_results.txt")
+        if os.path.exists(self.results_file):
+            os.remove(self.results_file)
 
         self.save_hyperparameters()
         
@@ -115,10 +124,10 @@ class HardSharing_PL(pl.LightningModule):
             Logit tensor
         """
         #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-        #'''For SrID
+        '''For SrID
         shared_embedding, speaker_embedding = self.get_embeddings(x=x) # For SrID
         return self.command_output(shared_embedding), self.speaker_output(speaker_embedding)
-        #
+        #'''
         shared_embedding = self.get_embeddings(x=x)
         return self.command_output(shared_embedding), self.speaker_output(shared_embedding)
 
@@ -160,7 +169,7 @@ class HardSharing_PL(pl.LightningModule):
                 
         x = x.view(x.size(0), x.size(1), -1)  # shape: (batch, feats, o3)
         x = torch.mean(x, 2)      # Global Average Pooling
-        #'''For SrID
+        '''For SrID
         speaker_embedding = self.speaker_features(x)
         return x, speaker_embedding
         #'''
@@ -414,10 +423,10 @@ class HardSharing_PL(pl.LightningModule):
         command_logits, speaker_logits = self.forward(x=x)
 
         self.val_step_outputs.append({"command_logits": command_logits,
-                                             "speaker_logits": speaker_logits,
-                                             "commands": commands,
-                                             "speakers": speakers,
-                                             "snrs": snr})
+                                      "speaker_logits": speaker_logits,
+                                      "commands": commands,
+                                      "speakers": speakers,
+                                      "snrs": snr})
 
     def on_validation_epoch_end(self) -> None:
         """Hook function triggered when validation epoch ends.
@@ -484,44 +493,71 @@ class HardSharing_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "logits", "targets", "snrs" of the batch
         """
-        x, y, snr = batch
-        logits = self.forward(x=x)
-        self.test_step_outputs.append({"logits": logits,
-                                      "targets": y,
-                                      "snrs": snr})
+        x, speakers, commands, snr = batch
+        command_logits, speaker_logits = self.forward(x=x)
+        self.test_step_outputs[dataloader_idx].append({"command_logits": command_logits,
+                                                       "speaker_logits": speaker_logits,
+                                                       "commands": commands,
+                                                       "speakers": speakers,
+                                                       "snrs": snr})
     
     def on_test_epoch_end(self):
-        accuracies = list()
+        command_accuracies = list()
+        speaker_accuracies = list()
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
-            logits = self.test_step_outputs[dataloader][0]["logits"]
-            targets = self.test_step_outputs[dataloader][0]["targets"]
+            command_logits = self.test_step_outputs[dataloader][0]["command_logits"]
+            speaker_logits = self.test_step_outputs[dataloader][0]["speaker_logits"]
+            commands = self.test_step_outputs[dataloader][0]["commands"]
+            speakers = self.test_step_outputs[dataloader][0]["speakers"]
             snrs = self.test_step_outputs[dataloader][0]["snrs"]
+
             for step in range(1, test_len):
-                logits = torch.concat(tensors=[logits, self.test_step_outputs[dataloader][step]["logits"]])
-                targets = torch.concat(tensors=[targets, self.test_step_outputs[dataloader][step]["targets"]])
-                snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][step]["snrs"]])
+                command_logits = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["command_logits"]])
+                speaker_logits = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["speaker_logits"]])
+                commands = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["commands"]])
+                speakers = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["speakers"]])
+                snrs = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["snrs"]])
 
             # Clean list of the step outputs
-            self.test_step_outputs.clear()   # free memory
+            for fold in range(self.settings.testing.n_folds):
+                self.test_step_outputs.append(list())
 
             # Compute average metrics
-            preds = torch.max(input=logits, dim=1).indices
-            accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
-    
-            accuracies.append(accuracy)
+            command_predictions = torch.max(input=command_logits, dim=1).indices
+            speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
+            command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
+            speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
+        
+            command_accuracies.append(command_accuracy.cpu().numpy())
+            speaker_accuracies.append(speaker_accuracy.cpu().numpy())
+            
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        os.makedirs(self.settings.testing.folder, exist_ok=True)
-        self.results_path = os.path.join(self.settings.testing.folder, "{}.txt".format(self.settings.logger.name))
-        with open(self.results_path, 'w') as fout:
+        columns = ["fold", "command_accuracy", "speaker_accuracy"]
+        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "command_accuracy": command_accuracies, "speaker_accuracy": speaker_accuracies}
+        result_df = pandas.DataFrame(data=result_dict, columns=columns)
+        result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
+
+        with open(self.results_file, 'w') as fout:
+            fout.write("\n### Speech-Command Recognition ###\n")
+            # Save the commands accuracies
             avg = 0
-            for dataloader in range(len(accuracies)):
-                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100))
-                avg += accuracies[dataloader]*100
+            for dataloader in range(len(command_accuracies)):
+                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, command_accuracies[dataloader]*100))
+                avg += command_accuracies[dataloader]*100
             fout.write("-------------------------\n")
-            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(accuracies)))
+            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(command_accuracies)))
+
+            # Save the speaker accuracies
+            fout.write("\n### Speaker Identification ###\n")
+            avg = 0
+            for dataloader in range(len(speaker_accuracies)):
+                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, speaker_accuracies[dataloader]*100))
+                avg += speaker_accuracies[dataloader]*100
+            fout.write("-------------------------\n")
+            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(speaker_accuracies)))
     
 
     def configure_callbacks(self):

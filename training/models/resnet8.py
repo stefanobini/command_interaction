@@ -3,6 +3,8 @@ import os
 import pickle
 import shutil
 import numpy as np
+import pandas
+
 import torch
 import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
@@ -86,6 +88,13 @@ class ResNet8_PL(pl.LightningModule):
         self.train_step_outputs = list()
         self.val_step_outputs = list()
         self.test_step_outputs = list()
+        for fold in range(settings.testing.n_folds):
+            self.test_step_outputs.append(list())
+        self.results_folder = os.path.join(settings.logger.folder, settings.logger.name, settings.logger.version)
+        self.results_file = os.path.join(self.results_folder, "test_results.txt")
+        if os.path.exists(self.results_file):
+            os.remove(self.results_file)
+
 
         self.save_hyperparameters()
         
@@ -387,7 +396,7 @@ class ResNet8_PL(pl.LightningModule):
         '''
     
 
-    def test_step(self, batch, batch_idx, dataloader_idx=0):
+    def test_step(self, batch, batch_idx, dataloader_idx):
         """Hook function performing the test step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
         
@@ -404,9 +413,9 @@ class ResNet8_PL(pl.LightningModule):
         x, y, snr = batch
         logits = self.forward(x=x)
 
-        self.test_step_outputs.append({"logits": logits,
-                                       "targets": y,
-                                       "snrs": snr})
+        self.test_step_outputs[dataloader_idx].append({"logits": logits,
+                                                       "targets": y,
+                                                       "snrs": snr})
     
     def on_test_epoch_end(self):
         accuracies = list()
@@ -422,19 +431,22 @@ class ResNet8_PL(pl.LightningModule):
                 snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][step]["snrs"]])
 
             # Clean list of the step outputs
-            self.test_step_outputs.clear()   # free memory
+            for fold in range(self.settings.testing.n_folds):
+                self.test_step_outputs.append(list())
 
             # Compute average metrics
             #loss = self.loss_fn(input=logits, target=targets)
             preds = torch.max(input=logits, dim=1).indices
             accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
     
-            accuracies.append(accuracy)
+            accuracies.append(accuracy.cpu().numpy())
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        os.makedirs(self.settings.testing.folder, exist_ok=True)
-        self.results_path = os.path.join(self.settings.testing.folder, "{}.txt".format(self.settings.logger.name))
-        with open(self.results_path, 'w') as fout:
+        columns = ["fold", "accuracy"]
+        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "accuracy": accuracies}
+        result_df = pandas.DataFrame(data=result_dict, columns=columns)
+        result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
+        with open(self.results_file, 'w') as fout:
             avg = 0
             for dataloader in range(len(accuracies)):
                 fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100))

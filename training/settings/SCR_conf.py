@@ -102,7 +102,7 @@ additional_info = "_pretrained"
 settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = "testing"
-settings.testing.n_fold:int = 10
+settings.testing.folder:str = os.path.join("testing", "PRL")
+settings.testing.n_fold:int = 2
 settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
 settings.testing.results_path:str = None
