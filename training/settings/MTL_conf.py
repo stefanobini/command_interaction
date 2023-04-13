@@ -9,11 +9,11 @@ settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
 settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
-info = ""
+info = "_mfcc"
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
-settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
+settings.input.type:str = "mfcc"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
 #settings.input.remove_silent:bool = True
@@ -93,7 +93,7 @@ settings.knn.plotting:bool = False  # If <True> plot the train example on two di
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 48
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:str = 0                                        # list of the GPU devices to use
+settings.training.device:str = 3                                        # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -110,7 +110,7 @@ settings.training.optimizer.eps:float = settings.training.lr.value * 1e-3
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
-settings.training.loss.type:str = "fixed_weights"                               # ["grad_norm", "equal_weights", "fixed_weights"]
+settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights", "fixed_weights"]
 settings.training.loss.grad_norm.alpha:float = 0.5                         # Default = 0.12. For task with different level of complexity an higher value of alpha should be used to enforce the stronger training rate balancing
 
 '''Noise & Curriculum Learning'''
