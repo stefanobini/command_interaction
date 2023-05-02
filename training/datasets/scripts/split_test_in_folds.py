@@ -8,12 +8,12 @@ from tqdm import tqdm
 import random
 
 
-DATASET_PATH = os.path. join("datasets", "MTL_scr_sr")
+DATASET_PATH = os.path. join("datasets", "FELICE", "demo3")
 ANNOTATION_FILE_NAME = "testing.csv"
-ANNOTATION_PATH = os.path.join(DATASET_PATH, "annotations")
+ANNOTATION_PATH = os.path.join(DATASET_PATH, "testing", "annotations")
 LANGs = ["eng", "ita"]
 HEADINGS = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
-N_FOLDS = 20
+N_FOLDS = 10
 
 
 for lang in LANGs:

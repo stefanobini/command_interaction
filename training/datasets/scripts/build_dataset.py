@@ -6,11 +6,11 @@ import torch
 import torchaudio
 
 from utils.preprocessing import Preprocessing
-from utils.settings.MTL_conf import settings
+from utils.settings.FELICE_conf import settings
 
 
-SRC_DATASET_PATH = "./datasets/MIVIA_ISC"
-OUT_PATH = "./datasets/MTL_scr_sid"
+SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC")
+OUT_PATH = os.path.join("datasets", "FELICE", "demo3")
 LANGs = ["ita", "eng"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -56,8 +56,7 @@ def build_train_set():
             speech_data["speaker"].append(speaker)
             speech_data["label"].append(label)
             full_speech_path = os.path.join(out_path, os.path.split(speech_path)[0])
-            if not os.path.exists(full_speech_path):
-                os.makedirs(full_speech_path)
+            os.makedirs(full_speech_path, exist_ok=True)
             torchaudio.save(os.path.join(out_path, speech_path), speech, sample_rate)
 
             if noise_path not in noise_data["path"]:
@@ -65,8 +64,7 @@ def build_train_set():
                 noise_data["type"].append(noise_type)
                 noise_data["subtype"].append(noise_subtype)
                 full_noise_path = os.path.join(out_path, os.path.split(noise_path)[0])
-                if not os.path.exists(full_noise_path):
-                    os.makedirs(full_noise_path)
+                os.makedirs(full_noise_path, exist_ok=True)
                 torchaudio.save(os.path.join(out_path, noise_path), noise, sample_rate)
 
             ann_iter.set_description("Building '{}-training' set".format(lang))
@@ -111,22 +109,19 @@ def build_set(subset:str):
                 data["snr"].append(snr)
                 full_path = os.path.join(out_path, os.path.split(noisy_speech_path)[0])
                 
-                if not os.path.exists(full_path):
-                    os.makedirs(full_path)
+                os.makedirs(full_path, exist_ok=True)
                 torchaudio.save(os.path.join(out_path, noisy_speech_path), noisy_speech, sample_rate)
 
             ann_iter.set_description("Building '{}-{}' set".format(lang, subset))
 
         out_folder = os.path.join(out_path, "annotations", lang)
-        if not os.path.isdir(out_folder):
-            os.makedirs(out_folder)
+        os.makedirs(out_folder, exist_ok=True)
         out_file = os.path.join(out_folder, "{}.csv".format(subset))
         df = pd.DataFrame(data=data, columns=FULL_HEADING)
         df.to_csv(path_or_buf=out_file, index=False)
 
         out_folder = os.path.join(out_path, "annotations", "noise")
-        if not os.path.isdir(out_folder):
-            os.makedirs(out_folder)
+        os.makedirs(out_folder, exist_ok=True)
         out_file = os.path.join(out_folder, "{}.csv".format(subset))
         shutil.copyfile(src=os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
 

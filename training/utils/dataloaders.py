@@ -174,8 +174,10 @@ class TrainingMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
         
-        # self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
-        self.dataset_path = os.path.join(self.settings.dataset.folder)
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',')
         self.noise_annotations = pd.read_csv(self.settings.dataset.noise.training.annotations, sep=',')
         self.epoch = 0
@@ -284,8 +286,10 @@ class ValidationMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
 
-        # self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
-        self.dataset_path = os.path.join(self.settings.dataset.folder)
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.validation.annotations, sep=',')
     
 
@@ -355,8 +359,10 @@ class TestingMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
 
-        # self.dataset_path = os.path.join(self.settings.dataset.folder, "testing")
-        self.dataset_path = os.path.join(self.settings.dataset.folder)
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "testing")
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
 
     

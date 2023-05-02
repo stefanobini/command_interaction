@@ -9,11 +9,11 @@ settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL"
 settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
-info = "_mfcc"
+info = ""
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
-settings.input.type:str = "mfcc"                                                                          # ["waveform", "melspectrogram", "mfcc"]
+settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
 #settings.input.remove_silent:bool = True

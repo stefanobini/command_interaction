@@ -32,12 +32,13 @@ Before starting with the training of the system you should create the dataset wi
 
 For command samples you can load them with the right format using the script "create_full_dataset.py" from the "Bot" folder:
 ```bash
+conda install -c conda-forge ffmpeg # the next command require FFMPEG
 python3 create_full_dataset.py
 ```
 
-For synthetic samples you can copy them from the original dataset:
+Starting from main folder use the following command to add synthetic samples:
 ```bash
-cp -r /mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/dataset/full_dataset_v1/synthetics /mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1/synthetics
+cp -r ./Model_Augmentation/dataset/full_dataset_v1/synthetics ./training/datasets/<dataset_folder>
 ```
 
 For reject samples you can load them with the right format using the scripts "include_common_voice.py" and "include_google_speech.py":

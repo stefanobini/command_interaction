@@ -362,7 +362,8 @@ class ResNet8_PL(pl.LightningModule):
         outputs = dict()
         for snr in self.snrs:
             outputs[snr] = {"preds": list(), "targs": list()}
-        for idx in range(len_val):
+        for idx in range(len(snrs)):
+        #for idx in range(len_val):
             outputs[snrs[idx].item()]["preds"].append(preds[idx])
             outputs[snrs[idx].item()]["targs"].append(targets[idx])
         
@@ -374,17 +375,14 @@ class ResNet8_PL(pl.LightningModule):
         # Compute metrics for each SNR
         for snr in self.snrs:
             snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
-            '''
             snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
             pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
             targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
             snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
-            '''
-            # self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
-            '''
+            
+            self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
             self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
             self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
-            '''
 
         '''
         with open("val_preds.txt", "wb") as fout:
@@ -418,42 +416,92 @@ class ResNet8_PL(pl.LightningModule):
                                                        "snrs": snr})
     
     def on_test_epoch_end(self):
-        accuracies = list()
+        accuracies, balanced_accuracies, reject_accuracies = list(), list(), list()
+        outputs = dict()
         for dataloader in range(len(self.test_step_outputs)):
-            test_len = len(self.test_loaders[dataloader])              # compute size of validation set
+            n_batch = len(self.test_loaders[dataloader])              # compute size of this dtaloader of the test set
+            #print("Dataloader n. {} has  {} batches".format(dataloader, n_batch))
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
             logits = self.test_step_outputs[dataloader][0]["logits"]
             targets = self.test_step_outputs[dataloader][0]["targets"]
             snrs = self.test_step_outputs[dataloader][0]["snrs"]
-            for step in range(1, test_len):
-                logits = torch.concat(tensors=[logits, self.test_step_outputs[dataloader][step]["logits"]])
-                targets = torch.concat(tensors=[targets, self.test_step_outputs[dataloader][step]["targets"]])
-                snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][step]["snrs"]])
+            for batch in range(1, n_batch):
+                logits = torch.concat(tensors=[logits, self.test_step_outputs[dataloader][batch]["logits"]])
+                targets = torch.concat(tensors=[targets, self.test_step_outputs[dataloader][batch]["targets"]])
+                snrs = torch.concat(tensors=[snrs, self.test_step_outputs[dataloader][batch]["snrs"]])
 
             # Clean list of the step outputs
-            for fold in range(self.settings.testing.n_folds):
-                self.test_step_outputs.append(list())
+            self.test_step_outputs[dataloader] = list()
 
             # Compute average metrics
             #loss = self.loss_fn(input=logits, target=targets)
             preds = torch.max(input=logits, dim=1).indices
             accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="micro")
+            balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+            pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
+            targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
+            reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
     
             accuracies.append(accuracy.cpu().numpy())
+            balanced_accuracies.append(balanced_accuracy.cpu().numpy())
+            reject_accuracies.append(reject_accuracy.cpu().numpy())
 
-        '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        columns = ["fold", "accuracy"]
-        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "accuracy": accuracies}
+            #''' ADD SNRs Analysis
+            # Construct and fill dictionary that contains the predictions and target devided by SNR
+            for snr in self.snrs:
+                outputs[snr] = {"logits": list(), "targets": list()}
+            for idx in range(len(snrs)):
+                outputs[snrs[idx].item()]["logits"].append(preds[idx])
+                outputs[snrs[idx].item()]["targets"].append(targets[idx])
+            
+            # Convert lists in tensors
+            for snr in self.snrs:    
+                outputs[snr]["logits"] = torch.stack(outputs[snr]["logits"])
+                outputs[snr]["targets"] = torch.stack(outputs[snr]["targets"])
+            
+            # Compute metrics for each SNR
+            with open(self.results_file, 'w') as fout:
+                avg_accuracy, avg_balanced_accuracy, avg_reject_accuracy = 0, 0, 0
+                snr_accuracies, snr_balanced_accuracies, snr_reject_accuracies = list(), list(), list()
+                for snr in self.snrs:
+                    snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["logits"], target=outputs[snr]["targets"], task="multiclass", num_classes=self.num_labels, average="micro")
+                    snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["logits"], target=outputs[snr]["targets"], task="multiclass", num_classes=self.num_labels, average="weighted")
+                    pred_reject_y = outputs[snr]["logits"] == (self.num_labels-1)    # '1' for reject, '0' for command
+                    targ_reject_y = outputs[snr]["targets"] == (self.num_labels-1)    # '1' for reject, '0' for command
+                    snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
+                    snr_accuracies.append(snr_accuracy.cpu().numpy())
+                    snr_balanced_accuracies.append(snr_balanced_accuracy.cpu().numpy())
+                    snr_reject_accuracies.append(snr_reject_accuracy.cpu().numpy())
+
+                    fout.write("SNR {}dB:\t\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(snr, snr_accuracy*100, snr_balanced_accuracy*100, snr_reject_accuracy*100))
+                    avg_accuracy += snr_accuracy*100
+                    avg_balanced_accuracy += snr_balanced_accuracy*100
+                    avg_reject_accuracy += snr_reject_accuracy*100
+                    
+                columns = ["fold", "accuracy", "balanced_accuracy", "reject_accuracy"]
+                result_dict = {"snr": [snr for snr in self.snrs], "accuracy": snr_accuracies, "balanced_accuracy": snr_balanced_accuracies, "reject_accuracy": snr_reject_accuracies}
+                result_df = pandas.DataFrame(data=result_dict, columns=columns)
+                result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
+                fout.write("-------------------------------------------------\n")
+                fout.write("Total average:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(avg_accuracy/len(self.snrs), avg_balanced_accuracy/len(self.snrs), avg_reject_accuracy/len(self.snrs)))
+        
+            #'''
+            
+        ''' ADD STATITICAL ANALYSIS ON <accuracies>
+        columns = ["fold", "accuracy", "balanced_accuracy", "reject_accuracy"]
+        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "accuracy": accuracies, "balanced_accuracy": balanced_accuracies, "reject_accuracy": reject_accuracies}
         result_df = pandas.DataFrame(data=result_dict, columns=columns)
         result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
         with open(self.results_file, 'w') as fout:
-            avg = 0
+            avg_accuracy, avg_balanced_accuracy, avg_reject_accuracy = 0, 0, 0
             for dataloader in range(len(accuracies)):
-                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100))
-                avg += accuracies[dataloader]*100
-            fout.write("-------------------------\n")
-            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(accuracies)))
-    
+                fout.write("Dataloader {}:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100, balanced_accuracies[dataloader]*100, reject_accuracies[dataloader]*100))
+                avg_accuracy += accuracies[dataloader]*100
+                avg_balanced_accuracy += balanced_accuracies[dataloader]*100
+                avg_reject_accuracy += reject_accuracies[dataloader]*100
+            fout.write("-------------------------------------------------\n")
+            fout.write("Total average:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(avg_accuracy/len(accuracies), avg_balanced_accuracy/len(accuracies), avg_reject_accuracy/len(accuracies)))
+        #'''
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
