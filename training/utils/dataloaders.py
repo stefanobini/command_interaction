@@ -3,17 +3,20 @@ import pandas as pd
 from typing import List, Tuple, Dict, Hashable
 from dotmap import DotMap
 import pandas
+import numpy as np
+#import soundfile as sf
+from PIL import Image
 
 import torch
 from torch.utils.data import Dataset
 import torchaudio
 
-# from settings.conf_1 import settings
+from settings.FELICE_conf import settings as sets
 
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
-from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
+#from utils.preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
 
 try:
     # If run from the parent folder
@@ -25,7 +28,7 @@ except ModuleNotFoundError:
 
 SPECT_PAD_VALUE = -80.
 SPECT_PAD_STRIDE = 0
-# it = 0
+it = 0
 
 class MiviaDataset(Dataset):
     
@@ -240,7 +243,11 @@ class TrainingMiviaDataset(MiviaDataset):
         '''
         global it
         if it < 1:
-            torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+            print("SAVED")
+            speech_save = np.reshape(np.array(item), (-1, 1))
+            sf.write("example.wav", data=speech_save, samplerate=16000, format="WAV")
+            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+            it += 1
         #'''
         if self.settings.input.type == "waveform":
             return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
@@ -249,9 +256,18 @@ class TrainingMiviaDataset(MiviaDataset):
         elif self.settings.input.type == "melspectrogram":
             item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
         
+        '''
+        print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(speech), speech.shape, speech.dtype, torch.min(speech), torch.max(speech), torch.mean(speech)))
+        print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+        spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
+        spect.save("example.png")
+        '''
+        
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
+        #print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
@@ -328,6 +344,8 @@ class ValidationMiviaDataset(MiviaDataset):
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
+        #print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+
         if self.settings.input.type == "waveform":
             return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
         elif self.settings.input.type == "mfcc":
@@ -335,12 +353,22 @@ class ValidationMiviaDataset(MiviaDataset):
         elif self.settings.input.type == "melspectrogram":
             item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
         
-        #########################################################################
-        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
-        #########################################################################
+        '''
+        print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+        spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
+        spect.save("mel_spect.png")
+        '''
+
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
+        '''
+        item_int = np.uint8(item[0].cpu().numpy())
+        print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, np.min(item_int), np.max(item_int), np.mean(item_int)))
+        spect = Image.fromarray(item_int)
+        spect.save("db_spect.png")
+        '''
+
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
@@ -757,13 +785,15 @@ def test_dataloader(samples:List[int]) -> None:
 
 if __name__ == "__main__":
 
-    train_set = TrainingMiviaDataset()
-    valid_set = ValidationMiviaDataset()
-    test_set = TestingMiviaDataset()
+    train_set = TrainingMiviaDataset(settings=sets)
+    valid_set = ValidationMiviaDataset(settings=sets)
+    #test_set = TestingMiviaDataset()
 
-    print("The dataset is splitted in:\n- TRAIN samples:\t{}\n- VALID samples:\t{}\n- TEST samples:\t\t{}".format(len(train_set), len(valid_set),len(test_set)))
+    #print("The dataset is splitted in:\n- TRAIN samples:\t{}\n- VALID samples:\t{}\n- TEST samples:\t\t{}".format(len(train_set), len(valid_set),len(test_set)))
     # print(train_set._get_class_weights())
 
-    samples = [0, 500, 1000]
-    test_dataset(samples=samples)
-    test_dataloader(samples=samples)
+    samples = [0]
+    #print(train_set[1])
+    print(valid_set[8])
+    #test_dataset(samples=samples)
+    #test_dataloader(samples=samples)

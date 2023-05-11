@@ -51,7 +51,7 @@ if torch.cuda.is_available():
 ########################
 #     Setting Seed     #
 ########################
-pl.seed_everything(5138)
+pl.seed_everything(2)
 
 
 ########################

@@ -19,8 +19,9 @@ from tqdm import tqdm
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
-DATASET_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1"
-OUT_PATH = os.path.join(DATASET_PATH, "annotations")
+DATASET_NAME = "MIVIA_ISC"
+DATASET_PATH = os.path.join("datasets", DATASET_NAME)
+OUT_PATH = os.path.join(DATASET_PATH, "annotations", "with_reject")
 
 cmd_path = "commands"
 syn_path = "synthetics"
@@ -34,7 +35,7 @@ def add_command_samples(data, lang_path, speaker, samples):
     for sample in samples:
         sample_path = os.path.join(lang_path, sample)
         subtype = "telegram_bot"
-        command = int(sample.split("_")[1].split(".")[0])
+        command = int(sample.split("_")[1].split(".")[0]) if sample.split("_")[1] not in LANGS else int(sample.split("_")[2].split(".")[0])
 
         data["path"].append(sample_path)
         data["type"].append(type)
@@ -43,7 +44,6 @@ def add_command_samples(data, lang_path, speaker, samples):
         data["label"].append(command)
 
     return data
-
 
 def add_synthetic_samples(data, lang_path, subtype, samples):
     type = "synthetic"
@@ -68,19 +68,19 @@ def add_synthetic_samples(data, lang_path, subtype, samples):
 
     return data
 
-
 def add_reject_samples(dataset_path, rjt_path, lang, data):
     type = "reject"
 
-    lang_path = os.path.join(rjt_path, lang, "clips")
-    rjt_full_path = os.path.join(dataset_path, rjt_path, lang, "clips")
+    lang_path = os.path.join(rjt_path, lang)
+    rjt_full_path = os.path.join(dataset_path, rjt_path, lang)
 
     data_iter = tqdm(os.listdir(rjt_full_path))
     for sample in data_iter:
         sample_path = os.path.join(lang_path, sample)
         subtype = "mozilla_common_voice" if "common_voice" in sample else "google_speech"
-        speaker = sample.split("_")[0]
-        command = 31
+        speaker = sample.split("_")[1] if subtype == "google_speech" else sample.split("_")[3].split(".")[0]
+        command = 24 if ("google_speech" in subtype and "stop" in sample) else 31
+        type = "command" if (subtype == "google_speech" and "stop" in sample) else "reject"
 
         data["path"].append(sample_path)
         data["type"].append(type)
@@ -207,15 +207,21 @@ noise_data = get_noise_annotations_dict()
 
 ''' WRITE CSV FILE '''
 lang = LANGS[0]
-out_file = os.path.join(OUT_PATH, lang, "dataset.csv")
+out_path = os.path.join(OUT_PATH, lang)
+os.makedirs(name=out_path, exist_ok=True)
+out_file = os.path.join(out_path, "dataset.csv")
 df = pd.DataFrame(data=eng_data, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
 
 lang = LANGS[1]
-out_file = os.path.join(OUT_PATH, lang, "dataset.csv")
+out_path = os.path.join(OUT_PATH, lang)
+os.makedirs(name=out_path, exist_ok=True)
+out_file = os.path.join(out_path, "dataset.csv")
 df = pd.DataFrame(data=ita_data, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
 
-out_file = os.path.join(OUT_PATH, "noise", "dataset.csv")
+out_path = os.path.join(OUT_PATH,  "noise")
+os.makedirs(name=out_path, exist_ok=True)
+out_file = os.path.join(out_path, "dataset.csv")
 df = pd.DataFrame(data=noise_data, columns=NOISE_HEADING)
 df.to_csv(path_or_buf=out_file, index=False)

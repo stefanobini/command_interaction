@@ -19,7 +19,8 @@ from colorama import Back, Fore
 from typing import Dict, List
 
 #from settings.conf_1 import settings
-
+import soundfile as sf
+SAVE=True
 
 class ResNet8_PL(pl.LightningModule):
 
@@ -502,6 +503,7 @@ class ResNet8_PL(pl.LightningModule):
             fout.write("-------------------------------------------------\n")
             fout.write("Total average:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(avg_accuracy/len(accuracies), avg_balanced_accuracy/len(accuracies), avg_reject_accuracy/len(accuracies)))
         #'''
+
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""

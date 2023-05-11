@@ -8,7 +8,8 @@ from typing import Tuple
 
 LANGS = ["eng", "ita"]
 
-DATASET = os.path.join("FELICE", "demo3")
+# DATASET = os.path.join("MIVIA_ISC")
+DATASET = os.path.join("FELICE", "demo7_plus")
 DATASET_PATH = os.path.join("datasets", DATASET)
 
 HEADING = ["path", "type", "subtype", "speaker", "label"]
@@ -70,6 +71,7 @@ def get_df_attribute_set(attribute_group, attribute_list:list, heading) -> pd.Da
 # COMMANDS #
 ############
 for lang in LANGS:
+    # output_path = os.path.join(DATASET_PATH, "annotations", "with_reject", lang)
     output_path = os.path.join(DATASET_PATH, "annotations", lang)
     os.makedirs(output_path, exist_ok=True)
     annotation_file = os.path.join(output_path, "dataset.csv")

@@ -83,6 +83,10 @@ class Preprocessing():
         torch.Tensor
             Mel spectrogram of the waveform
         """
+        '''
+        melspectrogram = librosa.feature.melspectrogram(y=np.array(waveform), sr=self.settings.input.sample_rate, S=None, n_fft=self.settings.input.spectrogram.n_fft, hop_length=self.settings.input.spectrogram.hop_length, win_length=self.settings.input.spectrogram.win_length, window='hann', center=True, pad_mode='constant', power=1.0)
+        return torch.tensor(melspectrogram, dtype=torch.float)
+        #'''
         transformation = torchaudio.transforms.MelSpectrogram(sample_rate=self.settings.input.sample_rate, n_fft=self.settings.input.spectrogram.n_fft, win_length=self.settings.input.spectrogram.win_length, hop_length=self.settings.input.spectrogram.hop_length, n_mels=self.settings.input.mel.n_mels)
         return transformation(waveform)
     

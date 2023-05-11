@@ -14,11 +14,9 @@ def convert_audio(input_audio, output_audio):
     if process.returncode != 0:
         raise Exception("Conversion error for file:", input_audio)
 
-
-SRC_PATH = '/mnt/sdb1/sbini/Speech-Command_Interaction/Model_Augmentation/dataset/FELICE_demo7/reject_plus_common_voice'
-# DST_PATH = 'FELICE_demo7_extended/rejects'
-# DST_PATH = 'FELICE_demo3/rejects'
-DST_PATH = "/mnt/sdb1/sbini/Speech-Command_Interaction/training/datasets/full_dataset_v1/rejects"
+DST_NAME = "MIVIA_ISC"
+SRC_PATH = os.path.join("datasets", "mozilla_common_voices")
+DST_PATH = os.path.join("datasets", DST_NAME, "rejects")
 THRESH = True
 # N_SAMPLES = 8000
 N_SAMPLES = 10000
@@ -26,10 +24,9 @@ N_SAMPLES = 10000
 for lan in ['eng', 'ita']:
 # for lan in ['ita']:
     sample_counter = 0
-    src_lan_path = os.path.join(SRC_PATH, lan, 'clips')
-    dst_lan_path = os.path.join(DST_PATH, lan, 'clips')
-    if not os.path.isdir(dst_lan_path):
-        os.makedirs(dst_lan_path)
+    src_lan_path = os.path.join(SRC_PATH, lan)
+    dst_lan_path = os.path.join(DST_PATH, lan)
+    os.makedirs(dst_lan_path, exist_ok=True)
     
     file_iter = tqdm(os.listdir(src_lan_path))
     for file in file_iter:

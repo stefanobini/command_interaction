@@ -10,7 +10,7 @@ from utils.settings.FELICE_conf import settings
 
 
 SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC")
-OUT_PATH = os.path.join("datasets", "FELICE", "demo3")
+OUT_PATH = os.path.join("datasets", "FELICE", "demo7_plus")
 LANGs = ["ita", "eng"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
