@@ -69,7 +69,6 @@ If exists it loads the  database
 '''
 class State:
     def __init__(self, userid):
-        update_controller = UpdateController(self)
         self.id = userid.id if not type(userid) is str else userid
         self.path = Path(fr"{get_curr_dir(__file__)}/saves/{self.id}")
         self.info_path = self.path.joinpath("info.json")
@@ -80,26 +79,30 @@ class State:
         if type(userid) is str:
             self.info = {}
         else:
-            self.info = {"name": userid.name, "link": userid.link,
-                         "gender": None, "age": None,
-                         "cmd_index": None, "cmds_done": 0,"meme": 1,
-                         "last_lang": self.last_lang, "last_cmd_date": None, "init_complete": False
+            self.info = {"name": userid.name,
+                         "link": userid.link,
+                         "greeting": False,
+                         "int_lang": None,
+                         "gdpr": None,
+                         "gender": None,
+                         "age": None,
+                         "int_lang": None,
+                         "cmd_index": None,
+                         "cmds_done": 0,
+                         "last_lang": self.last_lang,
+                         "last_cmd_date": None,
+                         "init_complete": False
                          }
         self._load()
         self.text_controller = TextController(self)
-        self.meme_controller = MemeController(self)
-        update_controller.update()
 
     '''
     Sends to user the last conversation message
     '''
     def send_last_msg(self, bot):
-        memes = self.meme_controller.get_last_meme()
         bot.send_message(self.id, text=self.text_controller.get_str(22))
-        bot.send_photo(self.id, photo=memes[0])
         time.sleep(0.5)
         bot.send_message(self.id, text=self.text_controller.get_str(9))
-        bot.send_photo(self.id, photo=memes[1])
 
     '''
     Gets the string associated to index given as input
@@ -121,9 +124,6 @@ class State:
             elif last_date is None or (Scheduler.user_is_sleeping(self) and not self.check_done()):
                 self._reset_cmds_done()
                 bot.send_message(chat_id=self.id, text=self.text_controller.get_str(20))
-                with open(Path(f"{get_curr_dir(__file__)}/meme/sad.jpg"), "rb") as fil:
-                    ph = fil.read()
-                    bot.send_photo(chat_id=self.id, photo=ph)
                 time.sleep(1)
                 bot.send_message(chat_id=self.id, text=self.text_controller.get_str(21))
                 send_command(self.id, bot=bot, cmd=cmd)
@@ -295,45 +295,6 @@ class State:
         if cmd_index is None or self.database._get_value(cmd_index, col_value):
             cmd_index = self.get_next_command(self.info["lang"])
         return self.text_controller.get_command_str(cmd_index, self.last_lang)
-
-    '''
-    Sends the next meme to user
-    '''
-    def get_meme(self, bot):
-        def send(photo):
-            bot.send_message(chat_id=self.id, text=self.text_controller.get_str(22))
-            bot.send_photo(chat_id=self.id, photo=photo)
-            time.sleep(2)
-            bot.send_message(chat_id=self.id, text=self.text_controller.get_str(23))
-
-        meme = self.meme_controller.get_meme()
-        if meme is not None:
-            send(meme)
-
-    '''
-    Returns the number of commands done by the user. the START and STOP commands are counted only once
-    '''
-    def _get_command_count_meme(self):
-        done_eng = len(self.database.loc[self.database["done_eng"] == True])
-        done_ita = len(self.database.loc[self.database["done_ita"] == True])
-        lang = self.info["lang"]
-        if lang == "eng": return done_eng
-        elif lang == "ita": return done_ita
-        else:
-            db_eng: pd.DataFrame = self.database.loc[self.database["done_eng"] == True]
-            db_ita: pd.DataFrame = self.database.loc[self.database["done_ita"] == True]
-            done = len(db_eng) + len(db_ita)
-            try:
-                if db_eng.at[18, "done_eng"]: #Attention here !!!!
-                    done -= 1
-            except KeyError:
-                pass
-            try:
-                if db_eng.at[19, "done_eng"]: #Attention here !!!!
-                    done -= 1
-            except KeyError:
-                pass
-            return done
 
     '''
     Sets to True the init_complete key into info file. Then saves it on disk
@@ -530,109 +491,6 @@ class SchedulerTimer(Thread):
             self.timer.start()
             self.event.wait()
 
-'''
-This class allows to developer to update user info when he needs to modify the bot behaviour.
-In this ways the developers can modify the user info from one version of the bot to another.
-'''
-class UpdateController:
-    def __init__(self, state: State):
-        self.state = state
-
-    def _update_scheduled_hours(self):
-        if not Path(fr"{get_curr_dir(__file__)}/saves/{self.state.id}/scheduler.json").exists():
-            Scheduler.set_scheduled_hour(self.state)
-
-    def _update_lang(self):
-        if self.state.info.get("lang") is None:
-            self.state.info["lang"] = "both"
-            self.state._save_info()
-
-    def _update_database(self):
-        assert len(command_eng) == len(command_ita)
-        if len(self.state.database) < len(command_ita):
-            diff = list(set(command_eng.keys()) - set(self.state.database.index))
-            diff.sort()
-            if "cmd" in self.state.database.columns.tolist():
-                self.state.database.set_index("cmd", inplace=True)
-            for e in diff:
-                data = pd.DataFrame(data=[[False, False]], columns=self.state.database.columns, index=[e])
-                self.state.database = self.state.database.append(data, verify_integrity=True)
-        self.state._save_database()
-
-    def _update_meme_count(self):
-        cmds_done = self.state.cmds_done
-        if cmds_done < 0: cmds_done = 0
-        meme_id = math.ceil(cmds_done / self.state.meme_controller.reward_freq)
-        if cmds_done == self.state.commands_len:
-            meme_id = self.state.meme_controller.TOTAL_MEME +1
-        elif meme_id == 0:
-            meme_id = 1
-        elif cmds_done % self.state.meme_controller.reward_freq == 0:
-            meme_id += 1
-        self.state._reset_cmds_done()
-        self.state.info["meme"] = meme_id
-        self.state._save_info()
-
-    def update(self):
-        self.state._load()
-        self._update_scheduled_hours()
-        self._update_lang()
-        self._update_database()
-        self._update_meme_count()
-
-'''
-This class implements the rewards system
-'''
-class MemeController:
-
-    def __init__(self, state: State):
-        self.state = state
-        self.base_path = Path(get_curr_dir(__file__)).joinpath("meme")
-        self.REWARD_FREQ = 5 # A reward every 5 commands
-
-    '''
-    Returns the number of total meme respect to selected lang
-    '''
-    @property
-    def TOTAL_MEME(self):
-        lang = self.state.info["lang"]
-        assert lang == "ita" or lang == "eng" or lang == "both"
-        return 12 if lang == "both" else 6
-
-    '''
-    Returns the next reward
-    '''
-    def get_meme(self):
-        lang = self.state.info["lang"]
-        path_end = "eng" if lang == "eng" else "ita"
-        path = self.base_path.joinpath(path_end)
-        cmds_count = self.state._get_command_count_meme()
-        meme = self.state.info["meme"]
-        if cmds_count >= int(meme) * self.reward_freq and meme < self.TOTAL_MEME:
-            self.state.info["meme"] += 1
-            self.state._save_info()
-            with open(path.joinpath(f"{meme}.jpg"), "rb") as fil:
-                return fil.read()
-        return None
-
-    @property
-    def reward_freq(self):
-        return self.REWARD_FREQ
-
-    '''
-    Returns the last meme
-    '''
-    def get_last_meme(self):
-        lang = self.state.info["lang"]
-        path_end = "eng" if lang == "eng" else "ita"
-        path = self.base_path.joinpath(path_end)
-        with open(path.joinpath(r"thk.jpg"), "rb") as fil:
-            meme2 = fil.read()
-        with open(path.joinpath(f"{str(self.state.info['meme'])}.jpg"), "rb") as fil:
-            meme1 = fil.read()
-        self.state.info["meme"] += 1
-        self.state._save_info()
-        return meme1, meme2
 
 '''
 This implements the communication system based on text.
@@ -641,16 +499,6 @@ Returns the required strings respect to selected lang.
 class TextController:
     def __init__(self, state: State):
         self.state = state
-
-    '''
-    Checks if the string contains a reward message, if yes formats it
-    '''
-    def _level_check(self, indx, msg: str):
-        lv = int(self.state.info["meme"]) - 1
-        tot = self.state.meme_controller.TOTAL_MEME
-        if indx == 22:
-            msg = msg.format(lv, tot) + self._get_single_str(24)
-        return msg
 
     '''
     Returns a string that does not require formatting
@@ -668,8 +516,7 @@ class TextController:
     Returns the string associated to index
     '''
     def get_str(self, indx):
-        msg = self._get_single_str(indx)
-        return self._level_check(indx, msg)
+        return self._get_single_str(indx)
 
     '''
     Returns the command string associated to command index and selected lang 
