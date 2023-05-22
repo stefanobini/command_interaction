@@ -1,4 +1,4 @@
-""" DEMO FULL - ITA - ResNet15 - UniCL_PEM_v2 """
+""" DEMO 3 - ITA - ResNet15 - UniCL_PEM_v2 """
 import os
 from typing import List
 from dotmap import DotMap
@@ -9,7 +9,7 @@ settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
 settings.task:str = "SCR"
-settings.demo:str = "demofull"
+settings.demo:str = "demo3"
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
@@ -64,9 +64,9 @@ settings.model.conformer.convolution_first: bool = False
 
 '''Training'''
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 48
+settings.training.num_workers:str = 16
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:int = 2                                         # list of the GPU devices to use
+settings.training.device:int = 3                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch

@@ -96,11 +96,13 @@ def run_demo3(req):
     if FIWARE_CB != "None":
         post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     else:
+        '''
         print(command_eng)
         print(command_ita)
         print(cmd)
         print(command_ita[cmd])
         print(command_eng[cmd])
+        '''
         pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
 
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'

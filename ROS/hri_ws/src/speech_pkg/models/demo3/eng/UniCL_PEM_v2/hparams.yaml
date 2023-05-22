@@ -4,34 +4,32 @@ loss_weights: !!python/object/apply:torch._utils._rebuild_tensor_v2
     gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
     AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
     aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-    Z2UKcQFYCQAAADE0NjU1MjQwMHECWAMAAABjcHVxA0sgTnRxBFEugAJdcQBYCQAAADE0NjU1MjQw
-    MHEBYS4gAAAAAAAAAAAAAD0AAAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9
-    AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0A
-    AAA9AAAAPQAAAD0AAAA9AAAAPQAAAD0AAAA9
+    Z2UKcQFYCQAAADEyNjA3MjY1NnECWAMAAABjcHVxA0sFTnRxBFEugAJdcQBYCQAAADEyNjA3MjY1
+    NnEBYS4FAAAAAAAAAM3MTD7NzEw+zcxMPs3MTD7NzEw+
 - 0
 - !!python/tuple
-  - 32
+  - 5
 - !!python/tuple
   - 1
 - false
 - !!python/object/apply:collections.OrderedDict
   - []
-num_labels: 32
+num_labels: 5
 settings: !!python/object/apply:dotmap.DotMap
   dictitems:
     dataset: &id027 !!python/object/apply:dotmap.DotMap
       dictitems:
-        folder: datasets/FELICE/demofull
+        folder: datasets/FELICE/demo3
         noise: &id006 !!python/object/apply:dotmap.DotMap
           dictitems:
             training: &id001 !!python/object/apply:dotmap.DotMap
               dictitems:
-                annotations: datasets/FELICE/demofull/training/annotations/noise/training.csv
+                annotations: datasets/FELICE/demo3/training/annotations/noise/training.csv
               state:
                 _dynamic: true
                 _map: !!python/object/apply:collections.OrderedDict
                 - - - annotations
-                    - datasets/FELICE/demofull/training/annotations/noise/training.csv
+                    - datasets/FELICE/demo3/training/annotations/noise/training.csv
                 _prevent_method_masking: false
           state:
             _dynamic: true
@@ -43,30 +41,30 @@ settings: !!python/object/apply:dotmap.DotMap
           dictitems:
             testing: &id004 !!python/object/apply:dotmap.DotMap
               dictitems:
-                annotations: datasets/FELICE/demofull/testing/annotations/ita/testing.csv
+                annotations: datasets/FELICE/demo3/testing/annotations/eng/testing.csv
               state:
                 _dynamic: true
                 _map: !!python/object/apply:collections.OrderedDict
                 - - - annotations
-                    - datasets/FELICE/demofull/testing/annotations/ita/testing.csv
+                    - datasets/FELICE/demo3/testing/annotations/eng/testing.csv
                 _prevent_method_masking: false
             training: &id002 !!python/object/apply:dotmap.DotMap
               dictitems:
-                annotations: datasets/FELICE/demofull/training/annotations/ita/training.csv
+                annotations: datasets/FELICE/demo3/training/annotations/eng/training.csv
               state:
                 _dynamic: true
                 _map: !!python/object/apply:collections.OrderedDict
                 - - - annotations
-                    - datasets/FELICE/demofull/training/annotations/ita/training.csv
+                    - datasets/FELICE/demo3/training/annotations/eng/training.csv
                 _prevent_method_masking: false
             validation: &id003 !!python/object/apply:dotmap.DotMap
               dictitems:
-                annotations: datasets/FELICE/demofull/validation/annotations/ita/validation.csv
+                annotations: datasets/FELICE/demo3/validation/annotations/eng/validation.csv
               state:
                 _dynamic: true
                 _map: !!python/object/apply:collections.OrderedDict
                 - - - annotations
-                    - datasets/FELICE/demofull/validation/annotations/ita/validation.csv
+                    - datasets/FELICE/demo3/validation/annotations/eng/validation.csv
                 _prevent_method_masking: false
           state:
             _dynamic: true
@@ -82,17 +80,17 @@ settings: !!python/object/apply:dotmap.DotMap
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - folder
-            - datasets/FELICE/demofull
+            - datasets/FELICE/demo3
           - - speech
             - *id005
           - - noise
             - *id006
         _prevent_method_masking: false
-    demo: demofull
+    demo: demo3
     experimentation: FELICE
     input: &id026 !!python/object/apply:dotmap.DotMap
       dictitems:
-        language: ita
+        language: eng
         mel: &id010 !!python/object/apply:dotmap.DotMap
           dictitems:
             n_mels: 40
@@ -179,7 +177,7 @@ settings: !!python/object/apply:dotmap.DotMap
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - language
-            - ita
+            - eng
           - - type
             - melspectrogram
           - - sample_rate
@@ -196,7 +194,7 @@ settings: !!python/object/apply:dotmap.DotMap
     logger: &id031 !!python/object/apply:dotmap.DotMap
       dictitems:
         folder: lightning_logs
-        name: FELICE/demofull/ita
+        name: FELICE/demo3/eng
         version: UniCL_PEM_v2
       state:
         _dynamic: true
@@ -204,7 +202,7 @@ settings: !!python/object/apply:dotmap.DotMap
         - - - folder
             - lightning_logs
           - - name
-            - FELICE/demofull/ita
+            - FELICE/demo3/eng
           - - version
             - UniCL_PEM_v2
         _prevent_method_masking: false
@@ -388,7 +386,7 @@ settings: !!python/object/apply:dotmap.DotMap
               - - save_top_k
                 - 1
             _prevent_method_masking: false
-        device: 2
+        device: 3
         early_stop: &id023 !!python/object/apply:dotmap.DotMap
           dictitems:
             patience: 8
@@ -412,7 +410,7 @@ settings: !!python/object/apply:dotmap.DotMap
             _prevent_method_masking: false
         max_epochs: -1
         min_epochs: 1
-        num_workers: 48
+        num_workers: 16
         optimizer: &id025 !!python/object/apply:dotmap.DotMap
           dictitems:
             amsgrad: false
@@ -455,11 +453,11 @@ settings: !!python/object/apply:dotmap.DotMap
         - - - reject_percentage
             - 0.5
           - - num_workers
-            - 48
+            - 16
           - - accelerator
             - gpu
           - - device
-            - 2
+            - 3
           - - max_epochs
             - -1
           - - min_epochs
@@ -491,7 +489,7 @@ settings: !!python/object/apply:dotmap.DotMap
       - - task
         - SCR
       - - demo
-        - demofull
+        - demo3
       - - input
         - *id026
       - - dataset
