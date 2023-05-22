@@ -7,9 +7,11 @@ import message_filters
 import os
 import rospy
 import time
+import threading
+from threading import Lock
 
 from sensor_msgs.msg import Image
-from vision_msgs.msg import Detection2DArray
+from vision_msgs.msg import Detection2DArray, Detection2D
 from std_msgs.msg import String
 
 from utils import ImageStream, TextStream
@@ -62,18 +64,7 @@ def text_feed():
 
 
 class ConsoleWebviewNode:
-    '''ConsoleWebviewNode implements a ROS interface to show data on the Pepper's tablet through the web interface.
-    The node subscribes to the following topics:
-    
-    - **sync_rgb**: raw images from the sync node
-    - **rosout**: All the loggers publish here
-    - **tracking_state**: all the data about the people in the scene
-    The node does not publish on any topic.
-    The available methods are:
-    
-    - **\_\_init\_\_(self)**: constructor
-    - **start(self)**: starts the ros node instance
-    '''
+    ''''''
     def __init__(self, image, text, webserver):
         self.image_callback = image
         self.text_callback = text
@@ -83,14 +74,21 @@ class ConsoleWebviewNode:
     def start(self):
         rospy.init_node(NODE_NAME, log_level=rospy.DEBUG)
         
+        #'''
         raw_image = message_filters.Subscriber('in_rgb', Image)
-        gesture = message_filters.Subscriber('hand_gesture_recognition', Detection2DArray)
-        ts = message_filters.TimeSynchronizer([raw_image, gesture], 100)  #50 
+        # gesture = message_filters.Subscriber('hand_gesture_recognition', Detection2DArray)
+        gesture = message_filters.Subscriber('hand_gesture_recognition', Detection2D)
+        # ts = message_filters.TimeSynchronizer([raw_image, gesture], 100)  #50
+        ts = message_filters.ApproximateTimeSynchronizer(fs=[raw_image, gesture], queue_size=100, slop=0.1, allow_headerless=False)
         ts.registerCallback(self.image_callback)
-
-        sub = rospy.Subscriber("speech_command", String, self.text_callback)
+        #'''
         
-        self.webserver.run(debug=True, host='0.0.0.0', use_reloader=False)
+        #gesture_subscriber = rospy.Subscriber('hand_gesture_recognition', Detection2DArray, self.image_callback)
+        speech_subscriber = rospy.Subscriber("speech_command", String, self.text_callback)
+        
+        # threading.Thread(target=lambda: app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False, threaded=True)).start()
+        self.webserver.run(debug=True, host='0.0.0.0', use_reloader=False, threaded=True, use_evalex=False)
+        # print("bbbbbeeeeeeeeeiiiiiiiiissssssssssssss")
         # rospy.spin()
 
 

@@ -1,0 +1,6 @@
+From PyTorch to ONNX
+https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
+
+From ONNX to TensorRT
+1. Setup TensorRT engine, with command:
+trtexec --onnx=models/onnx/mobilenetv3_rgb-sim.onnx --saveEngine=models/trt/mobilenetv3_rgb.trt

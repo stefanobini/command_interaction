@@ -15,16 +15,14 @@ sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -
 
 # Docker for SPEECH DEMO
 sudo docker build -t docker_felice_demo . --network=host
-
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo docker_felice_demo7
-
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/speech-command_interaction:/home/felice/speech-command_interaction --runtime nvidia --network="host" -dit --name felice_demo docker_felice_demo7
-
 sudo docker exec -it felice_demo  /bin/bash
 
 # Docker for WHOLE DEMO
 sudo docker build -t docker_command_demo . --network=host
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
+felice
 sudo docker exec -it command_demo  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
@@ -34,10 +32,13 @@ cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_
 # In the docker
 cd home/felice/command_interaction/ROS/hri_ws/
 source devel/setup.bash
+# FOR DEMO FELICE RESET THE "UNIQUE_CMD_LIST" TO THE RIGHT COMMANDS
 roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
+# Address for visualization: http://10.0.1.222:5000/
+# Open with Google Chrome
 
-# roslaunch speech_pkg start_demo.launch
-# roslaunch speech_pkg start_new_demo.launch
+'''For FELICE'''
+roslaunch speech_pkg start_felice.launch
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch

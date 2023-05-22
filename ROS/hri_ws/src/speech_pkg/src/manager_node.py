@@ -9,15 +9,13 @@ from datetime import datetime
 
 from std_msgs.msg import String
 
-from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
+# from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 from speech_pkg.msg import Command, Speech
 from demo_utils.post_request import MyRequestPost
 
 
-SPEECH_INFO_FILE = '/home/felice/speech-command_interaction/acquisition/speech/detected_voices/res.txt'
-
-command_eng = DEMO_CMD_ENG
-command_ita  = DEMO_CMD_ITA
+SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt'
 speech_counter = 0
 robot_listening = False
 robot_uuid = uuid.uuid1().node
@@ -59,7 +57,8 @@ def run_demo7(req):
 
     if robot_listening:
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        cmd = res.cmd + offset
+        #cmd = res.cmd + offset
+        cmd = res.cmd
         if FIWARE_CB != "None":
             post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
         else:
@@ -68,7 +67,7 @@ def run_demo7(req):
         print(res_str)
         
         if rospy.get_param("/save_speech") == True:
-            with open(SPEECH_INFO_FILE, "a") as f:
+            with open(SPEECH_INFO_FILE, "w") as f:
                 f.write(res_str)
 
     if robot_listening and res.cmd == 1:
@@ -86,13 +85,26 @@ def run_demo3(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
 
 
     # publish_cmd(command=res.cmd, confidence=res.probs[res.cmd])
     # print(res.cmd)
-    cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
-    post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+    #cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
+    cmd = res.cmd
+
+    if FIWARE_CB != "None":
+        post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+    else:
+        '''
+        print(command_eng)
+        print(command_ita)
+        print(cmd)
+        print(command_ita[cmd])
+        print(command_eng[cmd])
+        '''
+        pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
+
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
         
@@ -111,7 +123,7 @@ def run_demo_full(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
 
     if not robot_listening and res.cmd == 23:
         robot_listening = True
@@ -143,6 +155,7 @@ def run_demo_full(req):
 
 if __name__ == "__main__":
     DEMO = rospy.get_param("/demo")
+    LANG = rospy.get_param("/language")
     FIWARE_CB = rospy.get_param("/fiware_cb")
 
     pub = rospy.Publisher('speech_command', String, queue_size=1)
@@ -154,17 +167,25 @@ if __name__ == "__main__":
     rospy.wait_for_service('classifier_service')
     # rospy.wait_for_service('speech_service')
 
-    command_eng = DEMO_CMD_ENG
-    command_ita  = DEMO_CMD_ITA
-
-    if DEMO == 3:
+    if DEMO == str(3):
         offset = 0
+        command_eng = DEMO3_CMD_ENG
+        command_ita = DEMO3_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo3)
-    elif DEMO == 7:
-        offset = 2
-        rospy.Service('manager_service', Manager, run_demo7)
-    elif DEMO == 0:
+    elif DEMO == str(7):
+        # offset = 2
         offset = 0
+        command_eng = DEMO7_CMD_ENG
+        command_ita = DEMO7_CMD_ITA
+        rospy.Service('manager_service', Manager, run_demo7)
+    elif DEMO == "7_plus":
+        command_eng = DEMO7P_CMD_ENG
+        command_ita = DEMO7P_CMD_ITA
+        rospy.Service('manager_service', Manager, run_demo7)
+    elif DEMO == "full":
+        offset = 0
+        command_eng = DEMO_CMD_ENG
+        command_ita = DEMO_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo_full)
     # rospy.Service('manager_service', Manager, run_demo7)
     # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
@@ -174,7 +195,7 @@ if __name__ == "__main__":
         post_request.create_entity()
     
     classify = rospy.ServiceProxy('classifier_service', Classification)
-    print(Fore.GREEN + '\n' + '#'*20 + '\n#   SYSTEM READY   #\n#' + ' '*6 + 'demo {}'.format(DEMO) + ' '*6 + '#\n' + '#'*20 + '\n' + Fore.RESET)
+    print(Fore.GREEN + '\n' + '#'*24 + '\n#     SYSTEM READY     #\n#' + ' '*6 + 'demo {} {}'.format(DEMO, LANG) + ' '*6 + '#\n' + '#'*24 + '\n' + Fore.RESET)
 
     # speech = rospy.ServiceProxy('speech_service', Talker)
 
