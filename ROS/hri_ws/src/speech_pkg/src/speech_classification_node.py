@@ -346,12 +346,12 @@ class NewClassifier:
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         ###print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(x), x.shape, x.dtype, np.min(x_cpu), np.max(x_cpu), np.mean(x_cpu)))
         #plot_melspectrogram(path="mel_spec_db.png", melspectrogram=db_melspectrogram)
-        #prev_time = time.time()
+        prev_time = time.time()
         #cmd_probs = self.cmd_model.predict(melspectrogram)
         #spk_probs = self.spk_model.predict(melspectrogram)
         cmd_probs = self.model.predict(x)
-        #infer_time = time.time() - prev_time
-        #print('\nINFER TIME: {}'.format(infer_time))
+        infer_time = time.time() - prev_time
+        print('INFER TIME: {:.4f}'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
         #print(cmd, cmd_probs[0])

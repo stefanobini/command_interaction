@@ -58,15 +58,16 @@ def run_demo7(req):
 
     if robot_listening:
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        #cmd = res.cmd + offset
-        cmd = res.cmd
-        #cb_reply_time = time.time()
+        cmd = res.cmd + offset
+        if res.cmd == len(DEMO7_CMD_ENG)-1:
+            cmd = DEMO3_CMD_ENG - 1
+        cb_reply_time = time.time()
         if FIWARE_CB != "None":
             post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
         else:
             pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-        #cb_reply_time = time.time() - cb_reply_time
-        #print(cb_reply_time)
+        cb_reply_time = time.time() - cb_reply_time
+        print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
         res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         
@@ -96,13 +97,13 @@ def run_demo3(req):
     # print(res.cmd)
     #cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
     cmd = res.cmd
-    #cb_reply_time = time.time()
+    cb_reply_time = time.time()
     if FIWARE_CB != "None":
         post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     else:
         pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-    #cb_reply_time = time.time() - cb_reply_time
-    #print(cb_reply_time)
+    cb_reply_time = time.time() - cb_reply_time
+    print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
     print(res_str)
         
@@ -171,8 +172,7 @@ if __name__ == "__main__":
         command_ita = DEMO3_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo3)
     elif DEMO == str(7):
-        # offset = 2
-        offset = 0
+        offset = 4
         command_eng = DEMO7_CMD_ENG
         command_ita = DEMO7_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo7)

@@ -12,6 +12,9 @@ rostopic echo comunication_pkg/Speech
 # Automatically update date
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
+# Network
+watch -n1 iwconfig  # Signal power
+nmcli dev wifi  # List of network
 
 # Docker for SPEECH DEMO
 sudo docker build -t docker_felice_demo . --network=host
