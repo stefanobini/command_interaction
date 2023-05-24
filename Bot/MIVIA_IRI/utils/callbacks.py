@@ -4,6 +4,8 @@ from datetime import datetime
 from pathlib import Path
 import logging
 import numpy as np
+from colorama import Back, Fore, Style, init
+init(autoreset=True)
 
 from telegram.ext import CallbackContext, ConversationHandler
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
@@ -15,54 +17,59 @@ from utils.utils import State, get_age_set, get_curr_dir
 logger = logging.getLogger(__name__)
 
 
-def hello(update: Update, context: CallbackContext) -> int:
-    print("hello")
-    state: State = context.user_data["state"] 
+def presentation(update: Update, context: CallbackContext) -> int:
+    state = State(update.effective_user)
+    context.user_data["state"] = state
+    # Set logger
+    log_text = '{' + fr"{update.effective_user.full_name}, {update.effective_user.link}, {update.effective_user.id}, complete: {state.check_end()}" + '}'
+    logger.info(fr"Entra: {log_text} - {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
     time.sleep(1)
-    context.bot.send_message(state.id, state.get_message("hello"))
-    return STATES.ASK_INTERACTION_LANGUAGE
+    # Ask for the interaction language
+    ask_int_lang(update=update, context=context)
+    # Go to the INTERACTION LANGUAGE state
+    return STATES.INTERACTION_LANGUAGE
 
 
-def ask_int_lang(update: Update, context: CallbackContext) -> int:
-    """INTERACTION LANGUAGES state.
-    Ask the interaction language to the user."""
-    print("ask_int_lang")
-    # Ask to the user in which languages he/she wants acquire data.
+def ask_int_lang(update: Update, context: CallbackContext) -> None:
     state: State = context.user_data["state"]
-    keyword = [InlineKeyboardButton("English", callback_data="lang_eng"),
+    #context.bot.send_message(state.id, state.get_message("hello"))
+    update.message.reply_text(state.get_message("hello"))
+    keyword = [[InlineKeyboardButton("English", callback_data="lang_eng"),
                 InlineKeyboardButton("Español", callback_data="lang_esp"),
-                InlineKeyboardButton("Italiano", callback_data="lang_ita")]
+                InlineKeyboardButton("Italiano", callback_data="lang_ita")]]
     time.sleep(1)
-    context.bot.send_message(state.id, state.get_message("int_lang"), reply_markup=InlineKeyboardMarkup(keyword))
-    return STATES.GET_ACQUISITION_LANGUAGES
+    context.bot.send_message(chat_id=state.id, text=state.get_message("int_lang"), reply_markup=InlineKeyboardMarkup(keyword))
 
 def get_int_lang(update: Update, context: CallbackContext) -> int:
     """INTERACTION LANGUAGE state.
-    Receive the interaction language from the user."""
+    Receive the interaction language from the user, then ask the privacy Consent to the user."""
+    print(Fore.GREEN + "INTERACTION LANGUAGE")
+    # Receive the interaction language from the user
     update.callback_query.answer()
     state: State = context.user_data["state"]
     lang = update.callback_query.data.split("_")[1]
     state.info["int_lang"] = lang
     state._save_info()
-    return STATES.GET_INTERACTION_LANGUAGE
+    # Ask the privacy Consent to the user
+    ask_gdpr(update=update, context=context)    
+    # Go to the GDPR state
+    return STATES.GDPR
 
 
-def ask_gdpr(update: Update, context: CallbackContext) -> int:
-    """GDPR state.
-    Ask the privacy Consent to the user."""
+def ask_gdpr(update: Update, context: CallbackContext) -> None:
     state: State = context.user_data["state"]
     context.bot.send_message(state.id, state.get_message("gdpr_link"))    # send this link with some istructions
     time.sleep(10)
-
     keyword = [[InlineKeyboardButton(state.get_message("agree"), callback_data="gdpr_yes"),
                 InlineKeyboardButton(state.get_message("not_agree"), callback_data="gdpr_no")]]
     time.sleep(1)
     context.bot.send_message(state.id, state.get_message("gdpr_agreement"), reply_markup=InlineKeyboardMarkup(keyword))
-    return STATES.ASK_GDPR
 
 def get_gdpr(update: Update, context: CallbackContext) -> int:
     """GDPR state.
-    Receive the Privacy Consent answer from the user."""
+    Receive the Privacy Consent answer from the user, then ask gender to the user."""
+    print(Fore.GREEN + "GDPR")
+    # Receive the Privacy Consent answer from the user
     update.callback_query.answer()
     state: State = context.user_data["state"]
     gdpr = update.callback_query.data.split("_")[1]
@@ -71,33 +78,36 @@ def get_gdpr(update: Update, context: CallbackContext) -> int:
     if gdpr == "no":
         context.bot.send_message(state.id, state.get_message("refuse_gdpr"))
         reset(update=update, context=context)
-    return STATES.GET_GDPR
+    # Ask gender to the user
+    ask_gender(update=update, context=context)
+    # Go to GENDER state
+    return STATES.GENDER
 
 
-def ask_gender(update: Update, context: CallbackContext) -> int:
-    """GENDER state.
-    Ask gender to the user."""
-    state: State = context.user_data["state"] 
+def ask_gender(update: Update, context: CallbackContext) -> None:
+    state: State = context.user_data["state"]
     keyword = [[InlineKeyboardButton(state.get_message("male"), callback_data="gender_Male"),
                 InlineKeyboardButton(state.get_message("female"), callback_data="gender_Female")]]
     time.sleep(1)
     context.bot.send_message(state.id, state.get_message("gender"), reply_markup=InlineKeyboardMarkup(keyword))
-    return STATES.ASK_GENDER
-
+    
 def get_gender(update: Update, context: CallbackContext) -> int:
     """GENDER state.
-    Receive gender from the user."""
+    Receive gender from the user, then ask age range to the user."""
+    print(Fore.GREEN + "GENDER")
+    # Receive gender from the user
     update.callback_query.answer()
     state: State = context.user_data["state"]
     gender = update.callback_query.data.split("_")[1]
     state.info["gender"] = gender
     state._save_info()
-    return STATES.ASK_AGE
+    # Ask age range to the user
+    ask_age(update=update, context=context)
+    # Go to the AGE state
+    return STATES.AGE
 
 
-def ask_age(update: Update, context: CallbackContext) -> int:
-    """AGE state.
-    Ask age range to the user."""
+def ask_age(update: Update, context: CallbackContext) -> None:
     state: State = context.user_data["state"]
     age_set = get_age_set()
     for i, e in enumerate(age_set):
@@ -107,24 +117,24 @@ def ask_age(update: Update, context: CallbackContext) -> int:
     keyboard = InlineKeyboardMarkup(age_set)
     time.sleep(1)
     context.bot.send_message(state.id, state.get_message("age"), reply_markup=keyboard)
-    return STATES.GET_AGE
 
 def get_age(update: Update, context: CallbackContext) -> int:
     """AGE state.
-    Receive age range from the user."""
+    Receive age range from the user, then ask the acquisition languages to the user."""
+    print(Fore.GREEN + "AGE")
     # Get user answer (age)
     update.callback_query.answer()
     state: State = context.user_data["state"]
     age = update.callback_query.data.split("_")[1]
     state.info["age"] = age
     state._save_info()
-    return STATES.ASK_ACQUISITION_LANGUAGES
+    # Ask the acquisition languages to the user
+    ask_acq_langs(update=update, context=context)
+    # Go to the ACQUISITION LANGUAGE state
+    return STATES.ACQUISITION_LANGUAGES
 
 
-def ask_acq_langs(update: Update, context: CallbackContext) -> int:
-    """ACQUISITION LANGUAGES state.
-    Ask the acquisition languages to the user."""
-    # Ask to the user in which languages he/she wants acquire data.
+def ask_acq_langs(update: Update, context: CallbackContext) -> None:
     state: State = context.user_data["state"]
     keyword = [[InlineKeyboardButton("English - Español - Italiano", callback_data="lang_eng-esp-ita")],
 
@@ -137,58 +147,55 @@ def ask_acq_langs(update: Update, context: CallbackContext) -> int:
                  InlineKeyboardButton("Italiano", callback_data="lang_ita")]]
     time.sleep(1)
     context.bot.send_message(state.id, state.get_message("acq_lang"), reply_markup=InlineKeyboardMarkup(keyword))
-    return STATES.GET_ACQUISITION_LANGUAGES
-
+    
 def get_acq_langs(update: Update, context: CallbackContext) -> int:
     """ACQUISITION LANGUAGES state.
-    Receive acquisition languages from the user"""
-    # Get user answer (interaction language)
+    Receive acquisition languages from the user, then send info for start the acquisition."""
+    print(Fore.GREEN + "ACQUISITION_LANGUAGES")
+    # Receive acquisition languages from the user
     update.callback_query.answer()
     state: State = context.user_data["state"]
     langs = update.callback_query.data.split("_")[1]
     lang_list = langs.split("-")
     state.set_acq_langs(langs=lang_list)
     state._save_info()
-    return STATES.ACQUISITION_INFO
+    # Ask to the user if he is ready
+    ask_ready(update=update, context=context)
+    # Go to the START ACQUISITION state
+    return STATES.START_ACQUISITION
 
 
-def give_acq_info(update: Update, context: CallbackContext) -> int:
-    """INTENT ACQUISITION state.
-    Send instruction to the user before starting the acquisition loop.""" 
+def ask_ready(update: Update, context: CallbackContext) -> None:
     state: State = context.user_data["state"]
-    context.bot.send_message(state.id, state.get_message("start_acq"))
-
     keyword = [[InlineKeyboardButton(state.get_message("yes"), callback_data="start_yes"),
                 InlineKeyboardButton(state.get_message("no"), callback_data="start_no")]]
     time.sleep(1)
     context.bot.send_message(state.id, state.get_message("start_acq"), reply_markup=InlineKeyboardMarkup(keyword))
-    return STATES.START_ACQUISITION
-
+    
 def start_acquisition(update: Update, context: CallbackContext) -> int:
     """INTENT ACQUISITION state.
-    Check if the user is ready to start the acquisition loop.""" 
+    Check if the user is ready to start the acquisition loop."""
+    print(Fore.GREEN + "INTENT ACQUISITION")
     update.callback_query.answer()
     state: State = context.user_data["state"]
     start = update.callback_query.data.split("_")[1]
     if start == "yes":
         state.info["init_complete"] = True
         state._save_info()
-        return STATES.ASK_INTENT_ACQUISITION
+        # Send the text related to the intent to record and an audio sample for understand the tone to use
+        state.send_next_intent_msg(context=context)
+        # Go to the INTENT ACQUISITION state
+        return STATES.INTENT_ACQUISITION
     else:
-        return STATES.ACQUISITION_INFO
-
-
-def ask_intent(update: Update, context: CallbackContext) -> int:
-    """INTENT ACQUISITION state.
-    Send the text related to the intent to record and an audio sample for understand the tone to use."""
-    state = State(update.effective_user)
-    context.user_data["state"] = state
-    state.send_next_intent_msg(context=context)
-    return STATES.GET_INTENT_ACQUISITION
+        # Check if the user is ready to start the acquisition loop
+        ask_ready(update=update, context=context)
+        # Go to the START ACQUISITION state
+        return STATES.START_ACQUISITION
 
 def get_intent(update: Update, context: CallbackContext) -> int:
     """INTENT ACQUISITION state.
-    Receive the recorded intent from the user."""
+    Send the text related to the intent to record and an audio sample for understand the tone to use, then receive the recorded intent from the user."""
+    # Receive the recorded intent from user.
     state = State(update.effective_user)
     context.user_data["state"] = state
     state.save(update.message.voice.get_file())
@@ -196,14 +203,17 @@ def get_intent(update: Update, context: CallbackContext) -> int:
         update.message.reply_text(state.get_message("end"))
         return ConversationHandler.END
     else:
-        return STATES.ASK_INTENT_ACQUISITION
+        # Send the text related to the intent to record and an audio sample for understand the tone to use
+        state.send_next_intent_msg(context=context)
+        return STATES.INTENT_ACQUISITION
 
 '''
 This callback is classed when the user start the bot (/start command).
 Checks if the user has already started the bot: if no, starts a new conversation else continues the previous conversation.
 If the user has already done the data collection terminates the conversation
 '''
-def run_bot(update: Update, context: CallbackContext) -> int:
+def conversation_handler(update: Update, context: CallbackContext) -> int:
+    print(Fore.GREEN + "conversation_handler")
     state = State(update.effective_user)
     context.user_data["state"] = state
 
@@ -214,22 +224,27 @@ def run_bot(update: Update, context: CallbackContext) -> int:
         update.message.reply_text(state.get_message("end"))
         return ConversationHandler.END
 
-    if state.info["hello"] == False:
-        print("run_bot, hello")
-        return STATES.HELLO
+    if state.info["presentation"] == False:
+        # I cannot use this branch, due to the state Handler
+        return STATES.PRESENTATION
     elif state.info["int_lang"] == None:
-        print("run_bot, int_lang")
-        return STATES.ASK_INTERACTION_LANGUAGE
+        ask_int_lang(update==update, context=context)
+        return STATES.INTERACTION_LANGUAGE
     elif state.info["gdpr"] == None:
-        return STATES.ASK_GDPR
+        ask_gdpr(update==update, context=context)
+        return STATES.GDPR
     elif state.info["gender"] == None:
-        return STATES.ASK_GENDER
+        ask_gender(update==update, context=context)
+        return STATES.GENDER
     elif state.info["age"] == None:
-        return STATES.ASK_AGE
+        ask_age(update==update, context=context)
+        return STATES.AGE
     elif state.info["acq_langs"] == None:
-        return STATES.ASK_ACQUISITION_LANGUAGES
+        ask_acq_langs(update==update, context=context)
+        return STATES.ACQUISITION_LANGUAGES
     else:
-        return STATES.ASK_INTENT_ACQUISITION
+        print(Back.RED + "ERROR - Conversation ends!")
+        return ConversationHandler.END
     
 
 # THESE METHODS SHOULD BE USELESS
@@ -242,15 +257,25 @@ def select_query(update: Update, context: CallbackContext):
     state = State(update.effective_user)
     context.user_data["state"] = state
     identifier, data = query_data.split("_")[0], query_data.split("_")[1]
-    if identifier == "gender" and state.info["gender"] is None:
-        return get_gender(update, context)
-    elif identifier == "age" and state.info["age"] is None:
-        return get_age(update, context)
-    elif identifier == "int_lang" and state.info["gender"] is None:
-        return get_int_lang(update, context)
+    print("Identifier: ", identifier)
+
+    if identifier == "presentation" and state.info["presentation"] == False:
+        print("conversation_handler, presentation")
+        return presentation(update=update, context=context)
+    elif state.info["int_lang"] == None:
+        print("conversation_handler, int_lang")
+        return ask_int_lang(update=update, context=context)
+    elif state.info["gdpr"] == None:
+        return ask_gdpr(update=update, context=context)
+    elif state.info["gender"] == None:
+        return ask_gender(update=update, context=context)
+    elif state.info["age"] == None:
+        return ask_age(update=update, context=context)
+    elif state.info["acq_langs"] == None:
+        return ask_acq_langs(update=update, context=context)
     else:
-        update.callback_query.answer()
-        return run_bot(update, context)
+        return ask_acq_langs(update=update, context=context)
+
 
 '''
 Deletes all user files

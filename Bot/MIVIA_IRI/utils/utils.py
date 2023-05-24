@@ -69,9 +69,10 @@ class State:
         if type(userid) is str:
             self.info = {}
         else:
-            self.info:dict = {"name": userid.name,
+            self.info:dict = {"id": self.id,
+                              "name": userid.name,
                               "link": userid.link,
-                              "hello": False,
+                              "presentation": False,
                               "int_lang": None,
                               "gdpr": None,
                               "gender": None,
@@ -85,7 +86,6 @@ class State:
                               "last_int_date": str(datetime.now())
                               }
         self._load()
-        self.text_controller = TextController(self)
 
     @property
     def intent_number(self):
@@ -120,7 +120,13 @@ class State:
 
     def get_message(self, label:str):
         """Return the string related to a specific state in the interaction language of the user."""
-        return self.text_controller.get_message(label)
+        message = ""
+        if self.info["int_lang"] is None:
+            for _, msg in BOT_MESSAGES[label].items():
+                message += "{}\n".format(msg)
+        else:
+            message = BOT_MESSAGES[label][self.info["int_lang"]]
+        return message
 
     def remember(self, context:CallbackContext):
         """Send a reminder to the inactive user.
@@ -395,17 +401,3 @@ class SchedulerTimer(Thread):
             self.timer = Timer(self.interval, self.function)
             self.timer.start()
             self.event.wait()
-
-
-class TextController:
-    def __init__(self, state: State):
-        """Manage the messages that should be sended by the Telegram bot, chosing the message and its language."""
-        self.state = state
-
-    def get_message(self, index:int):
-        """Return the message associated to a specific conversational state or response in the interaction language of the user."""
-        return BOT_MESSAGES[index][self.state.info["int_lang"]]
-
-    def get_command_str(self, index:int, version:int, lang:str):
-        """Returns the command string associated to command index in the selected lang."""
-        return INTENTS_DICT[index][lang][version]

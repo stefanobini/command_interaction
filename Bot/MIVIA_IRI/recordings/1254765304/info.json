@@ -1,8 +1,9 @@
 {
+    "id": 1254765304,
     "name": "@ArthurBeis",
     "link": "https://t.me/ArthurBeis",
     "hello": false,
-    "int_lang": null,
+    "int_lang": "eng",
     "gdpr": null,
     "gender": null,
     "age": null,
@@ -12,5 +13,5 @@
     "acquiring_intents": [],
     "acquiring_lang": [],
     "acquaring_version": [],
-    "last_int_date": "2023-05-18 20:48:46.785867"
+    "last_int_date": "2023-05-24 16:38:07.092643"
 }
