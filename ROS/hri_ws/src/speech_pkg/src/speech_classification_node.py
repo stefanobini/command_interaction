@@ -158,134 +158,7 @@ def infer_signal(model, signal):
     logits = model.forward(input_signal=audio_signal, input_signal_length=audio_signal_len)
     return logits
 
-"""
-class AudioDataLayer(IterableDataset):
-    @property
-    def output_types(self):
-        return {
-            'audio_signal': NeuralType(('B', 'T'), AudioSignal(freq=self._sample_rate)),
-            'a_sig_length': NeuralType(tuple('B'), LengthsType()),
-        }
 
-    def __init__(self, sample_rate):
-        super().__init__()
-        self._sample_rate = sample_rate
-        self.output = True
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if not self.output:
-            raise StopIteration
-        self.output = False
-        return torch.as_tensor(self.signal, dtype=torch.float32), \
-               torch.as_tensor(self.signal_shape, dtype=torch.int64)
-
-    def set_signal(self, signal):
-        self.signal = signal.astype(np.float32)
-        self.signal_shape = self.signal.size
-        self.output = True
-
-    def __len__(self):
-        return 1
-
-class Classifier:
-    def __init__(self, language, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
-        self.commands = commands
-        self.threshold_1 = threshold_1
-        self.threshold_2 = threshold_2
-
-        self.model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
-        print("# Loaded model language:", language)
-        print("# Model loaded:", ckpt_folder)
-        '''
-        self.model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=None).cuda(settings.training.device)  # Load model
-        ckpt = torch.load(ckpt_path, lambda s, l: s)
-        state_dict = ckpt["state_dict"]
-        del state_dict["loss_fn.weight"]
-        self.model.load_state_dict(state_dict=state_dict)
-        #'''
-        # self.model = self.load_model(language)
-
-        self.model = self.model.eval()
-        if torch.cuda.is_available():
-            self.model = self.model.cuda()
-        else:
-            self.model = self.model.cpu()
-        
-        # In order to avoid the waste of time related to the first inference
-        logits = infer_signal(self.model, np.zeros(shape=(20000,)))
-        self.model.predict(logits)
-
-        self.init_node()
-
-    def _pcm2float(self, sound: np.ndarray):
-        abs_max = np.abs(sound).max()
-        sound = sound.astype('float32')
-        if abs_max > 0:
-            sound *= 1 / abs_max
-        sound = sound.squeeze()  # depends on the use case
-        return sound
-
-    def _numpy2tensor(self, signal: np.ndarray):
-        signal_size = signal.size
-        signal_torch = torch.as_tensor(signal, dtype=torch.float32)
-        signal_size_torch = torch.as_tensor(signal_size, dtype=torch.int64)
-        return signal_torch, signal_size_torch
-
-    def convert(self, signal):
-        signal = np.array(signal)
-        signal_nw = self._pcm2float(signal)
-        return signal_nw
-
-    def predict_cmd(self, signal: np.ndarray):
-        logits = infer_signal(self.model, signal)
-        # prev_time = time.time()
-        probs = self.model.predict(logits)
-        # infer_time = time.time() - prev_time
-        # print('\nINFER TIME: {}\n'.format(infer_time))
-        probs = probs.cpu().detach().numpy()
-        cmd = np.argmax(probs, axis=1)
-        print(cmd, probs[0][cmd])
-        if len(probs[0]) < len(self.commands):
-            probs = np.append(arr=probs, values=[1-probs[0][cmd]], axis=1)
-        '''
-        REJECT_LABEL = probs.shape[1] - 1
-        # cmd = np.argmax(probs, axis=1)
-        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
-            cmd = np.array([REJECT_LABEL])
-        '''
-        if probs[0, cmd] < self.threshold_2:
-            cmd = np.array([probs.shape[1]-1])
-        '''
-        else:
-            cmd = np.argmax(probs, axis=1)
-        '''
-
-        return cmd, probs
-
-    def parse_req(self, req):
-        signal = self.convert(req.data.data)
-        cmd, probs = self.predict_cmd(signal)
-        assert len(cmd) == 1
-        cmd = int(cmd[0])
-        probs = probs.tolist()[0]
-        return ClassificationResponse(cmd, probs)
-
-    def init_node(self):
-        rospy.init_node('classifier')
-        s = rospy.Service('classifier_service', Classification, self.parse_req)
-        rospy.spin()
-
-    def load_model(self, language, ckpt_folder, ckpt_name):
-        model = Model.load_backup(exp_dir=ckpt_folder, ckpt_name=ckpt_name)
-        print("# Loaded model language:", language)
-        print("# Model loaded:", ckpt_folder)
-        
-        return model
-
-"""
 class NewClassifier:
     def __init__(self, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
         self.commands = commands
@@ -346,17 +219,19 @@ class NewClassifier:
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         ###print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(x), x.shape, x.dtype, np.min(x_cpu), np.max(x_cpu), np.mean(x_cpu)))
         #plot_melspectrogram(path="mel_spec_db.png", melspectrogram=db_melspectrogram)
-        prev_time = time.time()
+        #prev_time = time.time()
         #cmd_probs = self.cmd_model.predict(melspectrogram)
         #spk_probs = self.spk_model.predict(melspectrogram)
         cmd_probs = self.model.predict(x)
-        infer_time = time.time() - prev_time
-        print('INFER TIME: {:.4f}'.format(infer_time))
+        #infer_time = time.time() - prev_time
+        #print('INFER TIME: {:.4f}'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
         #print(cmd, cmd_probs[0])
+        """
         if len(cmd_probs[0]) < len(self.commands):
             cmd_probs = np.append(arr=cmd_probs, values=[1-cmd_probs[0][cmd]], axis=1)
+        """
         '''
         REJECT_LABEL = probs.shape[1] - 1
         # cmd = np.argmax(probs, axis=1)

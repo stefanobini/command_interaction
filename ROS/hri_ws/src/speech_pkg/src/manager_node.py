@@ -50,7 +50,7 @@ def run_demo7(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+    print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{:.3f}\n'.format(res.cmd, res.probs[res.cmd], res.probs[0]) + '#'*38 + Fore.RESET)
 
     if not robot_listening and res.cmd == 0:
         robot_listening = True
@@ -60,7 +60,7 @@ def run_demo7(req):
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
         cmd = res.cmd + offset
         if res.cmd == len(DEMO7_CMD_ENG)-1:
-            cmd = DEMO3_CMD_ENG - 1
+            cmd = len(DEMO3_CMD_ENG) - 1
         cb_reply_time = time.time()
         if FIWARE_CB != "None":
             post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
@@ -69,7 +69,7 @@ def run_demo7(req):
         cb_reply_time = time.time() - cb_reply_time
         print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
         res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
-        print(res_str)
+        #print(res_str)
         
         if rospy.get_param("/save_speech") == True:
             with open(SPEECH_INFO_FILE, "w") as f:
@@ -122,7 +122,7 @@ def run_demo_full(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
+    print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{:.3f}\n'.format(res.cmd, res.probs[res.cmd], res.probs[0]) + '#'*38 + Fore.RESET)
 
     if not robot_listening and res.cmd == 23:
         robot_listening = True
@@ -177,6 +177,7 @@ if __name__ == "__main__":
         command_ita = DEMO7_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo7)
     elif DEMO == "7_plus":
+        offset = 4
         command_eng = DEMO7P_CMD_ENG
         command_ita = DEMO7P_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo7)
