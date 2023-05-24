@@ -20,6 +20,7 @@ SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt
 speech_counter = 0
 robot_listening = False
 robot_uuid = uuid.uuid1().node
+START_THRESHOLD = 0.03
 
 
 def publish_cmd(command:int, confidence:float):
@@ -52,7 +53,7 @@ def run_demo7(req):
     res = classify(req.data)
     print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{:.3f}\n'.format(res.cmd, res.probs[res.cmd], res.probs[0]) + '#'*38 + Fore.RESET)
 
-    if not robot_listening and res.cmd == 0:
+    if not robot_listening and (res.cmd == 0 or (res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng))):
         robot_listening = True
         print(Fore.LIGHTGREEN_EX + '-'*12 + ' ROBOT IS LISTENING ' + '-'*12 + Fore.RESET)
 
@@ -64,11 +65,11 @@ def run_demo7(req):
         cb_reply_time = time.time()
         if FIWARE_CB == "None":
             pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-        elif cmd != len(command_eng)-1:
+        elif res.cmd != len(command_eng)-1:
             post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
         cb_reply_time = time.time() - cb_reply_time
         print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
-        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         #print(res_str)
         
         if rospy.get_param("/save_speech") == True:
