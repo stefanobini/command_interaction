@@ -2,8 +2,9 @@ import json
 import requests
 from datetime import datetime
 import rospy
+from colorama import Fore
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA#, DEMO_CMD_ENG, DEMO_CMD_ITA
 from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 
 
@@ -21,8 +22,8 @@ elif DEMO == "7_plus":
 elif DEMO == "full":
         command_eng = DEMO_CMD_ENG
         command_ita = DEMO_CMD_ITA
-#command_eng = DEMO_CMD_ENG
-#command_ita = DEMO_CMD_ITA
+command_eng = DEMO_CMD_ENG
+command_ita = DEMO_CMD_ITA
 
 CB_HEADER = {'Content-Type': 'application/json; charset=utf-8'}
 
@@ -126,8 +127,11 @@ class MyRequestPost:
         self.json_update['command']['metadata']['italian']['value'] = command_ita[command_id]
         self.json_update['confidence']['value'] = confidence
 
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK  ' + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[command_id], confidence) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[command_id], confidence) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        print(res_str)
+
         msg = json.dumps(self.json_update)
-        #print(msg)
+        print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
