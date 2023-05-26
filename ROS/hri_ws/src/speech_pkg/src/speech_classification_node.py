@@ -91,6 +91,7 @@ def preprocess(waveform: np.ndarray):
 def select_parameters(language="eng", demo="7"):
     #models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
     models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(MODEL_PATH)
+    COMMANDS = None
     if demo == "3":
         if language == 'eng':
             COMMANDS = DEMO3_CMD_ENG

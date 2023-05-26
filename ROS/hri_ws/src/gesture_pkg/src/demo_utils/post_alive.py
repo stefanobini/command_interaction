@@ -56,15 +56,17 @@ class MyRequestPost:
         self.json_update['status']['value'] = "Ok"
         
         msg = json.dumps(self.json_create)
-        print(msg)
+        #print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
 
+        """
         if response.ok: # response successful
             print("CB response -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response -> " + response.text)
+        """
 
         
     def send_alive(self, status):
@@ -75,12 +77,14 @@ class MyRequestPost:
         self.json_update['status']['value'] = status
 
         msg = json.dumps(self.json_update)
-        print(msg)
+        #print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
 
+        """
         if response.ok: # response successful
             print("CB response (ALIVE msg) -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response (ALIVE msg) -> " + response.text)
+        """

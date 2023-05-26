@@ -6,9 +6,9 @@ from PIL import Image
 from torchvision.models.detection.ssdlite import ssdlite320_mobilenet_v3_large as mobilenetv3ssd
 from torchvision.transforms import functional as F
 from torchvision.transforms import transforms as T, InterpolationMode
-import onnx
-import onnxruntime
-from onnxruntime.quantization import quantize_dynamic, QuantType
+#import onnx
+#import onnxruntime
+#from onnxruntime.quantization import quantize_dynamic, QuantType
 
 #import torch
 
@@ -67,7 +67,7 @@ class OneStageDetector:
 
     def __init__(self, conf_thresh=0.3, size_thresh=None):
         self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        """ PyTorch model
+        #""" PyTorch model
         self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=14)
         #self.weights = torch.load(WEIGHTS_PATH)
         self.net.load_state_dict(torch.load(TORCH_PATH, map_location=self.device)["model_state_dict"])
@@ -75,7 +75,7 @@ class OneStageDetector:
         # self.net = torch.jit.optimize_for_inference(torch.jit.script(self.net.eval()))
         self.net.eval()
         # """
-        #""" ONNX Model
+        """ ONNX Model
         # providers = ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
         providers = ['CPUExecutionProvider']
         self.ort_session = onnxruntime.InferenceSession(ONNX_PATH, providers=providers)

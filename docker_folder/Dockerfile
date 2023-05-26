@@ -171,11 +171,11 @@ RUN python3 -m pip install Pillow
 #RUN python3 -m pip install torchvision==0.10.0
 
 # ONNX libraries
-pip3 install -U openmim
-mim install mmcv-full
-git clone https://github.com/open-mmlab/mmdetection.git
-cd mmdetection
-pip3 install -v -e .
+RUN python3 -m pip install -U openmim
+RUN mim install mmcv-full
+RUN git clone https://github.com/open-mmlab/mmdetection.git
+RUN cd mmdetection
+RUN python3 -m pip install -v -e .
 # wget https://nvidia.box.com/shared/static/jy7nqva7l88mq9i8bw3g3sklzf4kccn2.whl -O onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # pip3 install onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # python3 -m pip install onnxruntime

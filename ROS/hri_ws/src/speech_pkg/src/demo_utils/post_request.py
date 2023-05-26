@@ -131,7 +131,7 @@ class MyRequestPost:
         print(res_str)
 
         msg = json.dumps(self.json_update)
-        print(msg)
+        #print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
@@ -141,4 +141,4 @@ class MyRequestPost:
             print("CB response (COMMAND msg) -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response (COMMAND msg) -> " + response.text)
-        """
+        #"""

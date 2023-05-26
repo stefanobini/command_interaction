@@ -25,7 +25,7 @@ class MyRequestPost:
                 },
                 "command": {
                         "type": "Number",
-                        "value": 29,
+                        "value": 13,
                         "metadata":{
                                 "english":{
                                         "type": "String",
@@ -52,7 +52,7 @@ class MyRequestPost:
                 },
                 "command": {
                         "type": "Number",
-                        "value": 29,
+                        "value": 13,
                         "metadata":{
                                 "english":{
                                         "type": "String",
@@ -83,35 +83,39 @@ class MyRequestPost:
         self.json_create['timestamp']['value'] = datetime.now().isoformat()
         
         msg = json.dumps(self.json_create)
-        print(msg)
+        #print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
 
+        """
         if response.ok: # response successful
             print("CB response -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response -> " + response.text)
+        """
 
         
     def send_command(self, command_id, confidence):
         response = None
         msg = None
-        
+
         self.json_update['timestamp']['value'] = datetime.now().isoformat()
         self.json_update['command']['value'] = int(command_id)
         self.json_update['command']['metadata']['english']['value'] = GESTURE_COMMANDS[command_id]["eng"]
         self.json_update['command']['metadata']['italian']['value'] = GESTURE_COMMANDS[command_id]["ita"]
         self.json_update['confidence']['value'] = confidence
 
-        print(type(self.json_update['command']['value']))
+        #print(type(self.json_update['command']['value']))
         msg = json.dumps(self.json_update)
-        print(msg)
+        #print(msg)
 
         # send request
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
 
+        """
         if response.ok: # response successful
             print("CB response (COMMAND msg) -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response (COMMAND msg) -> " + response.text)
+        #"""
