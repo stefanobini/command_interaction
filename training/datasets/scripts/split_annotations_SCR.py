@@ -8,8 +8,8 @@ from typing import Tuple
 
 LANGS = ["eng", "ita"]
 
-# DATASET = os.path.join("MIVIA_ISC")
-DATASET = os.path.join("FELICE", "demo7_plus")
+#DATASET = os.path.join("MIVIA_ISC_v1")
+DATASET = os.path.join("FELICE", "demofull")
 DATASET_PATH = os.path.join("datasets", DATASET)
 
 HEADING = ["path", "type", "subtype", "speaker", "label"]
@@ -67,6 +67,7 @@ def get_df_attribute_set(attribute_group, attribute_list:list, heading) -> pd.Da
 
     return df_set
 
+#"""
 ############
 # COMMANDS #
 ############
@@ -153,8 +154,9 @@ for lang in LANGS:
 
 """
 ''' Read NOISE annotation file '''
-noise_path = os.path.join(DATASET_PATH,)
-noise_df = pd.read_csv(IN, sep=',')
+noise_path = os.path.join(DATASET_PATH, "annotations", "noise")
+noise_file = os.path.join(noise_path, "dataset.csv")
+noise_df = pd.read_csv(noise_file, sep=',')
 
 ''' Shuffle the row of the NOISE dataframe '''
 noise_df = noise_df.sample(frac=1)
@@ -165,58 +167,6 @@ train_noise_df = pd.DataFrame(columns=NOISE_HEADING)
 valid_noise_df = pd.DataFrame(columns=NOISE_HEADING)
 test_noise_df = pd.DataFrame(columns=NOISE_HEADING)
 
-### THIRD VERSION ###
-type_subtype_group = noise_df.groupby([noise_df.type, noise_df.subtype])
-train_list = [
-    ("drill", "unknown"),
-    ("crf_melfi", "move_arm"),
-    ("crf_melfi", "unknown"),
-    ("strumenti di lavoro (lavorazione metalli)", "air-ratchet (cricchetto ad aria)"),
-    ("strumenti di lavoro (lavorazione metalli)", "grinder  (mola)"),
-    ("strumenti di lavoro (lavorazione metalli)", "saldatrice"),
-    ("strumenti di lavoro (lavorazione metalli)", "saw"),
-    ("strumenti di lavoro (lavorazione metalli)", "compressore"),
-    ("hammer", "unknown"),
-    ("catena di lavoro", "unknown"),
-    ("colpi ripetuti", "unknown"),
-    ("generatore", "unknown"),
-    ("fan", "unknown")
-]
-val_list = [
-    ("crf_melfi", "move"),
-    ("catena di lavoro robot", "unknown"),
-    ("strumenti di lavoro (lavorazione metalli)", "macchina per incidere"),
-    ("strumenti di lavoro (lavorazione metalli)", "raschiatura"),
-    ("unknown", "unknown")
-]
-test_list = [
-    ("crf_melfi", "human_talk"),
-    ("strumenti di lavoro (lavorazione metalli)", "tornio")
-]
-
-train_noise_df = pd.concat(objs=[train_noise_df, get_df_attribute_set(attribute_group=type_subtype_group, attribute_list=train_list, heading=NOISE_HEADING)])
-valid_noise_df = pd.concat(objs=[valid_noise_df, get_df_attribute_set(attribute_group=type_subtype_group, attribute_list=val_list, heading=NOISE_HEADING)])
-test_noise_df = pd.concat(objs=[test_noise_df, get_df_attribute_set(attribute_group=type_subtype_group, attribute_list=test_list, heading=NOISE_HEADING)])
-
-train_noise_df = train_noise_df.sample(frac=1)
-out_file = os.path.join(NOISE_OUTPUT_PATH, "training.csv")
-noise_df = pd.DataFrame(data=train_noise_df, columns=NOISE_HEADING)
-noise_df.to_csv(path_or_buf=out_file, index=False)
-
-valid_noise_df = valid_noise_df.sample(frac=1)
-out_file = os.path.join(NOISE_OUTPUT_PATH, "validation.csv")
-noise_df = pd.DataFrame(data=valid_noise_df, columns=NOISE_HEADING)
-noise_df.to_csv(path_or_buf=out_file, index=False)
-
-test_noise_df = test_noise_df.sample(frac=1)
-out_file = os.path.join(NOISE_OUTPUT_PATH, "testing.csv")
-noise_df = pd.DataFrame(data=test_noise_df, columns=NOISE_HEADING)
-noise_df.to_csv(path_or_buf=out_file, index=False)
-"""
-# print("Counting: {}\nTraining: {}\nValidation: {}\nTesting: {}\n".format(type_subtype_group.count(), len(train_noise_df), len(valid_noise_df), len(test_noise_df)))
-#################
-
-'''
 count = 0
 type_group = noise_df.groupby(noise_df.type)
 
@@ -233,24 +183,6 @@ for type in type_group.groups:
 
         # BALANCING ON THE SUPTYPE AMONG THE SETS
         for subtype in subtype_group.groups:
-            
-            #### SECOND VERSION
-            n_subtype = len(subtype_group.groups)
-            num_valid_subtype = floor(n_subtype*VALIDATION) if (floor(n_subtype*VALIDATION)>0 or n_subtype<3) else 1
-            num_test_subtype = floor(n_subtype*TEST) if (floor(n_subtype*TEST)>0 or n_subtype<3) else 1
-            num_train_subtype = n_subtype - num_valid_subtype - num_test_subtype
-
-            train_subtype = list(subtype_group.groups.keys())[:num_train_subtype]
-            valid_subtype = list(subtype_group.groups.keys())[num_train_subtype:num_train_subtype+num_valid_subtype]
-            test_subtype = list(subtype_group.groups.keys())[num_train_subtype+num_valid_subtype:]
-
-            print("TYPE: {}\nTraining: {}\nValidation: {}\nTesting: {}\n".format(type, train_subtype, valid_subtype, test_subtype))
-
-            train_noise_df = pd.concat(objs=[train_noise_df, get_df_attribute_set(attribute_group=subtype_group, attribute_list=train_subtype, heading=NOISE_HEADING)])
-            valid_noise_df = pd.concat(objs=[valid_noise_df, get_df_attribute_set(attribute_group=subtype_group, attribute_list=valid_subtype, heading=NOISE_HEADING)])
-            test_noise_df = pd.concat(objs=[test_noise_df, get_df_attribute_set(attribute_group=subtype_group, attribute_list=test_subtype, heading=NOISE_HEADING)])
-            
-            #### FIRST VERION
             df_subtype = subtype_group.get_group(subtype)
             df_subtype = df_subtype.sample(frac=1)
             df_subtype_sets = split_dataframe(df=df_subtype, train_rate=TRAINING, valid_rate=VALIDATION, test_rate=TEST)
@@ -258,6 +190,21 @@ for type in type_group.groups:
             train_noise_df = pd.concat(objs=[train_noise_df, df_subtype_sets[0]])
             valid_noise_df = pd.concat(objs=[valid_noise_df, df_subtype_sets[1]])
             test_noise_df = pd.concat(objs=[test_noise_df, df_subtype_sets[2]])
-'''
+
 
 ''' WRITE CSV FILES '''
+train_noise_df = train_noise_df.sample(frac=1)
+out_file = os.path.join(noise_path, "training.csv")
+noise_df = pd.DataFrame(data=train_noise_df, columns=NOISE_HEADING)
+noise_df.to_csv(path_or_buf=out_file, index=False)
+
+valid_noise_df = valid_noise_df.sample(frac=1)
+out_file = os.path.join(noise_path, "validation.csv")
+noise_df = pd.DataFrame(data=valid_noise_df, columns=NOISE_HEADING)
+noise_df.to_csv(path_or_buf=out_file, index=False)
+
+test_noise_df = test_noise_df.sample(frac=1)
+out_file = os.path.join(noise_path, "testing.csv")
+noise_df = pd.DataFrame(data=test_noise_df, columns=NOISE_HEADING)
+noise_df.to_csv(path_or_buf=out_file, index=False)
+#"""

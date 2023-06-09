@@ -1,0 +1,23 @@
+{
+    "id": 1707363974,
+    "name": "Giulia",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            3
+        ]
+    },
+    "acquiring_intent": 3,
+    "acquiring_lang": "ita",
+    "acquiring_version": 3,
+    "last_int_date": "2023-06-07 22:59:54.897225"
+}

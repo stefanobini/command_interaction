@@ -1,0 +1,28 @@
+{
+    "id": 1108292971,
+    "name": "~",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['10-20']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-07 22:52:23.646751"
+}

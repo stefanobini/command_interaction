@@ -25,9 +25,9 @@ except ModuleNotFoundError:
     # If run from the "utils" folder
     from preprocessing import plot_melspectrogram, plot_mfcc, Preprocessing
 
-
+WAVE_PAD_VALUE = 0
 SPECT_PAD_VALUE = -80.
-SPECT_PAD_STRIDE = 0
+PAD_STRIDE = 0
 it = 0
 
 class MiviaDataset(Dataset):
@@ -181,7 +181,9 @@ class TrainingMiviaDataset(MiviaDataset):
             self.dataset_path = os.path.join(self.settings.dataset.folder)
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
-        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',')
+        n_rows = None if not settings.training.test_model else settings.training.batch_size*4
+        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',', nrows=n_rows)
+        self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
         self.noise_annotations = pd.read_csv(self.settings.dataset.noise.training.annotations, sep=',')
         self.epoch = 0
 
@@ -250,11 +252,14 @@ class TrainingMiviaDataset(MiviaDataset):
             it += 1
         #'''
         if self.settings.input.type == "waveform":
-            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label)
+            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label), snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
-            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+            try:
+                item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+            except RuntimeError:
+                print("The combination of <{}> speech and <{}> noise generates 'RuntimeError'.".format(rel_speech_path, rel_noise_path))
         
         '''
         print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(speech), speech.shape, speech.dtype, torch.min(speech), torch.max(speech), torch.mean(speech)))
@@ -306,7 +311,9 @@ class ValidationMiviaDataset(MiviaDataset):
             self.dataset_path = os.path.join(self.settings.dataset.folder)
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
-        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.validation.annotations, sep=',')
+        n_rows = None if not settings.training.test_model else settings.training.batch_size*4
+        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.validation.annotations, sep=',', nrows=n_rows)
+        self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
     
 
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
@@ -506,6 +513,30 @@ def normalize_tensor(tensor:torch.Tensor) -> torch.Tensor:
     return normalized_tensor
 
 
+def pad_waveforms(batch:torch.Tensor, max_length:int, value:float, stride:int) -> torch.Tensor:
+    """Pad waveforms in a batch to have the same duration. The padding consist in the duplication of the waveform.
+    
+    Parameters
+    ----------
+    batch: torch.Tensor
+        Batch tensor with shape Batch x Channel x Time
+
+    Returns
+    -------
+    torch.Tensor
+        Batch with spectrograms of the same length
+    """
+    resized_batch = torch.zeros(size=(len(batch), batch[0].size(0), max_length))              # (B x C x T)
+    # to optimize try to assign block per block the sample
+    for b in range(resized_batch.size(0)):                                           
+        # add a silence part after the sample to separate each repetition of the sample in the batch
+        sample_with_silent_queue = torch.nn.ConstantPad2d((0,stride,0,0), value=value)(batch[b])  # i can pad noise instead a fixed value
+        resized_batch[b, 0, :batch[b].size(1)] = batch[b]
+        for t in range(batch[b].size(1), resized_batch.size(2)):
+            resized_batch[b, 0, t] = sample_with_silent_queue[0, t%sample_with_silent_queue.size(1)]                                        # pad zero value replicating the spectrogram
+    return resized_batch
+
+
 def pad_spectrograms(batch:torch.Tensor, max_length:int, value:float, stride:int) -> torch.Tensor:
     """Pad spectrograms in a batch to have the same duration. The padding consist in the duplication of the spectrogram.
     
@@ -553,15 +584,20 @@ def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
     tensors, targets = list(), list()
     avg_snr = 0
     max_length = 0
+    lenght_axis = batch[0][1].dim() - 1
     for path, tensor, _, _, _, _, label, snr in batch:
-        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
         avg_snr += snr
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    if lenght_axis == 2:
+        # working with spectrograms
+        tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    else:
+        # working with waveforms
+        tensors = pad_waveforms(tensors, max_length=max_length, value=WAVE_PAD_VALUE, stride=PAD_STRIDE)
     targets = torch.stack(targets)
     avg_snr = torch.tensor(avg_snr/len(tensors))
-    
     """
     global it
     for s in range(0, 3):
@@ -570,7 +606,6 @@ def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
         #plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
     it += 1
     #"""
-
     return tensors, targets, avg_snr
 
 def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
@@ -590,12 +625,18 @@ def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.I
     """
     tensors, targets, snrs = list(), list(), list()
     max_length = 0
+    lenght_axis = batch[0][1].dim() - 1
     for path, tensor, _, _, _, _, label, snr in batch:
-        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(label)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    if lenght_axis == 2:
+        # working with spectrograms
+        tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    else:
+        # working with waveforms
+        tensors = pad_waveforms(tensors, max_length=max_length, value=WAVE_PAD_VALUE, stride=PAD_STRIDE)
     targets = torch.stack(targets)
     snrs = torch.stack(snrs)
     return tensors, targets, snrs

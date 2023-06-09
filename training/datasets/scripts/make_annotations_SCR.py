@@ -19,9 +19,9 @@ from tqdm import tqdm
 HEADING = ["path", "type", "subtype", "speaker", "label"]
 NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
-DATASET_NAME = "MIVIA_ISC"
+DATASET_NAME = "MIVIA_ISC_v1"
 DATASET_PATH = os.path.join("datasets", DATASET_NAME)
-OUT_PATH = os.path.join(DATASET_PATH, "annotations", "with_reject")
+OUT_PATH = os.path.join(DATASET_PATH, "annotations")
 
 cmd_path = "commands"
 syn_path = "synthetics"
@@ -122,7 +122,7 @@ def get_noise_annotations_dict():
     
     return noises
 
-
+#"""
 eng_data = {"path": [], "type": [], "subtype": [], "speaker": [], "label": []}
 ita_data = {"path": [], "type": [], "subtype": [], "speaker": [], "label": []}
 
@@ -199,11 +199,7 @@ eng_data = add_reject_samples(DATASET_PATH, rjt_path, lang, eng_data)
 # Italian language
 lang = LANGS[1]
 ita_data = add_reject_samples(DATASET_PATH, rjt_path, lang, ita_data)
-
-
-''' NOISE SAMPLES '''
-noise_data = get_noise_annotations_dict()
-    
+   
 
 ''' WRITE CSV FILE '''
 lang = LANGS[0]
@@ -219,7 +215,10 @@ os.makedirs(name=out_path, exist_ok=True)
 out_file = os.path.join(out_path, "dataset.csv")
 df = pd.DataFrame(data=ita_data, columns=HEADING)
 df.to_csv(path_or_buf=out_file, index=False)
+#"""
 
+''' NOISE SAMPLES '''
+noise_data = get_noise_annotations_dict()
 out_path = os.path.join(OUT_PATH,  "noise")
 os.makedirs(name=out_path, exist_ok=True)
 out_file = os.path.join(out_path, "dataset.csv")

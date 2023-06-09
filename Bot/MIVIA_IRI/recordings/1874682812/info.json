@@ -1,0 +1,23 @@
+{
+    "id": 1874682812,
+    "name": "Marti",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['10-20']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            0
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-08 10:12:42.032301"
+}

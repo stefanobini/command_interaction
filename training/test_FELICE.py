@@ -39,7 +39,7 @@ pl.seed_everything(220295)
 #########################
 # Building Dataloaders  #
 #########################
-N_LABELS = 5
+N_LABELS = 7
 labels_1 = [i for i in range(N_LABELS)]
 # print(labels_1, len(labels_1))
 # print(labels_2, len(labels_2)) # 44, 85

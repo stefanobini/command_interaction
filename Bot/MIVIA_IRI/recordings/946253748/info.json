@@ -1,0 +1,25 @@
+{
+    "id": 946253748,
+    "name": "benny bibi",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['10-20']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            1,
+            2,
+            4
+        ]
+    },
+    "acquiring_intent": 1,
+    "acquiring_lang": "ita",
+    "acquiring_version": 1,
+    "last_int_date": "2023-06-07 19:26:30.367525"
+}

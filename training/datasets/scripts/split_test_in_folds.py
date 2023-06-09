@@ -5,10 +5,9 @@ SNR is done after splitting so as not to have the same starting audio sample on 
 import os
 import pandas as pd
 from tqdm import tqdm
-import random
 
 
-DATASET_PATH = os.path. join("datasets", "FELICE", "demo3")
+DATASET_PATH = os.path. join("datasets", "FELICE", "demo7")
 ANNOTATION_FILE_NAME = "testing.csv"
 ANNOTATION_PATH = os.path.join(DATASET_PATH, "testing", "annotations")
 LANGs = ["eng", "ita"]

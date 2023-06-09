@@ -1,4 +1,4 @@
-""" DEMO FULL - ITA - ResNet15 - UniCL_PEM_v2 """
+""" DEMO 7 - ITA - ResNet15 - UniCL_PEM_v2 """
 import os
 from typing import List
 from dotmap import DotMap
@@ -9,7 +9,7 @@ settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
 settings.task:str = "SCR"
-settings.demo:str = "demofull"
+settings.demo:str = "demo7"
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
@@ -58,15 +58,16 @@ settings.model.conformer.num_heads: int = 4
 settings.model.conformer.ffn_dim: int = 128
 settings.model.conformer.num_layers: int = 4
 settings.model.conformer.depthwise_conv_kernel_size: int = 31
-settings.model.conformer.dropout: float = 0.0
+settings.model.conformer.dropout: float = 0.2
 settings.model.conformer.use_group_norm: bool = False
-settings.model.conformer.convolution_first: bool = False
+settings.model.conformer.convolution_first: bool = True
 
 '''Training'''
+settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 48
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:int = 2                                         # list of the GPU devices to use
+settings.training.device:int = 3                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -98,12 +99,12 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = os.path.join("FELICE", settings.demo, settings.input.language)                                                                             # name of the experiment
-additional_info = ""
+settings.logger.name:str = os.path.join("FELICE", settings.demo, settings.input.language, settings.model.network)                                                                             # name of the experiment
+additional_info = "_reduced_precision"
 settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = os.path.join("testing", "PRL")
+settings.testing.folder:str = os.path.join("testing", "felice")
 settings.testing.n_folds:int = 10
 settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
 settings.testing.results_path:str = None

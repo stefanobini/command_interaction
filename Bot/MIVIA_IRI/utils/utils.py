@@ -33,7 +33,7 @@ def error_handler(update, context):
     if context is None or context.error is None: return
     user = None if update is None else update.effective_user
     text = f"Problem with: {user} - {datetime.now()} - {context.error}"
-    logger.error(text)
+    logger.error(msg=text, stack_info=True, stacklevel=2)
 
 def get_age_set():
     age_str = []
@@ -64,8 +64,8 @@ class State:
         self.id = userid.id if not type(userid) is str else userid
         self.path = Path(fr"{get_curr_dir(__file__)}/recordings/{self.id}")
         self.info_path = self.path.joinpath("info.json")
-        self.database = pd.DataFrame({"cmd": range(0, len(INTENTS_DICT))})
-        self.database.set_index("cmd", inplace=True)
+        self.database = pd.DataFrame({"int": range(0, len(INTENTS_DICT))})
+        self.database.set_index("int", inplace=True)
         if type(userid) is str:
             self.info = {}
         else:
@@ -80,12 +80,13 @@ class State:
                               "acq_langs": None,
                               "init_complete": False,
                               "miss_intent": dict(),
-                              "acquiring_intents": list(),
-                              "acquiring_lang": list(),
-                              "acquaring_version": list(),
+                              "acquiring_intent": None,
+                              "acquiring_lang": None,
+                              "acquiring_version": None,
                               "last_int_date": str(datetime.now())
                               }
         self._load()
+        Scheduler.set_scheduled_hour(self)
 
     @property
     def intent_number(self):
@@ -103,22 +104,21 @@ class State:
         rec_int:dict = dict()
         for lang in self.info["acq_langs"]:
             rec_int[lang] = self.database[lang].sum()
-            duplicates = self.database.pivot_table(columns=[lang])
-            rec_int[lang] = duplicates[INTENT_REPETITIONS] if INTENT_REPETITIONS in duplicates else 0
         return rec_int
 
 
     def set_acq_langs(self, langs:list) -> None:
         def add_acq_langs() -> None:
             """Update the database of the acquired commands adding a column for each acquisition language."""
-            for lang in self.info["acq_langs"]:
+            for lang in langs:
                 self.database[lang] = [0] * len(INTENTS_DICT)
+            self._save_database()
         add_acq_langs()
         for lang in langs:
             self.info["miss_intent"][lang] = list(INTENTS_DICT.keys())
         self.info["acq_langs"] = langs
 
-    def get_message(self, label:str):
+    def get_message(self, label:str) -> str:
         """Return the string related to a specific state in the interaction language of the user."""
         message = ""
         if self.info["int_lang"] is None:
@@ -174,7 +174,7 @@ class State:
                     return False
         return True
 
-    def _load(self) -> dict:
+    def _load(self):
         """Loads the commands database and the user info if the user folder exist, create it otherwise."""
         if self.info_path.exists():
             with open(self.info_path) as fil:
@@ -188,7 +188,7 @@ class State:
 
     def is_over(self, lang:str) -> bool:
         """Return True there is no intent to acquire for the passed language, False otherwise."""
-        return self.recorded_intents[lang] == len(INTENTS_DICT) * INTENT_REPETITIONS
+        return self.recorded_intents[lang] == (len(INTENTS_DICT) * INTENT_REPETITIONS)
 
     def get_next_intent(self):
         """Return a tuple containing information about the next intent to acquire, with this format: intent ID, language, version ID, sentence.
@@ -208,7 +208,7 @@ class State:
         if self.info["acquiring_lang"] == None:
             self.info["acquiring_lang"] = self.info["acq_langs"][0]
         elif self.is_over(self.info["acquiring_lang"]):
-            self.info["acquiring_lang"] = self.info["acq_langs"].index(self.info["acquiring_lang"]) + 1
+            self.info["acquiring_lang"] = self.info["acq_langs"][self.info["acq_langs"].index(self.info["acquiring_lang"]) + 1]
         lang = self.info["acquiring_lang"]
         # Chose the intent
         candidated_intents = self.info["miss_intent"][lang]
@@ -224,17 +224,16 @@ class State:
         candidated_versions = list(INTENTS_DICT[intent_id][lang].keys())
         version_id = candidated_versions[random.randint(0, len(candidated_versions)-1)]
         self.info["acquiring_version"] = version_id
-        intent = INTENTS_DICT[intent_id][lang][version_id]
         # Save status
         self._save_info()
-        #self._save_database()
-        return intent_id, lang, version_id, intent
+        self._save_database()
+        return intent_id, lang, version_id
 
     def save(self, audio):
         """Saves on disk an audio file and set the cell of this command in the user database as acquired."""
-        intent = self.info["acquaring_intent"]
-        lang = self.info["acquaring_lang"]
-        version = self.info["acquaring_version"]
+        intent = self.info["acquiring_intent"]
+        lang = self.info["acquiring_lang"]
+        version = self.info["acquiring_version"]
 
         path = self.path.joinpath(lang)
         path.mkdir(parents=True, exist_ok=True)
@@ -267,7 +266,7 @@ class State:
         intent_id, lang, version = self.get_next_intent()
         intent = INTENTS_DICT[intent_id][lang][version]
         exp_intent, imp_intent = intent.replace(')', '').split(" (")
-        msg = Style.BRIGHT + self.get_message("int_acq").replace("''", exp_intent).replace("<>", imp_intent)
+        msg = self.get_message("int_acq").replace("**", self.get_message(lang)).replace("''", exp_intent).replace("<>", imp_intent)
         audio_name = "{}_{}.wav".format(intent_id, version)
         audio_path = os.path.join(BASE_PATH, lang, audio_name)
         with open(audio_path, "rb") as audio_file:
@@ -316,7 +315,7 @@ class Scheduler:
         return True if diff >= scheduled_hours else False
 
     @staticmethod
-    def set_scheduled_hour(state):
+    def set_scheduled_hour(state: State):
         """Computes the delay before to start to send reminders."""
         hour = timedelta(hours=random.randint(15, 50)).total_seconds()
         path = Path(get_curr_dir(__file__)).joinpath("recordings", str(state.id), "scheduler.json")

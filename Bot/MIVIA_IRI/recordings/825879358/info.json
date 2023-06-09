@@ -1,0 +1,23 @@
+{
+    "id": 825879358,
+    "name": "@alessiamon",
+    "link": "https://t.me/alessiamon",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            5
+        ]
+    },
+    "acquiring_intent": 5,
+    "acquiring_lang": "ita",
+    "acquiring_version": 5,
+    "last_int_date": "2023-06-07 18:30:02.695545"
+}

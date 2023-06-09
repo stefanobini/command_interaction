@@ -300,10 +300,10 @@ class HardSharing_PL(pl.LightningModule):
             self.initial_task_loss = np.log(self.task_n_labels)
 
         self.train_step_outputs.append({"command_logits": command_logits.detach(),
-                                            "speaker_logits": speaker_logits.detach(),
-                                            "commands": commands.detach(),
-                                            "speakers": speakers.detach(),
-                                            "snr": snr.detach()})
+                                        "speaker_logits": speaker_logits.detach(),
+                                        "commands": commands.detach(),
+                                        "speakers": speakers.detach(),
+                                        "snr": snr.detach()})
         return loss
     
 

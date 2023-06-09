@@ -1,12 +1,11 @@
 import os
-import sys
 import pandas
 from tqdm import tqdm
 
 
 LANGS = ["eng", "ita"]
-DEMO = "7_plus"  # ["full", "3", "7", "7_plus"]
-IN_DATASET_FOLDER = "MIVIA_ISC"
+DEMO = "full"  # ["full", "3", "7", "7_plus"]
+IN_DATASET_FOLDER = "MIVIA_ISC_v1"
 OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
 ANNOTATION_FILE = "dataset.csv"
 COLUMNS = ["path", "type", "subtype", "speaker", "label"]
@@ -89,7 +88,7 @@ elif DEMO == "full":
     OLD_CMD_LABEL = FULL
 
 for lang in LANGS:
-    in_dataset_folder = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", "with_reject", lang)
+    in_dataset_folder = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", lang)
     os.makedirs(in_dataset_folder, exist_ok=True)
     in_dataset_path = os.path.join(in_dataset_folder, ANNOTATION_FILE)
     out_dataset_folder = os.path.join("datasets", OUT_DATASET_FOLDER, "annotations", lang)
@@ -179,3 +178,8 @@ for lang in LANGS:
             df_iter.set_description("Remove reject samples from <{}> dataset to obtain the 'reject/command samples rate' of {}.".format(lang, REJECT_PERCENTAGE))
 
     out_df.to_csv(path_or_buf=out_dataset_path, index=False)
+    
+in_noise_path = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", "noise")
+out_noise_path = os.path.join("datasets", OUT_DATASET_FOLDER, "annotations")
+cmd = "cp -r {} {}".format(in_noise_path, out_noise_path)
+os.system(command=cmd)

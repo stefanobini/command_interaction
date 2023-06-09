@@ -1,0 +1,17 @@
+{
+    "id": 1879678350,
+    "name": "Julia",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-06-08 10:02:07.325677"
+}

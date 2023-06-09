@@ -3,6 +3,8 @@
 #github rep: https://github.com/python-telegram-bot/python-telegram-bot
 
 https://pythontelegramrobot.readthedocs.io/en/latest/telegram.inlinekeyboardbutton.html#
+
+python3 start_bot.py 2>&1 | tee log_file.txt
 """
 
 import os
@@ -11,7 +13,7 @@ from datetime import datetime, timedelta
 import logging
 
 import telegram.error
-from telegram.ext import Updater, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler, Filters
 
 from utils import callbacks
 import utils.states as STATES
@@ -23,7 +25,7 @@ TOKEN = "6272694271:AAFw-2nWm4zg2hOY7tD0Rp2wZ58B8CZxKIk"    # Beis token (MIVIA-
 def main():
 
     def create_bot(conv_handler:ConversationHandler):
-        updater = Updater(TOKEN, use_context=True)
+        updater = Updater(TOKEN)
         updater.dispatcher.add_handler(conv_handler)
         updater.dispatcher.add_handler(CommandHandler(command='reset', callback=callbacks.reset))
         updater.dispatcher.add_error_handler(error_handler)
@@ -47,11 +49,12 @@ def main():
     states[STATES.AGE] = [CallbackQueryHandler(callback=callbacks.get_age)]
     states[STATES.ACQUISITION_LANGUAGES] = [CallbackQueryHandler(callback=callbacks.get_acq_langs)]
     states[STATES.START_ACQUISITION] = [CallbackQueryHandler(callback=callbacks.start_acquisition)]
-    states[STATES.INTENT_ACQUISITION] = [CallbackQueryHandler(callback=callbacks.get_intent)]    # Replace with MessageHandler using a voice filter
+    states[STATES.INTENT_ACQUISITION] = [MessageHandler(filters=Filters.voice, callback=callbacks.get_intent)]    # Replace with MessageHandler using a voice filter
   
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler(command="start", callback=callbacks.presentation),
-                      CallbackQueryHandler(callbacks.conversation_handler)],
+                      CallbackQueryHandler(callbacks.conversation_handler),
+                      MessageHandler(filters=Filters.voice, callback=callbacks.get_intent)],
         states=states,
         fallbacks=[CommandHandler('reset', callbacks.reset)]
     )
@@ -64,7 +67,7 @@ def main():
     try:
         updater.start_polling()
     except telegram.error.NetworkError:
-        while not is_connected(updater) :
+        while not is_connected(updater):
             updater = create_bot(conv_handler=conv_handler)
             time.sleep(60)
 

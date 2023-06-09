@@ -1,0 +1,24 @@
+{
+    "id": 5946872481,
+    "name": "Francesca",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['50-60']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            0,
+            2
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-07 20:28:33.873558"
+}

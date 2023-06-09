@@ -1,0 +1,23 @@
+{
+    "id": 1210942711,
+    "name": "@Stalker070893",
+    "link": "https://t.me/Stalker070893",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            1
+        ]
+    },
+    "acquiring_intent": 1,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-07 20:21:40.064829"
+}

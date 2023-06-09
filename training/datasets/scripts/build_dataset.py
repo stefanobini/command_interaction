@@ -1,3 +1,8 @@
+"""
+Build dataset reading the annotation files and creating the audio files.
+Training file are just copied, while on validation and test one the noise was applied.
+"""
+
 import os
 import shutil
 import pandas as pd
@@ -9,8 +14,8 @@ from utils.preprocessing import Preprocessing
 from utils.settings.FELICE_conf import settings
 
 
-SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC")
-OUT_PATH = os.path.join("datasets", "FELICE", "demo7_plus")
+SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC_v1")
+OUT_PATH = os.path.join("datasets", "FELICE", "demofull")
 LANGs = ["ita", "eng"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]

@@ -1,3 +1,6 @@
+"""
+python3 train.py --configuration FELICE_conf 2>&1 | tee screen_log_1.txt
+"""
 import os
 import sys
 import colorama
@@ -22,6 +25,9 @@ from models.hardsharing import HardSharing_PL
 from models.softsharing import SoftSharing_PL
 # from models.softsharing_mobilenetv2 import SoftSharing_PL
 
+
+# Reduce the internal precision of the matrix multiplications (the type of the variable doesn't change)
+torch.set_float32_matmul_precision(precision="medium")
 
 ########################
 # Acquiring parameters #
@@ -112,7 +118,7 @@ val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.tr
 #########################
 #    Building Model     #
 #########################
-assert settings.model.network in ["resnet8", "mobilenetv2", "HS", "SS"]
+assert settings.model.network in ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
 model = None
 if settings.model.network == "resnet8":
     model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
@@ -132,12 +138,11 @@ elif settings.model.network == "mobilenetv2":
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
 elif settings.model.network == "conformer":
-    model = Conformer_PL(settings=settings, num_labels=len(labels)).cuda(settings.training.device)
+    model = Conformer_PL(settings=settings, num_labels=len(labels), loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
 elif settings.model.network == "HS":
     model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
 elif settings.model.network == "SS":
     model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
-
 
 model.set_train_dataloader(dataloader=train_loader)
 model.set_val_dataloader(dataloader=val_loader)

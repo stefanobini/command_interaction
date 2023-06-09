@@ -1,0 +1,17 @@
+{
+    "id": 5586698527,
+    "name": "Samuele Faggion",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": null,
+    "gender": null,
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-06-08 09:06:14.284438"
+}

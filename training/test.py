@@ -6,7 +6,7 @@ from colorama import Back, Fore
 import torch
 import pytorch_lightning as pl
 
-from utils.dataloaders import TestingMiviaDataset, _val_collate_fn
+from utils.dataloaders import TestingMiviaDataset, _SCR_val_collate_fn
 from .settings.SCR_conf import settings
 
 from models.resnet8 import ResNet8_PL
@@ -38,7 +38,7 @@ pl.seed_everything(220295)
 test_loaders = list()
 for fold in range(settings.testing.n_folds):
     test_set = TestingMiviaDataset(fold=fold)
-    test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_val_collate_fn, pin_memory=pin_memory))
+    test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_SCR_val_collate_fn, pin_memory=pin_memory))
 
 #########################
 #    Building Model     #

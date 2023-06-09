@@ -1,0 +1,37 @@
+{
+    "id": 268005350,
+    "name": "@peppodesmo97",
+    "link": "https://t.me/peppodesmo97",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "ita": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "eng",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-07 17:42:36.199232"
+}
