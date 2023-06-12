@@ -1,7 +1,7 @@
 import os
 
 
-FOLDER = "intents/ita"
+FOLDER = "audio_samples/esp"
 for file in os.listdir(FOLDER):
     if ".opus" in file:
         name = os.path.join(FOLDER, file.replace(".opus", ""))

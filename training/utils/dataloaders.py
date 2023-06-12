@@ -160,7 +160,6 @@ class MiviaDataset(Dataset):
         
         return weights
 
-
 class TrainingMiviaDataset(MiviaDataset):
 
     def __init__(self, settings:DotMap) -> Dataset:
@@ -294,7 +293,6 @@ class TrainingMiviaDataset(MiviaDataset):
         """Shuffle noise annotation file. The method is useful to change the loading order among epochs."""
         self.noise_annotations =self.noise_annotations.sample(frac=1)
 
-
 class ValidationMiviaDataset(MiviaDataset):
 
     def __init__(self, settings:DotMap) -> Dataset:
@@ -381,7 +379,6 @@ class ValidationMiviaDataset(MiviaDataset):
 
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
 
-
 class TestingMiviaDataset(MiviaDataset):
 
     def __init__(self, settings:DotMap, fold:str) -> Dataset:
@@ -454,7 +451,6 @@ class TestingMiviaDataset(MiviaDataset):
 
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
             
-
 class knnMiviaDataset(MiviaDataset):
     def __init__(self, settings:DotMap, subset:str="all", n_samples_per_speaker:int=1) -> Dataset:
         super().__init__(settings=settings)
@@ -473,6 +469,436 @@ class knnMiviaDataset(MiviaDataset):
     
     def _get_speaker_group(self) -> pandas.core.groupby.generic.DataFrameGroupBy:
         return self.speaker_group
+
+
+class MiviaSpeechIntent(Dataset):
+    def __init__(self, settings:DotMap) -> Dataset:
+        """Dataset class for the MiviaDataset inherited from torch.utils.data.Dataset class.
+        The path of the dataset and the annotation file are taken in the configuration file.
+
+        Parameters
+        ----------
+        settings: DotMap
+            DotMap object containing the configuration.
+        
+        Methods
+        -------
+        __len__(self) -> int
+            Get the dataset lenght
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
+            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        _get_commands(self) -> List[int]
+            Get the list of the labels
+        _get_class_weights(self)-> List[torch.Tensor]
+            Get the weights for each class calculated as a percentage of how many samples there are for each class
+
+        Returns
+        -------
+        torch.utils.data.Dataset
+            Dataset object
+        """
+        self.settings = settings
+        self.preprocessing = Preprocessing(settings=settings)
+        self.dataset_path = settings.dataset.folder
+        self.speech_annotations = None
+        self.noise_annotations = None
+    
+
+    def __len__(self) -> int:
+        """Get length of the dataset.
+        
+        Returns
+        -------
+        int
+            Lenght of the dataset.
+        """
+        return len(self.speech_annotations)
+
+
+    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the dataset
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            Label of the item
+        """
+        #path,type,subtype,speaker,intent,exp_intent,imp_intent
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
+        full_path = os.path.join(self.dataset_path, rel_path)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
+        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+
+        if self.settings.input.type == "waveform":
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent)
+        elif self.settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif self.settings.input.type == "melspectrogram":
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        if self.settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        if self.settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent)
+
+    def _get_group(self, column_label:str) -> List[int]:
+        """Get the list of the label group for the passed column.
+        
+        Parameters
+        ----------
+        column_label: str
+            Column label to be grouped
+
+        Returns
+        -------
+        List[int]
+            List of the speakers
+        """
+        return list(self.speech_annotations.groupby(column_label).groups.keys())
+
+    def _get_class_weights(self, column_label:str) -> List[torch.Tensor]:
+        """Get the weights for each class calculated as a percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
+        
+        Parameters
+        ----------
+        column_label: str
+            Column label to be grouped
+        
+        Returns
+        -------
+        torch.Tensor
+            One-Dimensional Tensor of weights.
+        """
+        labels_group = self.speech_annotations.groupby(column_label)
+        weights = torch.zeros(len(self._get_group(column_label)))
+
+        indexes = range(len(self._get_group(column_label)))
+        for index, label in zip(indexes, self._get_group(column_label)):
+            weights[index] = len(labels_group.get_group(name=label)) / len(self.speech_annotations)
+        
+        return weights
+
+class TrainingMiviaDataset(MiviaSpeechIntent):
+
+    def __init__(self, settings:DotMap) -> Dataset:
+        """Training subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
+            Access by index to the dataset returning item information
+        _set_epoch(self, epoch) -> None
+            Set the epoch parameter to the current training epoch to allow the application of the curriculum learning scheduler
+        _shuffle_noise_dataset(self) -> None
+            Shuffle noise annotation file
+        """
+        super().__init__(settings=settings)
+        print("DATALOADER SELECT HOW TO LOAD DATASET")
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
+        n_rows = None if not settings.training.test_model else settings.training.batch_size*4
+        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',', nrows=n_rows)
+        self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
+        self.noise_annotations = pd.read_csv(self.settings.dataset.noise.training.annotations, sep=',')
+        self.epoch = 0
+ 
+    def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int, int, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        In the training set a random noise from the noise training set is chosen and applied with a specific SNR to the speech sample.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            intent of the item
+        int
+            explicit intent of the item
+        int
+            implicit intent of the item
+        int
+            SNR applied to the speech
+        """
+        speech_item = self.speech_annotations.iloc[index]
+        rel_speech_path = speech_item.path
+        speech_path = os.path.join(self.dataset_path, rel_speech_path)
+        speech, speech_sample_rate = torchaudio.load(filepath=speech_path)
+        speech = self.preprocessing.resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
+        speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
+
+        # Remove silences
+        '''
+        no_silent_ranges = detect_nonsilent(audio_segment=speech)
+        no_silent_indices = ranges2list(no_silent_ranges)
+        no_silent_speech = torch.index_select(input=speech, dim=0, index=torch.tensor(no_silent_indices))
+        print("Speech size: {}\tNo-silent speech size: {}\n".format(speech.size(), no_silent_speech.size()))
+        #'''
+
+        noise_index = index % len(self.noise_annotations)   # compute noise index
+        noise_item = self.noise_annotations.iloc[noise_index]
+        rel_noise_path = noise_item.path
+        noise_path = os.path.join(self.dataset_path, rel_noise_path)
+        noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
+        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
+        noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
+        
+        snr = self.preprocessing.compute_snr(epoch=self.epoch)
+        item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr)
+
+        '''
+        global it
+        if it < 1:
+            print("SAVED")
+            speech_save = np.reshape(np.array(item), (-1, 1))
+            sf.write("example.wav", data=speech_save, samplerate=16000, format="WAV")
+            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+            it += 1
+        #'''
+        if self.settings.input.type == "waveform":
+            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.exp_intent), int(speech_item.imp_intent), snr
+        elif self.settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif self.settings.input.type == "melspectrogram":
+            try:
+                item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+            except RuntimeError:
+                print("The combination of <{}> speech and <{}> noise generates 'RuntimeError'.".format(rel_speech_path, rel_noise_path))
+        
+        '''
+        print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(speech), speech.shape, speech.dtype, torch.min(speech), torch.max(speech), torch.mean(speech)))
+        print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+        spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
+        spect.save("example.png")
+        '''
+        
+        if self.settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        #print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+
+        if self.settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.exp_intent), int(speech_item.imp_intent), snr
+
+    def set_epoch(self, epoch:int=0) -> None:
+        """Set the epoch parameter to the current training epoch to allow the application of the curriculum learning scheduler.
+        
+        Parameters
+        ----------
+        epoch: int
+            Current epoch of the training phase. (Default is 0)
+        """
+        self.epoch = epoch
+ 
+    def _shuffle_noise_dataset(self) -> None:
+        """Shuffle noise annotation file. The method is useful to change the loading order among epochs."""
+        self.noise_annotations =self.noise_annotations.sample(frac=1)
+
+class ValidationMiviaDataset(MiviaSpeechIntent):
+
+    def __init__(self, settings:DotMap) -> Dataset:
+        """Validation subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]
+            Access by index to the dataset returning item information
+        """
+        super().__init__(settings=settings)
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
+        n_rows = None if not settings.training.test_model else settings.training.batch_size*4
+        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.validation.annotations, sep=',', nrows=n_rows)
+        self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
+    
+
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int, int, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        In the validation set the item already contains the noise applied with a specific SNR.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            intent of the item
+        int
+            explicit intent of the item
+        int
+            implicit intent of the item
+        int
+            SNR applied between speech and noise
+        """
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
+        full_path = os.path.join(self.dataset_path, rel_path)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
+        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        
+        #print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+
+        if self.settings.input.type == "waveform":
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+        elif self.settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif self.settings.input.type == "melspectrogram":
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        '''
+        print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
+        spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
+        spect.save("mel_spect.png")
+        '''
+
+        if self.settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        '''
+        item_int = np.uint8(item[0].cpu().numpy())
+        print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, np.min(item_int), np.max(item_int), np.mean(item_int)))
+        spect = Image.fromarray(item_int)
+        spect.save("db_spect.png")
+        '''
+
+        if self.settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+
+class TestingMiviaDataset(MiviaSpeechIntent):
+
+    def __init__(self, settings:DotMap, fold:str) -> Dataset:
+        """Test subset of the MiviaDataset dataset class.
+
+        Methods
+        -------
+        __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]
+            Access by index to the dataset returning item information
+        """
+        super().__init__(settings=settings)
+
+        if settings.experimentation == "MTL":
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
+        else:
+            self.dataset_path = os.path.join(self.settings.dataset.folder, "testing")
+        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
+
+    
+    def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int, int, int]:
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        In the test set the item already contains the noise applied with a specific SNR.
+        
+        Parameters
+        ----------
+        index: int
+            Index of the item in the training set
+        
+        Returns
+        -------
+        str
+            Relative path of the item
+        torch.Tensor
+            Audio data (waveform, Mel-spectrogram or MFCC)
+        int
+            Sample rate of the item
+        str
+            Type of the item
+        str
+            Subtype of the item
+        str
+            Speaker in the item
+        int
+            intent of the item
+        int
+            explicit intent of the item
+        int
+            implicit intent of the item
+        int
+            SNR applied between speech and noise
+        """
+        pre_item = self.speech_annotations.iloc[index]
+        rel_path = pre_item.path
+        full_path = os.path.join(self.dataset_path, rel_path)
+        waveform, sample_rate = torchaudio.load(filepath=full_path)
+        waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
+        item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        
+        if self.settings.input.type == "waveform":
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+        elif self.settings.input.type == "mfcc":
+            item = self.preprocessing.get_mfcc(item)
+        elif self.settings.input.type == "melspectrogram":
+            item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
+        
+        #########################################################################
+        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
+        #########################################################################
+        if self.settings.input.spectrogram.type == "db":
+            item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
+        
+        if self.settings.input.spectrogram.normalize:
+            item = normalize_tensor(tensor=item)
+
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+            
 
 
 #########################
@@ -781,6 +1207,97 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
     return tensors, speakers, commands, snrs
 
 
+def _SInt_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
+    """Process the audio samples in batch to have the same duration.
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, label)
+    
+    Parameters
+    ----------
+    batch: List[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    torch.Tensor
+        Audio samples contained in the batch
+    torch.IntTensor
+        Labels of the samples contained in the batch
+    torch.Tensor
+        Average SNR of the samples contained in the batch
+    """
+    tensors, intents, exp_intents, imp_intents = list(), list(), list(), list()
+    avg_snr = 0
+    max_length = 0
+    lenght_axis = batch[0][1].dim() - 1
+    for path, tensor, _, _, _, _, intent, exp_intent, imp_intent, snr in batch:
+        max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        intents += [label_to_index(intent)]
+        exp_intents += [label_to_index(exp_intent)]
+        imp_intents += [label_to_index(imp_intent)]
+        avg_snr += snr
+    if lenght_axis == 2:
+        # working with spectrograms
+        tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    else:
+        # working with waveforms
+        tensors = pad_waveforms(tensors, max_length=max_length, value=WAVE_PAD_VALUE, stride=PAD_STRIDE)
+    intents = torch.stack(intents)
+    exp_intents = torch.stack(exp_intents)
+    imp_intents = torch.stack(imp_intents)
+    avg_snr = torch.tensor(avg_snr/len(tensors))
+    """
+    global it
+    for s in range(0, 3):
+        #plot_mfcc(path="check_files/{}_{}_lab{}".format(it, s, targets[s]), mfcc=tensors[s])
+        plot_melspectrogram(path="check_files/collate_fn/{}_{}_lab{}".format(it, s, targets[s]), melspectrogram=tensors[s])
+        #plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
+    it += 1
+    #"""
+    return tensors, intents, exp_intents, imp_intents, avg_snr
+
+def _SInt_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
+    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    
+    Parameters
+    ----------
+    batch: Dict[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    Dict[int, torch.Tensor]
+        Combined batch (dictionary of batches) with audio sample of the same length
+    """
+    tensors, intents, exp_intents, imp_intents, snrs = list(), list(), list(), list(), list()
+    max_length = 0
+    lenght_axis = batch[0][1].dim() - 1
+    for path, tensor, _, _, _, _, intent, exp_intent, imp_intent, snr in batch:
+        max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        intents += [label_to_index(intent)]
+        exp_intents += [label_to_index(exp_intent)]
+        imp_intents += [label_to_index(imp_intent)]
+        snrs += [torch.tensor(snr)]
+    if lenght_axis == 2:
+        # working with spectrograms
+        tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    else:
+        # working with waveforms
+        tensors = pad_waveforms(tensors, max_length=max_length, value=WAVE_PAD_VALUE, stride=PAD_STRIDE)
+    intents = torch.stack(intents)
+    exp_intents = torch.stack(exp_intents)
+    imp_intents = torch.stack(imp_intents)
+    snrs = torch.stack(snrs)
+    return tensors, intents, exp_intents, imp_intents, snrs
+
+
+#########################
+### USELESS FUNCTIONS ###
+#########################
 def test_dataset(samples:List[int]) -> None:
     for i in range(len(samples)):
         if self.settings.input.type == "waveform":

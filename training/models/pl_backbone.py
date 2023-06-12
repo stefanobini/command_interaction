@@ -238,6 +238,9 @@ class PL_Backbone(pl.LightningModule):
             Dictionary containing "loss", "logits", "targets" and average "snr" of the batch
         """
         x, y, snr = batch
+        # x, y, _, _, snr = batch
+        # x, _, y, _, snr = batch
+        # x, _, _, y, snr = batch
         logits = self.forward(x=x)
         #print("TRAINING: ", torch.cuda.memory_allocated(self.device))
         loss = self.loss_fn(input=logits, target=y)
@@ -291,6 +294,9 @@ class PL_Backbone(pl.LightningModule):
             Dictionary containing "logits", "targets", "snrs" of the batch
         """
         x, y, snr = batch
+        # x, y, _, _, snr = batch
+        # x, _, y, _, snr = batch
+        # x, _, _, y, snr = batch
         logits = self.forward(x=x)
         #print("VALIDATION: ", torch.cuda.memory_allocated(self.device))
 
@@ -441,6 +447,7 @@ class PL_Backbone(pl.LightningModule):
             with open(self.results_file, 'w') as fout:
                 avg_accuracy, avg_balanced_accuracy, avg_reject_accuracy = 0, 0, 0
                 snr_accuracies, snr_balanced_accuracies, snr_reject_accuracies = list(), list(), list()
+                fout.write("SNR\t\t\tAccuracy\tBalanced\tReject\n" + "-"*50 + "\n")
                 for snr in self.snrs:
                     snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["logits"], target=outputs[snr]["targets"], task="multiclass", num_classes=self.num_labels, average="micro")
                     snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["logits"], target=outputs[snr]["targets"], task="multiclass", num_classes=self.num_labels, average="weighted")
@@ -451,7 +458,7 @@ class PL_Backbone(pl.LightningModule):
                     snr_balanced_accuracies.append(snr_balanced_accuracy.item())
                     snr_reject_accuracies.append(snr_reject_accuracy.item())
 
-                    fout.write("SNR {}dB:\t\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(snr, snr_accuracy*100, snr_balanced_accuracy*100, snr_reject_accuracy*100))
+                    fout.write("{}dB:\t\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(snr, snr_accuracy*100, snr_balanced_accuracy*100, snr_reject_accuracy*100))
                     avg_accuracy += snr_accuracy*100
                     avg_balanced_accuracy += snr_balanced_accuracy*100
                     avg_reject_accuracy += snr_reject_accuracy*100
@@ -460,7 +467,7 @@ class PL_Backbone(pl.LightningModule):
                 result_dict = {"snr": [snr for snr in self.snrs], "accuracy": snr_accuracies, "balanced_accuracy": snr_balanced_accuracies, "reject_accuracy": snr_reject_accuracies}
                 result_df = pandas.DataFrame(data=result_dict, columns=columns)
                 result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
-                fout.write("-------------------------------------------------\n")
+                fout.write("-"*50 + "\n")
                 fout.write("Total average:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(avg_accuracy/len(self.snrs), avg_balanced_accuracy/len(self.snrs), avg_reject_accuracy/len(self.snrs)))
         
             #'''
