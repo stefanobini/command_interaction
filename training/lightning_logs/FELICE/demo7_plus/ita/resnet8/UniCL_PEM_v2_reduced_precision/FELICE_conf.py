@@ -1,4 +1,4 @@
-""" DEMO 3 - ITA - ResNet15 - UniCL_PEM_v2 """
+""" DEMO 7 PLUS - ITA - ResNet15 - UniCL_PEM_v2 """
 import os
 from typing import List
 from dotmap import DotMap
@@ -9,7 +9,7 @@ settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
 settings.task:str = "SCR"
-settings.demo:str = "demo3"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
+settings.demo:str = "demo7_plus"
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]

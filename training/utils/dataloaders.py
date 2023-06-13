@@ -600,7 +600,7 @@ class MiviaSpeechIntent(Dataset):
         
         return weights
 
-class TrainingMiviaDataset(MiviaSpeechIntent):
+class TrainingSpeechIntentDataset(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap) -> Dataset:
         """Training subset of the MiviaDataset dataset class.
@@ -734,7 +734,7 @@ class TrainingMiviaDataset(MiviaSpeechIntent):
         """Shuffle noise annotation file. The method is useful to change the loading order among epochs."""
         self.noise_annotations =self.noise_annotations.sample(frac=1)
 
-class ValidationMiviaDataset(MiviaSpeechIntent):
+class ValidationSpeechIntenttDataset(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap) -> Dataset:
         """Validation subset of the MiviaDataset dataset class.
@@ -823,7 +823,7 @@ class ValidationMiviaDataset(MiviaSpeechIntent):
 
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
 
-class TestingMiviaDataset(MiviaSpeechIntent):
+class TestingSpeechIntenttDataset(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap, fold:str) -> Dataset:
         """Test subset of the MiviaDataset dataset class.
