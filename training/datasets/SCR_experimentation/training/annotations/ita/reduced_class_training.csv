@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 commands/1770776685/ita/ita_0.wav,command,telegram_bot,1770776685,0,,,,
 commands/409714222/ita/ita_0.wav,command,telegram_bot,409714222,0,,,,
 commands/184960439/ita/ita_2.wav,command,telegram_bot,184960439,2,,,,

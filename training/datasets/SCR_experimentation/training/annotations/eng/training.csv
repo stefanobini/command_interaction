@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 commands/1086043658/eng/eng_9.wav,command,telegram_bot,1086043658,9,,,,
 synthetics/naturalreaders/neural/eng/lisa_au_0.wav,synthetic,naturalreaders_neural,lisa,0,,,,
 rejects/eng/clips/marvin_c1b7c224_nohash_1.wav,reject,google_speech,marvin,31,,,,

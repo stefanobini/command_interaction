@@ -26,7 +26,7 @@ from utils.scr_si_loss import MT_loss
 
 class HardSharing_PL(pl.LightningModule):
 
-    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float=None):
+    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float32=None):
         """
         
         Methods
@@ -66,11 +66,12 @@ class HardSharing_PL(pl.LightningModule):
         super().__init__()
 
         self.settings = settings
-        embedding_size = settings.model.resnet8.out_channel
+        self.tasks = settings.tasks
+        self.n_tasks = len(self.tasks)
 
+        embedding_size = settings.model.resnet8.out_channel
         self.conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
         self.pool = torch.nn.AvgPool2d(settings.model.resnet8.pooling_size)  # flipped -- better for 80 log-Mels
-
         self.n_layers = n_layers = 6
         self.convs = [torch.nn.Conv2d(embedding_size, embedding_size, (3, 3), padding=1, bias=False) for _ in range(n_layers)]
         for i, conv in enumerate(self.convs):
@@ -80,11 +81,11 @@ class HardSharing_PL(pl.LightningModule):
         self.speaker_features = torch.nn.Linear(embedding_size, settings.model.resnet8.speaker_embedding_size)
         self.speaker_output = torch.nn.Linear(settings.model.resnet8.speaker_embedding_size, task_n_labels[1])
         #'''
-        self.command_output = torch.nn.Linear(embedding_size, task_n_labels[0])
-        self.speaker_output = torch.nn.Linear(embedding_size, task_n_labels[1])
+        self.output_layers = dict()
+        for task in range(self.n_tasks):
+            self.output_layers[self.tasks[task]] = torch.nn.Linear(embedding_size, task_n_labels[task])
         # self.softmax = torch.nn.Softmax(dim=1)
 
-        self.n_tasks = 2    # SCR and SI
         self.grad_norm = self.settings.training.loss.type == "grad_norm"
         weights = torch.tensor(data=[0.8, 1.2]) if settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1., 1.])
         self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks) * weights, requires_grad=self.grad_norm)
@@ -129,7 +130,10 @@ class HardSharing_PL(pl.LightningModule):
         return self.command_output(shared_embedding), self.speaker_output(speaker_embedding)
         #'''
         shared_embedding = self.get_embeddings(x=x)
-        return self.command_output(shared_embedding), self.speaker_output(shared_embedding)
+        outputs = list()
+        for task in range(self.n_tasks):
+            outputs.append(self.output_layers[self.tasks[task]](shared_embedding))
+        return outputs
 
     def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
         """Extract the shared and speaker embeddings from the input.
@@ -177,7 +181,7 @@ class HardSharing_PL(pl.LightningModule):
 
     def predict_srid(self, x:torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         shared_embedding, speaker_embedding = self.get_embeddings(x=x)
-        return self.command_output(shared_embedding), speaker_embedding
+        return self.output_layers["command"](shared_embedding), speaker_embedding
 
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:

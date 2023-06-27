@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/google/neural/eng/US_Standard_F_cmd9.wav,reject,google_neural,US_Standard_F,6
 rejects/eng/yes_6727b579_nohash_2.wav,reject,google_speech,6727b579,6
 rejects/eng/one_3bfd30e6_nohash_2.wav,reject,google_speech,3bfd30e6,6

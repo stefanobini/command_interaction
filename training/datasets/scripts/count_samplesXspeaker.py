@@ -10,7 +10,7 @@ OUTPUT_DATASET_PATH = "./datasets/MTL_scr_sr"
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 SET = "testing"    # ["dataset", "training", "validation", "testing"]
 
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 
 MIN_N_SAMPLExSPEAKER = 0
 MAX_N_SAMPLExSPEAKER = 1

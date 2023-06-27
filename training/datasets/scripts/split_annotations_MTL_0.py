@@ -12,7 +12,7 @@ NOISE_OUTPUT_PATH = os.path.join(DATASET_PATH, "annotations", "noise")
 if not os.path.isdir(NOISE_OUTPUT_PATH):
         os.makedirs(NOISE_OUTPUT_PATH)
 NOISE_ANNOTATIONS_FILE = os.path.join(NOISE_OUTPUT_PATH, "dataset.csv")
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
 TRAINING = 0.7

@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/naturalreaders/neural/eng/graham_en_4.wav,reject,naturalreaders_neural,graham,8
 synthetics/polly/neural/eng/Amy_10.wav,reject,polly_neural,Amy,8
 rejects/eng/seven_7211390b_nohash_1.wav,reject,google_speech,7211390b,8

@@ -25,7 +25,7 @@ from utils.scr_si_loss import MT_loss
 
 class SoftSharing_PL(pl.LightningModule):
 
-    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float=None):
+    def __init__(self, settings:DotMap, task_n_labels:List[int], task_loss_weights:np.float32=None):
         """
         
         Methods

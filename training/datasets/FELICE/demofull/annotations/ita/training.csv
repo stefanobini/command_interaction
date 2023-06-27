@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 commands/2143985449/ita/ita_10.wav,command,telegram_bot,2143985449,10
 synthetics/google/standard/ita/IT_Wavenet_B_cmd13.wav,synthetic,google_standard,IT_Wavenet_B,13
 rejects/ita/six_5236848b_nohash_0.wav,reject,google_speech,5236848b,31

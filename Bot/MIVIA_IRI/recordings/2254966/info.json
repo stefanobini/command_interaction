@@ -1,0 +1,23 @@
+{
+    "id": 2254966,
+    "name": "Jos\u00e9 Enrique",
+    "link": null,
+    "presentation": true,
+    "int_lang": "esp",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "esp"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "esp": [
+            17
+        ]
+    },
+    "acquiring_intent": 17,
+    "acquiring_lang": "esp",
+    "acquiring_version": 2,
+    "last_int_date": "2023-06-26 16:24:23.903508"
+}

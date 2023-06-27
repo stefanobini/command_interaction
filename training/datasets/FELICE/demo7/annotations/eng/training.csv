@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/eng/bird_bf70feda_nohash_1.wav,reject,google_speech,bf70feda,6
 synthetics/google/neural/eng/US_Standard_C_cmd26.wav,reject,google_neural,US_Standard_C,6
 rejects/eng/no_28612180_nohash_0.wav,reject,google_speech,28612180,6

@@ -11,11 +11,10 @@
         "eng",
         "ita"
     ],
-    "init_complete": false,
+    "init_complete": true,
     "miss_intent": {
         "eng": [
             0,
-            1,
             2,
             3,
             4,
@@ -64,8 +63,8 @@
             22
         ]
     },
-    "acquiring_intent": null,
-    "acquiring_lang": null,
-    "acquiring_version": null,
-    "last_int_date": "2023-06-08 20:19:41.542201"
+    "acquiring_intent": 8,
+    "acquiring_lang": "eng",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-14 21:37:58.876270"
 }

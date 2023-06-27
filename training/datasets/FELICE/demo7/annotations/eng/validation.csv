@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/polly/neural/eng/Emma_15.wav,reject,polly_neural,Emma,6
 rejects/eng/no_eb0676ec_nohash_0.wav,reject,google_speech,eb0676ec,6
 synthetics/vocalware/neural/eng/engine3_voice4_cmd17.wav,synthetic,vocalware_neural,engine3,5

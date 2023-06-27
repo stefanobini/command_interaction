@@ -11,7 +11,7 @@ NOISE_OUTPUT_PATH = os.path.join(DATASET_PATH, "annotations", "noise")
 if not os.path.isdir(NOISE_OUTPUT_PATH):
         os.makedirs(NOISE_OUTPUT_PATH)
 NOISE_ANNOTATIONS_FILE = os.path.join(NOISE_OUTPUT_PATH, "dataset.csv")
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
 TRAINING = 0.8
@@ -82,9 +82,9 @@ for lang in LANGS:
 
     ''' Split dataset in training, validation and test set '''
     n_sample = len(df)
-    train_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
-    valid_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
-    test_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
+    train_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
+    valid_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
+    test_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
 
     # BALANCING ON THE SPEAKER AMONG THE SETS
     speaker_group = df.groupby(df.speaker)
@@ -99,19 +99,19 @@ for lang in LANGS:
                 test_dict["type"].append(df_speaker.iloc[idx]["type"])
                 test_dict["subtype"].append(df_speaker.iloc[idx]["subtype"])
                 test_dict["speaker"].append(df_speaker.iloc[idx]["speaker"])
-                test_dict["label"].append(df_speaker.iloc[idx]["label"])
+                test_dict["command"].append(df_speaker.iloc[idx]["command"])
             elif temp == 1:
                 valid_dict["path"].append(df_speaker.iloc[idx]["path"])
                 valid_dict["type"].append(df_speaker.iloc[idx]["type"])
                 valid_dict["subtype"].append(df_speaker.iloc[idx]["subtype"])
                 valid_dict["speaker"].append(df_speaker.iloc[idx]["speaker"])
-                valid_dict["label"].append(df_speaker.iloc[idx]["label"])
+                valid_dict["command"].append(df_speaker.iloc[idx]["command"])
             else:
                 train_dict["path"].append(df_speaker.iloc[idx]["path"])
                 train_dict["type"].append(df_speaker.iloc[idx]["type"])
                 train_dict["subtype"].append(df_speaker.iloc[idx]["subtype"])
                 train_dict["speaker"].append(df_speaker.iloc[idx]["speaker"])
-                train_dict["label"].append(df_speaker.iloc[idx]["label"])
+                train_dict["command"].append(df_speaker.iloc[idx]["command"])
         
         speaker_iter.set_description("Analyzing <{}> dataset.".format(lang))
 

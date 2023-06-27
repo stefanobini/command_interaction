@@ -9,7 +9,7 @@ IN_DATASET_PATH = "./datasets/MIVIA_ISC"
 OUTPUT_DATASET_PATH = "./datasets/MTL_scr_sr"
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 
 MIN_N_SAMPLExSPEAKER = 25
 

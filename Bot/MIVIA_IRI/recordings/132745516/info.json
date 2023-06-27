@@ -1,0 +1,23 @@
+{
+    "id": 132745516,
+    "name": "@thisisabyz",
+    "link": "https://t.me/thisisabyz",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            3
+        ]
+    },
+    "acquiring_intent": 3,
+    "acquiring_lang": "ita",
+    "acquiring_version": 2,
+    "last_int_date": "2023-06-13 20:57:13.958315"
+}

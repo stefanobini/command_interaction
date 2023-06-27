@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/eng/marvin_77f185d3_nohash_1.wav,reject,google_speech,77f185d3,31
 commands/738867743/eng/eng_14.wav,command,telegram_bot,738867743,14
 rejects/eng/on_d6b155a5_nohash_0.wav,reject,google_speech,d6b155a5,31

@@ -17,9 +17,9 @@ from utils.settings.FELICE_conf import settings
 SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC_v1")
 OUT_PATH = os.path.join("datasets", "FELICE", "demofull")
 LANGs = ["ita", "eng"]
-SPEECH_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
-NOISE_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
-FULL_HEADING = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
+SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
+NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
+FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 SNRs = range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step)
 
 
@@ -49,7 +49,7 @@ def build_train_set():
         speech_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", lang, "training.csv"), sep=',')
         noise_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", "noise", "training.csv"), sep=',')
 
-        speech_data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
+        speech_data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
         noise_data = {"path": list(), "type": list(), "subtype": list()}
         ann_iter = tqdm(range(len(speech_annotations)))
         for idx in ann_iter:
@@ -59,7 +59,7 @@ def build_train_set():
             speech_data["type"].append(speech_type)
             speech_data["subtype"].append(speech_subtype)
             speech_data["speaker"].append(speaker)
-            speech_data["label"].append(label)
+            speech_data["command"].append(label)
             full_speech_path = os.path.join(out_path, os.path.split(speech_path)[0])
             os.makedirs(full_speech_path, exist_ok=True)
             torchaudio.save(os.path.join(out_path, speech_path), speech, sample_rate)
@@ -96,7 +96,7 @@ def build_set(subset:str):
         speech_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", lang, "{}.csv".format(subset)), sep=',')
         noise_annotations = pd.read_csv(os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), sep=',')
 
-        data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list(), "noise_path": list(), "noise_type": list(), "noise_subtype": list(), "snr": list()}
+        data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list(), "noise_path": list(), "noise_type": list(), "noise_subtype": list(), "snr": list()}
         ann_iter = tqdm(range(len(speech_annotations)))
         for idx in ann_iter:
             speech, sample_rate, speech_path, speech_type, speech_subtype, speaker, label, noise, noise_path, noise_type, noise_subtype = get_item(speech_annotations=speech_annotations, noise_annotations=noise_annotations, index=idx, preprocess=preprocess)
@@ -107,7 +107,7 @@ def build_set(subset:str):
                 data["type"].append(speech_type)
                 data["subtype"].append(speech_subtype)
                 data["speaker"].append(speaker)
-                data["label"].append(label)
+                data["command"].append(label)
                 data["noise_path"].append(noise_path)
                 data["noise_type"].append(noise_type)
                 data["noise_subtype"].append(noise_subtype)

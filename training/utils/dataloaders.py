@@ -108,7 +108,7 @@ class MiviaDataset(Dataset):
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label)
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command)
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -120,9 +120,31 @@ class MiviaDataset(Dataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label)
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command)
 
+    def _get_group(self, heading:str) -> List[int]:
+        """Get the list of the label group for the passed column.
+        
+        Parameters
+        ----------
+        column_label: str
+            Column label to be grouped
 
+        Returns
+        -------
+        List[int]
+            List of the speakers
+        """
+        return list(self.speech_annotations.groupby(heading).groups.keys())
+    
+    def _get_labels(self) -> List[List[int]]:
+        headings = None
+        labels = list()
+        for heading in headings:
+            if heading in self.settings.tasks:
+                labels.append(self._get_group(heading=heading))
+        return labels
+    
     def _get_commands(self) -> List[int]:
         """Get the list of the labels contained in the dataset.
         
@@ -131,7 +153,7 @@ class MiviaDataset(Dataset):
         List[int]
             List of the labels
         """
-        return list(self.speech_annotations.groupby("label").groups.keys())
+        return list(self.speech_annotations.groupby("command").groups.keys())
     
     def _get_speakers(self) -> List[int]:
         """Get the list of the speakers contained in the dataset.
@@ -151,7 +173,7 @@ class MiviaDataset(Dataset):
         torch.Tensor
             One-Dimensional Tensor of weights.
         """
-        labels_group = self.speech_annotations.groupby("label")
+        labels_group = self.speech_annotations.groupby("command")
         weights = torch.zeros(len(self._get_commands()))
 
         indexes = range(len(self._get_commands()))
@@ -247,11 +269,11 @@ class TrainingMiviaDataset(MiviaDataset):
             print("SAVED")
             speech_save = np.reshape(np.array(item), (-1, 1))
             sf.write("example.wav", data=speech_save, samplerate=16000, format="WAV")
-            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.command, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
             it += 1
         #'''
         if self.settings.input.type == "waveform":
-            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label), snr
+            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.command), snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -275,7 +297,7 @@ class TrainingMiviaDataset(MiviaDataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label), snr
+        return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.command), snr
 
 
     def set_epoch(self, epoch:int=0) -> None:
@@ -352,7 +374,7 @@ class ValidationMiviaDataset(MiviaDataset):
         #print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -377,7 +399,7 @@ class ValidationMiviaDataset(MiviaDataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
 
 class TestingMiviaDataset(MiviaDataset):
 
@@ -434,7 +456,7 @@ class TestingMiviaDataset(MiviaDataset):
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -449,7 +471,7 @@ class TestingMiviaDataset(MiviaDataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.label), pre_item.snr
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
             
 class knnMiviaDataset(MiviaDataset):
     def __init__(self, settings:DotMap, subset:str="all", n_samples_per_speaker:int=1) -> Dataset:
@@ -549,7 +571,7 @@ class MiviaSpeechIntent(Dataset):
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent)
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit)
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -561,9 +583,9 @@ class MiviaSpeechIntent(Dataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent)
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit)
 
-    def _get_group(self, column_label:str) -> List[int]:
+    def _get_group(self, heading:str) -> List[int]:
         """Get the list of the label group for the passed column.
         
         Parameters
@@ -576,9 +598,17 @@ class MiviaSpeechIntent(Dataset):
         List[int]
             List of the speakers
         """
-        return list(self.speech_annotations.groupby(column_label).groups.keys())
+        return list(self.speech_annotations.groupby(heading).groups.keys())
 
-    def _get_class_weights(self, column_label:str) -> List[torch.Tensor]:
+    def _get_labels(self) -> List[List[int]]:
+        headings = list(self.speech_annotations.columns)
+        labels = list()
+        for heading in headings:
+            if heading in self.settings.tasks:
+                labels.append(self._get_group(heading=heading))
+        return labels
+
+    def _get_class_weights(self) -> List[torch.Tensor]:
         """Get the weights for each class calculated as a percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
         
         Parameters
@@ -591,6 +621,7 @@ class MiviaSpeechIntent(Dataset):
         torch.Tensor
             One-Dimensional Tensor of weights.
         """
+        column_label = "intent"
         labels_group = self.speech_annotations.groupby(column_label)
         weights = torch.zeros(len(self._get_group(column_label)))
 
@@ -600,7 +631,7 @@ class MiviaSpeechIntent(Dataset):
         
         return weights
 
-class TrainingSpeechIntentDataset(MiviaSpeechIntent):
+class Training_MSI(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap) -> Dataset:
         """Training subset of the MiviaDataset dataset class.
@@ -622,7 +653,7 @@ class TrainingSpeechIntentDataset(MiviaSpeechIntent):
             self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
         n_rows = None if not settings.training.test_model else settings.training.batch_size*4
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',', nrows=n_rows)
-        self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
+        #self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
         self.noise_annotations = pd.read_csv(self.settings.dataset.noise.training.annotations, sep=',')
         self.epoch = 0
  
@@ -690,11 +721,11 @@ class TrainingSpeechIntentDataset(MiviaSpeechIntent):
             print("SAVED")
             speech_save = np.reshape(np.array(item), (-1, 1))
             sf.write("example.wav", data=speech_save, samplerate=16000, format="WAV")
-            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.label, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
+            #torchaudio.save(wav_path="check_files/waveforms/{}_{}_{}".format(speech_item.command, snr, rel_speech_path.replace('/', '-')), waveform=item, sample_rate=self.settings.input.sample_rate, encoding="PCM_S", bits_per_sample=16, format="wav")
             it += 1
         #'''
         if self.settings.input.type == "waveform":
-            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.exp_intent), int(speech_item.imp_intent), snr
+            return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.explicit), int(speech_item.implicit), snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -709,7 +740,7 @@ class TrainingSpeechIntentDataset(MiviaSpeechIntent):
         spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
         spect.save("example.png")
         '''
-        
+
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
@@ -718,7 +749,7 @@ class TrainingSpeechIntentDataset(MiviaSpeechIntent):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.exp_intent), int(speech_item.imp_intent), snr
+        return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.intent), int(speech_item.explicit), int(speech_item.implicit), snr
 
     def set_epoch(self, epoch:int=0) -> None:
         """Set the epoch parameter to the current training epoch to allow the application of the curriculum learning scheduler.
@@ -734,7 +765,7 @@ class TrainingSpeechIntentDataset(MiviaSpeechIntent):
         """Shuffle noise annotation file. The method is useful to change the loading order among epochs."""
         self.noise_annotations =self.noise_annotations.sample(frac=1)
 
-class ValidationSpeechIntenttDataset(MiviaSpeechIntent):
+class Validation_MSI(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap) -> Dataset:
         """Validation subset of the MiviaDataset dataset class.
@@ -796,7 +827,7 @@ class ValidationSpeechIntenttDataset(MiviaSpeechIntent):
         #print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit), pre_item.snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -821,9 +852,9 @@ class ValidationSpeechIntenttDataset(MiviaSpeechIntent):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit), pre_item.snr
 
-class TestingSpeechIntenttDataset(MiviaSpeechIntent):
+class Testing_MSI(MiviaSpeechIntent):
 
     def __init__(self, settings:DotMap, fold:str) -> Dataset:
         """Test subset of the MiviaDataset dataset class.
@@ -882,7 +913,7 @@ class TestingSpeechIntenttDataset(MiviaSpeechIntent):
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
         
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit), pre_item.snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -897,7 +928,7 @@ class TestingSpeechIntenttDataset(MiviaSpeechIntent):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.exp_intent), int(pre_item.imp_intent), pre_item.snr
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit), pre_item.snr
             
 
 
@@ -1207,7 +1238,7 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
     return tensors, speakers, commands, snrs
 
 
-def _SInt_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
+def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
     (path, item, sample_rate, type, subtype, speaker, label)
@@ -1247,6 +1278,7 @@ def _SInt_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torc
     exp_intents = torch.stack(exp_intents)
     imp_intents = torch.stack(imp_intents)
     avg_snr = torch.tensor(avg_snr/len(tensors))
+    targets = list((intents, exp_intents, imp_intents))
     """
     global it
     for s in range(0, 3):
@@ -1255,9 +1287,9 @@ def _SInt_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torc
         #plot_mfcc(path="check_files/{}_{}_{}_lab{}".format(it, s, paths[s], targets[s]), mfcc=tensors[s])
     it += 1
     #"""
-    return tensors, intents, exp_intents, imp_intents, avg_snr
+    return tensors, targets, avg_snr
 
-def _SInt_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
+def _MSI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
     (path, item, sample_rate, type, subtype, speaker, label, snr)
@@ -1292,7 +1324,8 @@ def _SInt_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
     exp_intents = torch.stack(exp_intents)
     imp_intents = torch.stack(imp_intents)
     snrs = torch.stack(snrs)
-    return tensors, intents, exp_intents, imp_intents, snrs
+    targets = list((intents, exp_intents, imp_intents))
+    return tensors, targets, snrs
 
 
 #########################

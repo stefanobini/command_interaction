@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/eng/common_voice_en_20905240.wav,reject,mozilla_common_voice,20905240,4
 rejects/eng/common_voice_en_21834511.wav,reject,mozilla_common_voice,21834511,4
 commands/279763508/eng/eng_11.wav,reject,telegram_bot,279763508,4

@@ -255,6 +255,7 @@ class Preprocessing():
         torch.Tensor
             Noisy speech tensor
         """
+        # maybe also the noise application point in the speech should be variate randomly
         noise = self.fix_noise_duration(speech=speech, noise=noise)
         # Compute Root Mean Square of the speech and noise
         speech_rms = speech.norm(p=2)

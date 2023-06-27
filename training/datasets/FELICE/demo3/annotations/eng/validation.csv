@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/eng/bed_f5d09ebd_nohash_0.wav,reject,google_speech,f5d09ebd,4
 commands/5003958420/eng/eng_4.wav,command,telegram_bot,5003958420,2
 synthetics/nemo/neural/eng/glowtts_uniglow_cmd16.wav,reject,nemo_neural,glowtts_uniglow,4

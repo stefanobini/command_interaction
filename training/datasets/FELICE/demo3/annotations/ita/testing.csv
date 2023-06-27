@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/ita/eight_caf1803e_nohash_0.wav,reject,google_speech,caf1803e,4
 rejects/ita/up_742d6431_nohash_2.wav,reject,google_speech,742d6431,4
 rejects/ita/sheila_c90c0105_nohash_0.wav,reject,google_speech,c90c0105,4

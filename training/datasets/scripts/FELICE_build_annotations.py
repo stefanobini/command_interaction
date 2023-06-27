@@ -8,7 +8,7 @@ DEMO = "full"  # ["full", "3", "7", "7_plus"]
 IN_DATASET_FOLDER = "MIVIA_ISC_v1"
 OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
 ANNOTATION_FILE = "dataset.csv"
-COLUMNS = ["path", "type", "subtype", "speaker", "label"]
+COLUMNS = ["path", "type", "subtype", "speaker", "command"]
 BALANCE_REJECT_SAMPLES = False
 REJECT_PERCENTAGE = 0.75
 OLD_CMD_LABEL_3_AND_7 = {
@@ -95,66 +95,66 @@ for lang in LANGS:
     os.makedirs(out_dataset_folder, exist_ok=True)
     out_dataset_path = os.path.join(out_dataset_folder, ANNOTATION_FILE)
     in_df = pandas.read_csv(filepath_or_buffer=in_dataset_path, sep=',')
-    out_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "label": list()}
+    out_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
 
     df_iter = tqdm(in_df.index)
     for idx in df_iter:
-        if in_df.iloc[idx]["label"] in OLD_CMD_LABEL:
+        if in_df.iloc[idx]["command"] in OLD_CMD_LABEL:
             out_dict["path"].append(in_df.iloc[idx]["path"])
             out_dict["type"].append(in_df.iloc[idx]["type"])
             out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
             out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-            out_dict["label"].append(OLD_CMD_LABEL[in_df.iloc[idx]["label"]])
+            out_dict["command"].append(OLD_CMD_LABEL[in_df.iloc[idx]["command"]])
         elif DEMO == "full":
             if os.path.join(lang, "stop") in in_df.iloc[idx]["path"]:
                 out_dict["path"].append(in_df.iloc[idx]["path"])
                 out_dict["type"].append("google_speech_commands")
                 out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                 out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                out_dict["label"].append(24)
+                out_dict["command"].append(24)
             elif lang == "eng":
                 if os.path.join(lang, "up") in in_df.iloc[idx]["path"]:
                     out_dict["path"].append(in_df.iloc[idx]["path"])
                     out_dict["type"].append("google_speech_commands")
                     out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                     out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["label"].append(27)
+                    out_dict["command"].append(27)
                 elif os.path.join(lang, "down") in in_df.iloc[idx]["path"]:
                     out_dict["path"].append(in_df.iloc[idx]["path"])
                     out_dict["type"].append("google_speech_commands")
                     out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                     out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["label"].append(28)
+                    out_dict["command"].append(28)
                 elif os.path.join(lang, "left") in in_df.iloc[idx]["path"]:
                     out_dict["path"].append(in_df.iloc[idx]["path"])
                     out_dict["type"].append("google_speech_commands")
                     out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                     out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["label"].append(26)
+                    out_dict["command"].append(26)
                 elif os.path.join(lang, "right") in in_df.iloc[idx]["path"]:
                     out_dict["path"].append(in_df.iloc[idx]["path"])
                     out_dict["type"].append("google_speech_commands")
                     out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                     out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["label"].append(25)
+                    out_dict["command"].append(25)
                 else:
                     out_dict["path"].append(in_df.iloc[idx]["path"])
                     out_dict["type"].append("reject")
                     out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                     out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["label"].append(len(OLD_CMD_LABEL))
+                    out_dict["command"].append(len(OLD_CMD_LABEL))
             else:
                 out_dict["path"].append(in_df.iloc[idx]["path"])
                 out_dict["type"].append("reject")
                 out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
                 out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                out_dict["label"].append(len(OLD_CMD_LABEL))
+                out_dict["command"].append(len(OLD_CMD_LABEL))
         else:
             out_dict["path"].append(in_df.iloc[idx]["path"])
             out_dict["type"].append("reject")
             out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
             out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-            out_dict["label"].append(len(OLD_CMD_LABEL))
+            out_dict["command"].append(len(OLD_CMD_LABEL))
 
         df_iter.set_description("Building <{}> annotation file.".format(lang))
 

@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/polly/standard/eng/Aditi_9.wav,synthetic,polly_standard,Aditi,5
 commands/238016822/eng/eng_24.wav,reject,telegram_bot,238016822,8
 rejects/eng/dog_d107dc42_nohash_0.wav,reject,google_speech,d107dc42,8

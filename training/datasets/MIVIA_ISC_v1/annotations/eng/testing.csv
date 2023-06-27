@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/vocalware/neural/eng/engine7_voice3_cmd27.wav,synthetic,vocalware_neural,engine7,27
 synthetics/vocalware/neural/eng/engine7_voice6_cmd1.wav,synthetic,vocalware_neural,engine7,1
 synthetics/vocalware/neural/eng/engine7_voice3_cmd2.wav,synthetic,vocalware_neural,engine7,2

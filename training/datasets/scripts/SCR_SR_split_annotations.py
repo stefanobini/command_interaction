@@ -15,7 +15,7 @@ os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 OUTPUT_NOISE_PATH = os.path.join(OUTPUT_DATASET_PATH, "annotations", "noise")
 os.makedirs(OUTPUT_NOISE_PATH, exist_ok=True)
 
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
 TRAINING = 0.8
@@ -75,8 +75,8 @@ def get_df_attribute_set(attribute_group, attribute_list:list, heading) -> pd.Da
 # COMMANDS #
 ############
 for lang in LANGS:
-    annotation_file = os.path.join(INPUT_DATASET_PATH, "annotations/{}/dataset.csv".format(lang))
-    output_path = os.path.join(OUTPUT_DATASET_PATH, "annotations/{}/".format(lang))
+    annotation_file = os.path.join(INPUT_DATASET_PATH, "annotations", lang, "dataset.csv")
+    output_path = os.path.join(OUTPUT_DATASET_PATH, "annotations", lang)
     os.makedirs(output_path, exist_ok=True)
 
     ''' Read annotation file '''

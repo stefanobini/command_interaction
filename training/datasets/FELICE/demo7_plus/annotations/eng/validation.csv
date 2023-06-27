@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/eng/yes_7d5f87c8_nohash_0.wav,reject,google_speech,7d5f87c8,8
 synthetics/vocalware/neural/eng/engine3_voice5_cmd20.wav,synthetic,vocalware_neural,engine3,1
 commands/1224730345/eng/eng_5.wav,reject,telegram_bot,1224730345,8

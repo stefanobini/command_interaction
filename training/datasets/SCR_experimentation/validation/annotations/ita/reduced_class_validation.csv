@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 commands/757577790/ita/ita_2_snr-10.wav,command,telegram_bot,757577790,2,noises/catena di lavoro robot/ford.wav,catena di lavoro robot,unknown,-10
 commands/757577790/ita/ita_2_snr-5.wav,command,telegram_bot,757577790,2,noises/catena di lavoro robot/ford.wav,catena di lavoro robot,unknown,-5
 commands/757577790/ita/ita_2_snr0.wav,command,telegram_bot,757577790,2,noises/catena di lavoro robot/ford.wav,catena di lavoro robot,unknown,0

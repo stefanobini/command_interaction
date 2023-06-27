@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/ita/house_951cac20_nohash_1.wav,reject,google_speech,951cac20,31
 rejects/ita/no_c1d39ce8_nohash_0.wav,reject,google_speech,c1d39ce8,31
 rejects/ita/common_voice_it_20020770.wav,reject,mozilla_common_voice,20020770,31

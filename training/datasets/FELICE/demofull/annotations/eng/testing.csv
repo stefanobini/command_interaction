@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 synthetics/nemo/neural/eng/tacotron2_waveglow_cmd16.wav,synthetic,nemo_neural,tacotron2_waveglow,16
 rejects/eng/house_5f8e50a0_nohash_0.wav,reject,google_speech,5f8e50a0,31
 rejects/eng/cat_de650823_nohash_1.wav,reject,google_speech,de650823,31

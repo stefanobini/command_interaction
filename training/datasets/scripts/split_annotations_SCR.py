@@ -12,7 +12,7 @@ LANGS = ["eng", "ita"]
 DATASET = os.path.join("FELICE", "demofull")
 DATASET_PATH = os.path.join("datasets", DATASET)
 
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
 TRAINING = 0.8

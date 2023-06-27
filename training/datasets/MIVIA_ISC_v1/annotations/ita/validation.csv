@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 commands/738867743/ita/ita_22.wav,command,telegram_bot,738867743,22
 rejects/ita/dog_1c3f50ad_nohash_0.wav,reject,google_speech,1c3f50ad,31
 commands/727092146/ita/ita_21.wav,command,telegram_bot,727092146,21

@@ -12,7 +12,7 @@ DATASET_PATH = os.path. join("datasets", "MTL_scr_sr")
 ANNOTATION_FILE_NAME = "testing.csv"
 ANNOTATION_PATH = os.path.join(DATASET_PATH, "annotations")
 LANGs = ["eng", "ita"]
-HEADINGS = ["path", "type", "subtype", "speaker", "label", "snr"]
+HEADINGS = ["path", "type", "subtype", "speaker", "command", "snr"]
 N_FOLDS = 20
 
 

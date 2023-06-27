@@ -6,7 +6,7 @@ from tqdm import tqdm
 IN_DATASET_PATH = "./datasets/MIVIA_ISC"
 OUTPUT_DATASET_PATH = "./datasets/MTL_experimentation"
 LANGS = ["eng", "ita"]
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 MIN_N_SAMPLExSPEAKER = 11
 TEST_SPEAKER = 100
 TEST_MIN_N_SAMPLExSPEAKER = 20

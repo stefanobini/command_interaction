@@ -11,7 +11,7 @@ DATASET_PATH = os.path. join("datasets", "FELICE", "demo7")
 ANNOTATION_FILE_NAME = "testing.csv"
 ANNOTATION_PATH = os.path.join(DATASET_PATH, "testing", "annotations")
 LANGs = ["eng", "ita"]
-HEADINGS = ["path", "type", "subtype", "speaker", "label", "noise_path", "noise_type", "noise_subtype", "snr"]
+HEADINGS = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 N_FOLDS = 10
 
 

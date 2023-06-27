@@ -1,0 +1,28 @@
+{
+    "id": 450427228,
+    "name": "@AppendiGiacchetti",
+    "link": "https://t.me/AppendiGiacchetti",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            9,
+            22
+        ],
+        "ita": [
+            20
+        ]
+    },
+    "acquiring_intent": 20,
+    "acquiring_lang": "ita",
+    "acquiring_version": 1,
+    "last_int_date": "2023-06-26 17:54:02.042165"
+}

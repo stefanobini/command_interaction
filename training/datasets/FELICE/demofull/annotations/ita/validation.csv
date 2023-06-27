@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/ita/nine_28612180_nohash_0.wav,reject,google_speech,28612180,31
 synthetics/vocalware/neural/ita/engine3_voice1_cmd25.wav,synthetic,vocalware_neural,engine3,25
 rejects/ita/cat_ec5ab5d5_nohash_0.wav,reject,google_speech,ec5ab5d5,31

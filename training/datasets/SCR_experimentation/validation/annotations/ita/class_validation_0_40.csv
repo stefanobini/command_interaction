@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 commands/747267779/ita/ita_9_snr0.wav,command,telegram_bot,747267779,9,noises/crf_melfi/move/move_0.wav,crf_melfi,move,0
 commands/747267779/ita/ita_9_snr5.wav,command,telegram_bot,747267779,9,noises/crf_melfi/move/move_0.wav,crf_melfi,move,5
 commands/747267779/ita/ita_9_snr10.wav,command,telegram_bot,747267779,9,noises/crf_melfi/move/move_0.wav,crf_melfi,move,10

@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 commands/891999531/ita/ita_4.wav,command,telegram_bot,891999531,4
 rejects/ita/sheila_77655bdf_nohash_1.wav,reject,google_speech,77655bdf,31
 rejects/ita/one_1e4064b8_nohash_0.wav,reject,google_speech,1e4064b8,31

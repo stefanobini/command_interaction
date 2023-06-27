@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 rejects/ita/clips/common_voice_it_20071331_snr0.wav,reject,mozilla_common_voice,common,31,noises/crf_melfi/move/move_6.wav,crf_melfi,move,0
 rejects/ita/clips/common_voice_it_20071331_snr5.wav,reject,mozilla_common_voice,common,31,noises/crf_melfi/move/move_6.wav,crf_melfi,move,5
 rejects/ita/clips/common_voice_it_20071331_snr10.wav,reject,mozilla_common_voice,common,31,noises/crf_melfi/move/move_6.wav,crf_melfi,move,10

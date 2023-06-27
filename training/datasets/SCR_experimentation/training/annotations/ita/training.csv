@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 commands/377577537/ita/ita_23.wav,command,telegram_bot,377577537,23,,,,
 rejects/ita/clips/bed_36746d7f_nohash_0.wav,reject,google_speech,bed,31,,,,
 rejects/ita/clips/common_voice_it_17541300.wav,reject,mozilla_common_voice,common,31,,,,

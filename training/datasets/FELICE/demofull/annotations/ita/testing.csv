@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 rejects/ita/seven_db7c95b0_nohash_1.wav,reject,google_speech,db7c95b0,31
 synthetics/google/standard/ita/IT_Wavenet_D_cmd19.wav,synthetic,google_standard,IT_Wavenet_D,19
 rejects/ita/up_9f22307d_nohash_1.wav,reject,google_speech,9f22307d,31

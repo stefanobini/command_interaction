@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 commands/97417730/eng/eng_4.wav,command,telegram_bot,97417730,2
 rejects/eng/wow_aeb99b1c_nohash_1.wav,reject,google_speech,aeb99b1c,4
 rejects/eng/five_530306f5_nohash_1.wav,reject,google_speech,530306f5,4

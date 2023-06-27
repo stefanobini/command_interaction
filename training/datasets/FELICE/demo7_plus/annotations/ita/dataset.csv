@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label
+path,type,subtype,speaker,command
 commands/1299468493/ita/ita_6.wav,command,telegram_bot,1299468493,2
 commands/1299468493/ita/ita_27.wav,reject,telegram_bot,1299468493,8
 commands/1299468493/ita/ita_23.wav,command,telegram_bot,1299468493,0

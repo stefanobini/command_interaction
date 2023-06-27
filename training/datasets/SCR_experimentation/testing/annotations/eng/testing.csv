@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 synthetics/google/neural/eng/US_Standard_I_cmd11_snr-10.wav,synthetic,google_neural,US_Standard_I,11,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,strumenti di lavoro (lavorazione metalli),tornio,-10
 synthetics/google/neural/eng/US_Standard_I_cmd11_snr-5.wav,synthetic,google_neural,US_Standard_I,11,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,strumenti di lavoro (lavorazione metalli),tornio,-5
 synthetics/google/neural/eng/US_Standard_I_cmd11_snr0.wav,synthetic,google_neural,US_Standard_I,11,noises/strumenti di lavoro (lavorazione metalli)/tornio/tornio.wav,strumenti di lavoro (lavorazione metalli),tornio,0
