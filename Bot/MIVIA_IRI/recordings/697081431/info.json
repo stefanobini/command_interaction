@@ -1,0 +1,17 @@
+{
+    "id": 697081431,
+    "name": "@xia_fire",
+    "link": "https://t.me/xia_fire",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-06-27 22:53:38.206022"
+}

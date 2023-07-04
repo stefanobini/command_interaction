@@ -1,0 +1,29 @@
+{
+    "id": 1407029395,
+    "name": "Camilla Spingola",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            0,
+            20
+        ],
+        "ita": [
+            7,
+            8
+        ]
+    },
+    "acquiring_intent": 7,
+    "acquiring_lang": "ita",
+    "acquiring_version": 4,
+    "last_int_date": "2023-06-27 22:53:20.041786"
+}

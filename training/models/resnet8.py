@@ -45,7 +45,7 @@ class ResNet8_PL(PL_Backbone):
         self.save_hyperparameters()
         
     def set_model_parameters(self, num_labels:int):
-        self.task = self.settings.task.lower()
+        self.task = self.settings.tasks[0].lower()
         out_channel = self.settings.model.resnet8.out_channel
         self.num_labels = num_labels
 

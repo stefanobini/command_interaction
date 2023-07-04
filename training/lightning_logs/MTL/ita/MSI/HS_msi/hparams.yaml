@@ -506,7 +506,7 @@ settings: !!python/object/apply:dotmap.DotMap
               - - value
                 - 0.01
             _prevent_method_masking: false
-        max_epochs: -1
+        max_epochs: 100
         min_epochs: 1
         num_workers: 48
         optimizer: &id033 !!python/object/apply:dotmap.DotMap
@@ -560,7 +560,7 @@ settings: !!python/object/apply:dotmap.DotMap
           - - device
             - 3
           - - max_epochs
-            - -1
+            - 100
           - - min_epochs
             - 1
           - - batch_size
@@ -640,6 +640,6 @@ task_loss_weights: !!python/object/apply:numpy.core.multiarray._reconstruct
     - null
     - null
 task_n_labels:
-- 23
+- 24
 - 59
 - 2

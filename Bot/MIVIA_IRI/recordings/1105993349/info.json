@@ -1,0 +1,29 @@
+{
+    "id": 1105993349,
+    "name": "Emanuele",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            2,
+            11
+        ],
+        "ita": [
+            1,
+            20
+        ]
+    },
+    "acquiring_intent": 1,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-28 19:08:19.786701"
+}

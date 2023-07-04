@@ -6,7 +6,7 @@ from math import floor
 from typing import Tuple
 
 
-LANGS = ["eng", "ita"]
+LANGS = ["eng", "esp", "ita"]
 
 INPUT_DATASET_PATH = os.path.join("datasets", "MSI")
 INPUT_NOISE_PATH = os.path.join("datasets", "MSI", "annotations", "noise")

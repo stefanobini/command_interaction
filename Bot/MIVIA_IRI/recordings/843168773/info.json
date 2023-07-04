@@ -1,0 +1,23 @@
+{
+    "id": 843168773,
+    "name": "Lucia Battipaglia",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            4
+        ]
+    },
+    "acquiring_intent": 4,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-07-04 11:52:08.303744"
+}

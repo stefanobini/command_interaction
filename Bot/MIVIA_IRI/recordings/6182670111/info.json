@@ -1,0 +1,23 @@
+{
+    "id": 6182670111,
+    "name": "bryan",
+    "link": null,
+    "presentation": true,
+    "int_lang": "esp",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "esp"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "esp": [
+            10
+        ]
+    },
+    "acquiring_intent": 10,
+    "acquiring_lang": "esp",
+    "acquiring_version": 1,
+    "last_int_date": "2023-07-03 15:02:36.861846"
+}

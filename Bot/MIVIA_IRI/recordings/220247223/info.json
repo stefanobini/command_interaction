@@ -1,0 +1,25 @@
+{
+    "id": 220247223,
+    "name": "N",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            2,
+            6,
+            19
+        ]
+    },
+    "acquiring_intent": 6,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-29 16:30:59.335561"
+}

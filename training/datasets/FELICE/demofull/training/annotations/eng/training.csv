@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 synthetics/google/neural/eng/AU_Standard_B_cmd16.wav,synthetic,google_neural,AU_Standard_B,16,,,,
 rejects/eng/marvin_338dacf5_nohash_0.wav,reject,google_speech,338dacf5,31,,,,
 commands/1483207948/eng/eng_15.wav,command,telegram_bot,1483207948,15,,,,

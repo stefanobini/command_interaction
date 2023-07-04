@@ -1,0 +1,31 @@
+{
+    "id": 767889938,
+    "name": "Giovanni",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            10,
+            15
+        ],
+        "ita": [
+            3,
+            4,
+            12,
+            21
+        ]
+    },
+    "acquiring_intent": 12,
+    "acquiring_lang": "ita",
+    "acquiring_version": 1,
+    "last_int_date": "2023-06-28 18:31:08.866247"
+}

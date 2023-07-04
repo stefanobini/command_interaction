@@ -1,0 +1,24 @@
+{
+    "id": 397087044,
+    "name": "@renatkermenov",
+    "link": "https://t.me/renatkermenov",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            3,
+            6
+        ]
+    },
+    "acquiring_intent": 6,
+    "acquiring_lang": "ita",
+    "acquiring_version": 1,
+    "last_int_date": "2023-07-03 19:38:34.314231"
+}

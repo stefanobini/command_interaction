@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 synthetics/nemo/neural/eng/tacotron2_waveglow_cmd16_snr0.wav,synthetic,nemo_neural,tacotron2_waveglow,16,noises/crf_melfi/production_line/production_line_151_000.wav,crf_melfi,production_line,0
 synthetics/nemo/neural/eng/tacotron2_waveglow_cmd16_snr5.wav,synthetic,nemo_neural,tacotron2_waveglow,16,noises/crf_melfi/production_line/production_line_151_000.wav,crf_melfi,production_line,5
 synthetics/nemo/neural/eng/tacotron2_waveglow_cmd16_snr10.wav,synthetic,nemo_neural,tacotron2_waveglow,16,noises/crf_melfi/production_line/production_line_151_000.wav,crf_melfi,production_line,10

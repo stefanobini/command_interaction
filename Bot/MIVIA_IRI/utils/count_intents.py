@@ -24,7 +24,7 @@ for user in user_iterator:
                     if '.ogg' in file:
                         intents = int(file.split('_')[0])
                         if cmds['class'] == {} or intents not in cmds['class'].keys():
-                            cmds['class'][intents] = {'ita': 0, 'eng': 0}
+                            cmds['class'][intents] = {'eng': 0, "esp": 0, 'ita': 0}
                         cmds['total'][lang] += 1
                         cmds['class'][intents][lang] += 1
     user_iterator.set_description('Analizing')

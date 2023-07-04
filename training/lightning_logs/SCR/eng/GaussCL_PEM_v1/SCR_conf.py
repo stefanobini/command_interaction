@@ -7,10 +7,9 @@ settings = DotMap()
 
 settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
-
-'''Logger'''
-settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = "SCR"                                                                              # name of the experiment
+settings.experimentation:str = "SCR"
+settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
+settings.demo:str = "scr"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
@@ -39,9 +38,9 @@ settings.input.mfcc.log_mels:bool = True                                        
 
 '''Dataset'''
 settings.dataset.folder = "./datasets/SCR_experimentation"
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "class_training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "class_validation_0_40.csv")
-settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "class_testing_0_40.csv")
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
+settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
@@ -63,13 +62,14 @@ settings.model.conformer.num_layers: int = 4
 settings.model.conformer.depthwise_conv_kernel_size: int = 31
 settings.model.conformer.dropout: float = 0.0
 settings.model.conformer.use_group_norm: bool = False
-settings.model.conformer.convolution_first: bool = False
+settings.model.conformer.convolution_first: bool = True
 
 '''Training'''
+settings.training.test_model:bool = False   
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 16
+settings.training.num_workers:str = 48
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.devices:int = [3]                                         # list of the GPU devices to use
+settings.training.device:int = 0                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -81,7 +81,7 @@ settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
-settings.training.optimizer.weight_decay:float = 0.001                      # Default 0
+settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
 settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
@@ -103,10 +103,10 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = os.path.join("SCR", settings.input.language)                                                                             # name of the experiment
 additional_info = ""
-settings.logger.version:str = "{}_{}".format(settings.noise.curriculum_learning.distribution, additional_info)
+settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = "testing"
-settings.testing.n_fold:int = 10
+settings.testing.folder:str = os.path.join("testing", "PRL")
+settings.testing.n_folds:int = 2
 settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
 settings.testing.results_path:str = None

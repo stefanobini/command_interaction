@@ -1,0 +1,34 @@
+{
+    "id": 2014760119,
+    "name": "Anna",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            3,
+            5,
+            6,
+            7,
+            8,
+            10,
+            11,
+            13,
+            14,
+            18,
+            21,
+            22
+        ]
+    },
+    "acquiring_intent": 7,
+    "acquiring_lang": "ita",
+    "acquiring_version": 5,
+    "last_int_date": "2023-06-28 08:42:36.810136"
+}

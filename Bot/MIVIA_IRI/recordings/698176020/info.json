@@ -3,15 +3,28 @@
     "name": "@yna_26",
     "link": "https://t.me/yna_26",
     "presentation": true,
-    "int_lang": null,
-    "gdpr": null,
-    "gender": null,
-    "age": null,
-    "acq_langs": null,
-    "init_complete": false,
-    "miss_intent": {},
-    "acquiring_intent": null,
-    "acquiring_lang": null,
-    "acquiring_version": null,
-    "last_int_date": "2023-06-12 12:39:23.559079"
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            17
+        ],
+        "ita": [
+            2,
+            7,
+            17,
+            18
+        ]
+    },
+    "acquiring_intent": 17,
+    "acquiring_lang": "ita",
+    "acquiring_version": 2,
+    "last_int_date": "2023-06-28 00:45:58.648015"
 }

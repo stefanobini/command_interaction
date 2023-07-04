@@ -441,7 +441,19 @@ INTENTS:dict = {
             "esp":{"id":1, "text":"urgente"},
             "ita":{"id":1, "text":"urgente"}
             }
-        }
+        },
+    23: {
+        "explicit":{
+            "eng":{0:{"id":71, "text":"chatter"}},
+            "esp":{0:{"id":59, "text":"charla"}},
+            "ita":{0:{"id":59, "text":"chiacchiere"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"no urgente"},
+            "ita":{"id":0, "text":"non urgente"}
+            }
+    }
 }
 
 EXPLICIT_INTENTS:dict = {

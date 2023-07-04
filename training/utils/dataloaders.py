@@ -46,9 +46,9 @@ class MiviaDataset(Dataset):
         __len__(self) -> int
             Get the dataset lenght
         __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
-            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         _get_commands(self) -> List[int]
-            Get the list of the labels
+            Get the list of the commands
         _get_class_weights(self)-> List[torch.Tensor]
             Get the weights for each class calculated as a percentage of how many samples there are for each class
 
@@ -76,7 +76,7 @@ class MiviaDataset(Dataset):
 
 
     def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         
         Parameters
         ----------
@@ -98,7 +98,7 @@ class MiviaDataset(Dataset):
         str
             Speaker in the item
         int
-            Label of the item
+            Command of the item
         """
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
@@ -123,12 +123,12 @@ class MiviaDataset(Dataset):
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command)
 
     def _get_group(self, heading:str) -> List[int]:
-        """Get the list of the label group for the passed column.
+        """Get the list of the samples group for the passed column.
         
         Parameters
         ----------
-        column_label: str
-            Column label to be grouped
+        heading: str
+            Column heading to be grouped
 
         Returns
         -------
@@ -138,7 +138,7 @@ class MiviaDataset(Dataset):
         return list(self.speech_annotations.groupby(heading).groups.keys())
     
     def _get_labels(self) -> List[List[int]]:
-        headings = None
+        headings = list(self.speech_annotations.columns)
         labels = list()
         for heading in headings:
             if heading in self.settings.tasks:
@@ -146,12 +146,12 @@ class MiviaDataset(Dataset):
         return labels
     
     def _get_commands(self) -> List[int]:
-        """Get the list of the labels contained in the dataset.
+        """Get the list of the commands contained in the dataset.
         
         Returns
         -------
         List[int]
-            List of the labels
+            List of the commands
         """
         return list(self.speech_annotations.groupby("command").groups.keys())
     
@@ -210,7 +210,7 @@ class TrainingMiviaDataset(MiviaDataset):
 
     
     def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         In the training set a random noise from the noise training set is chosen and applied with a specific SNR to the speech sample.
         
         Parameters
@@ -233,7 +233,7 @@ class TrainingMiviaDataset(MiviaDataset):
         str
             Speaker in the item
         int
-            Label of the item
+            Command of the item
         int
             SNR applied to the speech
         """
@@ -337,7 +337,7 @@ class ValidationMiviaDataset(MiviaDataset):
     
 
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, command, and SNR applied to the sample.
         In the validation set the item already contains the noise applied with a specific SNR.
         
         Parameters
@@ -360,7 +360,7 @@ class ValidationMiviaDataset(MiviaDataset):
         str
             Speaker in the item
         int
-            Label of the item
+            Command of the item
         int
             SNR applied between speech and noise
         """
@@ -421,7 +421,7 @@ class TestingMiviaDataset(MiviaDataset):
 
     
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, command, and SNR applied to the sample.
         In the test set the item already contains the noise applied with a specific SNR.
         
         Parameters
@@ -444,7 +444,7 @@ class TestingMiviaDataset(MiviaDataset):
         str
             Speaker in the item
         int
-            Label of the item
+            Command of the item
         int
             SNR applied between speech and noise
         """
@@ -508,9 +508,9 @@ class MiviaSpeechIntent(Dataset):
         __len__(self) -> int
             Get the dataset lenght
         __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int]
-            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+            Get the main element composed by: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         _get_commands(self) -> List[int]
-            Get the list of the labels
+            Get the list of the commands
         _get_class_weights(self)-> List[torch.Tensor]
             Get the weights for each class calculated as a percentage of how many samples there are for each class
 
@@ -538,7 +538,7 @@ class MiviaSpeechIntent(Dataset):
 
 
     def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         
         Parameters
         ----------
@@ -560,7 +560,7 @@ class MiviaSpeechIntent(Dataset):
         str
             Speaker in the item
         int
-            Label of the item
+            Command of the item
         """
         #path,type,subtype,speaker,intent,exp_intent,imp_intent
         pre_item = self.speech_annotations.iloc[index]
@@ -586,12 +586,12 @@ class MiviaSpeechIntent(Dataset):
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.intent), int(pre_item.explicit), int(pre_item.implicit)
 
     def _get_group(self, heading:str) -> List[int]:
-        """Get the list of the label group for the passed column.
+        """Get the list of the samples group for the passed column.
         
         Parameters
         ----------
-        column_label: str
-            Column label to be grouped
+        heading: str
+            Column heading to be grouped
 
         Returns
         -------
@@ -610,11 +610,6 @@ class MiviaSpeechIntent(Dataset):
 
     def _get_class_weights(self) -> List[torch.Tensor]:
         """Get the weights for each class calculated as a percentage of how many samples there are for each class. The dataloader can be balanced through these weights.
-        
-        Parameters
-        ----------
-        column_label: str
-            Column label to be grouped
         
         Returns
         -------
@@ -658,7 +653,7 @@ class Training_MSI(MiviaSpeechIntent):
         self.epoch = 0
  
     def __getitem__(self, index) -> Tuple[str, torch.Tensor, int, str, str, str, int, int, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and label.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker and command.
         In the training set a random noise from the noise training set is chosen and applied with a specific SNR to the speech sample.
         
         Parameters
@@ -786,7 +781,7 @@ class Validation_MSI(MiviaSpeechIntent):
     
 
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, command, and SNR applied to the sample.
         In the validation set the item already contains the noise applied with a specific SNR.
         
         Parameters
@@ -874,7 +869,7 @@ class Testing_MSI(MiviaSpeechIntent):
 
     
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int, int, int]:
-        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, label, and SNR applied to the sample.
+        """Access by index to the dataset returning following information of the item: relative path, audio data (waveform, Mel-spectrogram or MFCC), sample, rate, type, subtype, speaker, command, and SNR applied to the sample.
         In the test set the item already contains the noise applied with a specific SNR.
         
         Parameters
@@ -1022,7 +1017,7 @@ def pad_spectrograms(batch:torch.Tensor, max_length:int, value:float, stride:int
 def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label)
+    (path, item, sample_rate, type, subtype, speaker, command)
     
     Parameters
     ----------
@@ -1034,7 +1029,7 @@ def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
     torch.Tensor
         Audio samples contained in the batch
     torch.IntTensor
-        Labels of the samples contained in the batch
+        Commands of the samples contained in the batch
     torch.Tensor
         Average SNR of the samples contained in the batch
     """
@@ -1042,10 +1037,10 @@ def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
     avg_snr = 0
     max_length = 0
     lenght_axis = batch[0][1].dim() - 1
-    for path, tensor, _, _, _, _, label, snr in batch:
+    for path, tensor, _, _, _, _, command, snr in batch:
         max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
-        targets += [label_to_index(label)]
+        targets += [label_to_index(command)]
         avg_snr += snr
     if lenght_axis == 2:
         # working with spectrograms
@@ -1068,7 +1063,7 @@ def _SCR_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
 def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    (path, item, sample_rate, type, subtype, speaker, command, snr)
     
     Parameters
     ----------
@@ -1083,10 +1078,10 @@ def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.I
     tensors, targets, snrs = list(), list(), list()
     max_length = 0
     lenght_axis = batch[0][1].dim() - 1
-    for path, tensor, _, _, _, _, label, snr in batch:
+    for path, tensor, _, _, _, _, command, snr in batch:
         max_length = tensor.size(lenght_axis) if tensor.size(lenght_axis)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
-        targets += [label_to_index(label)]
+        targets += [label_to_index(command)]
         snrs += [torch.tensor(snr)]
     if lenght_axis == 2:
         # working with spectrograms
@@ -1102,7 +1097,7 @@ def _SCR_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.I
 def _SI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label)
+    (path, item, sample_rate, type, subtype, speaker, command)
     
     Parameters
     ----------
@@ -1121,7 +1116,7 @@ def _SI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
     tensors, targets = list(), list()
     avg_snr = 0
     max_length = 0
-    for path, tensor, _, _, _, speaker, label, snr in batch:
+    for path, tensor, _, _, _, speaker, command, snr in batch:
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(speaker)]
@@ -1144,7 +1139,7 @@ def _SI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
 def _SI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    (path, item, sample_rate, type, subtype, speaker, command, snr)
     
     Parameters
     ----------
@@ -1162,7 +1157,7 @@ def _SI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
     """
     tensors, targets, snrs = list(), list(), list()
     max_length = 0
-    for path, tensor, _, _, _, speaker, label, snr in batch:
+    for path, tensor, _, _, _, speaker, command, snr in batch:
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(speaker)]
@@ -1176,7 +1171,7 @@ def _SI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
 def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label)
+    (path, item, sample_rate, type, subtype, speaker, command)
     
     Parameters
     ----------
@@ -1188,18 +1183,18 @@ def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
     torch.Tensor
         Audio samples contained in the batch
     torch.IntTensor
-        Labels of the samples contained in the batch
+        Commands of the samples contained in the batch
     torch.Tensor
         Average SNR of the samples contained in the batch
     """
     tensors, speakers, commands = list(), list(), list()
     avg_snr = 0
     max_length = 0
-    for path, tensor, _, _, _, speaker, label, snr in batch:
+    for path, tensor, _, _, _, speaker, command, snr in batch:
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         speakers += [label_to_index(speaker)]
-        commands += [label_to_index(label)]
+        commands += [label_to_index(command)]
         avg_snr += snr
     tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
     speakers = torch.stack(speakers)
@@ -1211,7 +1206,7 @@ def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
 def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    (path, item, sample_rate, type, subtype, speaker, command, snr)
     
     Parameters
     ----------
@@ -1225,11 +1220,11 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
     """
     tensors, speakers, commands, snrs = list(), list(), list(), list()
     max_length = 0
-    for path, tensor, _, _, _, speaker, label, snr in batch:
+    for path, tensor, _, _, _, speaker, command, snr in batch:
         max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
         tensors += [tensor]    # tensor size (CxFxT)
         speakers += [label_to_index(speaker)]
-        commands += [label_to_index(label)]
+        commands += [label_to_index(command)]
         snrs += [torch.tensor(snr)]
     tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
     speakers = torch.stack(speakers)
@@ -1241,7 +1236,7 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
 def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration.
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label)
+    (path, item, sample_rate, type, subtype, speaker, command)
     
     Parameters
     ----------
@@ -1253,7 +1248,7 @@ def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
     torch.Tensor
         Audio samples contained in the batch
     torch.IntTensor
-        Labels of the samples contained in the batch
+        Commands of the samples contained in the batch
     torch.Tensor
         Average SNR of the samples contained in the batch
     """
@@ -1292,7 +1287,7 @@ def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch
 def _MSI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
     The data tuple has the form:
-    (path, item, sample_rate, type, subtype, speaker, label, snr)
+    (path, item, sample_rate, type, subtype, speaker, command, snr)
     
     Parameters
     ----------
@@ -1334,18 +1329,18 @@ def _MSI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.I
 def test_dataset(samples:List[int]) -> None:
     for i in range(len(samples)):
         if self.settings.input.type == "waveform":
-            waveform, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+            waveform, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
             val_waveform, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
 
             torchaudio.save("check_files/waveform_train_{}.wav".format(samples[i]), waveform, sample_rate) 
             torchaudio.save("check_files/waveform_val_{}.wav".format(samples[i]), val_waveform, val_sample_rate)
         elif self.settings.input.type == "melspectrogram":
-            speech_path, mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+            speech_path, mel_spectrogram, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
             speech_path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
             plot_melspectrogram(path="check_files/melspectrogram_train_{}_".format(samples[i]), melspectrogram=mel_spectrogram[0])
             plot_melspectrogram(path="check_files/melspectrogram_val_{}_".format(samples[i]), melspectrogram=val_mel_spectrogram[0])
         elif self.settings.input.type == "mfcc":
-            speech_path, mfcc, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+            speech_path, mfcc, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
             speech_path, val_mfcc, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
             plot_mfcc(path="check_files/mfcc_train_{}_".format(samples[i]), mfcc=mfcc[0])
             plot_mfcc(path="check_files/mfcc_val_{}_".format(samples[i]), mfcc=val_mfcc[0])
@@ -1361,7 +1356,7 @@ def test_dataloader(samples:List[int]) -> None:
 
     train, val = list(), list()
     for i in range(len(samples)):
-        path, mel_spectrogram, sample_rate, type, subtype, speaker, label = train_set[samples[i]]
+        path, mel_spectrogram, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
         mel_spectrogram=mel_spectrogram.permute(2, 0, 1)
         path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
         val_mel_spectrogram=val_mel_spectrogram.permute(2, 0, 1)

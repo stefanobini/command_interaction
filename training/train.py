@@ -1,5 +1,5 @@
 """
-python3 train.py --configuration MTL_conf 2>&1 | tee screen_log.txt
+python3 train.py --configuration SCR_conf 2>&1 | tee train3_log.txt
 """
 import os
 import sys
@@ -111,7 +111,7 @@ elif settings.tasks == ["intent", "explicit", "implicit"]:
     train_collate_fn = _MSI_train_collate_fn
     val_collate_fn = _MSI_val_collate_fn
 else:
-    sys.exit("The <{}> task is not allowed.".format(settings.task))
+    sys.exit("The <{}> task is not allowed.".format(settings.tasks))
 
 ###### Decomment following rows if you use also reject, and change annotation file path in settings #######
 weights = train_set._get_class_weights()

@@ -1,0 +1,29 @@
+{
+    "id": 6269772923,
+    "name": "@RascoSummer",
+    "link": "https://t.me/RascoSummer",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            12,
+            19
+        ],
+        "ita": [
+            0,
+            2
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-29 18:21:35.819935"
+}

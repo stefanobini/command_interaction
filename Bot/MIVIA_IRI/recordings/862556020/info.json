@@ -1,0 +1,25 @@
+{
+    "id": 862556020,
+    "name": "@CristoGesu2019",
+    "link": "https://t.me/CristoGesu2019",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            13,
+            18,
+            22
+        ]
+    },
+    "acquiring_intent": 18,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-29 17:25:10.111823"
+}

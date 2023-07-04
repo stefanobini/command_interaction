@@ -8,7 +8,7 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
-settings.task:str = "SCR"
+settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
 settings.demo:str = "demofull"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
 
 '''Input'''

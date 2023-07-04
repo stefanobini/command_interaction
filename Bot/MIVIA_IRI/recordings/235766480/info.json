@@ -1,0 +1,28 @@
+{
+    "id": 235766480,
+    "name": "@alessandro_recu",
+    "link": "https://t.me/alessandro_recu",
+    "presentation": true,
+    "int_lang": "eng",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            4,
+            10
+        ],
+        "ita": [
+            10
+        ]
+    },
+    "acquiring_intent": 10,
+    "acquiring_lang": "ita",
+    "acquiring_version": 1,
+    "last_int_date": "2023-06-29 15:54:30.865848"
+}

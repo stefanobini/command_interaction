@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 rejects/ita/nine_28612180_nohash_0_snr0.wav,reject,google_speech,28612180,31,noises/crf_melfi/production_line/production_line_433_000.wav,crf_melfi,production_line,0
 rejects/ita/nine_28612180_nohash_0_snr5.wav,reject,google_speech,28612180,31,noises/crf_melfi/production_line/production_line_433_000.wav,crf_melfi,production_line,5
 rejects/ita/nine_28612180_nohash_0_snr10.wav,reject,google_speech,28612180,31,noises/crf_melfi/production_line/production_line_433_000.wav,crf_melfi,production_line,10

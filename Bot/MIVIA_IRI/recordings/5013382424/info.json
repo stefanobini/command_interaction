@@ -1,0 +1,17 @@
+{
+    "id": 5013382424,
+    "name": "Lou",
+    "link": null,
+    "presentation": true,
+    "int_lang": null,
+    "gdpr": null,
+    "gender": null,
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-07-03 16:15:49.249818"
+}

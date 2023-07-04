@@ -1,0 +1,24 @@
+{
+    "id": 727092146,
+    "name": "@marc_sava",
+    "link": "https://t.me/marc_sava",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            12,
+            15
+        ]
+    },
+    "acquiring_intent": 15,
+    "acquiring_lang": "ita",
+    "acquiring_version": 3,
+    "last_int_date": "2023-06-28 21:51:48.322374"
+}

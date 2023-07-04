@@ -1,0 +1,23 @@
+{
+    "id": 5548507069,
+    "name": "Ivana",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['50-60']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            11
+        ]
+    },
+    "acquiring_intent": 11,
+    "acquiring_lang": "ita",
+    "acquiring_version": 5,
+    "last_int_date": "2023-06-29 15:58:45.950571"
+}

@@ -24,7 +24,7 @@ NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "esp", "ita"]
 IN_DATASET_NAME = "MSI"
 IN_DATASET_PATH = os.path.join("datasets", IN_DATASET_NAME)
-REJECT_ANNOTATION_PATH = os.path.join("datasets", "google_speech_commands_v1", "google_annotations.csv")
+REJECT_ANNOTATION_PATH = os.path.join("datasets", "google_speech_commands_v1", "MSI_google_annotations_.csv")
 OUT_PATH = os.path.join(IN_DATASET_PATH, "annotations")
 
 cmd_path = "commands"
@@ -76,13 +76,13 @@ def add_reject_samples(path, lang, data):
     rejects_df = pd.read_csv(path)
     data_iter = tqdm(rejects_df.index)
     for idx in data_iter:
-        data["path"].append(os.path.join("google_speech_commands_v1", rejects_df["path"][idx]))
+        data["path"].append(os.path.join("..", "google_speech_commands_v1", rejects_df["path"][idx]))
         data["type"].append(rejects_df["type"][idx])
         data["subtype"].append(rejects_df["subtype"][idx])
         data["speaker"].append(rejects_df["speaker"][idx])
-        data["intent"].append(None)
-        data["explicit"].append(None)
-        data["implicit"].append(None)
+        data["intent"].append(len(INTENTS)-1)
+        data["explicit"].append(len(EXPLICIT_INTENTS[lang])-1)
+        data["implicit"].append(0)
         data_iter.set_description("Working on REJECTS in {}".format(lang))
     return data
 
@@ -170,10 +170,8 @@ for service in data_iter:
 """
 
 ''' REJECT SAMPLES '''
-"""
 for lang in LANGS:
-    data[lang] = add_reject_samples(REJECT_ANNOTATION_PATH, lang, data[lang])
-"""
+    data[lang] = add_reject_samples(REJECT_ANNOTATION_PATH.replace(".csv", "{}.csv".format(lang.upper())), lang, data[lang])
 
 ''' NOISE SAMPLES '''
 # noise_data = get_noise_annotations_dict()

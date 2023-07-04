@@ -1,0 +1,30 @@
+{
+    "id": 1153694021,
+    "name": "Antonio Greco",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['30-40']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            1,
+            22
+        ],
+        "ita": [
+            0,
+            2,
+            10
+        ]
+    },
+    "acquiring_intent": 0,
+    "acquiring_lang": "ita",
+    "acquiring_version": 0,
+    "last_int_date": "2023-06-27 22:51:57.499663"
+}

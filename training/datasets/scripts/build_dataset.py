@@ -11,12 +11,12 @@ import torch
 import torchaudio
 
 from utils.preprocessing import Preprocessing
-from utils.settings.FELICE_conf import settings
+from utils.settings.SCR_conf import settings
 
 
 SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC_v1")
-OUT_PATH = os.path.join("datasets", "FELICE", "demofull")
-LANGs = ["ita", "eng"]
+OUT_PATH = os.path.join("datasets", "SCR_experimentation")
+LANGs = ["eng", "ita"]
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -39,7 +39,7 @@ def get_item(speech_annotations, noise_annotations, index, preprocess):
     noise = preprocess.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
     noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
 
-    return speech, settings.input.sample_rate, speech_item.path, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.label), noise, noise_item.path, noise_item.type, noise_item.subtype
+    return speech, settings.input.sample_rate, speech_item.path, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.command), noise, noise_item.path, noise_item.type, noise_item.subtype
 
 
 def build_train_set():
@@ -53,13 +53,13 @@ def build_train_set():
         noise_data = {"path": list(), "type": list(), "subtype": list()}
         ann_iter = tqdm(range(len(speech_annotations)))
         for idx in ann_iter:
-            speech, sample_rate, speech_path, speech_type, speech_subtype, speaker, label, noise, noise_path, noise_type, noise_subtype = get_item(speech_annotations=speech_annotations, noise_annotations=noise_annotations, index=idx, preprocess=preprocess)
+            speech, sample_rate, speech_path, speech_type, speech_subtype, speaker, command, noise, noise_path, noise_type, noise_subtype = get_item(speech_annotations=speech_annotations, noise_annotations=noise_annotations, index=idx, preprocess=preprocess)
             
             speech_data["path"].append(speech_path)
             speech_data["type"].append(speech_type)
             speech_data["subtype"].append(speech_subtype)
             speech_data["speaker"].append(speaker)
-            speech_data["command"].append(label)
+            speech_data["command"].append(command)
             full_speech_path = os.path.join(out_path, os.path.split(speech_path)[0])
             os.makedirs(full_speech_path, exist_ok=True)
             torchaudio.save(os.path.join(out_path, speech_path), speech, sample_rate)
@@ -99,15 +99,16 @@ def build_set(subset:str):
         data = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list(), "noise_path": list(), "noise_type": list(), "noise_subtype": list(), "snr": list()}
         ann_iter = tqdm(range(len(speech_annotations)))
         for idx in ann_iter:
-            speech, sample_rate, speech_path, speech_type, speech_subtype, speaker, label, noise, noise_path, noise_type, noise_subtype = get_item(speech_annotations=speech_annotations, noise_annotations=noise_annotations, index=idx, preprocess=preprocess)
+            speech, sample_rate, speech_path, speech_type, speech_subtype, speaker, command, noise, noise_path, noise_type, noise_subtype = get_item(speech_annotations=speech_annotations, noise_annotations=noise_annotations, index=idx, preprocess=preprocess)
             for snr in SNRs:
                 noisy_speech = preprocess.get_noisy_speech(speech=speech, noise=noise, snr_db=snr) if snr is not None else speech
-                noisy_speech_path = speech_path.split('.')[0] + "_snr" + str(snr) + '.' + speech_path.split('.')[1]
+                idx = 1 if speech_path[0] == '.' else 0 # if the path begin with './'
+                noisy_speech_path = speech_path.split('.')[idx][idx:] + "_snr" + str(snr) + '.' + speech_path.split('.')[idx+1]
                 data["path"].append(noisy_speech_path)
                 data["type"].append(speech_type)
                 data["subtype"].append(speech_subtype)
                 data["speaker"].append(speaker)
-                data["command"].append(label)
+                data["command"].append(command)
                 data["noise_path"].append(noise_path)
                 data["noise_type"].append(noise_type)
                 data["noise_subtype"].append(noise_subtype)

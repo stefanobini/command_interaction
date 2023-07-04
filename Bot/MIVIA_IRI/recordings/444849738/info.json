@@ -1,0 +1,50 @@
+{
+    "id": 444849738,
+    "name": "@ciccio_42",
+    "link": "https://t.me/ciccio_42",
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            15,
+            18
+        ],
+        "ita": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+        ]
+    },
+    "acquiring_intent": 11,
+    "acquiring_lang": "ita",
+    "acquiring_version": 3,
+    "last_int_date": "2023-06-29 19:28:31.869203"
+}

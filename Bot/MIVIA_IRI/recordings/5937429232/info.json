@@ -1,0 +1,24 @@
+{
+    "id": 5937429232,
+    "name": "Erjka Gallo",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "female",
+    "age": "['10-20']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            9,
+            11
+        ]
+    },
+    "acquiring_intent": 9,
+    "acquiring_lang": "ita",
+    "acquiring_version": 4,
+    "last_int_date": "2023-06-29 17:21:58.028536"
+}
