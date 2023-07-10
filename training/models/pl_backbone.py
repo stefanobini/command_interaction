@@ -92,6 +92,9 @@ class PL_Backbone(pl.LightningModule):
         self.results_file = os.path.join(self.results_folder, "test_results.txt")
         if os.path.exists(self.results_file):
             os.remove(self.results_file)
+        self.results_file_snr = os.path.join(self.results_folder, "test_results_snr.txt")
+        if os.path.exists(self.results_file_snr):
+            os.remove(self.results_file_snr)
 
 
     def forward(self, x:torch.Tensor) -> torch.Tensor:
@@ -426,9 +429,9 @@ class PL_Backbone(pl.LightningModule):
             targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
             reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
     
-            accuracies.append(accuracy)
-            balanced_accuracies.append(balanced_accuracy)
-            reject_accuracies.append(reject_accuracy)
+            accuracies.append(accuracy.cpu().numpy())
+            balanced_accuracies.append(balanced_accuracy.cpu().numpy())
+            reject_accuracies.append(reject_accuracy.cpu().numpy())
 
             #''' ADD SNRs Analysis
             # Construct and fill dictionary that contains the predictions and target devided by SNR
@@ -444,7 +447,7 @@ class PL_Backbone(pl.LightningModule):
                 outputs[snr]["targets"] = torch.stack(outputs[snr]["targets"])
             
             # Compute metrics for each SNR
-            with open(self.results_file, 'w') as fout:
+            with open(self.results_file_snr, 'w') as fout:
                 avg_accuracy, avg_balanced_accuracy, avg_reject_accuracy = 0, 0, 0
                 snr_accuracies, snr_balanced_accuracies, snr_reject_accuracies = list(), list(), list()
                 fout.write("SNR\t\t\tAccuracy\tBalanced\tReject\n" + "-"*50 + "\n")
@@ -466,13 +469,13 @@ class PL_Backbone(pl.LightningModule):
                 columns = ["snr", "accuracy", "balanced_accuracy", "reject_accuracy"]
                 result_dict = {"snr": [snr for snr in self.snrs], "accuracy": snr_accuracies, "balanced_accuracy": snr_balanced_accuracies, "reject_accuracy": snr_reject_accuracies}
                 result_df = pandas.DataFrame(data=result_dict, columns=columns)
-                result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
+                result_df.to_csv(path_or_buf=self.results_file_snr.replace(".txt", ".csv"), columns=columns, index=False)
                 fout.write("-"*50 + "\n")
                 fout.write("Total average:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(avg_accuracy/len(self.snrs), avg_balanced_accuracy/len(self.snrs), avg_reject_accuracy/len(self.snrs)))
         
             #'''
             
-        ''' ADD STATITICAL ANALYSIS ON <accuracies>
+        #''' ADD STATITICAL ANALYSIS ON <accuracies>
         columns = ["fold", "accuracy", "balanced_accuracy", "reject_accuracy"]
         result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "accuracy": accuracies, "balanced_accuracy": balanced_accuracies, "reject_accuracy": reject_accuracies}
         result_df = pandas.DataFrame(data=result_dict, columns=columns)

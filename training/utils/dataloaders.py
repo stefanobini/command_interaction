@@ -403,7 +403,7 @@ class ValidationMiviaDataset(MiviaDataset):
 
 class TestingMiviaDataset(MiviaDataset):
 
-    def __init__(self, settings:DotMap, fold:str) -> Dataset:
+    def __init__(self, settings:DotMap, fold:int=0) -> Dataset:
         """Test subset of the MiviaDataset dataset class.
 
         Methods
@@ -851,7 +851,7 @@ class Validation_MSI(MiviaSpeechIntent):
 
 class Testing_MSI(MiviaSpeechIntent):
 
-    def __init__(self, settings:DotMap, fold:str) -> Dataset:
+    def __init__(self, settings:DotMap, fold:int=0) -> Dataset:
         """Test subset of the MiviaDataset dataset class.
 
         Methods

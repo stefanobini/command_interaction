@@ -1,31 +1,50 @@
 import os
+import sys
+import argparse
 import colorama
 colorama.init(autoreset=True)
 from colorama import Back, Fore
+import numpy as np
 
 import torch
 import pytorch_lightning as pl
 
-from utils.dataloaders import TestingMiviaDataset, _SCR_val_collate_fn
-from .settings.SCR_conf import settings
+from utils.dataloaders import TestingMiviaDataset, Testing_MSI, _SCR_val_collate_fn, _SI_val_collate_fn, _MT_val_collate_fn, _MSI_val_collate_fn
+#from .settings.SCR_conf import settings
 
 from models.resnet8 import ResNet8_PL
 from models.mobilenetv2 import MobileNetV2_PL
 from models.conformer import Conformer_PL
+from models.hardsharing import HardSharing_PL
+# from models.hardsharing_mobilenetv2 import HardSharing_PL
+from models.softsharing import SoftSharing_PL
+# from models.softsharing_mobilenetv2 import SoftSharing_PL
+from models.MSI_hardsharing import HardSharing_PL as HardSharing_MSI
+
+
+# Reduce the internal precision of the matrix multiplications (the type of the variable doesn't change)
+torch.set_float32_matmul_precision(precision="medium")
+
+########################
+# Acquiring parameters #
+########################
+parser = argparse.ArgumentParser()
+parser.add_argument("--configuration", type=str, dest="configuration", required=True, help="Configuration file (e.g., 'conf_1')")
+args = parser.parse_args()
+args.configuration = "settings.{}".format(args.configuration)
+settings = getattr(__import__(args.configuration, fromlist=["settings"]), "settings")
+print(Back.CYAN + "Loaded <{}> as configuration file.".format(settings.name))
 
 
 ########################
 #     Setting CUDA     #
 ########################
 if torch.cuda.is_available():
-    print(Back.GREEN + "CUDA acceleration available on devices: {}".format(settings.training.devices))
-# Set CUDA device
-devices = ""
-for device in settings.training.devices:
-    devices += str(device) + ", "
-devices = devices[:-2]
-os.environ["CUDA_VISIBLE_DEVICES"] = devices
-pin_memory = True if settings.training.accelerator=="gpu" else False
+    available_devices = [i for i in range(torch.cuda.device_count())]
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(available_devices)
+    print(Back.GREEN + "CUDA acceleration available on <{}> devices: <{}>".format(torch.cuda.device_count(), available_devices))
+    # print(Back.GREEN + "The current device is <{}>, you select device <{}>".format(torch.cuda.current_device(), settings.training.device))
+    pin_memory = True if settings.training.device=="cuda" else False
 
 ########################
 #     Setting Seed     #
@@ -35,39 +54,64 @@ pl.seed_everything(220295)
 #########################
 # Building Dataloaders  #
 #########################
+test_set, main_labels, test_collate_fn = None, list(), None
+if settings.tasks == ["command"]:
+    test_set = TestingMiviaDataset(settings=settings)
+    labels = [[i for i in range(31)]] # test_set._get_labels()
+    main_labels = labels[0]
+    task_n_labels = len(main_labels)
+    test_collate_fn = _SCR_val_collate_fn
+elif settings.tasks == ["speaker"]:
+    test_set = TestingMiviaDataset(settings=settings)
+    labels = test_set._get_labels()
+    main_labels = labels[0]
+    task_n_labels = len(main_labels)
+    test_collate_fn = _SI_val_collate_fn
+elif settings.tasks == ["command", "speaker"]:
+    test_set = TestingMiviaDataset(settings=settings)
+    labels = test_set._get_labels()
+    main_labels = labels[1]
+    task_n_labels = list((len(labels[1]), len(labels[0])))
+    test_collate_fn = _MT_val_collate_fn
+elif settings.tasks == ["intent", "explicit", "implicit"]:
+    test_set = Testing_MSI(settings=settings)
+    labels = test_set._get_labels()
+    main_labels = labels[0]
+    task_n_labels = list((len(labels[0]), len(labels[1]), len(labels[2])))
+    test_collate_fn = _MSI_val_collate_fn
+else:
+    sys.exit("The <{}> task is not allowed.".format(settings.tasks))
+balanced_weights = [1/len(main_labels) for i in range(len(main_labels))]
+balanced_weights = torch.tensor(balanced_weights)
+
 test_loaders = list()
 for fold in range(settings.testing.n_folds):
-    test_set = TestingMiviaDataset(fold=fold)
-    test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=_SCR_val_collate_fn, pin_memory=pin_memory))
+    test_set = Testing_MSI(settings=settings, fold=fold) if settings.tasks == ["intent", "explicit", "implicit"] else TestingMiviaDataset(settings=settings, fold=fold)
+    test_loaders.append(torch.utils.data.DataLoader(dataset=test_set, batch_size=settings.training.batch_size, shuffle=None, num_workers=settings.training.num_workers, collate_fn=test_collate_fn, pin_memory=pin_memory))
 
 #########################
 #    Building Model     #
 #########################
-assert settings.model.network in ["resnet8", "mobilenetv2"]
+assert settings.model.network in ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
 model = None
-labels = test_set._get_labels()
 if settings.model.network == "resnet8":
-    model = ResNet8_PL(num_labels=len(labels)).cuda()  # Load model
-    if settings.model.pretrain:
-        # model.load_state_dict(torch.load(settings.model.resnet8.pretrain_path, lambda s, l: s))
-        model = ResNet8_PL.load_from_checkpoint(settings.model.resnet8.pretrain_path, num_labels=len(labels))
-        print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
-    # model.set_parameters(num_labels=len(labels), loss_weights=balanced_weights)
+    model = ResNet8_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
 elif settings.model.network == "mobilenetv2":
-    model = MobileNetV2_PL(num_labels=len(labels)).cuda()
-    if settings.model.pretrain:
-        model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
-        #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=len(labels))   # (B x C x F x T) -> (128 x 1 x 64 x )
-        print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.mobilenetv2.pretrain_path))
-    model.set_parameters(num_labels=len(labels))
+    model = MobileNetV2_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)
 elif settings.model.network == "conformer":
-    model = Conformer_PL(num_labels=len(labels)).cuda()
+    model = Conformer_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
+elif settings.model.network == "HS":
+    model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
+elif settings.model.network == "SS":
+    model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
+elif settings.model.network == "HS_msi":
+    model = HardSharing_MSI(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None, None))).cuda(settings.training.device)
 
 ########################
 #   Setting Trainer    #
 ########################
 trainer = pl.Trainer(
-    resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
+    # resume_from_checkpoint=None,                    # Insert a path of the ".ckpt" file to resume training from a specific checkpoint
     # auto_lr_find=settings.training.lr.auto_find,
     accelerator=settings.training.accelerator,
     devices=[settings.training.device],
@@ -90,6 +134,6 @@ trainer = pl.Trainer(
 ########################
 #      Test Model      #
 ########################
-model = ResNet8_PL.load_from_checkpoint(settings.testing.ckpt_path, num_labels=len(labels))
+model = model.load_from_checkpoint(settings.testing.ckpt_path, settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights)
 model.set_test_dataloaders(dataloaders=test_loaders)
 trainer.test(model=model, dataloaders=test_loaders, ckpt_path=settings.testing.ckpt_path, verbose=True, datamodule=None)
