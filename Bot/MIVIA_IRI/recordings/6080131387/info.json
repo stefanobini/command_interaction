@@ -1,0 +1,45 @@
+{
+    "id": 6080131387,
+    "name": "Jardo Zo Vsadial\ud83d\ude09",
+    "link": null,
+    "presentation": true,
+    "int_lang": "eng",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['40-50']",
+    "acq_langs": [
+        "eng"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+        ]
+    },
+    "acquiring_intent": 9,
+    "acquiring_lang": "eng",
+    "acquiring_version": 0,
+    "last_int_date": "2023-07-10 11:45:46.012105"
+}

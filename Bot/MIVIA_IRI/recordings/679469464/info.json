@@ -1,0 +1,34 @@
+{
+    "id": 679469464,
+    "name": "Francesco",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['20-30']",
+    "acq_langs": [
+        "eng",
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            2,
+            7,
+            9,
+            16,
+            21,
+            22
+        ],
+        "ita": [
+            0,
+            1,
+            7
+        ]
+    },
+    "acquiring_intent": 7,
+    "acquiring_lang": "ita",
+    "acquiring_version": 3,
+    "last_int_date": "2023-07-06 13:10:59.074283"
+}

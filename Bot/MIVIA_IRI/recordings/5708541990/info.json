@@ -1,0 +1,17 @@
+{
+    "id": 5708541990,
+    "name": "@nogoodidea",
+    "link": "https://t.me/nogoodidea",
+    "presentation": true,
+    "int_lang": null,
+    "gdpr": null,
+    "gender": null,
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-07-04 21:05:38.774384"
+}

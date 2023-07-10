@@ -1,11 +1,12 @@
 import os
 from tqdm import tqdm
 from pydub import AudioSegment
+from intents import INTENTS_DICT
 
 
 INPUT_DATABASE = os.path.join("recordings")
 OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", "MSI")
-INTENTS = [idx for idx in range(23)]
+# INTENTS = [idx for idx in range(23)]
 
 ds_cmd_path = os.path.join(OUTPUT_DATASET, 'commands')
 os.makedirs(ds_cmd_path, exist_ok=True)
@@ -33,7 +34,7 @@ for user in user_iterator:
                         file_ogg = AudioSegment.from_ogg(bot_sample_path)
                         
                         # for intents of interest
-                        if intent in INTENTS:
+                        if intent in INTENTS_DICT:
                             ds_cmd_sample_path = os.path.join(ds_cmd_lang_path, file.replace('.ogg', '.wav'))
                             file_handle = file_ogg.export(ds_cmd_sample_path, format='wav')
                         

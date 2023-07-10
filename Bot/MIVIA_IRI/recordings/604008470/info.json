@@ -1,0 +1,31 @@
+{
+    "id": 604008470,
+    "name": "@oscargilviy",
+    "link": "https://t.me/oscargilviy",
+    "presentation": true,
+    "int_lang": "esp",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['30-40']",
+    "acq_langs": [
+        "eng",
+        "esp"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "eng": [
+            4,
+            22
+        ],
+        "esp": [
+            0,
+            4,
+            6,
+            18
+        ]
+    },
+    "acquiring_intent": 18,
+    "acquiring_lang": "esp",
+    "acquiring_version": 0,
+    "last_int_date": "2023-07-06 19:15:44.672621"
+}

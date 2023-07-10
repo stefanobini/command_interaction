@@ -1,0 +1,26 @@
+{
+    "id": 5911603813,
+    "name": "Dario",
+    "link": null,
+    "presentation": true,
+    "int_lang": "ita",
+    "gdpr": "yes",
+    "gender": "male",
+    "age": "['40-50']",
+    "acq_langs": [
+        "ita"
+    ],
+    "init_complete": true,
+    "miss_intent": {
+        "ita": [
+            1,
+            3,
+            8,
+            13
+        ]
+    },
+    "acquiring_intent": 3,
+    "acquiring_lang": "ita",
+    "acquiring_version": 2,
+    "last_int_date": "2023-07-10 12:42:45.112563"
+}

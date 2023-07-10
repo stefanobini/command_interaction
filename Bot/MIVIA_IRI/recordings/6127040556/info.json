@@ -1,0 +1,17 @@
+{
+    "id": 6127040556,
+    "name": "Thomas",
+    "link": null,
+    "presentation": true,
+    "int_lang": "esp",
+    "gdpr": null,
+    "gender": null,
+    "age": null,
+    "acq_langs": null,
+    "init_complete": false,
+    "miss_intent": {},
+    "acquiring_intent": null,
+    "acquiring_lang": null,
+    "acquiring_version": null,
+    "last_int_date": "2023-07-06 13:19:58.026515"
+}
