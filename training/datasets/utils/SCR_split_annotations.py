@@ -8,8 +8,9 @@ from typing import Tuple
 
 LANGS = ["eng", "ita"]
 
-DATASET = os.path.join("SCR_experimentation")
+#DATASET = os.path.join("SCR_experimentation")
 #DATASET = os.path.join("FELICE", "demofull")
+DATASET = os.path.join("MSI_exp0")
 DATASET_PATH = os.path.join("datasets", DATASET)
 
 HEADING = ["path", "type", "subtype", "speaker", "command"]
@@ -103,7 +104,7 @@ for lang in LANGS:
         for df_type_set in df_type_sets:
             subtype_group = df_type_set.groupby(df.subtype)
 
-            # BALANCING ON THE SUPTYPE AMONG THE SETS
+            # BALANCING ON THE SUBTYPE AMONG THE SETS
             for subtype in subtype_group.groups:
                 df_subtype = subtype_group.get_group(subtype)
                 df_subtype = df_subtype.sample(frac=1)

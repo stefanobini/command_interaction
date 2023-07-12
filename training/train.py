@@ -1,6 +1,7 @@
 """
 python3 train.py --configuration SCR_conf 2>&1 | tee train3_log.txt
 python3 train.py --configuration MTL_conf 2>&1 | tee MTL_log.txt
+python3 train.py --configuration MSI_exp0_conf 2>&1 | tee MSI_exp0_log.txt
 """
 import os
 import sys

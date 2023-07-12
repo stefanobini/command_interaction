@@ -295,3 +295,11 @@ REDUCED_INTENTS_DICT:dict = {
                      4:"stop ahora",
                      5:"detente ahora"}},
 }
+CONVERSION_DICT:dict = {
+    6:0,
+    7:0,
+    8:1,
+    9:1,
+    10:2,
+    11:2
+}

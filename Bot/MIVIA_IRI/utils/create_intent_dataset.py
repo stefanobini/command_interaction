@@ -1,12 +1,14 @@
 import os
 from tqdm import tqdm
 from pydub import AudioSegment
-from intents import INTENTS_DICT, REDUCED_INTENTS_DICT
+import re
+from intents import INTENTS_DICT, REDUCED_INTENTS_DICT, CONVERSION_DICT
 
 
 INPUT_DATABASE = os.path.join("recordings")
 OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", "MSI_exp0")
 EXPERIMENTATION = "reduced" # ["reduced", "full"]
+REGEX = "^[0-9]*"
 intents = INTENTS_DICT if EXPERIMENTATION == "full" else REDUCED_INTENTS_DICT
 
 ds_cmd_path = os.path.join(OUTPUT_DATASET, 'commands')
@@ -34,6 +36,11 @@ for user in user_iterator:
                         # from .ogg to .wav
                         file_ogg = AudioSegment.from_ogg(bot_sample_path)
                         
+                        # Change the ID in the reduced version
+                        if EXPERIMENTATION == "reduced" and intent in CONVERSION_DICT:
+                            intent = CONVERSION_DICT[intent]
+                            file = re.sub(REGEX, str(intent), file)
+
                         # for intents of interest
                         if intent in intents:
                             ds_cmd_sample_path = os.path.join(ds_cmd_lang_path, file.replace('.ogg', '.wav'))
@@ -41,7 +48,7 @@ for user in user_iterator:
                         
                         # for reject cmds
                         else:
-                            ds_rej_sample_path = os.path.join(ds_rej_lang_path, file.replace(lang, user+'_'+lang).replace('.ogg', '.wav'))
+                            ds_rej_sample_path = os.path.join(ds_rej_lang_path, "telegram_{}_".format(user)+file.replace('.ogg', '.wav'))
                             file_handle = file_ogg.export(ds_rej_sample_path, format='wav')
     
     user_iterator.set_description('Building dataset')

@@ -22,7 +22,7 @@ DST_PATH = os.path.join("datasets", DST_NAME, "rejects")
 THRESH = True
 # N_SAMPLES = 8000
 N_SAMPLES = {
-    "eng":1600/2,
+    "eng":1800/2,
     "esp":360/2,
     "ita":2300/2
 }
