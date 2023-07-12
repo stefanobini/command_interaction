@@ -346,7 +346,7 @@ class Scheduler:
                 Scheduler.set_scheduled_hour(state)
                 self.lock.release()
         log = f"scheduled: {str(self.set_userid)} - {datetime.now()}"
-        logger.info(log)
+        #logger.info(log)
 
     def _decorator(self, func):
         """Function decorator. Removes a user by the reminder set"""
