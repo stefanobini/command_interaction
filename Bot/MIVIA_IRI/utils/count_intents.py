@@ -29,5 +29,9 @@ for user in user_iterator:
                         cmds['class'][intents][lang] += 1
     user_iterator.set_description('Analizing')
 
+print('Approximate number of speakers:')
+for lang in cmds['total']:
+    print("{}: {}".format(lang.upper(), int(cmds['total'][lang]/len(cmds['class'])/3)))
+
 with open(OUTPUT_PATH, 'w') as outfile:
     json.dump(sorted(cmds.items()), outfile)
