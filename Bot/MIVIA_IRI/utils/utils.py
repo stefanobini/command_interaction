@@ -363,7 +363,7 @@ class Scheduler:
         self.set_userid.add(state.id)
         self.scheduler.add_job(self._decorator(state.remember), trigger=self.Trigger(delay), kwargs={"bot": self.bot},
                                timezone="Europe/Rome")
-        logger.info(f"Adding: {state.id} at {datetime.now() + timedelta(seconds=delay)}")
+        #logger.info(f"Adding: {state.id} at {datetime.now() + timedelta(seconds=delay)}")
 
 
 class SchedulerTimer(Thread):

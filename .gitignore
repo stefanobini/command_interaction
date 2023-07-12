@@ -4,6 +4,7 @@
 # Bot files
 Bot/saves/*
 Bot/log.txt
+Bot/MIVIA_IRI/recordings/*
 
 # Model_Augmentation files
 Model_Augmentation/__pycache__/
