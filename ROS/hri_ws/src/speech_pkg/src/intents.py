@@ -1,9 +1,5 @@
 INTENTS:dict = {
     0:  {
-        "text":{
-            "eng":"start (not urgent)",
-            "esp":"comienza (no urgente)",
-            "ita":"inizia (non urgente)"},
         "explicit":{
             "eng":{0:{"id":0, "text":"start"}},
             "esp":{0:{"id":0, "text":"comienza"}},
@@ -11,15 +7,11 @@ INTENTS:dict = {
             },
         "implicit":{
             "eng":{"id":0, "text":"not urgent"},
-            "esp":{"id":0, "text":"no urgente"},
-            "ita":{"id":0, "text":"non urgente"}
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
             }
         },
     1:  {
-        "text":{
-            "eng":"start (urgent)",
-            "esp":"comienza (urgente)",
-            "ita":"inizia (urgente)"},
         "explicit":{
             "eng":{0:{"id":0, "text":"start"},
                    1:{"id":1, "text":"start immediately"},
@@ -39,10 +31,6 @@ INTENTS:dict = {
             }
         },
     2:  {
-        "text":{
-            "eng":"ahead (not urgent)",
-            "esp":"adelante (no urgente)",
-            "ita":"avanti (non urgente)"},
         "explicit": {
             "eng":{0:{"id":4, "text":"go ahead"},
                    1:{"id":5, "text":"ahead"}},
@@ -57,10 +45,6 @@ INTENTS:dict = {
             }
         },
     3:  {
-        "text":{
-            "eng":"ahead (urgent)",
-            "esp":"adelante (urgente)",
-            "ita":"avanti (urgente)"},
         "explicit": {
             "eng":{0:{"id":4, "text":"go ahead"},
                    1:{"id":5, "text":"ahead"},
@@ -87,10 +71,6 @@ INTENTS:dict = {
             }
         },
     4:  {
-        "text":{
-            "eng":"back (not urgent)",
-            "esp":"atrás (no urgente)",
-            "ita":"indietro (non urgente)"},
         "explicit": {
             "eng":{0:{"id":12, "text":"go back"},
                    1:{"id":13, "text":"back"}},
@@ -107,10 +87,6 @@ INTENTS:dict = {
             }
         },
     5:  {
-        "text":{
-            "eng":"back (urgent)",
-            "esp":"atrás (urgente)",
-            "ita":"indietro (urgente)"},
         "explicit":{
             "eng":{0:{"id":12, "text":"go back"},
                    1:{"id":13, "text":"back"},
@@ -143,10 +119,6 @@ INTENTS:dict = {
             }
         },
     6:  {
-        "text":{
-            "eng":"left (not urgent)",
-            "esp":"izquierda (no urgente)",
-            "ita":"sinistra (non urgente)"},
         "explicit":{
             "eng":{0:{"id":20, "text":"go left"},
                    1:{"id":21, "text":"left"}},
@@ -162,10 +134,6 @@ INTENTS:dict = {
             }
         },
     7:  {
-        "text":{
-            "eng":"left (not urgent)",
-            "esp":"izquierda (no urgente)",
-            "ita":"sinistra (non urgente)"},
         "explicit":{
             "eng":{0:{"id":20, "text":"go left"},
                    1:{"id":21, "text":"left"},
@@ -195,10 +163,6 @@ INTENTS:dict = {
             }
         },
     8:  {
-        "text":{
-            "eng":"right (not urgent)",
-            "esp":"derecha (no urgente)",
-            "ita":"destra (non urgente)"},
         "explicit":{
             "eng":{0:{"id":28, "text":"go right"},
                    1:{"id":29, "text":"right"}},
@@ -214,10 +178,6 @@ INTENTS:dict = {
             }
         },
     9:  {
-        "text":{
-            "eng":"right (urgent)",
-            "esp":"derecha (urgente)",
-            "ita":"destra (urgente)"},
         "explicit":{
             "eng":{0:{"id":28, "text":"go right"},
                    1:{"id":29, "text":"right"},
@@ -247,10 +207,6 @@ INTENTS:dict = {
             }
         },
     10: {
-        "text":{
-            "eng":"stop (not urgent)",
-            "esp":"detente (no urgente)",
-            "ita":"fermati (non urgente)"},
         "explicit":{
             "eng":{0:{"id":36, "text":"stop"}},
             "esp":{0:{"id":27, "text":"stop"},
@@ -265,10 +221,6 @@ INTENTS:dict = {
             }
         },
     11: {
-        "text":{
-            "eng":"stop (urgent)",
-            "esp":"detente (urgente)",
-            "ita":"fermati (urgente)"},
         "explicit":{
             "eng":{0:{"id":36, "text":"stop"},
                    1:{"id":37, "text":"stop immediately"},
@@ -294,10 +246,6 @@ INTENTS:dict = {
             }
         },
     12: {
-        "text":{
-            "eng":"come (not urgent)",
-            "esp":"acercate (no urgente)",
-            "ita":"vieni (non urgente)"},
         "explicit":{
             "eng":{0:{"id":40, "text":"come"},
                    1:{"id":41, "text":"come here"}},
@@ -313,10 +261,6 @@ INTENTS:dict = {
             }
         },
     13: {
-        "text":{
-            "eng":"come (urgent)",
-            "esp":"acercate (urgente)",
-            "ita":"vieni (urgente)"},
         "explicit":{
             "eng":{0:{"id":40, "text":"come"},
                    1:{"id":41, "text":"come here"},
@@ -346,10 +290,6 @@ INTENTS:dict = {
             }
         },
     14: {
-        "text":{
-            "eng":"release (not urgent)",
-            "esp":"suelta (no urgente)",
-            "ita":"rilascia (non urgente)"},
         "explicit":{
             "eng":{0:{"id":48, "text":"release"},
                    1:{"id":49, "text":"drop"}},
@@ -365,10 +305,6 @@ INTENTS:dict = {
             }
         },
     15: {
-        "text":{
-            "eng":"release (urgent)",
-            "esp":"suelta (urgente)",
-            "ita":"rilascia (urgente)"},
         "explicit":{
             "eng":{0:{"id":48, "text":"release"},
                    1:{"id":49, "text":"drop"},
@@ -398,10 +334,6 @@ INTENTS:dict = {
             }
         },
     16: {
-        "text":{
-            "eng":"fast (not urgent)",
-            "esp":"rapido (no urgente)",
-            "ita":"veloce (non urgente)"},
         "explicit":{
             "eng":{0:{"id":56, "text":"fast"},
                    1:{"id":57, "text":"faster"},
@@ -420,10 +352,6 @@ INTENTS:dict = {
             }
         },
     17: {
-        "text":{
-            "eng":"slow (not urgent)",
-            "esp":"lento (no urgente)",
-            "ita":"lento (non urgente)"},
         "explicit":{
             "eng":{0:{"id":59, "text":"slow"},
                    1:{"id":60, "text":"slower"},
@@ -442,10 +370,6 @@ INTENTS:dict = {
             }
         },
     18: {
-        "text":{
-            "eng":"okay (not urgent)",
-            "esp":"vale (no urgente)",
-            "ita":"va bene (non urgente)"},
         "explicit":{
             "eng":{0:{"id":62, "text":"yes"},
                    1:{"id":63, "text":"okay"}},
@@ -461,10 +385,6 @@ INTENTS:dict = {
             }
         },
     19: {
-        "text":{
-            "eng":"no (not urgent)",
-            "esp":"no (no urgente)",
-            "ita":"no (non urgente)"},
         "explicit":{
             "eng":{0:{"id":64, "text":"no"}},
             "esp":{0:{"id":53, "text":"no"}},
@@ -477,10 +397,6 @@ INTENTS:dict = {
             }
         },
     20: {
-        "text":{
-            "eng":"i don't know (not urgent)",
-            "esp":"no sé (no urgente)",
-            "ita":"non lo so (non urgente)"},
         "explicit":{
             "eng":{0:{"id":65, "text":"maybe"},
                    1:{"id":66, "text":"i don't know"}},
@@ -496,10 +412,6 @@ INTENTS:dict = {
             }
         },
     21: {
-        "text":{
-            "eng":"help me (not urgent)",
-            "esp":"ayùdame (no urgente)",
-            "ita":"aiutami (non urgente)"},
         "explicit":{
             "eng":{0:{"id":67, "text":"help me"}},
             "esp":{0:{"id":56, "text":"ayùdame"}},
@@ -512,10 +424,6 @@ INTENTS:dict = {
             }
         },
     22: {
-        "text":{
-            "eng":"help me (urgent)",
-            "esp":"ayùdame (urgente)",
-            "ita":"aiutami (urgente)"},
         "explicit":{
             "eng":{0:{"id":67, "text":"help me"},
                    1:{"id":68, "text":"help me immediately"},
@@ -533,7 +441,19 @@ INTENTS:dict = {
             "esp":{"id":1, "text":"urgente"},
             "ita":{"id":1, "text":"urgente"}
             }
-        }
+        },
+    23: {
+        "explicit":{
+            "eng":{0:{"id":71, "text":"chatter"}},
+            "esp":{0:{"id":59, "text":"charla"}},
+            "ita":{0:{"id":59, "text":"chiacchiere"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"no urgente"},
+            "ita":{"id":0, "text":"non urgente"}
+            }
+    }
 }
 
 EXPLICIT_INTENTS:dict = {
@@ -735,12 +655,76 @@ EXPLICIT_INTENTS:dict = {
 }
 
 IMPLICIT_INTENTS:dict = {
-    0:{
-        "eng":"not urgent",
-        "esp":"no urgente",
-        "ita":"non urgente"},
-    1:{
-        "eng":"urgent",
-        "esp":"urgente",
-        "ita":"urgente"}
+    0:  "not urgent",
+    1:  "urgent"
+}
+
+REDUCED_INTENTS_DICT:dict = {
+    0:  {"eng": {0:"go left",
+                 1:"left",
+                 2:"go left immediately",
+                 3:"left immediately",
+                 4:"go left now",
+                 5:"left now",
+                 6:"go left quickly",
+                 7:"left quickly"},
+         "ita": {0:"vai a sinistra",
+                 1:"sinistra",
+                 2:"vai a sinistra immediatamente",
+                 3:"sinistra immediatamente",
+                 4:"vai a sinistra ora",
+                 5:"sinistra ora"},
+         "esp": {0:"ve a la izquierda",
+                 1:"izquierda",
+                 2:"ve a la izquierda inmediatamente",
+                 3:"izquierda inmediatamente",
+                 4:"ve a la izquierda ahora",
+                 5:"izquierda ahora"}},
+    1:  {"eng": {0:"go right",
+                 1:"right",
+                 2:"go right immediately",
+                 3:"right immediately",
+                 4:"go right now",
+                 5:"right now",
+                 6:"go right quickly",
+                 7:"right quickly"},
+         "ita": {0:"vai a destra",
+                 1:"destra",
+                 2:"vai a destra immediatamente",
+                 3:"destra immediatamente",
+                 4:"vai a destra ora",
+                 5:"destra ora"},
+         "esp": {0:"ve a la derecha",
+                 1:"derecha",
+                 2:"ve a la derecha inmediatamente",
+                 3:"derecha inmediatamente",
+                 4:"ve a la derecha ahora",
+                 5:"derecha ahora"}},
+    2:  {"eng": {0:"stop",
+                 1:"stop immediately",
+                 2:"stop now",
+                 3:"stop quickly"},
+         "ita": {0:"stop",
+                 1:"fermati",
+                 2:"stop immediatamente",
+                 3:"fermati immediatamente",
+                 4:"stop ora",
+                 5:"fermati ora"},
+         "esp": {0:"stop",
+                 1:"detente",
+                 2:"stop inmediatamente",
+                 3:"detente inmediatamente",
+                 4:"stop ahora",
+                 5:"detente ahora"}},
+    3:  {"eng": {0:"chatter"},
+         "esp": {0:"charla"},
+         "ita": {0:"chiacchiere"}}}
+
+CONVERSION_DICT:dict = {
+    6:0,
+    7:0,
+    8:1,
+    9:1,
+    10:2,
+    11:2
 }

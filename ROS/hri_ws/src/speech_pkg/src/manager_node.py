@@ -15,7 +15,7 @@ from iri_object_transportation_msgs.msg import explicit_information
 from speech_pkg.srv import Classification, ClassificationResponse, ClassificationMSI
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
 from demo_utils.post_request import MyRequestPost
 
 
@@ -176,6 +176,39 @@ def run_demo_full(req):
     return ManagerResponse(True)    # res.flag
 
 
+def run_demo_MSIexp0(req):
+    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, pub
+
+    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
+    res = classify(req.data)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
+    if res.intent == 3:
+        print(Fore.YELLOW + "Not in the set")
+        return ManagerResponse(True)    # res.flag
+
+    message = explicit_information()
+    message.header = Header()
+    message.header.frame_id = INTENTS[res.intent]["text"][LANG]
+    message.header.stamp = rospy.Time.now()
+    message.fsr_values = [1. for i in range(5)]
+    message.sw_values = [False for i in range(5)]
+    message.sw_values[res.intent] = True
+    #pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
+    pub.publish(message)
+    
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(REDUCED_INTENTS_DICT[res.intent][LANG][0], res.int_probs[res.intent]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    print(res_str)
+    
+    if rospy.get_param("/save_speech") == True:
+        with open(SPEECH_INFO_FILE, "a") as f:
+            f.write(res_str)
+
+    speech_counter += 1
+    # res = speech(res.cmd, res.probs)
+
+    return ManagerResponse(True)    # res.flag
+
+
 def run_demo_msi(req):
     global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, pub
 
@@ -225,7 +258,6 @@ def run_demo_msi(req):
     return ManagerResponse(True)    # res.flag
 
 
-
 if __name__ == "__main__":
     DEMO = rospy.get_param("/demo")
     LANG = rospy.get_param("/language")
@@ -267,6 +299,10 @@ if __name__ == "__main__":
         classify = rospy.ServiceProxy('classifier_service', Classification)
     elif DEMO == "msi":
         rospy.Service('manager_service', Manager, run_demo_msi)
+        classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
+        pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
+    elif DEMO == "MSIexp0":
+        rospy.Service('manager_service', Manager, run_demo_MSIexp0)
         classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
     #command_eng = DEMO_CMD_ENG

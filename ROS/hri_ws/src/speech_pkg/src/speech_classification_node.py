@@ -22,19 +22,22 @@ from PIL import Image
 
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
 import time
 import torchaudio
 from dotmap import DotMap
 
 #from mtl_exp.MTL_conf import settings
 #from settings.felice import settings
+'''
 from mtl_exp.MSI_conf import settings
 from mtl_exp.resnet8 import ResNet8_PL
 from mtl_exp.hardsharing import HardSharing_PL
 from mtl_exp.softsharing import SoftSharing_PL
 from mtl_exp.MSI_hardsharing import HardSharing_PL as HardSharingMSI
-
+'''
+from msi_exp.MSI_exp0_conf import settings
+from msi_exp.resnet8 import ResNet8_PL
 
 MODEL_PATH = "models"
 
@@ -134,6 +137,11 @@ def select_parameters(language="eng", demo="7"):
         ckpt_folder = models_path.joinpath('demo_'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
+    elif demo == "MSIexp0":
+        COMMANDS = REDUCED_INTENTS_DICT
+        ckpt_folder = models_path.joinpath('demo_'+demo, language)
+        ckpt_folder = models_path.joinpath(ckpt_folder, settings.noise.curriculum_learning.distribution, "checkpoints")
+        ckpt_name = os.listdir(path=ckpt_folder)[-1]
     else:
         print(Back.RED + "ERROR in the launch file with the parameter <demo>")
     return COMMANDS, ckpt_folder, ckpt_name
@@ -148,7 +156,7 @@ def infer_signal(model, signal):
     return logits
 
 
-class NewClassifier:
+class SCRClassifier:
     def __init__(self, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
         self.commands = commands
         self.threshold_1 = threshold_1
@@ -251,7 +259,6 @@ class NewClassifier:
         rospy.init_node('classifier')
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
-
 
 
 class MTLClassifier:
@@ -481,6 +488,120 @@ class ClassifierMSI:
         s = rospy.Service('classifier_service', ClassificationMSI, self.parse_req)
         rospy.spin()
 
+
+class ClassifierMSIexp0:
+    def __init__(self, commands, ckpt_folder, ckpt_name):
+        self.commands = commands
+
+        labels = [commands.keys()]
+
+        assert settings.model.network in ["resnet8"]
+        ckpt_path = os.path.join(ckpt_folder, ckpt_name)
+        print(Back.YELLOW + ckpt_path)
+        self.model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=None).cuda()  # Load model
+        ckpt = torch.load(ckpt_path, lambda s, l: s)
+        state_dict = ckpt["state_dict"]
+        del state_dict["loss_fn.weight"]
+        self.model.load_state_dict(state_dict=state_dict)
+        self.model.eval()
+    
+        # In order to avoid the waste of time related to the first inference
+        signal = np.zeros(shape=(32000))
+        x = preprocess(waveform=signal)
+        x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
+        self.model.predict(x)
+        #self.model.predict(melspectrogram)
+
+        self.init_node()
+
+    # I can remove this
+    def _pcm2float(self, sound: np.ndarray):
+        abs_max = np.abs(sound).max()
+        sound = sound.astype('float32')
+        if abs_max > 0:
+            sound *= 1 / abs_max
+        sound = sound.squeeze()  # depends on the use case
+        return sound
+
+    # I can remove this
+    def _numpy2tensor(self, signal: np.ndarray):
+        signal_size = signal.size
+        signal_torch = torch.as_tensor(signal, dtype=torch.float32)
+        signal_size_torch = torch.as_tensor(signal_size, dtype=torch.int64)
+        return signal_torch, signal_size_torch
+
+    # I can remove this
+    def convert(self, signal):
+        signal = np.array(signal)
+        signal_nw = self._pcm2float(signal)
+        return signal_nw
+
+    def predict(self, signal: np.ndarray):
+        ###print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(signal), signal.shape, signal.dtype, np.min(signal), np.max(signal), np.mean(signal)))
+        #signal, sample_rate = torchaudio.load("/home/felice/command_interaction/ROS/hri_ws/ita_0.wav")
+        x = preprocess(waveform=signal)
+        #'''
+        #x_cpu = np.uint8(x[0].cpu().numpy())
+        #x_cpu = (x_cpu-np.min(x_cpu))/(np.max(x_cpu)-np.min(x_cpu))
+        #spect = Image.fromarray(x_cpu)
+        #spect.save("/home/felice/command_interaction/ROS/hri_ws/spect_example.png")
+        #'''
+        x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
+        ###print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(x), x.shape, x.dtype, np.min(x_cpu), np.max(x_cpu), np.mean(x_cpu)))
+        #plot_melspectrogram(path="mel_spec_db.png", melspectrogram=db_melspectrogram)
+        #prev_time = time.time()
+        #cmd_probs = self.cmd_model.predict(melspectrogram)
+        #spk_probs = self.spk_model.predict(melspectrogram)
+        cmd_probs = self.model.predict(x)
+        #infer_time = time.time() - prev_time
+        #print('INFER TIME: {:.4f}'.format(infer_time))
+        cmd_probs = cmd_probs.cpu().detach().numpy()
+        cmd = np.argmax(cmd_probs, axis=1)
+        #print(cmd, cmd_probs[0])
+        """
+        if len(cmd_probs[0]) < len(self.commands):
+            cmd_probs = np.append(arr=cmd_probs, values=[1-cmd_probs[0][cmd]], axis=1)
+        """
+        '''
+        REJECT_LABEL = probs.shape[1] - 1
+        # cmd = np.argmax(probs, axis=1)
+        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
+            cmd = np.array([REJECT_LABEL])
+        '''
+        '''
+        if cmd_probs[0, cmd] < self.threshold_2:
+            cmd = np.array([cmd_probs.shape[1]-1])
+        '''
+        '''
+        else:
+            cmd = np.argmax(probs, axis=1)
+        '''
+
+        return cmd, cmd_probs
+
+    def parse_req(self, req):
+        prev_time = time.time()
+
+        #signal = self.convert(req.data.data)
+        signal = np.array(req.data.data, dtype=np.float32)
+        cmd, probs = self.predict(signal)
+        assert len(cmd) == 1
+        cmd = int(cmd[0])
+        probs = probs.tolist()[0]
+
+        infer_time = time.time() - prev_time
+        self.times.append(infer_time)
+        # self.times_file.write("{:.3f}\n".format(sum(self.times)/len(self.times)))
+        with open(os.path.join("/home/felice/command_interaction/ROS/hri_ws", "times.txt"), "w") as f_out:
+            f_out.write("{:.3f} s\n".format(sum(self.times)/len(self.times)))
+        return ClassificationResponse(cmd, probs)
+
+    def init_node(self):
+        rospy.init_node('classifier')
+        s = rospy.Service('classifier_service', Classification, self.parse_req)
+        rospy.spin()
+
+
 if __name__ == "__main__":
     THRESHOLD_1 = 0.9     # 0.004 - 0.1
     THRESHOLD_2 = 0.7     # 0.999 - 0.9
@@ -492,9 +613,9 @@ if __name__ == "__main__":
 
     if LANGUAGE not in AVAILABLE_LANGS:
         raise Exception("Selected language not available.\nAvailable langs:", AVAILABLE_LANGS)
-#    data_layer = AudioDataLayer(sample_rate=16000)
- #   data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
+    #data_layer = AudioDataLayer(sample_rate=16000)
+    #data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
     #classifier = MTLClassifier(THRESHOLD_1, THRESHOLD_2, commands)
-    #classifier = Classifier(LANGUAGE, THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
-    #classifier = NewClassifier(THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
-    classifier = ClassifierMSI(threshold_1=THRESHOLD_1, threshold_2=THRESHOLD_2)
+    #classifier = SCRClassifier(THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
+    #classifier = ClassifierMSI(threshold_1=THRESHOLD_1, threshold_2=THRESHOLD_2)
+    classifier = ClassifierMSIexp0(commands=commands, ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)
