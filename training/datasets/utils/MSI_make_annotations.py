@@ -16,7 +16,7 @@ The dataset attributes are the followings.
 import os
 import pandas as pd
 from tqdm import tqdm
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT, CONVERSION_DICT
 
 
 LANGS = ["eng", "esp", "ita"]
@@ -24,7 +24,7 @@ IN_DATASET_NAME = "MSI_exp0"
 IN_DATASET_PATH = os.path.join("datasets", IN_DATASET_NAME)
 #REJECT_ANNOTATION_PATH = os.path.join("datasets", "REJECT_DATASET", "MSI_google_annotations_LANG.csv")
 REJECT_DATASETS = ["google_speech_commands_v1", "mozilla_common_voices", "MSI_exp0"]
-REJECT_ANNOTATION_PATHS = [os.path.join("datasets", dataset, "MSI_{}_annotations_LANG.csv".format(dataset.split('_')[0])) for dataset in REJECT_DATASETS]
+REJECT_ANNOTATION_PATHS = [os.path.join("datasets", dataset, "SCR_{}_annotations_LANG.csv".format(dataset.split('_')[0])) for dataset in REJECT_DATASETS]
 OUT_PATH = os.path.join(IN_DATASET_PATH, "annotations")
 if "exp0" in IN_DATASET_NAME:
     HEADING = ["path", "type", "subtype", "speaker", "command"]
@@ -50,7 +50,8 @@ def add_command_samples(data, lang_path, lang, speaker, samples):
         data["subtype"].append(subtype)
         data["speaker"].append(speaker)
         if "exp0" in IN_DATASET_NAME:
-            data["command"].append(intent)
+            command = CONVERSION_DICT[intent] if intent in CONVERSION_DICT else len(REDUCED_INTENTS_DICT)-1
+            data["command"].append(command)
         else:
             explicit = INTENTS[intent]["explicit"][lang][int(labels[1])]["id"]
             implicit = INTENTS[intent]["implicit"][lang]["id"]

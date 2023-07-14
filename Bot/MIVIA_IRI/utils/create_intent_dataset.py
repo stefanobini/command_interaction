@@ -9,7 +9,7 @@ INPUT_DATABASE = os.path.join("recordings")
 OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", "MSI_exp0")
 EXPERIMENTATION = "reduced" # ["reduced", "full"]
 REGEX = "^[0-9]*"
-intents = INTENTS_DICT if EXPERIMENTATION == "full" else REDUCED_INTENTS_DICT
+intents = INTENTS_DICT if EXPERIMENTATION == "full" else CONVERSION_DICT
 
 ds_cmd_path = os.path.join(OUTPUT_DATASET, 'commands')
 os.makedirs(ds_cmd_path, exist_ok=True)
@@ -37,9 +37,11 @@ for user in user_iterator:
                         file_ogg = AudioSegment.from_ogg(bot_sample_path)
                         
                         # Change the ID in the reduced version
+                        '''
                         if EXPERIMENTATION == "reduced" and intent in CONVERSION_DICT:
                             intent = CONVERSION_DICT[intent]
                             file = re.sub(REGEX, str(intent), file)
+                        '''
 
                         # for intents of interest
                         if intent in intents:

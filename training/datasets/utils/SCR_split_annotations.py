@@ -6,7 +6,7 @@ from math import floor
 from typing import Tuple
 
 
-LANGS = ["eng", "ita"]
+LANGS = ["eng", "esp", "ita"]
 
 #DATASET = os.path.join("SCR_experimentation")
 #DATASET = os.path.join("FELICE", "demofull")

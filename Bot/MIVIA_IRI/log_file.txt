@@ -1,5 +1,311 @@
 /user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:287: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
   warnings.warn(
-__main__ - INFO - 12-07-2023 15:06
-/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/tzlocal/unix.py:192: UserWarning: Can not find any timezone configuration, defaulting to UTC.
-  warnings.warn("Can not find any timezone configuration, defaulting to UTC.")
+__main__ - INFO - 13-07-2023 11:32
+utils.callbacks - INFO - Entra: {Francesco, https://t.me/S0nFr4, 189947376, complete: False} - 13-07-2023 11:32:55
+utils.callbacks - INFO - Entra: {Mario Pellegrino, https://t.me/masterM4st3r, 1520141330, complete: False} - 13-07-2023 11:33:01
+utils.utils - ERROR - Problem with: {'first_name': 'Francesco', 'id': 189947376, 'username': 'S0nFr4', 'language_code': 'it', 'is_bot': False} - 2023-07-13 11:33:53.940802 - [Errno 2] No such file or directory: 'audio_samples/eng/12_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Francesco', 'id': 189947376, 'username': 'S0nFr4', 'language_code': 'it', 'is_bot': False} - 2023-07-13 11:33:55.847403 - [Errno 2] No such file or directory: 'audio_samples/eng/1_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Francesco', 'id': 189947376, 'username': 'S0nFr4', 'language_code': 'it', 'is_bot': False} - 2023-07-13 11:34:10.194958 - [Errno 2] No such file or directory: 'audio_samples/eng/22_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Francesco', 'id': 189947376, 'username': 'S0nFr4', 'language_code': 'it', 'is_bot': False} - 2023-07-13 11:34:11.546154 - [Errno 2] No such file or directory: 'audio_samples/eng/10_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.callbacks - INFO - Entra: {Alejandro Suarez, None, 971441735, complete: False} - 13-07-2023 13:46:50
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:50:02.470966 - [Errno 2] No such file or directory: 'audio_samples/eng/15_5.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:50:07.198607 - [Errno 2] No such file or directory: 'audio_samples/eng/3_5.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:50:21.847579 - [Errno 2] No such file or directory: 'audio_samples/eng/17_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:50:34.016909 - [Errno 2] No such file or directory: 'audio_samples/eng/18_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:16.921271 - [Errno 2] No such file or directory: 'audio_samples/eng/2_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:18.095730 - [Errno 2] No such file or directory: 'audio_samples/eng/21_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:18.284170 - [Errno 2] No such file or directory: 'audio_samples/eng/20_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:18.535013 - [Errno 2] No such file or directory: 'audio_samples/eng/9_3.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:19.411884 - [Errno 2] No such file or directory: 'audio_samples/eng/13_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:31.261272 - [Errno 2] No such file or directory: 'audio_samples/eng/10_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:34.144523 - [Errno 2] No such file or directory: 'audio_samples/eng/17_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:34.366615 - [Errno 2] No such file or directory: 'audio_samples/eng/19_0.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:34.590925 - [Errno 2] No such file or directory: 'audio_samples/eng/15_2.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:34.847600 - [Errno 2] No such file or directory: 'audio_samples/eng/14_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.utils - ERROR - Problem with: {'first_name': 'Alejandro', 'id': 971441735, 'language_code': 'es', 'is_bot': False, 'last_name': 'Suarez'} - 2023-07-13 13:51:35.257330 - [Errno 2] No such file or directory: 'audio_samples/eng/17_1.wav'
+Stack (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/updater.py", line 353, in _thread_wrapper
+    target(*args, **kwargs)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 485, in start
+    self.process_update(update)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 567, in process_update
+    self.dispatch_error(update, exc)
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/dispatcher.py", line 810, in dispatch_error
+    callback(update, context)
+utils.callbacks - INFO - Entra: {stefano, None, 916811949, complete: False} - 13-07-2023 20:35:11
