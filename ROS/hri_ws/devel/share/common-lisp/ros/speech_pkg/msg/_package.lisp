@@ -5,6 +5,8 @@
    "COMMAND"
    "<GESTURE>"
    "GESTURE"
+   "<INTENTIRI>"
+   "INTENTIRI"
    "<SPEECH>"
    "SPEECH"
    "<SPEECHDATA>"

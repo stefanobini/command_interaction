@@ -60,6 +60,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_service_files(
    FILES
    Classification.srv
+   ClassificationMSI.srv
    Manager.srv
    Talker.srv
 )
@@ -109,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES speech_pkg
-  CATKIN_DEPENDS rospy std_msgs message_runtime
+  CATKIN_DEPENDS rospy std_msgs message_runtime iri_object_transportation_msgs
 #  DEPENDS system_lib
 )
 

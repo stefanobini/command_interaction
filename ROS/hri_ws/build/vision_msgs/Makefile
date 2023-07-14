@@ -56,6 +56,30 @@ CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -78,40 +102,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target test
+test/fast: test
 
-.PHONY : edit_cache/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+.PHONY : test/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -124,16 +124,16 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : test/fast
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,184 +168,64 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
+vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
 
 # Convenience name for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
+vision_msgs_genpy: vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
 
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3D
+.PHONY : vision_msgs_genpy
 
 # fast build rule for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox3D/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3D/fast
+vision_msgs_genpy/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_genpy.dir/build.make vision_msgs/CMakeFiles/vision_msgs_genpy.dir/build
+.PHONY : vision_msgs_genpy/fast
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_py: vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+vision_msgs_generate_messages_py: vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_py
+.PHONY : vision_msgs_generate_messages_py
 
 # fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make vision_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
+vision_msgs_generate_messages_py/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/build
+.PHONY : vision_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
+vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
 
 # Convenience name for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox2D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
+vision_msgs_gennodejs: vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
 
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2D
+.PHONY : vision_msgs_gennodejs
 
 # fast build rule for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox2D/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2D/fast
+vision_msgs_gennodejs/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/build.make vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/build
+.PHONY : vision_msgs_gennodejs/fast
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
+vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
 
 # Convenience name for target.
-vision_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
+vision_msgs_genlisp: vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
 
-.PHONY : vision_msgs_generate_messages_cpp
+.PHONY : vision_msgs_genlisp
 
 # fast build rule for target.
-vision_msgs_generate_messages_cpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build
-.PHONY : vision_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-vision_msgs_generate_messages_nodejs: vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : vision_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-vision_msgs_generate_messages_nodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build
-.PHONY : vision_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make vision_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_Detection2DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection2DArray
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_Detection2DArray/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection2DArray/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_Detection3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection3D
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_Detection3D/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection3D/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_eus: vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_eus
-
-# fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make vision_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_Classification2D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_Classification2D
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_Classification2D/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_Classification2D/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
-
-# Convenience name for target.
-vision_msgs_gencpp: vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
-
-.PHONY : vision_msgs_gencpp
-
-# fast build rule for target.
-vision_msgs_gencpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/build
-.PHONY : vision_msgs_gencpp/fast
+vision_msgs_genlisp/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/build
+.PHONY : vision_msgs_genlisp/fast
 
 # Convenience name for target.
 vision_msgs/CMakeFiles/vision_msgs_generate_messages_lisp.dir/rule:
@@ -363,6 +243,111 @@ vision_msgs_generate_messages_lisp/fast:
 .PHONY : vision_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
+
+# Convenience name for target.
+vision_msgs_geneus: vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
+
+.PHONY : vision_msgs_geneus
+
+# fast build rule for target.
+vision_msgs_geneus/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_geneus.dir/build.make vision_msgs/CMakeFiles/vision_msgs_geneus.dir/build
+.PHONY : vision_msgs_geneus/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
+
+# Convenience name for target.
+vision_msgs_gencpp: vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/rule
+
+.PHONY : vision_msgs_gencpp
+
+# fast build rule for target.
+vision_msgs_gencpp/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_gencpp.dir/build
+.PHONY : vision_msgs_gencpp/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_Classification3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_Classification3D
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_Classification3D/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_Classification3D/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_ObjectHypothesis: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesis
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_ObjectHypothesis/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesis/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_py: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_py
+
+# fast build rule for target.
+sensor_msgs_generate_messages_py/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
+.PHONY : sensor_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_VisionInfo: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_VisionInfo
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_VisionInfo/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_VisionInfo/fast
+
+# Convenience name for target.
 vision_msgs/CMakeFiles/vision_msgs_generate_messages.dir/rule:
 	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages.dir/rule
 .PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages.dir/rule
@@ -378,34 +363,19 @@ vision_msgs_generate_messages/fast:
 .PHONY : vision_msgs_generate_messages/fast
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+sensor_msgs_generate_messages_lisp: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_cpp
+.PHONY : sensor_msgs_generate_messages_lisp
 
 # fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_Detection3DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection3DArray
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_Detection3DArray/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_Detection3DArray/fast
+sensor_msgs_generate_messages_lisp/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
+.PHONY : sensor_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 vision_msgs/CMakeFiles/vision_msgs_generate_messages_eus.dir/rule:
@@ -423,19 +393,184 @@ vision_msgs_generate_messages_eus/fast:
 .PHONY : vision_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
+vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-_vision_msgs_generate_messages_check_deps_ObjectHypothesis: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/rule
+sensor_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesis
+.PHONY : sensor_msgs_generate_messages_cpp
 
 # fast build rule for target.
-_vision_msgs_generate_messages_check_deps_ObjectHypothesis/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesis.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesis/fast
+sensor_msgs_generate_messages_cpp/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
+.PHONY : sensor_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_eus: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_generate_messages_eus/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
+.PHONY : sensor_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_Detection3DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection3DArray
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_Detection3DArray/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3DArray.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection3DArray/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox2D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2D
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox2D/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2D.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2D/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3D
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox3D/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3D.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3D/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+vision_msgs_generate_messages_nodejs: vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : vision_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+vision_msgs_generate_messages_nodejs/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build
+.PHONY : vision_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
+.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+vision_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : vision_msgs_generate_messages_cpp
+
+# fast build rule for target.
+vision_msgs_generate_messages_cpp/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build
+.PHONY : vision_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox2DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2DArray
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox2DArray/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2DArray/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_Detection3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection3D
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_Detection3D/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection3D.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection3D/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox3DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3DArray
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_BoundingBox3DArray/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3DArray/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_Detection2DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection2DArray
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_Detection2DArray/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2DArray.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_Detection2DArray/fast
+
+# Convenience name for target.
+vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
+.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
+
+# Convenience name for target.
+_vision_msgs_generate_messages_check_deps_Classification2D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/rule
+
+.PHONY : _vision_msgs_generate_messages_check_deps_Classification2D
+
+# fast build rule for target.
+_vision_msgs_generate_messages_check_deps_Classification2D/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification2D.dir/build
+.PHONY : _vision_msgs_generate_messages_check_deps_Classification2D/fast
 
 # Convenience name for target.
 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
@@ -467,279 +602,48 @@ _vision_msgs_generate_messages_check_deps_Detection2D/fast:
 	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Detection2D.dir/build
 .PHONY : _vision_msgs_generate_messages_check_deps_Detection2D/fast
 
-# Convenience name for target.
-vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make vision_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make vision_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox3DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3DArray
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox3DArray/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox3DArray.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox3DArray/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox2DArray: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2DArray
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_BoundingBox2DArray/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_BoundingBox2DArray.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_BoundingBox2DArray/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-# Convenience name for target.
-_catkin_empty_exported_target: vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/build.make vision_msgs/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_eus: vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_eus
-
-# fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make vision_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_VisionInfo: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_VisionInfo
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_VisionInfo/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_VisionInfo.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_VisionInfo/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
-
-# Convenience name for target.
-vision_msgs_geneus: vision_msgs/CMakeFiles/vision_msgs_geneus.dir/rule
-
-.PHONY : vision_msgs_geneus
-
-# fast build rule for target.
-vision_msgs_geneus/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_geneus.dir/build.make vision_msgs/CMakeFiles/vision_msgs_geneus.dir/build
-.PHONY : vision_msgs_geneus/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
-
-# Convenience name for target.
-vision_msgs_genlisp: vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/rule
-
-.PHONY : vision_msgs_genlisp
-
-# fast build rule for target.
-vision_msgs_genlisp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/build.make vision_msgs/CMakeFiles/vision_msgs_genlisp.dir/build
-.PHONY : vision_msgs_genlisp/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
-
-# Convenience name for target.
-vision_msgs_gennodejs: vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/rule
-
-.PHONY : vision_msgs_gennodejs
-
-# fast build rule for target.
-vision_msgs_gennodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/build.make vision_msgs/CMakeFiles/vision_msgs_gennodejs.dir/build
-.PHONY : vision_msgs_gennodejs/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-vision_msgs_generate_messages_py: vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/rule
-
-.PHONY : vision_msgs_generate_messages_py
-
-# fast build rule for target.
-vision_msgs_generate_messages_py/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/build.make vision_msgs/CMakeFiles/vision_msgs_generate_messages_py.dir/build
-.PHONY : vision_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
-.PHONY : vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
-
-# Convenience name for target.
-_vision_msgs_generate_messages_check_deps_Classification3D: vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/rule
-
-.PHONY : _vision_msgs_generate_messages_check_deps_Classification3D
-
-# fast build rule for target.
-_vision_msgs_generate_messages_check_deps_Classification3D/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/build.make vision_msgs/CMakeFiles/_vision_msgs_generate_messages_check_deps_Classification3D.dir/build
-.PHONY : _vision_msgs_generate_messages_check_deps_Classification3D/fast
-
-# Convenience name for target.
-vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
-
-# Convenience name for target.
-vision_msgs_genpy: vision_msgs/CMakeFiles/vision_msgs_genpy.dir/rule
-
-.PHONY : vision_msgs_genpy
-
-# fast build rule for target.
-vision_msgs_genpy/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/CMakeFiles/vision_msgs_genpy.dir/build.make vision_msgs/CMakeFiles/vision_msgs_genpy.dir/build
-.PHONY : vision_msgs_genpy/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox3D"
-	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox2D"
-	@echo "... vision_msgs_generate_messages_cpp"
-	@echo "... vision_msgs_generate_messages_nodejs"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... _vision_msgs_generate_messages_check_deps_Detection2DArray"
-	@echo "... edit_cache"
-	@echo "... _vision_msgs_generate_messages_check_deps_Detection3D"
-	@echo "... install/local"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... geometry_msgs_generate_messages_eus"
-	@echo "... _vision_msgs_generate_messages_check_deps_Classification2D"
-	@echo "... vision_msgs_gencpp"
-	@echo "... vision_msgs_generate_messages_lisp"
 	@echo "... install/strip"
-	@echo "... vision_msgs_generate_messages"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... _vision_msgs_generate_messages_check_deps_Detection3DArray"
-	@echo "... vision_msgs_generate_messages_eus"
+	@echo "... install/local"
+	@echo "... vision_msgs_genpy"
+	@echo "... vision_msgs_generate_messages_py"
+	@echo "... install"
+	@echo "... vision_msgs_gennodejs"
+	@echo "... vision_msgs_genlisp"
+	@echo "... vision_msgs_generate_messages_lisp"
+	@echo "... vision_msgs_geneus"
+	@echo "... list_install_components"
+	@echo "... vision_msgs_gencpp"
+	@echo "... _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose"
+	@echo "... test"
+	@echo "... _vision_msgs_generate_messages_check_deps_Classification3D"
 	@echo "... _vision_msgs_generate_messages_check_deps_ObjectHypothesis"
+	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... _vision_msgs_generate_messages_check_deps_VisionInfo"
+	@echo "... vision_msgs_generate_messages"
 	@echo "... rebuild_cache"
+	@echo "... sensor_msgs_generate_messages_lisp"
+	@echo "... vision_msgs_generate_messages_eus"
+	@echo "... sensor_msgs_generate_messages_cpp"
+	@echo "... sensor_msgs_generate_messages_eus"
+	@echo "... _vision_msgs_generate_messages_check_deps_Detection3DArray"
+	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox2D"
+	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox3D"
+	@echo "... vision_msgs_generate_messages_nodejs"
+	@echo "... vision_msgs_generate_messages_cpp"
+	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox2DArray"
+	@echo "... _vision_msgs_generate_messages_check_deps_Detection3D"
+	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox3DArray"
+	@echo "... edit_cache"
+	@echo "... _vision_msgs_generate_messages_check_deps_Detection2DArray"
+	@echo "... _vision_msgs_generate_messages_check_deps_Classification2D"
 	@echo "... sensor_msgs_generate_messages_nodejs"
 	@echo "... _vision_msgs_generate_messages_check_deps_Detection2D"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... test"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox3DArray"
-	@echo "... _vision_msgs_generate_messages_check_deps_BoundingBox2DArray"
-	@echo "... _vision_msgs_generate_messages_check_deps_ObjectHypothesisWithPose"
-	@echo "... _catkin_empty_exported_target"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... _vision_msgs_generate_messages_check_deps_VisionInfo"
-	@echo "... vision_msgs_geneus"
-	@echo "... vision_msgs_genlisp"
-	@echo "... vision_msgs_gennodejs"
-	@echo "... vision_msgs_generate_messages_py"
-	@echo "... _vision_msgs_generate_messages_check_deps_Classification3D"
-	@echo "... vision_msgs_genpy"
 .PHONY : help
 
 

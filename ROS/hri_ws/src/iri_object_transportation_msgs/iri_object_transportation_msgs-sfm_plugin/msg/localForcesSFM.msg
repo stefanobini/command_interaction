@@ -1,0 +1,5 @@
+Header header
+geometry_msgs/WrenchStamped goal_force
+geometry_msgs/WrenchStamped attractor_force
+iri_object_transportation_msgs/wrenchStampedArray obstacles_forces
+geometry_msgs/WrenchStamped total_force

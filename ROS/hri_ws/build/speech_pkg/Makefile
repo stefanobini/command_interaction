@@ -102,6 +102,18 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -122,18 +134,6 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -196,6 +196,21 @@ speech_pkg_generate_messages_py: speech_pkg/CMakeFiles/speech_pkg_generate_messa
 speech_pkg_generate_messages_py/fast:
 	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build
 .PHONY : speech_pkg_generate_messages_py/fast
+
+# Convenience name for target.
+speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
+.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+speech_pkg_generate_messages_nodejs: speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
+
+.PHONY : speech_pkg_generate_messages_nodejs
+
+# fast build rule for target.
+speech_pkg_generate_messages_nodejs/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
+.PHONY : speech_pkg_generate_messages_nodejs/fast
 
 # Convenience name for target.
 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/rule:
@@ -363,6 +378,21 @@ speech_pkg_generate_messages_lisp/fast:
 .PHONY : speech_pkg_generate_messages_lisp/fast
 
 # Convenience name for target.
+speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
+.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_ClassificationMSI: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_ClassificationMSI/fast:
+	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI/fast
+
+# Convenience name for target.
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule:
 	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
 .PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
@@ -437,21 +467,6 @@ speech_pkg_genlisp/fast:
 	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/build.make speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/build
 .PHONY : speech_pkg_genlisp/fast
 
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_nodejs: speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-
-.PHONY : speech_pkg_generate_messages_nodejs
-
-# fast build rule for target.
-speech_pkg_generate_messages_nodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
-.PHONY : speech_pkg_generate_messages_nodejs/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -464,6 +479,8 @@ help:
 	@echo "... install"
 	@echo "... speech_pkg_genpy"
 	@echo "... speech_pkg_generate_messages_py"
+	@echo "... install/local"
+	@echo "... speech_pkg_generate_messages_nodejs"
 	@echo "... _speech_pkg_generate_messages_check_deps_Manager"
 	@echo "... speech_pkg_generate_messages_eus"
 	@echo "... _speech_pkg_generate_messages_check_deps_Classification"
@@ -475,6 +492,7 @@ help:
 	@echo "... _speech_pkg_generate_messages_check_deps_Gesture"
 	@echo "... speech_pkg_generate_messages"
 	@echo "... speech_pkg_generate_messages_lisp"
+	@echo "... _speech_pkg_generate_messages_check_deps_ClassificationMSI"
 	@echo "... test"
 	@echo "... speech_pkg_generate_messages_cpp"
 	@echo "... speech_pkg_gencpp"
@@ -482,8 +500,6 @@ help:
 	@echo "... speech_pkg_geneus"
 	@echo "... _speech_pkg_generate_messages_check_deps_SpeechData"
 	@echo "... speech_pkg_genlisp"
-	@echo "... install/local"
-	@echo "... speech_pkg_generate_messages_nodejs"
 .PHONY : help
 
 

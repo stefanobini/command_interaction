@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SpeechData.js"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Talker.js"

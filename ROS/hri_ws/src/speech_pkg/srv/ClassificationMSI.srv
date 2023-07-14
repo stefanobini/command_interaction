@@ -1,0 +1,8 @@
+speech_pkg/SpeechData data
+---
+int8 intent
+float32[] int_probs
+int8 explicit
+float32[] exp_probs
+int8 implicit
+float32[] imp_probs

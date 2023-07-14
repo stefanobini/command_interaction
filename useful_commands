@@ -40,8 +40,11 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 # Address for visualization: http://10.0.1.222:5000/
 # Open with Google Chrome
 
+'''For connect to another ROS core inside local network'''
+
 '''For FELICE'''
-roslaunch speech_pkg start_felice.launch
+roslaunch speech_pkg start_felice.launch    # SCR experiemntation
+roslaunch speech_pkg start.launch           # MSI experiemntation
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch

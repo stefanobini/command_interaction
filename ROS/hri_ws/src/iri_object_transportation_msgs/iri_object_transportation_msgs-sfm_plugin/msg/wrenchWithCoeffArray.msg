@@ -1,0 +1,2 @@
+Header header
+iri_object_transportation_msgs/wrenchStampedWithCoeff[] wrench_array

@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py"
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py"
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py"
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py"
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py"
   "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py"

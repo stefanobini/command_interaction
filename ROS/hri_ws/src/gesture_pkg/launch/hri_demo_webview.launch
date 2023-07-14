@@ -9,8 +9,8 @@
 
     <!-- General parameters -->
     <param name="language" type="str" value="ita"/>  <!-- "ita" or "eng" -->
-    <!-- <param name="fiware_cb" type="str" value="None"/> -->  <!-- no publish on FIWARE context broaker -->
-    <param name="fiware_cb" type="str" value="192.168.2.106"/>  <!-- CRF_network -->
+    <param name="fiware_cb" type="str" value="None"/>  <!-- no publish on FIWARE context broaker -->
+    <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/> -->  <!-- CRF_network -->
     
     <!-- Gesture nodes -->
     <node pkg="gesture_pkg" name="image_input_node" type="image_input_node.py" output="screen"/>

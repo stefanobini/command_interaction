@@ -1,2 +1,2 @@
-firos:gesture_pkg:speech_pkg:vision_msgs:webview_pkg
+gesture_pkg:iri_object_transportation_msgs/iri_object_transportation_msgs-sfm_plugin:speech_pkg:vision_msgs:webview_pkg
 -DCATKIN_DEVEL_PREFIX=/home/felice/command_interaction/ROS/hri_ws/devel -DCMAKE_INSTALL_PREFIX=/home/felice/command_interaction/ROS/hri_ws/install -G Unix Makefiles

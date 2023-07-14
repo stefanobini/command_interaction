@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp"

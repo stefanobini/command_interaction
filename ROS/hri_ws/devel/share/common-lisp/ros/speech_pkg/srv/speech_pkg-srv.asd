@@ -7,6 +7,8 @@
   :components ((:file "_package")
     (:file "Classification" :depends-on ("_package_Classification"))
     (:file "_package_Classification" :depends-on ("_package"))
+    (:file "ClassificationMSI" :depends-on ("_package_ClassificationMSI"))
+    (:file "_package_ClassificationMSI" :depends-on ("_package"))
     (:file "Manager" :depends-on ("_package_Manager"))
     (:file "_package_Manager" :depends-on ("_package"))
     (:file "Talker" :depends-on ("_package_Talker"))

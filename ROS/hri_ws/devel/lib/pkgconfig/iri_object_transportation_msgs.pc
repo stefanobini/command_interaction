@@ -1,0 +1,8 @@
+prefix=/home/felice/command_interaction/ROS/hri_ws/devel
+
+Name: iri_object_transportation_msgs
+Description: Description of iri_object_transportation_msgs
+Version: 1.0.0
+Cflags: -I/home/felice/command_interaction/ROS/hri_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime std_msgs geometry_msgs
