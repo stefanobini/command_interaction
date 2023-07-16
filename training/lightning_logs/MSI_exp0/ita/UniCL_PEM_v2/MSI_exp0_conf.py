@@ -76,7 +76,7 @@ settings.training.batch_size:int = 128                                      # at
 settings.training.lr.auto_find:bool = False
 settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
-settings.training.checkpoint.save_top_k:int = 3
+settings.training.checkpoint.save_top_k:int = 1
 settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10

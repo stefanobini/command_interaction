@@ -1,10 +1,10 @@
 import os
 import pandas
-from datasets.scripts.commands import COMMANDS
-from datasets.scripts.intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS
+from datasets.utils.commands import COMMANDS
+from datasets.utils.intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
 
 
-EXPERIMENTATION = "MSI"
+EXPERIMENTATION = "SCR"
 INPUT_DATASET = os.path.join("datasets", "mozilla_common_voices")
 OUTPUT_ANNOTATION_FILE = os.path.join(INPUT_DATASET, "{}_mozilla_annotations_LANG.csv".format(EXPERIMENTATION))
 LANGs = ["eng", "esp", "ita"]
@@ -14,6 +14,8 @@ elif EXPERIMENTATION == "MSI":
     HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit"]
 N_REJECTS = 10000
 MIN_N_SAMPLExSPEAKER = 10
+#commands = COMMANDS
+commands = REDUCED_INTENTS_DICT
 
 
 for lang in LANGs:
@@ -28,7 +30,7 @@ for lang in LANGs:
         data["subtype"].append("mozilla")
         data["speaker"].append(sample.split('_')[-1].split('.')[0])
         if EXPERIMENTATION == "SCR":
-            data["command"].append(len(COMMANDS)-1)
+            data["command"].append(len(commands)-1)
         elif EXPERIMENTATION == "MSI":
             data["intent"].append(len(INTENTS)-1)
             data["explicit"].append(len(EXPLICIT_INTENTS[lang])-1)

@@ -245,10 +245,9 @@ class State:
             filename = fr"{intent}_{version}_{i}.ogg"
             dst_path = path.joinpath(filename)
         audio.download(dst_path)
-
-        if self.database[lang][intent] < INTENT_REPETITIONS:
-            self.database[lang][intent] += 1
-        else:
+        
+        self.database[lang][intent] += 1
+        if self.database[lang][intent] >= INTENT_REPETITIONS:
             self.info["miss_intent"][lang].remove(intent)
 
         #self.database[intent][lang] += 1    # To record more than one sample

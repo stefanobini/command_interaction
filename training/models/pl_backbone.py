@@ -65,7 +65,7 @@ class PL_Backbone(pl.LightningModule):
 
     def set_model_parameters(self, num_labels:int, out_channel:int):
         self.settings = self.settings
-        self.task = self.settings.task.lower()
+        self.task = self.settings.tasks[0].lower()
         self.num_labels = num_labels
         self.out_channel = out_channel
         self.output = torch.nn.Linear(out_channel, num_labels)
@@ -74,7 +74,6 @@ class PL_Backbone(pl.LightningModule):
     def set_training_parameters(self, loss_weights:torch.Tensor=None):
         self.loss_weights = loss_weights
         self.loss_fn = torch.nn.CrossEntropyLoss(weight=self.loss_weights)
-        self.num_labels = self.num_labels
         self.batch_size = self.settings.training.batch_size
         self.learning_rate = self.settings.training.lr.value
         self.snrs = list(range(self.settings.noise.min_snr, self.settings.noise.max_snr+self.settings.noise.snr_step, self.settings.noise.snr_step))

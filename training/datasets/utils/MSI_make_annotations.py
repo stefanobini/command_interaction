@@ -84,13 +84,13 @@ def add_synthetic_samples(data, lang_path, subtype, samples):
 def add_reject_samples(path, subtype, lang, data):
     rejects_df = pd.read_csv(path)
     for idx in rejects_df.index:
-        path = rejects_df["path"][idx].replace("MSI_exp0", "rejects") if subtype == "MSI_exp0" else rejects_df["path"][idx]
-        data["path"].append(os.path.join("..", subtype, path))
+        path = rejects_df["path"][idx].replace("MSI_exp0", os.path.join("MSI_exp0", "rejects")) if subtype == "MSI_exp0" else rejects_df["path"][idx]
+        data["path"].append(os.path.join("..", path))
         data["type"].append(rejects_df["type"][idx])
         data["subtype"].append(rejects_df["subtype"][idx])
         data["speaker"].append(rejects_df["speaker"][idx])
         if "exp0" in IN_DATASET_NAME:
-            data["command"].append(len(REDUCED_INTENTS_DICT)-1)
+            data["command"].append(rejects_df["command"][idx])
         else:
             data["intent"].append(len(INTENTS)-1)
             data["explicit"].append(len(EXPLICIT_INTENTS[lang])-1)

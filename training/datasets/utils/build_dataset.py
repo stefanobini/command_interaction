@@ -13,14 +13,16 @@ import torchaudio
 from utils.preprocessing import Preprocessing
 from utils.settings.SCR_conf import settings
 
-''' For SCR experimentation
+#''' For SCR experimentation
 SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC_v1")
 OUT_PATH = os.path.join("datasets", "SCR_experimentation")
 LANGs = ["eng", "ita"]
-'''
+#'''
+'''MSI_exp0 experiemntation
 SRC_DATASET_PATH = os.path.join("datasets", "MSI_exp0")
 OUT_PATH = os.path.join("datasets", "MSI_exp0")
 LANGs = ["eng", "esp", "ita"]
+#'''
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -138,4 +140,4 @@ def build_set(subset:str):
 
 build_train_set()
 build_set(subset="validation")
-build_set(subset="testing")
+#build_set(subset="testing")
