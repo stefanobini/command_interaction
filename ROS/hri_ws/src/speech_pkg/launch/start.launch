@@ -1,6 +1,6 @@
 <launch>
-    <param name="language" type="str" value="ita"/>  <!-- "ita" or "eng" -->
-    <param name="demo" type="str" value="msi"/>   <!-- full: full demo; 3: AWS demo; 7: robot demo (2 tools); 7_plus: robot demo (3 tools) msi: intent experiemntation -->
+    <param name="language" type="str" value="eng"/>  <!-- "ita" or "eng" -->
+    <param name="demo" type="str" value="MSIexp0"/>   <!-- full: full demo; 3: AWS demo; 7: robot demo (2 tools); 7_plus: robot demo (3 tools) msi: intent experiemntation; MSIexp0 -->
     <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/> -->  <!-- CRF_network -->
     <!-- <param name="fiware_cb" type="str" value="10.0.1.226"/> -->  <!-- mivia_network -->
     <!-- <param name="fiware_cb" type="str" value="192.168.1.181"/> -->  <!-- beisHome_network -->

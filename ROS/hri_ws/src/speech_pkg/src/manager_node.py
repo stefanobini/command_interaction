@@ -181,22 +181,30 @@ def run_demo_MSIexp0(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
+    
+
+    # REPLACE WITH A THRESHOLD
+    if res.probs[res.cmd] < 0.0:
+        print("LOW CONFIDENCE")
+        return ManagerResponse(True)    # res.flag
+    
+    
     #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
-    if res.intent == 3:
+    if res.cmd == 3:
         print(Fore.YELLOW + "Not in the set")
         return ManagerResponse(True)    # res.flag
 
     message = explicit_information()
     message.header = Header()
-    message.header.frame_id = INTENTS[res.intent]["text"][LANG]
+    message.header.frame_id = REDUCED_INTENTS_DICT[res.cmd][LANG][0]
     message.header.stamp = rospy.Time.now()
     message.fsr_values = [1. for i in range(5)]
     message.sw_values = [False for i in range(5)]
-    message.sw_values[res.intent] = True
+    message.sw_values[res.cmd] = True
     #pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
     pub.publish(message)
     
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(REDUCED_INTENTS_DICT[res.intent][LANG][0], res.int_probs[res.intent]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(REDUCED_INTENTS_DICT[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
     print(res_str)
     
     if rospy.get_param("/save_speech") == True:
@@ -303,7 +311,7 @@ if __name__ == "__main__":
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
     elif DEMO == "MSIexp0":
         rospy.Service('manager_service', Manager, run_demo_MSIexp0)
-        classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
+        classify = rospy.ServiceProxy('classifier_service', Classification)
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
     #command_eng = DEMO_CMD_ENG
     #command_ita = DEMO_CMD_ITA

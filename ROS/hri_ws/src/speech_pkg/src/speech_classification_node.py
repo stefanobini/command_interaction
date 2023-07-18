@@ -38,6 +38,7 @@ from mtl_exp.MSI_hardsharing import HardSharing_PL as HardSharingMSI
 '''
 from msi_exp.MSI_exp0_conf import settings
 from msi_exp.resnet8 import ResNet8_PL
+#'''
 
 MODEL_PATH = "models"
 
@@ -493,7 +494,7 @@ class ClassifierMSIexp0:
     def __init__(self, commands, ckpt_folder, ckpt_name):
         self.commands = commands
 
-        labels = [commands.keys()]
+        labels = commands.keys()
 
         assert settings.model.network in ["resnet8"]
         ckpt_path = os.path.join(ckpt_folder, ckpt_name)
@@ -511,6 +512,9 @@ class ClassifierMSIexp0:
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         self.model.predict(x)
         #self.model.predict(melspectrogram)
+
+        self.times = list()
+        # self.times_file = open(os.path.join("/home/felice/command_interaction/ROS/hri_ws", "times.txt"), "w")
 
         self.init_node()
 

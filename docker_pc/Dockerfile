@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
+FROM ubuntu:18.04
 #WORKDIR /usr/src/librealsense-docker
 
 # install packages
@@ -37,17 +37,17 @@ RUN python3 -m pip install -U catkin_tools
 RUN apt-get install ros-melodic-rospy -y
 
 RUN sudo pip3 install rospkg && \
-    sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
+#    sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
     sudo apt install -y ros-melodic-vision-msgs
 
 COPY ./ros_entrypoint.sh /
-COPY ./qi_install.sh /
+#COPY ./qi_install.sh /
 
-RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
-    tar -xvzf qi_jetson.tar.gz && \
-    cd qi_jetson && \
-    chmod u+x install.sh && \
-    ./install.sh
+#RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
+#    tar -xvzf qi_jetson.tar.gz && \
+#    cd qi_jetson && \
+#    chmod u+x install.sh && \
+#    ./install.sh
 
 # RUN ["chmod", "+x", "/ros_entrypoint.sh"]
 
@@ -104,7 +104,7 @@ RUN python3 -m pip install torchmetrics==0.6.0
 #RUN python3 -m pip install torchmetrics==0.6.0
 #RUN python3 -m pip install torch==1.9.0 torchvision==0.10.0+cu102 torchaudio==0.9.0 -f https://torch.kmtea.eu/whl/stable.html
 
-RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
+#RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
 RUN python3 -m pip install setuptools==59.5.0
 
 #Utils installation
@@ -114,7 +114,7 @@ RUN apt install libsndfile1 -y
 RUN python3 -m pip install sounddevice
 RUN python3 -m pip install webrtcvad
 RUN python3 -m pip install netifaces
-RUN python3 -m pip install -U jetson-stats
+#RUN python3 -m pip install -U jetson-stats
 
 RUN apt install python-pip -y
 RUN python3 -m pip install colorama
@@ -139,18 +139,18 @@ RUN apt install -y --no-install-recommends \
         libglu1-mesa-dev \
         sudo 
 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
+#RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+#    cd librealsense && \
+#    ./scripts/setup_udev_rules.sh && \
+#    mkdir build && \
+#    cd build && \
+#    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+#    sudo make uninstall && \
+#    sudo make clean && \
+#    sudo make -j4 && \
+#    sudo make install 
 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
 # DOTMAP
 RUN pip2 install dotmap==1.3.23 
@@ -171,11 +171,15 @@ RUN python3 -m pip install Pillow
 #RUN python3 -m pip install torchvision==0.10.0
 
 # ONNX libraries
-pip3 install -U openmim
-mim install mmcv-full
-git clone https://github.com/open-mmlab/mmdetection.git
-cd mmdetection
-pip3 install -v -e .
+RUN python3 -m pip install -U openmim
+RUN mim install mmcv-full
+RUN git clone https://github.com/open-mmlab/mmdetection.git
+RUN cd mmdetection
+#RUN python3 -m pip install -v -e . # NEXT TIME TRY TO INSERT
+
+RUN python3 -m pip install soundfile librosa
+RUN python3 -m pip install torchaudio pytorch-lightning
+
 # wget https://nvidia.box.com/shared/static/jy7nqva7l88mq9i8bw3g3sklzf4kccn2.whl -O onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # pip3 install onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # python3 -m pip install onnxruntime
