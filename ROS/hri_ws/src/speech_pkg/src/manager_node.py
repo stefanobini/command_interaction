@@ -185,13 +185,12 @@ def run_demo_MSIexp0(req):
 
     # REPLACE WITH A THRESHOLD
     if res.probs[res.cmd] < 0.0:
-        print("LOW CONFIDENCE")
+        print("@@@ LOW CONFIDENCE @@@")
         return ManagerResponse(True)    # res.flag
     
     
     #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
-    if res.cmd == 3:
-        print(Fore.YELLOW + "Not in the set")
+    if res.cmd == len(REDUCED_INTENTS_DICT)-1:
         return ManagerResponse(True)    # res.flag
 
     message = explicit_information()
@@ -207,12 +206,12 @@ def run_demo_MSIexp0(req):
     res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(REDUCED_INTENTS_DICT[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
     print(res_str)
     
+    '''
     if rospy.get_param("/save_speech") == True:
         with open(SPEECH_INFO_FILE, "a") as f:
             f.write(res_str)
-
+    '''
     speech_counter += 1
-    # res = speech(res.cmd, res.probs)
 
     return ManagerResponse(True)    # res.flag
 

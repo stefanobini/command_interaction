@@ -12,7 +12,7 @@ settings.tasks:List[str] = ["command"]                                   # [["co
 settings.demo:str = "scr"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.

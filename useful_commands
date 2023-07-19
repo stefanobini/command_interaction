@@ -31,7 +31,9 @@ felice
 sudo docker exec -it command_demo  /bin/bash
 
 # Docker for IRI Lab
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
+sudo docker build -t docker_msi_demo . --network=host
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name msi_demo docker_msi_demo
+sudo docker exec -it msi_demo  /bin/bash
 
 
 # to load pretrained model (it needs for compatibility reasons)
@@ -89,3 +91,7 @@ git push -u origin fiware
 CONTEXT_BROAKER = "192.168.2.106"
 curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.SystemHealth:ac55f166-037c-11ed-a48a-d8c0a69b3641 -s -S -X DELETE
 curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?type={UserInput} -s -S -X DELETE
+
+# To detect audio device
+python3 -m pip install sounddevice
+python -m sounddevice
