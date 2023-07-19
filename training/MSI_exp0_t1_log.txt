@@ -1,0 +1,37 @@
+Loaded </mnt/sdc1/sbini/command_interaction/training/settings/MSI_exp0_conf.py> as configuration file.
+CUDA acceleration available on <1> devices: <[0]>
+Global seed set to 2
+The TensorBoard logggers will be saved in <lightning_logs/MSI_exp0/eng/UniCL_PEM_v2>.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+The following callbacks returned in `LightningModule.configure_callbacks` will override existing callbacks passed to Trainer: ModelCheckpoint
+/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:615: UserWarning: Checkpoint directory lightning_logs/MSI_exp0/eng/UniCL_PEM_v2/checkpoints exists and is not empty.
+  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+   | Name    | Type             | Params
+----------------------------------------------
+0  | conv0   | Conv2d           | 405   
+1  | pool    | AvgPool2d        | 0     
+2  | bn1     | BatchNorm2d      | 0     
+3  | conv1   | Conv2d           | 18.2 K
+4  | bn2     | BatchNorm2d      | 0     
+5  | conv2   | Conv2d           | 18.2 K
+6  | bn3     | BatchNorm2d      | 0     
+7  | conv3   | Conv2d           | 18.2 K
+8  | bn4     | BatchNorm2d      | 0     
+9  | conv4   | Conv2d           | 18.2 K
+10 | bn5     | BatchNorm2d      | 0     
+11 | conv5   | Conv2d           | 18.2 K
+12 | bn6     | BatchNorm2d      | 0     
+13 | conv6   | Conv2d           | 18.2 K
+14 | output  | Linear           | 230   
+15 | softmax | Softmax          | 0     
+16 | loss_fn | CrossEntropyLoss | 0     
+----------------------------------------------
+109 K     Trainable params
+0         Non-trainable params
+109 K     Total params
+0.440     Total estimated model params size (MB)

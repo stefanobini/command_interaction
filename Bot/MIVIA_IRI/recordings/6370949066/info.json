@@ -3,7 +3,7 @@
     "name": "Marc Dalmasso",
     "link": null,
     "presentation": true,
-    "int_lang": "eng",
+    "int_lang": "esp",
     "gdpr": "yes",
     "gender": "male",
     "age": "['20-30']",
@@ -64,8 +64,8 @@
             22
         ]
     },
-    "acquiring_intent": 5,
+    "acquiring_intent": 6,
     "acquiring_lang": "eng",
-    "acquiring_version": 5,
-    "last_int_date": "2023-07-09 22:50:17.426380"
+    "acquiring_version": 0,
+    "last_int_date": "2023-07-19 08:55:59.250119"
 }

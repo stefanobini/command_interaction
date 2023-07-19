@@ -20,7 +20,7 @@ class Conformer_PL(PL_Backbone):
         dropout:float = self.settings.model.conformer.dropout
         use_group_norm:bool = self.settings.model.conformer.use_group_norm
         convolution_first:bool = self.settings.model.conformer.convolution_first
-        self.task = self.settings.task.lower()
+        self.task = self.settings.tasks[0].lower()
         self.num_labels = num_labels
         out_channel = input_dim
 
