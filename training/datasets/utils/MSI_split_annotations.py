@@ -1,16 +1,15 @@
 import os
-import shutil
 import pandas as pd
-from tqdm import tqdm
 from math import floor
 from typing import Tuple
 
 
 LANGS = ["eng", "esp", "ita"]
 
-INPUT_DATASET_PATH = os.path.join("datasets", "MSI")
-INPUT_NOISE_PATH = os.path.join("datasets", "MSI", "annotations", "noise")
-OUTPUT_DATASET_PATH = os.path.join("datasets", "MSI")
+DATASET_NAME = "MSIexp1"
+INPUT_DATASET_PATH = os.path.join("datasets", DATASET_NAME)
+INPUT_NOISE_PATH = os.path.join("datasets", DATASET_NAME, "annotations", "noise")
+OUTPUT_DATASET_PATH = os.path.join("datasets", DATASET_NAME)
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 OUTPUT_NOISE_PATH = os.path.join(OUTPUT_DATASET_PATH, "annotations", "noise")
 os.makedirs(OUTPUT_NOISE_PATH, exist_ok=True)
@@ -93,8 +92,7 @@ for lang in LANGS:
 
     # BALANCING ON THE TYPE AMONG THE SETS
     type_group = df.groupby(df.type)
-    type_iter = tqdm(type_group.groups)
-    for type in type_iter:
+    for type in type_group.groups:
         df_type = type_group.get_group(type)
         df_type = df_type.sample(frac=1)
         # Balance on the type among the set
@@ -121,9 +119,6 @@ for lang in LANGS:
                         train_df = pd.concat(objs=[train_df, df_speaker_sets[0]])
                         valid_df = pd.concat(objs=[valid_df, df_speaker_sets[1]])
                         test_df = pd.concat(objs=[test_df, df_speaker_sets[2]])
-                        
-        type_iter.set_description("Analyzing <{}> samples for <{}> dataset.".format(type, lang))
-
 
     ''' WRITE CSV FILES '''
     train_df = train_df.sample(frac=1)

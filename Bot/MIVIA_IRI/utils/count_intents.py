@@ -1,10 +1,11 @@
 import os
 import json
 from tqdm import tqdm
-
+from intents import INTENT_REPETITIONS
 
 DATASET_PATH = 'recordings'
 OUTPUT_PATH = 'intents.json'
+INTENT_REPETITIONS += 1
 
 cmds = {
     "speakers": {"eng":0, "esp":0, "ita":0},
@@ -31,7 +32,7 @@ for user in user_iterator:
 
 print('Approximate number of speakers:')
 for lang in cmds['total']:
-    print("{}: {}".format(lang.upper(), int(cmds['total'][lang]/len(cmds['class'])/3)))
+    print("{}: {}".format(lang.upper(), int(cmds['total'][lang]/len(cmds['class'])/INTENT_REPETITIONS)))
 
 with open(OUTPUT_PATH, 'w') as outfile:
     json.dump(sorted(cmds.items()), outfile)

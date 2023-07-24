@@ -12,6 +12,7 @@ import logging
 from threading import Event, Timer, Thread, Lock
 import random
 from telegram.ext import CallbackContext
+import telegram
 
 from colorama import Back, Fore, Style, init
 init(autoreset=True)
@@ -128,7 +129,7 @@ class State:
             message = BOT_MESSAGES[label][self.info["int_lang"]]
         return message
 
-    def remember(self, context:CallbackContext):
+    def remember(self, bot:telegram.Bot):
         """Send a reminder to the inactive user.
         
         Parameters
@@ -138,12 +139,14 @@ class State:
         """
         try:
             self._load()
+            logger.info("I am activated reminder function for <{}>".format(self.id))
             if not self.info["init_complete"]:
-                context.bot.send_message(chat_id=self.id, text=self.get_message("remember"))
+                bot.send_message(chat_id=self.id, text=self.get_message("remember"))
             elif self.info["last_int_date"] is None or (Scheduler.user_is_sleeping(self) and not self.check_end()):
-                context.bot.send_message(chat_id=self.id, text=self.get_message("remember_intent"))
+                logger.info(msg="Send reminder to {}".format(self.id))
+                bot.send_message(chat_id=self.id, text=self.get_message("remember_intent"))
                 time.sleep(1)
-                self.send_next_intent_msg(context=context)
+                self.send_next_intent_msg(bot=bot)
         except Exception as e:
             # print(traceback.format_exc())
             logger.warn(f"error: {e}; in remember for {self.id} - {datetime.now()}")
@@ -254,7 +257,7 @@ class State:
         self._save_database()
         self._save_commands_count_last_date()
 
-    def send_next_intent_msg(self, context:CallbackContext) -> None:
+    def send_next_intent_msg(self, bot:telegram.Bot) -> None:
         """Send to the user the text message and the sample audio related to the current intent to record.
         
         Parameters
@@ -269,7 +272,7 @@ class State:
         audio_name = "{}_{}.wav".format(intent_id, version)
         audio_path = os.path.join(BASE_PATH, lang, audio_name)
         with open(audio_path, "rb") as audio_file:
-            context.bot.send_audio(chat_id=self.id, audio=audio_file, caption=msg)
+            bot.send_audio(chat_id=self.id, audio=audio_file, caption=msg)
 
 class Scheduler:
     class Trigger(BaseTrigger):
@@ -282,10 +285,10 @@ class Scheduler:
                 return now + timedelta(seconds=self.delay)
             else: return  None
 
-    def __init__(self, bot):
+    def __init__(self, context):
         """This class implements a scheduler. Its job is to remind the user to complete the data collection. Takes in input the bot instance"""
         self.scheduler = BackgroundScheduler()
-        self.bot = bot
+        self.context = context
         self.set_userid = set()
         self.db_path = Path(fr"{get_curr_dir(__file__)}/scheduler.db")
         self.lock = Lock()
@@ -345,7 +348,7 @@ class Scheduler:
                 Scheduler.set_scheduled_hour(state)
                 self.lock.release()
         log = f"scheduled: {str(self.set_userid)} - {datetime.now()}"
-        #logger.info(log)
+        logger.info(log)
 
     def _decorator(self, func):
         """Function decorator. Removes a user by the reminder set"""
@@ -360,18 +363,18 @@ class Scheduler:
     def add(self, delay, state: State):
         """Adds a user to reminder set"""
         self.set_userid.add(state.id)
-        self.scheduler.add_job(self._decorator(state.remember), trigger=self.Trigger(delay), kwargs={"bot": self.bot},
+        self.scheduler.add_job(self._decorator(state.remember), trigger=self.Trigger(delay), kwargs={"context": self.context},
                                timezone="Europe/Rome")
-        #logger.info(f"Adding: {state.id} at {datetime.now() + timedelta(seconds=delay)}")
+        logger.info(f"Adding: {state.id} at {datetime.now() + timedelta(seconds=delay)}")
 
 
 class SchedulerTimer(Thread):
 
-    def __init__(self, interval, bot):
+    def __init__(self, interval, context):
         """This class implement a Python Timer.
         Checks if a user needs of a reminder every time interval"""
         Thread.__init__(self)
-        self.scheduler = Scheduler(bot)
+        self.scheduler = Scheduler(context=context)
         self.interval = interval
         self.function = self._decorator(self.scheduler.check)
         self.event = Event()

@@ -160,7 +160,7 @@ class Preprocessing():
         Parameters
         ----------
         epoch: int
-            Cuurrent epoch
+            Current epoch
 
         Returns
         -------

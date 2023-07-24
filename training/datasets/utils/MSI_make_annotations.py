@@ -16,19 +16,21 @@ The dataset attributes are the followings.
 import os
 import pandas as pd
 from tqdm import tqdm
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT, CONVERSION_DICT
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MSIEXP0, CONVERSION_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1, CONVERSION_INTENT_MSIEXP1, CONVERSION_EXPLICIT_MSIEXP1
 
 
 LANGS = ["eng", "esp", "ita"]
-IN_DATASET_NAME = "MSI_exp0"
+IN_DATASET_NAME = "MSIexp1"
 IN_DATASET_PATH = os.path.join("datasets", IN_DATASET_NAME)
 #REJECT_ANNOTATION_PATH = os.path.join("datasets", "REJECT_DATASET", "MSI_google_annotations_LANG.csv")
-REJECT_DATASETS = ["google_speech_commands_v1", "mozilla_common_voices", "MSI_exp0"]
-REJECT_ANNOTATION_PATHS = [os.path.join("datasets", dataset, "SCR_{}_annotations_LANG.csv".format(dataset.split('_')[0])) for dataset in REJECT_DATASETS]
+REJECT_DATASETS = ["google_speech_commands_v1", "mozilla_common_voices", IN_DATASET_NAME]
+REJECT_NAMES = ["google", "mozilla", "telegram"]
+REJECT_ANNOTATION_PATHS = [os.path.join(IN_DATASET_PATH, "{}_annotations_LANG.csv".format(dataset)) for dataset in REJECT_NAMES]
 OUT_PATH = os.path.join(IN_DATASET_PATH, "annotations")
-if "exp0" in IN_DATASET_NAME:
+HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit"]
+if "MSIexp0" in IN_DATASET_NAME:
     HEADING = ["path", "type", "subtype", "speaker", "command"]
-else:
+elif "MSIexp1" in IN_DATASET_NAME:
     HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
@@ -42,16 +44,24 @@ def add_command_samples(data, lang_path, lang, speaker, samples):
     type = "command"
     for sample in samples:
         sample_path = os.path.join(lang_path, sample)
-        subtype = "telegram_bot"
+        subtype = "telegram"
         labels = sample.split("_")
         intent = int(labels[0])
         data["path"].append(sample_path)
         data["type"].append(type)
         data["subtype"].append(subtype)
         data["speaker"].append(speaker)
-        if "exp0" in IN_DATASET_NAME:
-            command = CONVERSION_DICT[intent] if intent in CONVERSION_DICT else len(REDUCED_INTENTS_DICT)-1
+        if "MSIexp0" in IN_DATASET_NAME:
+            command = CONVERSION_DICT_MSIEXP0[intent] if intent in CONVERSION_DICT_MSIEXP0 else len(INTENTS_DICT_MSIEXP0)-1
             data["command"].append(command)
+        elif "MSIexp1"==IN_DATASET_NAME:
+            explicit = CONVERSION_EXPLICIT_MSIEXP1[lang].index(INTENTS[intent]["explicit"][lang][int(labels[1])]["id"])
+            implicit = INTENTS[intent]["implicit"][lang]["id"]
+            intent = CONVERSION_INTENT_MSIEXP1[intent] if intent in CONVERSION_INTENT_MSIEXP1 else len(INTENTS_DICT_MSIEXP1)-1
+            
+            data["intent"].append(intent)
+            data["explicit"].append(explicit)
+            data["implicit"].append(implicit)
         else:
             explicit = INTENTS[intent]["explicit"][lang][int(labels[1])]["id"]
             implicit = INTENTS[intent]["implicit"][lang]["id"]
@@ -72,7 +82,7 @@ def add_synthetic_samples(data, lang_path, subtype, samples):
                 speaker = "_".join(temp[0:3])
             elif "nemo" in subtype:
                 speaker = "_".join(temp[0:2])
-            command = int(sample.split(".")[0].split("_")[-1].replace("cmd", ""))
+            command = int(sample.split('.')[0].split("_")[-1].replace("cmd", ""))
             data["path"].append(sample_path)
             data["type"].append(type)
             data["subtype"].append(subtype)
@@ -84,17 +94,16 @@ def add_synthetic_samples(data, lang_path, subtype, samples):
 def add_reject_samples(path, subtype, lang, data):
     rejects_df = pd.read_csv(path)
     for idx in rejects_df.index:
-        path = rejects_df["path"][idx].replace("MSI_exp0", os.path.join("MSI_exp0", "rejects")) if subtype == "MSI_exp0" else rejects_df["path"][idx]
-        data["path"].append(os.path.join("..", path))
+        data["path"].append(rejects_df["path"][idx])
         data["type"].append(rejects_df["type"][idx])
         data["subtype"].append(rejects_df["subtype"][idx])
         data["speaker"].append(rejects_df["speaker"][idx])
-        if "exp0" in IN_DATASET_NAME:
+        if "MSIexp0" in IN_DATASET_NAME:
             data["command"].append(rejects_df["command"][idx])
-        else:
-            data["intent"].append(len(INTENTS)-1)
-            data["explicit"].append(len(EXPLICIT_INTENTS[lang])-1)
-            data["implicit"].append(0)
+        elif "MSIexp1" in IN_DATASET_NAME:
+            data["intent"].append(rejects_df["intent"][idx])
+            data["explicit"].append(rejects_df["explicit"][idx])
+            data["implicit"].append(rejects_df["implicit"][idx])
     return data
 
 
@@ -127,8 +136,10 @@ def get_noise_annotations_dict():
 
 data = dict()
 for lang in LANGS:
-    if "exp0" in IN_DATASET_NAME:
+    if "MSIexp0" in IN_DATASET_NAME:
         data[lang] = {"path":[], "type":[], "subtype":[], "speaker":[], "command":[]}
+    elif "MSIexp1" in IN_DATASET_NAME:
+        data[lang] = {"path":[], "type":[], "subtype":[], "speaker":[], "intent":[], "explicit":[], "implicit":[]}
     else:
         data[lang] = {"path":[], "type":[], "subtype":[], "speaker":[], "intent":[], "explicit":[], "implicit":[]}
 
@@ -141,7 +152,7 @@ for speaker in data_iter:
         lang_path = os.path.join(speaker_path, lang)
         try:
             samples = os.listdir(lang_path)
-            data[lang] = add_command_samples(data[lang], lang_path.replace(IN_DATASET_PATH, "."), lang, speaker, samples)
+            data[lang] = add_command_samples(data[lang], lang_path.replace(IN_DATASET_PATH+'/', ''), lang, speaker, samples)
         except FileNotFoundError:
             print("FileNotFound: {}".format(lang_path)) 
     data_iter.set_description("Working on COMMANDS")

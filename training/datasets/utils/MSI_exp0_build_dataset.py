@@ -12,7 +12,7 @@ import torchaudio
 
 from utils.preprocessing import Preprocessing
 from utils.settings.SCR_conf import settings
-from intents import REDUCED_INTENTS_DICT
+from intents import INTENTS_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1
 
 
 DATASET_NAME = "MSI_exp0"
@@ -23,7 +23,8 @@ SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path",
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 SNRs = range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step)
-INTENTs:dict = {"left":{"eng":0, "esp":len(REDUCED_INTENTS_DICT)-1, "ita":len(REDUCED_INTENTS_DICT)-1,}, "right":{"eng":2, "esp":len(REDUCED_INTENTS_DICT)-1, "ita":len(REDUCED_INTENTS_DICT)-1,}, "stop":{"eng":3, "esp":3, "ita":3}, "chatter":len(REDUCED_INTENTS_DICT)-1,}
+intents = INTENTS_DICT_MSIEXP0 if DATASET_NAME=="MSI_exp0" else INTENTS_DICT_MSIEXP1
+INTENTs:dict = {"left":{"eng":0, "esp":len(intents)-1, "ita":len(intents)-1,}, "right":{"eng":2, "esp":len(intents)-1, "ita":len(intents)-1,}, "stop":{"eng":3, "esp":3, "ita":3}, "chatter":len(intents)-1,}
 
 
 def get_item(speech_annotations, noise_annotations, index, preprocess):

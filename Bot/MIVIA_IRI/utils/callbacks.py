@@ -227,7 +227,7 @@ def start_acquisition(update: Update, context: CallbackContext) -> int:
         state.info["init_complete"] = True
         state._save_info()
         # Send the text related to the intent to record and an audio sample for understand the tone to use
-        state.send_next_intent_msg(context=context)
+        state.send_next_intent_msg(bot=context.bot)
         # Go to the INTENT ACQUISITION state
         return STATES.INTENT_ACQUISITION
     elif start == "no":
@@ -257,7 +257,7 @@ def get_intent(update: Update, context: CallbackContext) -> int:
         return ConversationHandler.END
     else:
         # Send the text related to the intent to record and an audio sample for understand the tone to use
-        state.send_next_intent_msg(context=context)
+        state.send_next_intent_msg(bot=context.bot)
         return STATES.INTENT_ACQUISITION
 
 

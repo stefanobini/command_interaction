@@ -423,13 +423,13 @@ class HardSharing_PL(pl.LightningModule):
         """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
-        task_logits = self.train_step_outputs[0]["task_logits"]
-        task_targets = self.train_step_outputs[0]["task_targets"]
-        #snrs = self.train_step_outputs[0]["snrs"]
+        task_logits = self.val_step_outputs[0]["task_logits"]
+        task_targets = self.val_step_outputs[0]["task_targets"]
+        #snrs = self.val_step_outputs[0]["snrs"]
         for i in range(1, len_val):
             for task in range(self.n_tasks):
-                task_logits[task] = torch.concat(tensors=[task_logits[task], self.train_step_outputs[i]["task_logits"][task]])
-                task_targets[task] = torch.concat(tensors=[task_targets[task], self.train_step_outputs[i]["task_targets"][task]])
+                task_logits[task] = torch.concat(tensors=[task_logits[task], self.val_step_outputs[i]["task_logits"][task]])
+                task_targets[task] = torch.concat(tensors=[task_targets[task], self.val_step_outputs[i]["task_targets"][task]])
             #snrs = torch.concat(tensors=[snrs, self.val_step_outputs[i]["snrs"]])
         
         # Clean list of the step outputs
@@ -489,14 +489,14 @@ class HardSharing_PL(pl.LightningModule):
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
-            task_logits = self.train_step_outputs[dataloader][0]["task_logits"]
-            task_targets = self.train_step_outputs[dataloader][0]["task_targets"]
+            task_logits = self.test_step_outputs[dataloader][0]["task_logits"]
+            task_targets = self.test_step_outputs[dataloader][0]["task_targets"]
             #snrs = self.test_step_outputs[dataloader[dataloader]][0]["snrs"]
 
             for step in range(1, test_len):
                 for task in range(self.n_tasks):
-                    task_logits[task] = torch.concat(tensors=[task_logits[task], self.train_step_outputs[dataloader][step]["task_logits"][task]])
-                    task_targets[task] = torch.concat(tensors=[task_targets[task], self.train_step_outputs[dataloader][step]["task_targets"][task]])
+                    task_logits[task] = torch.concat(tensors=[task_logits[task], self.test_step_outputs[dataloader][step]["task_logits"][task]])
+                    task_targets[task] = torch.concat(tensors=[task_targets[task], self.test_step_outputs[dataloader][step]["task_targets"][task]])
                 #snrs = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["snrs"]])
 
             # Clean list of the step outputs

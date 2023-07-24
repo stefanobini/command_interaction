@@ -34,23 +34,17 @@ def get_age_set():
         age_str.append([s])
     return age_str
 
-'''
-Formats a command message
-'''
 def send_command(userid, bot, cmd):
+    """Formats a command message"""
     cmd = f"<b><u>{cmd}</u></b>"
     bot.send_message(chat_id=userid, text=cmd, parse_mode="HTML")
 
-'''
-Formats a message
-'''
 def send_msg(userid, bot, text: str):
+    """Formats a message"""
     bot.send_message(chat_id=userid, text=text)
 
-'''
-Checks if the server if connected to Internet
-'''
 def is_connected(updater):
+    """Checks if the server if connected to Internet"""
     import requests
     try:
         requests.get("http://google.com")
@@ -61,14 +55,13 @@ def is_connected(updater):
         logger.warn(f"No internet connection - {datetime.now()}")
         return False
 
-'''
-This class stores all the user info.
-When a user starts the conversation, first checks if him already exists on server, using his telegram userid.
-If not exists this class creates the user directory on disk and initializes the commands database.
-If exists it loads the  database
-'''
+
 class State:
     def __init__(self, userid):
+        """This class stores all the user info.
+            When a user starts the conversation, first checks if him already exists on server, using his telegram userid.
+            If not exists this class creates the user directory on disk and initializes the commands database.
+            If exists it loads the  database"""
         self.id = userid.id if not type(userid) is str else userid
         self.path = Path(fr"{get_curr_dir(__file__)}/saves/{self.id}")
         self.info_path = self.path.joinpath("info.json")
@@ -96,24 +89,18 @@ class State:
         self._load()
         self.text_controller = TextController(self)
 
-    '''
-    Sends to user the last conversation message
-    '''
     def send_last_msg(self, bot):
+        """Sends to user the last conversation message"""
         bot.send_message(self.id, text=self.text_controller.get_str(22))
         time.sleep(0.5)
         bot.send_message(self.id, text=self.text_controller.get_str(9))
 
-    '''
-    Gets the string associated to index given as input
-    '''
     def get_str(self, index):
+        """Gets the string associated to index given as input"""
         return self.text_controller.get_str(index)
 
-    '''
-    Sends a reminder to user
-    '''
     def remember(self, bot):
+        """Sends a reminder to user"""
         try:
             self._load()
             init_complete = self.info["init_complete"]
@@ -132,10 +119,8 @@ class State:
             logger.warn(f"error: {e}; in remember for {self.id} - {datetime.now()}")
         return self.id
 
-    '''
-    Checks if the bot needs to give the user a break
-    '''
     def check_pause(self):
+        """Checks if the bot needs to give the user a break"""
         PAUSE = 6
         n_commands = self.info["cmds_done"]
         if n_commands >= PAUSE:
@@ -143,49 +128,38 @@ class State:
             return True
         return False
 
-    '''
-    Saves the user info on disk
-    '''
+
     def _save_info(self):
+        """Saves the user info on disk"""
         with open(self.info_path, "w") as fil:
             json.dump(self.info, fil, indent=4)
 
-    '''
-    Updates the last language and associated command index prompted to the user.
-    Then save the information to disk
-    '''
     def _save_index_lang(self, index):
+        """Updates the last language and associated command index prompted to the user.
+        Then save the information to disk"""
         self.info["cmd_index"] = index
         self.info["last_lang"] = self.last_lang
         self._save_info()
 
-    '''
-    Sets to 0 the pause count
-    '''
     def _reset_cmds_done(self):
+        """Sets to 0 the pause count"""
         self.info["cmds_done"] = 0
         self._save_info()
 
-    '''
-    Updates the pause count and the date of the last command done.
-    Then saves the info on disk
-    '''
     def _save_commands_count_last_date(self):
+        """Updates the pause count and the date of the last command done.
+        Then saves the info on disk"""
         self.info["cmds_done"] = self.info["cmds_done"] + 1
         now = datetime.now()
         self.info["last_cmd_date"] = str(now)
         self._save_info()
 
-    '''
-    Saves the commands database on disk
-    '''
     def _save_database(self):
+        """Saves the commands database on disk"""
         self.database.to_csv(self.path.joinpath("database.csv"))
 
-    '''
-    Checks if user has done all commands
-    '''
     def check_done(self):
+        """Checks if user has done all commands"""
         lang = self.info["lang"]
         assert lang == "both" or lang == "eng" or lang == "ita"
         if lang == "both":
@@ -196,10 +170,8 @@ class State:
             res = self.database.all()["done_ita"]
         return res
 
-    '''
-    Loads the commands database and the user info
-    '''
     def _load(self) -> dict:
+        """Loads the commands database and the user info"""
         if self.info_path.exists():
             with open(self.info_path) as fil:
                 self.info = json.load(fil)
@@ -210,26 +182,21 @@ class State:
             with open(self.info_path, "w") as fil:
                 json.dump(self.info, fil, indent=4)
             self._save_database()
-    '''
-    Returns the set lang
-    '''
+
     @property
     def lang(self):
+        """Returns the set lang"""
         return self.info["lang"]
 
-    '''
-    Returns the total number of commands
-    '''
     @property
     def commands_len(self):
+        """Returns the total number of commands"""
         assert len(command_ita) == len(command_eng)
         return len(command_ita)*2 if self.lang == "both" else len(command_ita)
 
-    '''
-    Returns the number done by the user
-    '''
     @property
     def cmds_done(self):
+        """Returns the number done by the user"""
         done_eng = len(self.database.loc[self.database["done_eng"] == True])
         done_ita = len(self.database.loc[self.database["done_ita"] == True])
         lang = self.info["lang"]
@@ -241,11 +208,9 @@ class State:
             done = len(db_eng) + len(db_ita)
             return done
 
-    '''
-    Returns the index of the next command to asks to user.
-    If the user has not completed the command stored in its info file then this function returns the associate index
-    '''
     def get_next_command(self, lang):
+        """Returns the index of the next command to asks to user.
+        If the user has not completed the command stored in its info file then this function returns the associate index"""
         def error_handler():
             db_eng = self.database.loc[self.database["done_eng"] == False]
             db_ita = self.database.loc[self.database["done_ita"] == False]
@@ -279,10 +244,8 @@ class State:
         self._save_index_lang(cmd_index)
         return cmd_index
 
-    '''
-    Returns the string associate to index command to ask to user
-    '''
     def get_current_command(self):
+        """Returns the string associate to index command to ask to user"""
         cmd_index = self.info["cmd_index"]
         last_lang = self.info["last_lang"]
         lang = self.info["lang"]
@@ -296,17 +259,13 @@ class State:
             cmd_index = self.get_next_command(self.info["lang"])
         return self.text_controller.get_command_str(cmd_index, self.last_lang)
 
-    '''
-    Sets to True the init_complete key into info file. Then saves it on disk
-    '''
     def set_init_complete(self):
+        """Sets to True the init_complete key into info file. Then saves it on disk"""
         self.info["init_complete"] = True
         self._save_info()
 
-    '''
-    Saves on disk an audio file
-    '''
     def save(self, audio):
+        """Saves on disk an audio file"""
         def save_duplicates(index):
             if index == 18 or index == 19:
                 path_eng = self.path.joinpath("eng")

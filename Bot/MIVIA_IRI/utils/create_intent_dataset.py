@@ -2,14 +2,20 @@ import os
 from tqdm import tqdm
 from pydub import AudioSegment
 import re
-from intents import INTENTS_DICT, REDUCED_INTENTS_DICT, CONVERSION_DICT
+from intents import INTENTS_DICT, CONVERSION_DICT_MSIEXP0, CONVERSION_DICT_MSI
 
-
+DATASET_NAME = "MSI"
 INPUT_DATABASE = os.path.join("recordings")
-OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", "MSI_exp0")
+OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", DATASET_NAME)
 EXPERIMENTATION = "reduced" # ["reduced", "full"]
 REGEX = "^[0-9]*"
-intents = INTENTS_DICT if EXPERIMENTATION == "full" else CONVERSION_DICT
+intents = INTENTS_DICT
+if EXPERIMENTATION == "reduced":
+    if DATASET_NAME == "MSI":
+        intents = CONVERSION_DICT_MSI
+    else:
+        intents = CONVERSION_DICT_MSIEXP0
+
 
 ds_cmd_path = os.path.join(OUTPUT_DATASET, 'commands')
 os.makedirs(ds_cmd_path, exist_ok=True)
