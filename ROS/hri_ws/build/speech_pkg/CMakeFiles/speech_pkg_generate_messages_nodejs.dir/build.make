@@ -43,101 +43,101 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg
 
 # Utility rule file for speech_pkg_generate_messages_nodejs.
 
 # Include the progress variables for this target.
-include speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/progress.make
+include CMakeFiles/speech_pkg_generate_messages_nodejs.dir/progress.make
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Gesture.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Command.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SpeechData.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Talker.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Gesture.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Command.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Speech.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SpeechData.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Manager.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Classification.js
+CMakeFiles/speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Talker.js
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from speech_pkg/Gesture.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Gesture.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from speech_pkg/Gesture.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Command.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Command.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from speech_pkg/Command.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Command.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Command.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from speech_pkg/Command.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from speech_pkg/Speech.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Speech.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Speech.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Speech.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from speech_pkg/Speech.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SpeechData.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SpeechData.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from speech_pkg/SpeechData.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SpeechData.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SpeechData.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from speech_pkg/SpeechData.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from speech_pkg/SystemHealth.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from speech_pkg/SystemHealth.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from speech_pkg/ClassificationMSI.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from speech_pkg/ClassificationMSI.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from speech_pkg/Manager.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Manager.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Manager.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Manager.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from speech_pkg/Manager.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Javascript code from speech_pkg/Classification.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Classification.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Classification.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Classification.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Javascript code from speech_pkg/Classification.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Talker.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Talker.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Javascript code from speech_pkg/Talker.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Talker.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Talker.js: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Javascript code from speech_pkg/Talker.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv
 
-speech_pkg_generate_messages_nodejs: speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Gesture.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Command.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/Speech.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SpeechData.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Manager.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Classification.js
-speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/speech_pkg/srv/Talker.js
-speech_pkg_generate_messages_nodejs: speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make
+speech_pkg_generate_messages_nodejs: CMakeFiles/speech_pkg_generate_messages_nodejs
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Gesture.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Command.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/Speech.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SpeechData.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/msg/SystemHealth.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/ClassificationMSI.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Manager.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Classification.js
+speech_pkg_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Talker.js
+speech_pkg_generate_messages_nodejs: CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make
 
 .PHONY : speech_pkg_generate_messages_nodejs
 
 # Rule to build all files generated by this target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build: speech_pkg_generate_messages_nodejs
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build: speech_pkg_generate_messages_nodejs
 
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
+.PHONY : CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_nodejs.dir/cmake_clean.cmake
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/clean
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_nodejs.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/speech_pkg_generate_messages_nodejs.dir/clean
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/depend
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/speech_pkg_generate_messages_nodejs.dir/depend
 

@@ -1,8 +1,1 @@
-(cl:in-package speech_pkg-srv)
-(cl:export '(CMD-VAL
-          CMD
-          PROBS-VAL
-          PROBS
-          FLAG-VAL
-          FLAG
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/_package_Talker.lisp

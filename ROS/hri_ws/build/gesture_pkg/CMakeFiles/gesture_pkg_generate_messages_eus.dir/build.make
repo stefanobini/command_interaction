@@ -43,46 +43,46 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg
 
 # Utility rule file for gesture_pkg_generate_messages_eus.
 
 # Include the progress variables for this target.
-include gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/progress.make
+include CMakeFiles/gesture_pkg_generate_messages_eus.dir/progress.make
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/srv/CameraInfo.l
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/manifest.l
+CMakeFiles/gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/srv/CameraInfo.l
+CMakeFiles/gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/manifest.l
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/srv/CameraInfo.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/srv/CameraInfo.l: /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from gesture_pkg/CameraInfo.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p gesture_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/srv/CameraInfo.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/srv/CameraInfo.l: /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from gesture_pkg/CameraInfo.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p gesture_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for gesture_pkg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg gesture_pkg std_msgs sensor_msgs vision_msgs
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for gesture_pkg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg gesture_pkg std_msgs sensor_msgs vision_msgs
 
-gesture_pkg_generate_messages_eus: gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus
-gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/srv/CameraInfo.l
-gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg/manifest.l
-gesture_pkg_generate_messages_eus: gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/build.make
+gesture_pkg_generate_messages_eus: CMakeFiles/gesture_pkg_generate_messages_eus
+gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/srv/CameraInfo.l
+gesture_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/roseus/ros/gesture_pkg/manifest.l
+gesture_pkg_generate_messages_eus: CMakeFiles/gesture_pkg_generate_messages_eus.dir/build.make
 
 .PHONY : gesture_pkg_generate_messages_eus
 
 # Rule to build all files generated by this target.
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/build: gesture_pkg_generate_messages_eus
+CMakeFiles/gesture_pkg_generate_messages_eus.dir/build: gesture_pkg_generate_messages_eus
 
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/build
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_eus.dir/build
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && $(CMAKE_COMMAND) -P CMakeFiles/gesture_pkg_generate_messages_eus.dir/cmake_clean.cmake
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/clean
+CMakeFiles/gesture_pkg_generate_messages_eus.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/gesture_pkg_generate_messages_eus.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_eus.dir/clean
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/depend
+CMakeFiles/gesture_pkg_generate_messages_eus.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_eus.dir/depend
 

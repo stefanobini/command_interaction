@@ -1,17 +1,1 @@
-(cl:defpackage speech_pkg-msg
-  (:use )
-  (:export
-   "<COMMAND>"
-   "COMMAND"
-   "<GESTURE>"
-   "GESTURE"
-   "<INTENTIRI>"
-   "INTENTIRI"
-   "<SPEECH>"
-   "SPEECH"
-   "<SPEECHDATA>"
-   "SPEECHDATA"
-   "<SYSTEMHEALTH>"
-   "SYSTEMHEALTH"
-  ))
-
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/_package.lisp

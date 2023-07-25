@@ -1,6 +1,1 @@
-(cl:in-package vision_msgs-msg)
-(cl:export '(CENTER-VAL
-          CENTER
-          SIZE-VAL
-          SIZE
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/common-lisp/ros/vision_msgs/msg/_package_BoundingBox3D.lisp

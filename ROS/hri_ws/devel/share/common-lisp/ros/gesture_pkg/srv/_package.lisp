@@ -1,10 +1,1 @@
-(cl:defpackage gesture_pkg-srv
-  (:use )
-  (:export
-   "CAMERAINFO"
-   "<CAMERAINFO-REQUEST>"
-   "CAMERAINFO-REQUEST"
-   "<CAMERAINFO-RESPONSE>"
-   "CAMERAINFO-RESPONSE"
-  ))
-
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/common-lisp/ros/gesture_pkg/srv/_package.lisp

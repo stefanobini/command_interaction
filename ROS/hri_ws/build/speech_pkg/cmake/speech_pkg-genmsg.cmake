@@ -2,7 +2,7 @@
 
 message(STATUS "speech_pkg: 5 messages, 4 services")
 
-set(MSG_I_FLAGS "-Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg;-Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg;-Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -563,6 +563,9 @@ endif()
 if(TARGET std_msgs_generate_messages_cpp)
   add_dependencies(speech_pkg_generate_messages_cpp std_msgs_generate_messages_cpp)
 endif()
+if(TARGET move_base_msgs_generate_messages_cpp)
+  add_dependencies(speech_pkg_generate_messages_cpp move_base_msgs_generate_messages_cpp)
+endif()
 
 if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg)
   # install generated code
@@ -573,6 +576,9 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/sp
 endif()
 if(TARGET std_msgs_generate_messages_eus)
   add_dependencies(speech_pkg_generate_messages_eus std_msgs_generate_messages_eus)
+endif()
+if(TARGET move_base_msgs_generate_messages_eus)
+  add_dependencies(speech_pkg_generate_messages_eus move_base_msgs_generate_messages_eus)
 endif()
 
 if(genlisp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg)
@@ -585,6 +591,9 @@ endif()
 if(TARGET std_msgs_generate_messages_lisp)
   add_dependencies(speech_pkg_generate_messages_lisp std_msgs_generate_messages_lisp)
 endif()
+if(TARGET move_base_msgs_generate_messages_lisp)
+  add_dependencies(speech_pkg_generate_messages_lisp move_base_msgs_generate_messages_lisp)
+endif()
 
 if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg)
   # install generated code
@@ -595,6 +604,9 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET std_msgs_generate_messages_nodejs)
   add_dependencies(speech_pkg_generate_messages_nodejs std_msgs_generate_messages_nodejs)
+endif()
+if(TARGET move_base_msgs_generate_messages_nodejs)
+  add_dependencies(speech_pkg_generate_messages_nodejs move_base_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg)
@@ -607,4 +619,7 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/spee
 endif()
 if(TARGET std_msgs_generate_messages_py)
   add_dependencies(speech_pkg_generate_messages_py std_msgs_generate_messages_py)
+endif()
+if(TARGET move_base_msgs_generate_messages_py)
+  add_dependencies(speech_pkg_generate_messages_py move_base_msgs_generate_messages_py)
 endif()

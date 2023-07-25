@@ -1,0 +1,8 @@
+prefix=/home/felice/command_interaction/ROS/hri_ws/devel/.private/webview_pkg
+
+Name: webview_pkg
+Description: Description of webview_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

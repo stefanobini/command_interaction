@@ -1,8 +1,1 @@
-prefix=/home/felice/command_interaction/ROS/hri_ws/devel
-
-Name: speech_pkg
-Description: Description of speech_pkg
-Version: 0.0.0
-Cflags: -I/home/felice/command_interaction/ROS/hri_ws/devel/include
-Libs: -L${prefix}/lib 
-Requires: rospy std_msgs message_runtime iri_object_transportation_msgs
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/pkgconfig/speech_pkg.pc

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gesture_pkg_generate_messages_lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/gesture_pkg/srv/CameraInfo.lisp"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/common-lisp/ros/gesture_pkg/srv/CameraInfo.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

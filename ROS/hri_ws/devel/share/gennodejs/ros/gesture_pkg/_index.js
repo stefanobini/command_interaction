@@ -1,6 +1,1 @@
-
-"use strict";
-
-module.exports = {
-  srv: require('./srv/_index.js')
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/gennodejs/ros/gesture_pkg/_index.js

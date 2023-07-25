@@ -1,13 +1,1 @@
-from ._BoundingBox2D import *
-from ._BoundingBox2DArray import *
-from ._BoundingBox3D import *
-from ._BoundingBox3DArray import *
-from ._Classification2D import *
-from ._Classification3D import *
-from ._Detection2D import *
-from ._Detection2DArray import *
-from ._Detection3D import *
-from ._Detection3DArray import *
-from ._ObjectHypothesis import *
-from ._ObjectHypothesisWithPose import *
-from ._VisionInfo import *
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/lib/python2.7/dist-packages/vision_msgs/msg/__init__.py

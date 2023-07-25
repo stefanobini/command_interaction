@@ -1,4 +1,1 @@
-from ._Classification import *
-from ._ClassificationMSI import *
-from ._Manager import *
-from ._Talker import *
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py

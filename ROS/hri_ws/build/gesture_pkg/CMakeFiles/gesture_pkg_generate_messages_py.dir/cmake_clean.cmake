@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gesture_pkg_generate_messages_py"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py"
 )
 
 # Per-language clean rules from dependency scanning.

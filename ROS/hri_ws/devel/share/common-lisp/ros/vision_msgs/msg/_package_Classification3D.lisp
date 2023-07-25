@@ -1,8 +1,1 @@
-(cl:in-package vision_msgs-msg)
-(cl:export '(HEADER-VAL
-          HEADER
-          RESULTS-VAL
-          RESULTS
-          SOURCE_CLOUD-VAL
-          SOURCE_CLOUD
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/common-lisp/ros/vision_msgs/msg/_package_Classification3D.lisp

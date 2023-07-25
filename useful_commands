@@ -49,6 +49,7 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 # Open with Google Chrome
 
 '''For connect to another ROS core inside local network'''
+export ROS_MASTER_URI=http://10.68.0.1:11311 && export ROS_IP=10.68.0.128
 
 '''For FELICE'''
 roslaunch speech_pkg start_felice.launch    # SCR experiemntation

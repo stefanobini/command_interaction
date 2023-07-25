@@ -43,47 +43,47 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg
 
 # Utility rule file for gesture_pkg_generate_messages_py.
 
 # Include the progress variables for this target.
-include gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/progress.make
+include CMakeFiles/gesture_pkg_generate_messages_py.dir/progress.make
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py
+CMakeFiles/gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
+CMakeFiles/gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py: /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV gesture_pkg/CameraInfo"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p gesture_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py: /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV gesture_pkg/CameraInfo"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p gesture_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python srv __init__.py for gesture_pkg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv --initpy
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python srv __init__.py for gesture_pkg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv --initpy
 
-gesture_pkg_generate_messages_py: gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py
-gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
-gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py
-gesture_pkg_generate_messages_py: gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/build.make
+gesture_pkg_generate_messages_py: CMakeFiles/gesture_pkg_generate_messages_py
+gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/_CameraInfo.py
+gesture_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/lib/python2.7/dist-packages/gesture_pkg/srv/__init__.py
+gesture_pkg_generate_messages_py: CMakeFiles/gesture_pkg_generate_messages_py.dir/build.make
 
 .PHONY : gesture_pkg_generate_messages_py
 
 # Rule to build all files generated by this target.
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/build: gesture_pkg_generate_messages_py
+CMakeFiles/gesture_pkg_generate_messages_py.dir/build: gesture_pkg_generate_messages_py
 
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/build
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_py.dir/build
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && $(CMAKE_COMMAND) -P CMakeFiles/gesture_pkg_generate_messages_py.dir/cmake_clean.cmake
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/clean
+CMakeFiles/gesture_pkg_generate_messages_py.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/gesture_pkg_generate_messages_py.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_py.dir/clean
 
-gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/depend
+CMakeFiles/gesture_pkg_generate_messages_py.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg /home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/CMakeFiles/gesture_pkg_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/gesture_pkg_generate_messages_py.dir/depend
 

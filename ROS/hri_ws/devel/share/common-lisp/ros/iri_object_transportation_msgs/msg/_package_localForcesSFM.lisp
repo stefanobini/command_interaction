@@ -1,12 +1,1 @@
-(cl:in-package iri_object_transportation_msgs-msg)
-(cl:export '(HEADER-VAL
-          HEADER
-          GOAL_FORCE-VAL
-          GOAL_FORCE
-          ATTRACTOR_FORCE-VAL
-          ATTRACTOR_FORCE
-          OBSTACLES_FORCES-VAL
-          OBSTACLES_FORCES
-          TOTAL_FORCE-VAL
-          TOTAL_FORCE
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/iri_object_transportation_msgs/share/common-lisp/ros/iri_object_transportation_msgs/msg/_package_localForcesSFM.lisp

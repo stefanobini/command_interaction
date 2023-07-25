@@ -1,10 +1,1 @@
-(cl:in-package gesture_pkg-srv)
-(cl:export '(WIDTH-VAL
-          WIDTH
-          HEIGHT-VAL
-          HEIGHT
-          HFOV-VAL
-          HFOV
-          VFOV-VAL
-          VFOV
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/common-lisp/ros/gesture_pkg/srv/_package_CameraInfo.lisp

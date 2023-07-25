@@ -1,6 +1,1 @@
-
-"use strict";
-
-module.exports = {
-  msg: require('./msg/_index.js'),
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/iri_object_transportation_msgs/share/gennodejs/ros/iri_object_transportation_msgs/_index.js

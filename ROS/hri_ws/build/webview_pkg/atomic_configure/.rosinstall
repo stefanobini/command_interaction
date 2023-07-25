@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/felice/command_interaction/ROS/hri_ws/devel/.private/webview_pkg/setup.sh

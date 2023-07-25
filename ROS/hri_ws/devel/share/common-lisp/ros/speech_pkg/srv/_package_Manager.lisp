@@ -1,6 +1,1 @@
-(cl:in-package speech_pkg-srv)
-(cl:export '(DATA-VAL
-          DATA
-          FLAG-VAL
-          FLAG
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/_package_Manager.lisp

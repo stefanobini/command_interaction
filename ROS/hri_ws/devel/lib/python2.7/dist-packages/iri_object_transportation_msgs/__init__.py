@@ -1,0 +1,1 @@
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/iri_object_transportation_msgs/lib/python2.7/dist-packages/iri_object_transportation_msgs/__init__.py

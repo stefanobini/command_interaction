@@ -22,7 +22,7 @@ from PIL import Image
 
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1
 import time
 import torchaudio
 from dotmap import DotMap
@@ -36,8 +36,10 @@ from mtl_exp.hardsharing import HardSharing_PL
 from mtl_exp.softsharing import SoftSharing_PL
 from mtl_exp.MSI_hardsharing import HardSharing_PL as HardSharingMSI
 '''
-from msi_exp.MSI_exp0_conf import settings
+#from msi_exp.MSI_exp0_conf import settings
+from msi_exp.MSIexp1_conf import settings
 from msi_exp.resnet8 import ResNet8_PL
+from msi_exp.MSI_hardsharing import HardSharing_PL as HardSharingMSI
 #'''
 
 MODEL_PATH = "models"
@@ -139,7 +141,11 @@ def select_parameters(language="eng", demo="7"):
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "MSIexp0":
-        COMMANDS = REDUCED_INTENTS_DICT
+        COMMANDS = INTENTS_DICT_MSIEXP0
+        ckpt_folder = models_path.joinpath('demo_'+demo, language)
+        ckpt_folder = models_path.joinpath(ckpt_folder, settings.noise.curriculum_learning.distribution, "checkpoints")
+        ckpt_name = os.listdir(path=ckpt_folder)[-1]
+    elif demo == "MSIexp1":
         ckpt_folder = models_path.joinpath('demo_'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, settings.noise.curriculum_learning.distribution, "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
@@ -605,6 +611,100 @@ class ClassifierMSIexp0:
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
+class ClassifierMSIexp1:
+    def __init__(self, ckpt_folder, ckpt_name):
+        self.threshold_1 = None
+        self.threshold_2 = None
+        self.lang = rospy.get_param("/language")
+
+        labels = list((INTENTS.keys(), EXPLICIT_INTENTS[self.lang].keys(), IMPLICIT_INTENTS.keys()))
+        task_n_labels = list((len(labels[0]), len(labels[1]), len(labels[2])))
+
+        assert settings.model.network in ["HS_msi"]
+        # base_path = "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/"
+        #base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(MODEL_PATH)
+        ckpt_path = os.path.join(ckpt_folder, ckpt_name)
+        print(Back.YELLOW + ckpt_path)
+        self.model = HardSharingMSI(settings=settings, task_n_labels=task_n_labels).cuda()  # Load model
+        ckpt = torch.load(ckpt_path, lambda s, l: s)
+        state_dict = ckpt["state_dict"]
+        #del state_dict["loss_fn.weight"]
+        self.model.load_state_dict(state_dict=state_dict)
+        self.model.eval()
+    
+        # In order to avoid the waste of time related to the first inference
+        signal = np.zeros(shape=(32000))
+        x = preprocess(waveform=signal)
+        x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
+        self.model.predict(x)
+
+        self.times = list()
+        # self.times_file = open(os.path.join("/home/felice/command_interaction/ROS/hri_ws", "times.txt"), "w")
+
+        self.init_node()
+
+
+    def _pcm2float(self, sound: np.ndarray):
+        abs_max = np.abs(sound).max()
+        sound = sound.astype('float32')
+        if abs_max > 0:
+            sound *= 1 / abs_max
+        sound = sound.squeeze()  # depends on the use case
+        return sound
+
+    def _numpy2tensor(self, signal: np.ndarray):
+        signal_size = signal.size
+        signal_torch = torch.as_tensor(signal, dtype=torch.float32)
+        signal_size_torch = torch.as_tensor(signal_size, dtype=torch.int64)
+        return signal_torch, signal_size_torch
+
+    def convert(self, signal):
+        signal = np.array(signal)
+        signal_nw = self._pcm2float(signal)
+        return signal_nw
+
+    def predict(self, signal: np.ndarray):
+        x = preprocess(waveform=signal)
+        x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
+        #melspectrogram = get_melspectrogram(waveform=signal)
+        # prev_time = time.time()
+        #cmd_probs = self.cmd_model.predict(melspectrogram)
+        #spk_probs = self.spk_model.predict(melspectrogram)
+        int_probs, exp_probs, imp_probs = self.model.predict(x)
+        # infer_time = time.time() - prev_time
+        # print('\nINFER TIME: {}\n'.format(infer_time))
+        int_probs = int_probs.cpu().detach().numpy()
+        exp_probs = exp_probs.cpu().detach().numpy()
+        imp_probs = imp_probs.cpu().detach().numpy()
+        intent = np.argmax(int_probs, axis=1) if np.max(int_probs, axis=1) > self.threshold_1 else np.array([-1])
+        explicit = np.argmax(exp_probs, axis=1)
+        implicit = np.argmax(imp_probs, axis=1)
+        """
+        if len(cmd_probs[0]) < len(self.commands):
+            cmd_probs = np.append(arr=cmd_probs, values=[1-cmd_probs[0][cmd]], axis=1)
+        """
+        '''
+        REJECT_LABEL = probs.shape[1] - 1
+        # cmd = np.argmax(probs, axis=1)
+        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
+            cmd = np.array([REJECT_LABEL])
+        '''
+        '''
+        if cmd_probs[0, cmd] < self.threshold_2:
+            cmd = np.array([cmd_probs.shape[1]-1])
+        '''
+        '''
+        else:
+            cmd = np.argmax(probs, axis=1)
+        '''
+
+        return intent, int_probs, explicit, exp_probs, implicit, imp_probs
+
+    def init_node(self):
+        rospy.init_node('classifier')
+        s = rospy.Service('classifier_service', ClassificationMSI, self.parse_req)
+        rospy.spin()
+
 
 if __name__ == "__main__":
     THRESHOLD_1 = 0.9     # 0.004 - 0.1
@@ -622,4 +722,5 @@ if __name__ == "__main__":
     #classifier = MTLClassifier(THRESHOLD_1, THRESHOLD_2, commands)
     #classifier = SCRClassifier(THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
     #classifier = ClassifierMSI(threshold_1=THRESHOLD_1, threshold_2=THRESHOLD_2)
-    classifier = ClassifierMSIexp0(commands=commands, ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)
+    #classifier = ClassifierMSIexp0(commands=commands, ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)
+    classifier = ClassifierMSIexp1(ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)

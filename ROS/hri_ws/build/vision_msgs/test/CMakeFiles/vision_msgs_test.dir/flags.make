@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROS_BUILD_SHARED_LIBS=1
 
-CXX_INCLUDES = -I/home/felice/command_interaction/ROS/hri_ws/devel/include -I/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/include -I/opt/ros/melodic/include -I/usr/src/googletest/googletest/include 
+CXX_INCLUDES = -I/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include -I/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/include -I/opt/ros/melodic/include -I/usr/src/googletest/googletest/include 
 

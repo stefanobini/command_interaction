@@ -1,9 +1,1 @@
-
-(cl:in-package :asdf)
-
-(defsystem "gesture_pkg-srv"
-  :depends-on (:roslisp-msg-protocol :roslisp-utils )
-  :components ((:file "_package")
-    (:file "CameraInfo" :depends-on ("_package_CameraInfo"))
-    (:file "_package_CameraInfo" :depends-on ("_package"))
-  ))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/common-lisp/ros/gesture_pkg/srv/gesture_pkg-srv.asd

@@ -1,6 +1,1 @@
-from ._Command import *
-from ._Gesture import *
-from ._IntentIRI import *
-from ._Speech import *
-from ._SpeechData import *
-from ._SystemHealth import *
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py

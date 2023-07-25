@@ -1,8 +1,1 @@
-
-"use strict";
-
-let CameraInfo = require('./CameraInfo.js')
-
-module.exports = {
-  CameraInfo: CameraInfo,
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg/share/gennodejs/ros/gesture_pkg/srv/_index.js

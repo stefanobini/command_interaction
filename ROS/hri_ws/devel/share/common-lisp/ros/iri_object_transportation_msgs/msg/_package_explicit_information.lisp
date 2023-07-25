@@ -1,8 +1,1 @@
-(cl:in-package iri_object_transportation_msgs-msg)
-(cl:export '(HEADER-VAL
-          HEADER
-          FSR_VALUES-VAL
-          FSR_VALUES
-          SW_VALUES-VAL
-          SW_VALUES
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/iri_object_transportation_msgs/share/common-lisp/ros/iri_object_transportation_msgs/msg/_package_explicit_information.lisp

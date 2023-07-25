@@ -68,7 +68,7 @@ set(vision_msgs_CONFIG_INCLUDED TRUE)
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
   set(vision_msgs_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs)
-  set(vision_msgs_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
+  set(vision_msgs_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs)
   set(vision_msgs_INSTALL_PREFIX "")
   set(vision_msgs_PREFIX ${vision_msgs_DEVEL_PREFIX})
 else()

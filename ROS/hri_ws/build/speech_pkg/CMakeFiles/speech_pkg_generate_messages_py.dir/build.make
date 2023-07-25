@@ -43,131 +43,131 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg
 
 # Utility rule file for speech_pkg_generate_messages_py.
 
 # Include the progress variables for this target.
-include speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/progress.make
+include CMakeFiles/speech_pkg_generate_messages_py.dir/progress.make
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py
+CMakeFiles/speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG speech_pkg/Gesture"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG speech_pkg/Gesture"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG speech_pkg/Command"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG speech_pkg/Command"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG speech_pkg/Speech"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG speech_pkg/Speech"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG speech_pkg/SpeechData"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG speech_pkg/SpeechData"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python from MSG speech_pkg/SystemHealth"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python from MSG speech_pkg/SystemHealth"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python code from SRV speech_pkg/ClassificationMSI"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python code from SRV speech_pkg/ClassificationMSI"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python code from SRV speech_pkg/Manager"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python code from SRV speech_pkg/Manager"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Python code from SRV speech_pkg/Classification"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Python code from SRV speech_pkg/Classification"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Python code from SRV speech_pkg/Talker"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py: /opt/ros/melodic/lib/genpy/gensrv_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Python code from SRV speech_pkg/Talker"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python msg __init__.py for speech_pkg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg --initpy
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python msg __init__.py for speech_pkg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg --initpy
 
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
-/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Python srv __init__.py for speech_pkg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv --initpy
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Python srv __init__.py for speech_pkg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv --initpy
 
-speech_pkg_generate_messages_py: speech_pkg/CMakeFiles/speech_pkg_generate_messages_py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py
-speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py
-speech_pkg_generate_messages_py: speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build.make
+speech_pkg_generate_messages_py: CMakeFiles/speech_pkg_generate_messages_py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Gesture.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Command.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_Speech.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SpeechData.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/_SystemHealth.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_ClassificationMSI.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Manager.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Classification.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/msg/__init__.py
+speech_pkg_generate_messages_py: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/__init__.py
+speech_pkg_generate_messages_py: CMakeFiles/speech_pkg_generate_messages_py.dir/build.make
 
 .PHONY : speech_pkg_generate_messages_py
 
 # Rule to build all files generated by this target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build: speech_pkg_generate_messages_py
+CMakeFiles/speech_pkg_generate_messages_py.dir/build: speech_pkg_generate_messages_py
 
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build
+.PHONY : CMakeFiles/speech_pkg_generate_messages_py.dir/build
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_py.dir/cmake_clean.cmake
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/clean
+CMakeFiles/speech_pkg_generate_messages_py.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_py.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/speech_pkg_generate_messages_py.dir/clean
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/depend
+CMakeFiles/speech_pkg_generate_messages_py.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/speech_pkg_generate_messages_py.dir/depend
 

@@ -68,7 +68,7 @@ set(speech_pkg_CONFIG_INCLUDED TRUE)
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
   set(speech_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg)
-  set(speech_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
+  set(speech_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg)
   set(speech_pkg_INSTALL_PREFIX "")
   set(speech_pkg_PREFIX ${speech_pkg_DEVEL_PREFIX})
 else()

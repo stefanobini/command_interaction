@@ -1,6 +1,1 @@
-
-"use strict";
-
-module.exports = {
-  msg: require('./msg/_index.js'),
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/_index.js

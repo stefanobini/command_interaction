@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,14 +137,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/test/CMakeFiles/progress.marks
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles 0
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/test/CMakeFiles/progress.marks
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/clean
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,137 +154,137 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/preinstall
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/preinstall
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
+test/CMakeFiles/clean_test_results_vision_msgs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
+.PHONY : test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
 
 # Convenience name for target.
-clean_test_results_vision_msgs: vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
+clean_test_results_vision_msgs: test/CMakeFiles/clean_test_results_vision_msgs.dir/rule
 
 .PHONY : clean_test_results_vision_msgs
 
 # fast build rule for target.
 clean_test_results_vision_msgs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/build.make vision_msgs/test/CMakeFiles/clean_test_results_vision_msgs.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/clean_test_results_vision_msgs.dir/build.make test/CMakeFiles/clean_test_results_vision_msgs.dir/build
 .PHONY : clean_test_results_vision_msgs/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+.PHONY : test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
 
 # Convenience name for target.
-_run_tests_vision_msgs_gtest_vision_msgs_test: vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+_run_tests_vision_msgs_gtest_vision_msgs_test: test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
 
 .PHONY : _run_tests_vision_msgs_gtest_vision_msgs_test
 
 # fast build rule for target.
 _run_tests_vision_msgs_gtest_vision_msgs_test/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/build.make test/CMakeFiles/_run_tests_vision_msgs_gtest_vision_msgs_test.dir/build
 .PHONY : _run_tests_vision_msgs_gtest_vision_msgs_test/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/rule
+test/CMakeFiles/run_tests_vision_msgs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/run_tests_vision_msgs.dir/rule
+.PHONY : test/CMakeFiles/run_tests_vision_msgs.dir/rule
 
 # Convenience name for target.
-run_tests_vision_msgs: vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/rule
+run_tests_vision_msgs: test/CMakeFiles/run_tests_vision_msgs.dir/rule
 
 .PHONY : run_tests_vision_msgs
 
 # fast build rule for target.
 run_tests_vision_msgs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/build.make vision_msgs/test/CMakeFiles/run_tests_vision_msgs.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/run_tests_vision_msgs.dir/build.make test/CMakeFiles/run_tests_vision_msgs.dir/build
 .PHONY : run_tests_vision_msgs/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/vision_msgs_test.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/vision_msgs_test.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/vision_msgs_test.dir/rule
+test/CMakeFiles/vision_msgs_test.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/vision_msgs_test.dir/rule
+.PHONY : test/CMakeFiles/vision_msgs_test.dir/rule
 
 # Convenience name for target.
-vision_msgs_test: vision_msgs/test/CMakeFiles/vision_msgs_test.dir/rule
+vision_msgs_test: test/CMakeFiles/vision_msgs_test.dir/rule
 
 .PHONY : vision_msgs_test
 
 # fast build rule for target.
 vision_msgs_test/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/vision_msgs_test.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/vision_msgs_test.dir/build.make test/CMakeFiles/vision_msgs_test.dir/build
 .PHONY : vision_msgs_test/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/rule
+test/CMakeFiles/_run_tests_vision_msgs.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/_run_tests_vision_msgs.dir/rule
+.PHONY : test/CMakeFiles/_run_tests_vision_msgs.dir/rule
 
 # Convenience name for target.
-_run_tests_vision_msgs: vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/rule
+_run_tests_vision_msgs: test/CMakeFiles/_run_tests_vision_msgs.dir/rule
 
 .PHONY : _run_tests_vision_msgs
 
 # fast build rule for target.
 _run_tests_vision_msgs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/build.make vision_msgs/test/CMakeFiles/_run_tests_vision_msgs.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/_run_tests_vision_msgs.dir/build.make test/CMakeFiles/_run_tests_vision_msgs.dir/build
 .PHONY : _run_tests_vision_msgs/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
+test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
+.PHONY : test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
 
 # Convenience name for target.
-run_tests_vision_msgs_gtest: vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
+run_tests_vision_msgs_gtest: test/CMakeFiles/run_tests_vision_msgs_gtest.dir/rule
 
 .PHONY : run_tests_vision_msgs_gtest
 
 # fast build rule for target.
 run_tests_vision_msgs_gtest/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/build.make vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/run_tests_vision_msgs_gtest.dir/build.make test/CMakeFiles/run_tests_vision_msgs_gtest.dir/build
 .PHONY : run_tests_vision_msgs_gtest/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
+test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
+.PHONY : test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
 
 # Convenience name for target.
-_run_tests_vision_msgs_gtest: vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
+_run_tests_vision_msgs_gtest: test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/rule
 
 .PHONY : _run_tests_vision_msgs_gtest
 
 # fast build rule for target.
 _run_tests_vision_msgs_gtest/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/build.make vision_msgs/test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/build.make test/CMakeFiles/_run_tests_vision_msgs_gtest.dir/build
 .PHONY : _run_tests_vision_msgs_gtest/fast
 
 # Convenience name for target.
-vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
-.PHONY : vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+.PHONY : test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
 
 # Convenience name for target.
-run_tests_vision_msgs_gtest_vision_msgs_test: vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
+run_tests_vision_msgs_gtest_vision_msgs_test: test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/rule
 
 .PHONY : run_tests_vision_msgs_gtest_vision_msgs_test
 
 # fast build rule for target.
 run_tests_vision_msgs_gtest_vision_msgs_test/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/build
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/build.make test/CMakeFiles/run_tests_vision_msgs_gtest_vision_msgs_test.dir/build
 .PHONY : run_tests_vision_msgs_gtest_vision_msgs_test/fast
 
 main.o: main.cpp.o
@@ -293,7 +293,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/vision_msgs_test.dir/main.cpp.o
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/vision_msgs_test.dir/build.make test/CMakeFiles/vision_msgs_test.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -302,7 +302,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/vision_msgs_test.dir/main.cpp.i
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/vision_msgs_test.dir/build.make test/CMakeFiles/vision_msgs_test.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -311,7 +311,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f vision_msgs/test/CMakeFiles/vision_msgs_test.dir/build.make vision_msgs/test/CMakeFiles/vision_msgs_test.dir/main.cpp.s
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(MAKE) -f test/CMakeFiles/vision_msgs_test.dir/build.make test/CMakeFiles/vision_msgs_test.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -349,6 +349,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -68,7 +68,7 @@ set(webview_pkg_CONFIG_INCLUDED TRUE)
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
   set(webview_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/webview_pkg)
-  set(webview_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
+  set(webview_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel/.private/webview_pkg)
   set(webview_pkg_INSTALL_PREFIX "")
   set(webview_pkg_PREFIX ${webview_pkg_DEVEL_PREFIX})
 else()

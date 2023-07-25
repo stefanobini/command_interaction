@@ -43,203 +43,203 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs
 
 # Utility rule file for vision_msgs_generate_messages_cpp.
 
 # Include the progress variables for this target.
-include vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/progress.make
+include CMakeFiles/vision_msgs_generate_messages_cpp.dir/progress.make
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesis.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h
+CMakeFiles/vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from vision_msgs/ObjectHypothesisWithPose.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from vision_msgs/ObjectHypothesisWithPose.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesis.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesis.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesis.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from vision_msgs/ObjectHypothesis.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from vision_msgs/ObjectHypothesis.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from vision_msgs/BoundingBox3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from vision_msgs/BoundingBox3D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from vision_msgs/VisionInfo.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from vision_msgs/VisionInfo.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from vision_msgs/Detection3DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from vision_msgs/Detection3DArray.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from vision_msgs/Classification2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from vision_msgs/Classification2D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from vision_msgs/BoundingBox3DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from vision_msgs/BoundingBox3DArray.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from vision_msgs/Detection2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from vision_msgs/Detection2D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from vision_msgs/Detection3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from vision_msgs/Detection3D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from vision_msgs/BoundingBox2DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from vision_msgs/BoundingBox2DArray.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from vision_msgs/Classification3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from vision_msgs/Classification3D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from vision_msgs/BoundingBox2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from vision_msgs/BoundingBox2D.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from vision_msgs/Detection2DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from vision_msgs/Detection2DArray.msg"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs && /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs -e /opt/ros/melodic/share/gencpp/cmake/..
 
-vision_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesisWithPose.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/ObjectHypothesis.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/VisionInfo.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3DArray.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification2D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox3DArray.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection3D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2DArray.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Classification3D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/BoundingBox2D.h
-vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/vision_msgs/Detection2DArray.h
-vision_msgs_generate_messages_cpp: vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build.make
+vision_msgs_generate_messages_cpp: CMakeFiles/vision_msgs_generate_messages_cpp
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesisWithPose.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/VisionInfo.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3DArray.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification2D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox3DArray.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection3D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2DArray.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Classification3D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/BoundingBox2D.h
+vision_msgs_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/Detection2DArray.h
+vision_msgs_generate_messages_cpp: CMakeFiles/vision_msgs_generate_messages_cpp.dir/build.make
 
 .PHONY : vision_msgs_generate_messages_cpp
 
 # Rule to build all files generated by this target.
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build: vision_msgs_generate_messages_cpp
+CMakeFiles/vision_msgs_generate_messages_cpp.dir/build: vision_msgs_generate_messages_cpp
 
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/build
+.PHONY : CMakeFiles/vision_msgs_generate_messages_cpp.dir/build
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -P CMakeFiles/vision_msgs_generate_messages_cpp.dir/cmake_clean.cmake
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/clean
+CMakeFiles/vision_msgs_generate_messages_cpp.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/vision_msgs_generate_messages_cpp.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/vision_msgs_generate_messages_cpp.dir/clean
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/depend
+CMakeFiles/vision_msgs_generate_messages_cpp.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles/vision_msgs_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/vision_msgs_generate_messages_cpp.dir/depend
 

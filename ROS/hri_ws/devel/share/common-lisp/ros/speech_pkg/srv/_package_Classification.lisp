@@ -1,8 +1,1 @@
-(cl:in-package speech_pkg-srv)
-(cl:export '(DATA-VAL
-          DATA
-          CMD-VAL
-          CMD
-          PROBS-VAL
-          PROBS
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/_package_Classification.lisp

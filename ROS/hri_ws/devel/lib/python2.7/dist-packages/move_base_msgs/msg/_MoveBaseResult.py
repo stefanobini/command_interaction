@@ -1,0 +1,1 @@
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/lib/python2.7/dist-packages/move_base_msgs/msg/_MoveBaseResult.py

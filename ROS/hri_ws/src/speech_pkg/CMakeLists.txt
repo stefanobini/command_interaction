@@ -10,6 +10,7 @@ project(speech_pkg)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  move_base_msgs
   message_generation
 )
 
@@ -76,6 +77,7 @@ find_package(catkin REQUIRED COMPONENTS
 generate_messages(
    DEPENDENCIES
    std_msgs
+   move_base_msgs
  )
 
 ################################################

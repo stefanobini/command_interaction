@@ -43,107 +43,107 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg
 
 # Utility rule file for speech_pkg_generate_messages_eus.
 
 # Include the progress variables for this target.
-include speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/progress.make
+include CMakeFiles/speech_pkg_generate_messages_eus.dir/progress.make
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/manifest.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Gesture.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Command.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Speech.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SpeechData.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SystemHealth.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Manager.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Classification.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Talker.l
+CMakeFiles/speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/manifest.l
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from speech_pkg/Gesture.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Gesture.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Gesture.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Gesture.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from speech_pkg/Gesture.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from speech_pkg/Command.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Command.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Command.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from speech_pkg/Command.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from speech_pkg/Speech.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Speech.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Speech.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Speech.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from speech_pkg/Speech.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from speech_pkg/SpeechData.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SpeechData.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SpeechData.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from speech_pkg/SpeechData.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp code from speech_pkg/SystemHealth.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SystemHealth.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SystemHealth.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp code from speech_pkg/SystemHealth.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating EusLisp code from speech_pkg/ClassificationMSI.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating EusLisp code from speech_pkg/ClassificationMSI.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating EusLisp code from speech_pkg/Manager.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Manager.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Manager.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Manager.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating EusLisp code from speech_pkg/Manager.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating EusLisp code from speech_pkg/Classification.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Classification.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Classification.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Classification.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating EusLisp code from speech_pkg/Classification.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating EusLisp code from speech_pkg/Talker.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Talker.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Talker.l: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating EusLisp code from speech_pkg/Talker.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating EusLisp manifest code for speech_pkg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg speech_pkg std_msgs
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating EusLisp manifest code for speech_pkg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg speech_pkg std_msgs move_base_msgs
 
-speech_pkg_generate_messages_eus: speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l
-speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/manifest.l
-speech_pkg_generate_messages_eus: speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make
+speech_pkg_generate_messages_eus: CMakeFiles/speech_pkg_generate_messages_eus
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Gesture.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Command.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/Speech.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SpeechData.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/msg/SystemHealth.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Manager.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Classification.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Talker.l
+speech_pkg_generate_messages_eus: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/manifest.l
+speech_pkg_generate_messages_eus: CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make
 
 .PHONY : speech_pkg_generate_messages_eus
 
 # Rule to build all files generated by this target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/build: speech_pkg_generate_messages_eus
+CMakeFiles/speech_pkg_generate_messages_eus.dir/build: speech_pkg_generate_messages_eus
 
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/build
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/build
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_eus.dir/cmake_clean.cmake
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
+CMakeFiles/speech_pkg_generate_messages_eus.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_eus.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/depend
+CMakeFiles/speech_pkg_generate_messages_eus.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/depend
 

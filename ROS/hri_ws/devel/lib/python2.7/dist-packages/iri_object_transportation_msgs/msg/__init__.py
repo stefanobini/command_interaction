@@ -1,9 +1,1 @@
-from ._explicit_information import *
-from ._localForcesCoefficients import *
-from ._localForcesSFM import *
-from ._narrowPathMarkersArray import *
-from ._twistStamped import *
-from ._twistStampedArray import *
-from ._wrenchStampedArray import *
-from ._wrenchStampedWithCoeff import *
-from ._wrenchWithCoeffArray import *
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/iri_object_transportation_msgs/lib/python2.7/dist-packages/iri_object_transportation_msgs/msg/__init__.py

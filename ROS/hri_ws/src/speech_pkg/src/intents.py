@@ -455,7 +455,6 @@ INTENTS:dict = {
             }
     }
 }
-
 EXPLICIT_INTENTS:dict = {
     "eng":  {
         0:"start",
@@ -653,13 +652,13 @@ EXPLICIT_INTENTS:dict = {
         58:"aiutami ora"
     }
 }
-
 IMPLICIT_INTENTS:dict = {
     0:  "not urgent",
     1:  "urgent"
 }
 
-REDUCED_INTENTS_DICT:dict = {
+
+INTENTS_DICT_MSIEXP0:dict = {
     0   :   {"eng": {0:"go left",
                      1:"left",
                      2:"go left immediately",
@@ -736,8 +735,7 @@ REDUCED_INTENTS_DICT:dict = {
     4   :  {"eng":  {0:"chatter"},
             "esp":  {0:"charla"},
             "ita":  {0:"chiacchiere"}}}
-
-CONVERSION_DICT:dict = {
+CONVERSION_DICT_MSIEXP0:dict = {
     6:0,
     7:0,
     2:1,
@@ -746,4 +744,436 @@ CONVERSION_DICT:dict = {
     9:2,
     10:3,
     11:3
+}
+
+
+INTENTS_DICT_MSIEXP1:dict = {
+    0:  {
+        "explicit": {
+            "eng":{0:{"id":0, "text":"go ahead"},
+                   1:{"id":1, "text":"ahead"}},
+            "esp":{0:{"id":0, "text":"adelante"}},
+            "ita":{0:{"id":0, "text":"vai avanti"},
+                   1:{"id":1, "text":"avanti"}}
+            },
+        "implicit": {
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    1:  {
+        "explicit": {
+            "eng":{0:{"id":0, "text":"go ahead"},
+                   1:{"id":1, "text":"ahead"},
+                   2:{"id":2, "text":"go ahead immediately"},
+                   3:{"id":3, "text":"ahead immediately"},
+                   4:{"id":4, "text":"go ahead now"},
+                   5:{"id":5, "text":"ahead now"},
+                   6:{"id":6, "text":"go ahead quickly"},
+                   7:{"id":7, "text":"ahead quickly"}},
+            "esp":{0:{"id":0, "text":"adelante"},
+                   1:{"id":1, "text":"adelante inmediatamente"},
+                   2:{"id":2, "text":"adelante ahora"}},
+            "ita":{0:{"id":0, "text":"vai avanti"},
+                   1:{"id":1, "text":"avanti"},
+                   2:{"id":2, "text":"vai avanti immediatamente"},
+                   3:{"id":3, "text":"avanti immediatamente"},
+                   4:{"id":4, "text":"vai avanti ora"},
+                   5:{"id":5, "text":"avanti ora"}}
+            },
+        "implicit": {
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    2:  {
+        "explicit": {
+            "eng":{0:{"id":8, "text":"go back"},
+                   1:{"id":9, "text":"back"}},
+            "esp":{0:{"id":3, "text":"regresa"},
+                   1:{"id":4, "text":"ve para atrás"},
+                   2:{"id":5, "text":"atrás"}},
+            "ita":{0:{"id":6, "text":"vai indietro"},
+                   1:{"id":7, "text":"indietro"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    3:  {
+        "explicit":{
+            "eng":{0:{"id":8, "text":"go back"},
+                   1:{"id":9, "text":"back"},
+                   2:{"id":10, "text":"go back immediately"},
+                   3:{"id":11, "text":"back immediately"},
+                   4:{"id":12, "text":"go back now"},
+                   5:{"id":13, "text":"back now"},
+                   6:{"id":14, "text":"go back quickly"},
+                   7:{"id":15, "text":"back quickly"}},
+            "esp":{0:{"id":3, "text":"regresa"},
+                   1:{"id":4, "text":"ve para atrás"},
+                   2:{"id":5, "text":"atrás"},
+                   3:{"id":6, "text":"regresa inmediatamente"},
+                   4:{"id":7, "text":"ve para atrás inmediatamente"},
+                   5:{"id":8, "text":"atrás inmediatamente"},
+                   6:{"id":9, "text":"regresa ahora"},
+                   7:{"id":10, "text":"ve para atrás ahora"},
+                   8:{"id":11, "text":"atrás ahora"}},
+            "ita":{0:{"id":6, "text":"vai indietro"},
+                   1:{"id":7, "text":"indietro"},
+                   2:{"id":8, "text":"vai indietro immediatamente"},
+                   3:{"id":9, "text":"indietro immediatamente"},
+                   4:{"id":10, "text":"vai indietro ora"},
+                   5:{"id":11, "text":"indietro ora"}}
+            },
+        "implicit":{
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    4:  {
+        "explicit":{
+            "eng":{0:{"id":16, "text":"go left"},
+                   1:{"id":17, "text":"left"}},
+            "esp":{0:{"id":12, "text":"ve a la izquierda"},
+                   1:{"id":13, "text":"izquierda"}},
+            "ita":{0:{"id":12, "text":"vai a sinistra"},
+                   1:{"id":13, "text":"sinistra"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    5:  {
+        "explicit":{
+            "eng":{0:{"id":16, "text":"go left"},
+                   1:{"id":17, "text":"left"},
+                   2:{"id":18, "text":"go left immediately"},
+                   3:{"id":19, "text":"left immediately"},
+                   4:{"id":20, "text":"go left now"},
+                   5:{"id":21, "text":"left now"},
+                   6:{"id":22, "text":"go left quickly"},
+                   7:{"id":23, "text":"left quickly"}},
+            "esp":{0:{"id":12, "text":"ve a la izquierda"},
+                   1:{"id":13, "text":"izquierda"},
+                   2:{"id":14, "text":"ve a la izquierda inmediatamente"},
+                   3:{"id":15, "text":"izquierda inmediatamente"},
+                   4:{"id":16, "text":"ve a la izquierda ahora"},
+                   5:{"id":17, "text":"izquierda ahora"}},
+            "ita":{0:{"id":12, "text":"vai a sinistra"},
+                   1:{"id":13, "text":"sinistra"},
+                   2:{"id":14, "text":"vai a sinistra immediatamente"},
+                   3:{"id":15, "text":"sinistra immediatamente"},
+                   4:{"id":16, "text":"vai a sinistra ora"},
+                   5:{"id":17, "text":"sinistra ora"}}
+            },
+        "implicit":{
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    6:  {
+        "explicit":{
+            "eng":{0:{"id":24, "text":"go right"},
+                   1:{"id":25, "text":"right"}},
+            "esp":{0:{"id":18, "text":"ve a la derecha"},
+                   1:{"id":19, "text":"derecha"}},
+            "ita":{0:{"id":18, "text":"vai a destra"},
+                   1:{"id":19, "text":"destra"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    7:  {
+        "explicit":{
+            "eng":{0:{"id":24, "text":"go right"},
+                   1:{"id":25, "text":"right"},
+                   2:{"id":26, "text":"go right immediately"},
+                   3:{"id":27, "text":"right immediately"},
+                   4:{"id":28, "text":"go right now"},
+                   5:{"id":29, "text":"right now"},
+                   6:{"id":30, "text":"go right quickly"},
+                   7:{"id":31, "text":"right quickly"}},
+            "esp":{0:{"id":18, "text":"ve a la derecha"},
+                   1:{"id":19, "text":"derecha"},
+                   2:{"id":20, "text":"ve a la derecha inmediatamente"},
+                   3:{"id":21, "text":"derecha inmediatamente"},
+                   4:{"id":22, "text":"ve a la derecha ahora"},
+                   5:{"id":23, "text":"derecha ahora"}},
+            "ita":{0:{"id":18, "text":"vai a destra"},
+                   1:{"id":19, "text":"destra"},
+                   2:{"id":20, "text":"vai a destra immediatamente"},
+                   3:{"id":21, "text":"destra immediatamente"},
+                   4:{"id":22, "text":"vai a destra ora"},
+                   5:{"id":23, "text":"destra ora"}}
+            },
+        "implicit":{
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    8: {
+        "explicit":{
+            "eng":{0:{"id":32, "text":"stop"}},
+            "esp":{0:{"id":24, "text":"stop"},
+                   1:{"id":25, "text":"detente"}},
+            "ita":{0:{"id":24, "text":"stop"},
+                   1:{"id":25, "text":"fermati"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    9: {
+        "explicit":{
+            "eng":{0:{"id":32, "text":"stop"},
+                   1:{"id":33, "text":"stop immediately"},
+                   2:{"id":34, "text":"stop now"},
+                   3:{"id":35, "text":"stop quickly"}},
+            "esp":{0:{"id":24, "text":"stop"},
+                   1:{"id":25, "text":"detente"},
+                   2:{"id":26, "text":"stop inmediatamente"},
+                   3:{"id":27, "text":"detente inmediatamente"},
+                   4:{"id":28, "text":"stop ahora"},
+                   5:{"id":29, "text":"detente ahora"}},
+            "ita":{0:{"id":24, "text":"stop"},
+                   1:{"id":25, "text":"fermati"},
+                   2:{"id":26, "text":"stop immediatamente"},
+                   3:{"id":27, "text":"fermati immediatamente"},
+                   4:{"id":28, "text":"stop ora"},
+                   5:{"id":29, "text":"fermati ora"}}
+            },
+        "implicit":{
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    10: {
+        "explicit":{
+            "eng":{0:{"id":36, "text":"come"},
+                   1:{"id":37, "text":"come here"}},
+            "esp":{0:{"id":30, "text":"ven aquì"},
+                   1:{"id":31, "text":"acercate"}},
+            "ita":{0:{"id":30, "text":"vieni"},
+                   1:{"id":31, "text":"vieni qui"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"non urgente"},
+            "ita":{"id":0, "text":"no urgente"}
+            }
+        },
+    11: {
+        "explicit":{
+            "eng":{0:{"id":36, "text":"come"},
+                   1:{"id":37, "text":"come here"},
+                   2:{"id":38, "text":"come immediately"},
+                   3:{"id":39, "text":"come here immediately"},
+                   4:{"id":40, "text":"come now"},
+                   5:{"id":41, "text":"come here now"},
+                   6:{"id":42, "text":"come quickly"},
+                   7:{"id":43, "text":"come here quickly"}},
+            "esp":{0:{"id":30, "text":"ven aqui"},
+                   1:{"id":31, "text":"acercate"},
+                   2:{"id":32, "text":"ven aquì inmediatamente"},
+                   3:{"id":33, "text":"acercate inmediatamente"},
+                   4:{"id":34, "text":"ven aquì ahora"},
+                   5:{"id":35, "text":"acercate ahora"}},
+            "ita":{0:{"id":30, "text":"vieni"},
+                   1:{"id":31, "text":"vieni qui"},
+                   2:{"id":32, "text":"vieni immediatamente"},
+                   3:{"id":33, "text":"vieni qui immediatamente"},
+                   4:{"id":34, "text":"vieni qui ora"},
+                   5:{"id":35, "text":"vieni ora"}}
+            },
+        "implicit":{
+            "eng":{"id":1, "text":"urgent"},
+            "esp":{"id":1, "text":"urgente"},
+            "ita":{"id":1, "text":"urgente"}
+            }
+        },
+    12: {
+        "explicit":{
+            "eng":{0:{"id":44, "text":"chatter"}},
+            "esp":{0:{"id":36, "text":"charla"}},
+            "ita":{0:{"id":36, "text":"chiacchiere"}}
+            },
+        "implicit":{
+            "eng":{"id":0, "text":"not urgent"},
+            "esp":{"id":0, "text":"no urgente"},
+            "ita":{"id":0, "text":"non urgente"}
+            }
+    }
+}
+EXPLICIT_INTENTS_MSIEXP1:dict = {
+    "eng":  {
+        0:"go ahead",
+        1:"ahead",
+        2:"go ahead immediately",
+        3:"ahead immediately",
+        4:"go ahead now",
+        5:"ahead now",
+        6:"go ahead quickly",
+        7:"ahead quickly",
+        8:"go back",
+        9:"back",
+        10:"go back immediately",
+        11:"back immediately",
+        12:"go back now",
+        13:"back now",
+        14:"go back quickly",
+        15:"back quickly",
+        16:"go left",
+        17:"left",
+        18:"go left immediately",
+        19:"left immediately",
+        20:"go left now",
+        21:"left now",
+        22:"go left quickly",
+        23:"left quickly",
+        24:"go right",
+        25:"right",
+        26:"go right immediately",
+        27:"right immediately",
+        28:"go right now",
+        29:"right now",
+        30:"go right quickly",
+        31:"right quickly",
+        32:"stop",
+        33:"stop immediately",
+        34:"stop now",
+        35:"stop quickly",
+        36:"come",
+        37:"come here",
+        38:"come immediately",
+        39:"come here immediately",
+        40:"come now",
+        41:"come here now",
+        42:"come quickly",
+        43:"come here quickly"
+    },
+    "esp":  {
+        0:"adelante",
+        1:"adelante inmediatamente",
+        2:"adelante ahora",
+        3:"regresa",
+        4:"ve para atrás",
+        5:"atrás",
+        6:"regresa inmediatamente",
+        7:"ve para atrás inmediatamente",
+        8:"atrás inmediatamente",
+        9:"regresa ahora",
+        10:"ve para atrás ahora",
+        11:"atrás ahora",
+        12:"ve a la izquierda",
+        13:"izquierda",
+        14:"ve a la izquierda inmediatamente",
+        15:"izquierda inmediatamente",
+        16:"ve a la izquierda ahora",
+        17:"izquierda ahora",
+        18:"ve a la derecha",
+        19:"derecha",
+        20:"ve a la derecha inmediatamente",
+        21:"derecha inmediatamente",
+        22:"ve a la derecha ahora",
+        23:"derecha ahora",
+        24:"stop",
+        25:"detente",
+        26:"stop inmediatamente",
+        27:"detente inmediatamente",
+        28:"stop ahora",
+        29:"detente ahora",
+        30:"acercate",
+        31:"ven aquì",
+        32:"acercate inmediatamente",
+        33:"ven aquì inmediatamente",
+        34:"acercate ahora",
+        35:"ven aquì ahora"
+    },
+    "ita":  {
+        0:"vai avanti",
+        1:"avanti",
+        2:"vai avanti immediatamente",
+        3:"avanti immediatamente",
+        4:"vai avanti ora",
+        5:"avanti ora",
+        6:"vai indietro",
+        7:"indietro",
+        8:"vai indietro immediatamente",
+        9:"indietro immediatamente",
+        10:"vai indietro ora",
+        11:"indietro ora",
+        12:"vai a sinistra",
+        13:"sinistra",
+        14:"vai a sinistra immediatamente",
+        15:"sinistra immediatamente",
+        16:"vai a sinistra ora",
+        17:"sinistra ora",
+        18:"vai a destra",
+        19:"destra",
+        20:"vai a destra immediatamente",
+        21:"destra immediatamente",
+        22:"vai a destra ora",
+        23:"destra ora",
+        24:"stop",
+        25:"fermati",
+        26:"stop immediatamente",
+        27:"fermati immediatamente",
+        28:"stop ora",
+        29:"fermati ora",
+        30:"vieni",
+        31:"vieni qui",
+        32:"vieni immediatamente",
+        33:"vieni qui immediatamente",
+        34:"vieni ora",
+        35:"vieni qui ora"
+    }
+}
+CONVERSION_INTENT_MSIEXP1:dict = {
+    2:0,
+    3:1,
+    4:2,
+    5:3,
+    6:4,
+    7:5,
+    8:6,
+    9:7,
+    10:8,
+    11:9,
+    12:10,
+    13:11
+}
+CONVERSION_EXPLICIT_MSIEXP1:dict = {
+    "eng":[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47],
+    "esp":[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38],
+    "ita":[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]
+}
+INTENT_TO_ACTION:dict = {
+    0   :{"x":0.,   "y":2.,     "speed":0.25},  # ahead (not urgent)
+    1   :{"x":0.,   "y":2.,     "speed":1.},    # ahead (urgent)
+    2   :{"x":0.,   "y":-2.,    "speed":0.25},  # back (not urgent)
+    3   :{"x":0.,   "y":-2.,    "speed":1.},    # back (urgent)
+    4   :{"x":-2.,  "y":0.,     "speed":0.25},  # left (not urgent)
+    5   :{"x":-2.,  "y":0.,     "speed":1.},    # left (urgent)
+    6   :{"x":2.,   "y":0.,     "speed":0.25},  # right (not urgent)
+    7   :{"x":2.,   "y":0.,     "speed":1.},    # right (urgent)
+    8   :{"x":0.,   "y":0.,     "speed":0.25},  # stop (not urgent)
+    9   :{"x":0.,   "y":0.,     "speed":1.},    # stop (urgent)
+    10  :{"x":0.,   "y":0.,     "speed":0.25},  # come here
+    11  :{"x":0.,   "y":0.,     "speed":1.}     # come here (urgent)
 }

@@ -43,101 +43,101 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg
 
 # Utility rule file for speech_pkg_generate_messages_lisp.
 
 # Include the progress variables for this target.
-include speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/progress.make
+include CMakeFiles/speech_pkg_generate_messages_lisp.dir/progress.make
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Command.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Speech.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Manager.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Classification.lisp
+CMakeFiles/speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Talker.lisp
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from speech_pkg/Gesture.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from speech_pkg/Gesture.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from speech_pkg/Command.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Command.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Command.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from speech_pkg/Command.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from speech_pkg/Speech.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Speech.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from speech_pkg/Speech.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Lisp code from speech_pkg/SpeechData.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Lisp code from speech_pkg/SpeechData.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Lisp code from speech_pkg/SystemHealth.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Lisp code from speech_pkg/SystemHealth.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Lisp code from speech_pkg/ClassificationMSI.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Lisp code from speech_pkg/ClassificationMSI.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Lisp code from speech_pkg/Manager.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Manager.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Lisp code from speech_pkg/Manager.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Lisp code from speech_pkg/Classification.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Classification.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Lisp code from speech_pkg/Classification.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Lisp code from speech_pkg/Talker.srv"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Talker.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Talker.lisp: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Lisp code from speech_pkg/Talker.srv"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/src/move_base_msgs/msg -Imove_base_msgs:/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/move_base_msgs/msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv
 
-speech_pkg_generate_messages_lisp: speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp
-speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp
-speech_pkg_generate_messages_lisp: speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make
+speech_pkg_generate_messages_lisp: CMakeFiles/speech_pkg_generate_messages_lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Command.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/Speech.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/ClassificationMSI.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Manager.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Classification.lisp
+speech_pkg_generate_messages_lisp: /home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp/ros/speech_pkg/srv/Talker.lisp
+speech_pkg_generate_messages_lisp: CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make
 
 .PHONY : speech_pkg_generate_messages_lisp
 
 # Rule to build all files generated by this target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/build: speech_pkg_generate_messages_lisp
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/build: speech_pkg_generate_messages_lisp
 
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/build
+.PHONY : CMakeFiles/speech_pkg_generate_messages_lisp.dir/build
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_lisp.dir/cmake_clean.cmake
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/clean
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/speech_pkg_generate_messages_lisp.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/speech_pkg_generate_messages_lisp.dir/clean
 
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/depend
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/speech_pkg_generate_messages_lisp.dir/depend
 

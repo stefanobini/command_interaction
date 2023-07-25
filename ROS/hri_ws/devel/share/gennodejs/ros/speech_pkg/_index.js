@@ -1,7 +1,1 @@
-
-"use strict";
-
-module.exports = {
-  msg: require('./msg/_index.js'),
-  srv: require('./srv/_index.js')
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/_index.js

@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,6 +67,16 @@ install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -89,6 +99,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
 
 # Special rule for the target install
 install: preinstall
@@ -114,37 +135,16 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/progress.marks
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/clean
+	$(MAKE) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
 
 # The main clean target
@@ -154,318 +154,655 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_genpy.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_genpy.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_genpy.dir/rule
+#=============================================================================
+# Target rules for targets named speech_pkg_genpy
 
-# Convenience name for target.
-speech_pkg_genpy: speech_pkg/CMakeFiles/speech_pkg_genpy.dir/rule
-
+# Build rule for target.
+speech_pkg_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_genpy
 .PHONY : speech_pkg_genpy
 
 # fast build rule for target.
 speech_pkg_genpy/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_genpy.dir/build.make speech_pkg/CMakeFiles/speech_pkg_genpy.dir/build
+	$(MAKE) -f CMakeFiles/speech_pkg_genpy.dir/build.make CMakeFiles/speech_pkg_genpy.dir/build
 .PHONY : speech_pkg_genpy/fast
 
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/rule
+#=============================================================================
+# Target rules for targets named speech_pkg_gennodejs
 
-# Convenience name for target.
-speech_pkg_generate_messages_py: speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/rule
-
-.PHONY : speech_pkg_generate_messages_py
-
-# fast build rule for target.
-speech_pkg_generate_messages_py/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_py.dir/build
-.PHONY : speech_pkg_generate_messages_py/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_nodejs: speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
-
-.PHONY : speech_pkg_generate_messages_nodejs
-
-# fast build rule for target.
-speech_pkg_generate_messages_nodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
-.PHONY : speech_pkg_generate_messages_nodejs/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Manager: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Manager
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Manager/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Manager/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_eus: speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
-
-.PHONY : speech_pkg_generate_messages_eus
-
-# fast build rule for target.
-speech_pkg_generate_messages_eus/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_eus.dir/build
-.PHONY : speech_pkg_generate_messages_eus/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Classification: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Classification
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Classification/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Classification/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/rule
-
-# Convenience name for target.
-speech_pkg_gennodejs: speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/rule
-
+# Build rule for target.
+speech_pkg_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_gennodejs
 .PHONY : speech_pkg_gennodejs
 
 # fast build rule for target.
 speech_pkg_gennodejs/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/build.make speech_pkg/CMakeFiles/speech_pkg_gennodejs.dir/build
+	$(MAKE) -f CMakeFiles/speech_pkg_gennodejs.dir/build.make CMakeFiles/speech_pkg_gennodejs.dir/build
 .PHONY : speech_pkg_gennodejs/fast
 
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/rule
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages_nodejs
 
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Speech: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Speech
+# Build rule for target.
+speech_pkg_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages_nodejs
+.PHONY : speech_pkg_generate_messages_nodejs
 
 # fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Speech/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Speech/fast
+speech_pkg_generate_messages_nodejs/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
+.PHONY : speech_pkg_generate_messages_nodejs/fast
 
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule
+#=============================================================================
+# Target rules for targets named speech_pkg_genlisp
 
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Talker: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Talker
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Talker/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Talker/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_SystemHealth: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_SystemHealth/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Command: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Command
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Command/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Command/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Gesture: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Gesture
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_Gesture/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_Gesture/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages: speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/rule
-
-.PHONY : speech_pkg_generate_messages
-
-# fast build rule for target.
-speech_pkg_generate_messages/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages.dir/build
-.PHONY : speech_pkg_generate_messages/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_lisp: speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule
-
-.PHONY : speech_pkg_generate_messages_lisp
-
-# fast build rule for target.
-speech_pkg_generate_messages_lisp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_lisp.dir/build
-.PHONY : speech_pkg_generate_messages_lisp/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_ClassificationMSI: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_ClassificationMSI/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_cpp: speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
-
-.PHONY : speech_pkg_generate_messages_cpp
-
-# fast build rule for target.
-speech_pkg_generate_messages_cpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp.dir/build
-.PHONY : speech_pkg_generate_messages_cpp/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/rule
-
-# Convenience name for target.
-speech_pkg_gencpp: speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/rule
-
-.PHONY : speech_pkg_gencpp
-
-# fast build rule for target.
-speech_pkg_gencpp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/build.make speech_pkg/CMakeFiles/speech_pkg_gencpp.dir/build
-.PHONY : speech_pkg_gencpp/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_geneus.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_geneus.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_geneus.dir/rule
-
-# Convenience name for target.
-speech_pkg_geneus: speech_pkg/CMakeFiles/speech_pkg_geneus.dir/rule
-
-.PHONY : speech_pkg_geneus
-
-# fast build rule for target.
-speech_pkg_geneus/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_geneus.dir/build.make speech_pkg/CMakeFiles/speech_pkg_geneus.dir/build
-.PHONY : speech_pkg_geneus/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/rule
-.PHONY : speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_SpeechData: speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_SpeechData
-
-# fast build rule for target.
-_speech_pkg_generate_messages_check_deps_SpeechData/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/build.make speech_pkg/CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/build
-.PHONY : _speech_pkg_generate_messages_check_deps_SpeechData/fast
-
-# Convenience name for target.
-speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/rule:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f CMakeFiles/Makefile2 speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/rule
-.PHONY : speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/rule
-
-# Convenience name for target.
-speech_pkg_genlisp: speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/rule
-
+# Build rule for target.
+speech_pkg_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_genlisp
 .PHONY : speech_pkg_genlisp
 
 # fast build rule for target.
 speech_pkg_genlisp/fast:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(MAKE) -f speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/build.make speech_pkg/CMakeFiles/speech_pkg_genlisp.dir/build
+	$(MAKE) -f CMakeFiles/speech_pkg_genlisp.dir/build.make CMakeFiles/speech_pkg_genlisp.dir/build
 .PHONY : speech_pkg_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages_lisp
+
+# Build rule for target.
+speech_pkg_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages_lisp
+.PHONY : speech_pkg_generate_messages_lisp
+
+# fast build rule for target.
+speech_pkg_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make CMakeFiles/speech_pkg_generate_messages_lisp.dir/build
+.PHONY : speech_pkg_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages_eus
+
+# Build rule for target.
+speech_pkg_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages_eus
+.PHONY : speech_pkg_generate_messages_eus
+
+# fast build rule for target.
+speech_pkg_generate_messages_eus/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/build
+.PHONY : speech_pkg_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_gencpp
+
+# Build rule for target.
+speech_pkg_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_gencpp
+.PHONY : speech_pkg_gencpp
+
+# fast build rule for target.
+speech_pkg_gencpp/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_gencpp.dir/build.make CMakeFiles/speech_pkg_gencpp.dir/build
+.PHONY : speech_pkg_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_cpp
+
+# Build rule for target.
+actionlib_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_cpp
+.PHONY : actionlib_msgs_generate_messages_cpp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+.PHONY : actionlib_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named move_base_msgs_generate_messages_nodejs
+
+# Build rule for target.
+move_base_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 move_base_msgs_generate_messages_nodejs
+.PHONY : move_base_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+move_base_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
+.PHONY : move_base_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named move_base_msgs_generate_messages_cpp
+
+# Build rule for target.
+move_base_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 move_base_msgs_generate_messages_cpp
+.PHONY : move_base_msgs_generate_messages_cpp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
+.PHONY : move_base_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named move_base_msgs_generate_messages_lisp
+
+# Build rule for target.
+move_base_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 move_base_msgs_generate_messages_lisp
+.PHONY : move_base_msgs_generate_messages_lisp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
+.PHONY : move_base_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages_py
+
+# Build rule for target.
+speech_pkg_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages_py
+.PHONY : speech_pkg_generate_messages_py
+
+# fast build rule for target.
+speech_pkg_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_py.dir/build.make CMakeFiles/speech_pkg_generate_messages_py.dir/build
+.PHONY : speech_pkg_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named move_base_msgs_generate_messages_eus
+
+# Build rule for target.
+move_base_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 move_base_msgs_generate_messages_eus
+.PHONY : move_base_msgs_generate_messages_eus
+
+# fast build rule for target.
+move_base_msgs_generate_messages_eus/fast:
+	$(MAKE) -f CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
+.PHONY : move_base_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_ClassificationMSI
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_ClassificationMSI: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_ClassificationMSI
+.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_ClassificationMSI/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_py
+
+# Build rule for target.
+std_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_py.dir/build.make CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_nodejs
+
+# Build rule for target.
+std_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_lisp
+
+# Build rule for target.
+std_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Classification
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Classification: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Classification
+.PHONY : _speech_pkg_generate_messages_check_deps_Classification
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Classification/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Classification/fast
+
+#=============================================================================
+# Target rules for targets named tests
+
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
+
+#=============================================================================
+# Target rules for targets named move_base_msgs_generate_messages_py
+
+# Build rule for target.
+move_base_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 move_base_msgs_generate_messages_py
+.PHONY : move_base_msgs_generate_messages_py
+
+# fast build rule for target.
+move_base_msgs_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make CMakeFiles/move_base_msgs_generate_messages_py.dir/build
+.PHONY : move_base_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_geneus
+
+# Build rule for target.
+speech_pkg_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_geneus
+.PHONY : speech_pkg_geneus
+
+# fast build rule for target.
+speech_pkg_geneus/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_geneus.dir/build.make CMakeFiles/speech_pkg_geneus.dir/build
+.PHONY : speech_pkg_geneus/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Speech
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Speech: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Speech
+.PHONY : _speech_pkg_generate_messages_check_deps_Speech
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Speech/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Speech/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_eus
+
+# Build rule for target.
+std_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_eus.dir/build.make CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_nodejs
+
+# Build rule for target.
+actionlib_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_nodejs
+.PHONY : actionlib_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+.PHONY : actionlib_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named run_tests
+
+# Build rule for target.
+run_tests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests
+.PHONY : run_tests
+
+# fast build rule for target.
+run_tests/fast:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
+.PHONY : run_tests/fast
+
+#=============================================================================
+# Target rules for targets named doxygen
+
+# Build rule for target.
+doxygen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 doxygen
+.PHONY : doxygen
+
+# fast build rule for target.
+doxygen/fast:
+	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
+.PHONY : doxygen/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Talker
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Talker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Talker
+.PHONY : _speech_pkg_generate_messages_check_deps_Talker
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Talker/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Talker/fast
+
+#=============================================================================
+# Target rules for targets named download_extra_data
+
+# Build rule for target.
+download_extra_data: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 download_extra_data
+.PHONY : download_extra_data
+
+# fast build rule for target.
+download_extra_data/fast:
+	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/build
+.PHONY : download_extra_data/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_SystemHealth
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_SystemHealth: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_SystemHealth
+.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_SystemHealth/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_eus
+
+# Build rule for target.
+actionlib_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_eus
+.PHONY : actionlib_msgs_generate_messages_eus
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_eus/fast:
+	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
+.PHONY : actionlib_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages
+
+# Build rule for target.
+speech_pkg_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages
+.PHONY : speech_pkg_generate_messages
+
+# fast build rule for target.
+speech_pkg_generate_messages/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages.dir/build.make CMakeFiles/speech_pkg_generate_messages.dir/build
+.PHONY : speech_pkg_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Manager
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Manager: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Manager
+.PHONY : _speech_pkg_generate_messages_check_deps_Manager
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Manager/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Manager/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_lisp
+
+# Build rule for target.
+actionlib_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_lisp
+.PHONY : actionlib_msgs_generate_messages_lisp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+.PHONY : actionlib_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_py
+
+# Build rule for target.
+actionlib_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_py
+.PHONY : actionlib_msgs_generate_messages_py
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+.PHONY : actionlib_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named geometry_msgs_generate_messages_eus
+
+# Build rule for target.
+geometry_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometry_msgs_generate_messages_eus
+.PHONY : geometry_msgs_generate_messages_eus
+
+# fast build rule for target.
+geometry_msgs_generate_messages_eus/fast:
+	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
+.PHONY : geometry_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named geometry_msgs_generate_messages_cpp
+
+# Build rule for target.
+geometry_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometry_msgs_generate_messages_cpp
+.PHONY : geometry_msgs_generate_messages_cpp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
+.PHONY : geometry_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named geometry_msgs_generate_messages_lisp
+
+# Build rule for target.
+geometry_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometry_msgs_generate_messages_lisp
+.PHONY : geometry_msgs_generate_messages_lisp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
+.PHONY : geometry_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_cpp
+
+# Build rule for target.
+std_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named speech_pkg_generate_messages_cpp
+
+# Build rule for target.
+speech_pkg_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 speech_pkg_generate_messages_cpp
+.PHONY : speech_pkg_generate_messages_cpp
+
+# fast build rule for target.
+speech_pkg_generate_messages_cpp/fast:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/build
+.PHONY : speech_pkg_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named clean_test_results
+
+# Build rule for target.
+clean_test_results: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clean_test_results
+.PHONY : clean_test_results
+
+# fast build rule for target.
+clean_test_results/fast:
+	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/build
+.PHONY : clean_test_results/fast
+
+#=============================================================================
+# Target rules for targets named geometry_msgs_generate_messages_nodejs
+
+# Build rule for target.
+geometry_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometry_msgs_generate_messages_nodejs
+.PHONY : geometry_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+geometry_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
+.PHONY : geometry_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named geometry_msgs_generate_messages_py
+
+# Build rule for target.
+geometry_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometry_msgs_generate_messages_py
+.PHONY : geometry_msgs_generate_messages_py
+
+# fast build rule for target.
+geometry_msgs_generate_messages_py/fast:
+	$(MAKE) -f CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make CMakeFiles/geometry_msgs_generate_messages_py.dir/build
+.PHONY : geometry_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_SpeechData
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_SpeechData: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_SpeechData
+.PHONY : _speech_pkg_generate_messages_check_deps_SpeechData
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_SpeechData/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_SpeechData/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Command
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Command: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Command
+.PHONY : _speech_pkg_generate_messages_check_deps_Command
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Command/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Command/fast
+
+#=============================================================================
+# Target rules for targets named _speech_pkg_generate_messages_check_deps_Gesture
+
+# Build rule for target.
+_speech_pkg_generate_messages_check_deps_Gesture: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _speech_pkg_generate_messages_check_deps_Gesture
+.PHONY : _speech_pkg_generate_messages_check_deps_Gesture
+
+# fast build rule for target.
+_speech_pkg_generate_messages_check_deps_Gesture/fast:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build
+.PHONY : _speech_pkg_generate_messages_check_deps_Gesture/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) -f gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) -f gtest/googlemock/gtest/CMakeFiles/gtest.dir/build.make gtest/googlemock/gtest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
 
 # Help Target
 help:
@@ -474,32 +811,61 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... install"
+	@echo "... test"
 	@echo "... speech_pkg_genpy"
-	@echo "... speech_pkg_generate_messages_py"
-	@echo "... install/local"
-	@echo "... speech_pkg_generate_messages_nodejs"
-	@echo "... _speech_pkg_generate_messages_check_deps_Manager"
-	@echo "... speech_pkg_generate_messages_eus"
-	@echo "... _speech_pkg_generate_messages_check_deps_Classification"
 	@echo "... speech_pkg_gennodejs"
+	@echo "... speech_pkg_generate_messages_nodejs"
+	@echo "... speech_pkg_genlisp"
+	@echo "... speech_pkg_generate_messages_lisp"
+	@echo "... speech_pkg_generate_messages_eus"
+	@echo "... speech_pkg_gencpp"
+	@echo "... actionlib_msgs_generate_messages_cpp"
+	@echo "... move_base_msgs_generate_messages_nodejs"
+	@echo "... move_base_msgs_generate_messages_cpp"
+	@echo "... move_base_msgs_generate_messages_lisp"
+	@echo "... speech_pkg_generate_messages_py"
+	@echo "... move_base_msgs_generate_messages_eus"
+	@echo "... _speech_pkg_generate_messages_check_deps_ClassificationMSI"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... _speech_pkg_generate_messages_check_deps_Classification"
+	@echo "... tests"
+	@echo "... install"
+	@echo "... move_base_msgs_generate_messages_py"
+	@echo "... speech_pkg_geneus"
 	@echo "... _speech_pkg_generate_messages_check_deps_Speech"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... actionlib_msgs_generate_messages_nodejs"
+	@echo "... run_tests"
+	@echo "... install/local"
+	@echo "... doxygen"
 	@echo "... _speech_pkg_generate_messages_check_deps_Talker"
+	@echo "... download_extra_data"
 	@echo "... _speech_pkg_generate_messages_check_deps_SystemHealth"
+	@echo "... actionlib_msgs_generate_messages_eus"
+	@echo "... speech_pkg_generate_messages"
+	@echo "... _speech_pkg_generate_messages_check_deps_Manager"
+	@echo "... actionlib_msgs_generate_messages_lisp"
+	@echo "... actionlib_msgs_generate_messages_py"
+	@echo "... geometry_msgs_generate_messages_eus"
+	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... geometry_msgs_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... speech_pkg_generate_messages_cpp"
+	@echo "... clean_test_results"
+	@echo "... geometry_msgs_generate_messages_nodejs"
+	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... _speech_pkg_generate_messages_check_deps_SpeechData"
 	@echo "... _speech_pkg_generate_messages_check_deps_Command"
 	@echo "... _speech_pkg_generate_messages_check_deps_Gesture"
-	@echo "... speech_pkg_generate_messages"
-	@echo "... speech_pkg_generate_messages_lisp"
-	@echo "... _speech_pkg_generate_messages_check_deps_ClassificationMSI"
-	@echo "... test"
-	@echo "... speech_pkg_generate_messages_cpp"
-	@echo "... speech_pkg_gencpp"
-	@echo "... list_install_components"
-	@echo "... speech_pkg_geneus"
-	@echo "... _speech_pkg_generate_messages_check_deps_SpeechData"
-	@echo "... speech_pkg_genlisp"
+	@echo "... gmock_main"
+	@echo "... gmock"
+	@echo "... gtest_main"
+	@echo "... gtest"
 .PHONY : help
 
 
@@ -511,6 +877,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

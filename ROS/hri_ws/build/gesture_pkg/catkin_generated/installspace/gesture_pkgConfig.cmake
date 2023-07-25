@@ -68,7 +68,7 @@ set(gesture_pkg_CONFIG_INCLUDED TRUE)
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
   set(gesture_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg)
-  set(gesture_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
+  set(gesture_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel/.private/gesture_pkg)
   set(gesture_pkg_INSTALL_PREFIX "")
   set(gesture_pkg_PREFIX ${gesture_pkg_DEVEL_PREFIX})
 else()

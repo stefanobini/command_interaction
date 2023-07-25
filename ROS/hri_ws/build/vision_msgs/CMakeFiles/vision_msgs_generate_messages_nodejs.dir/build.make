@@ -43,190 +43,190 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src
+CMAKE_SOURCE_DIR = /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build
+CMAKE_BINARY_DIR = /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs
 
 # Utility rule file for vision_msgs_generate_messages_nodejs.
 
 # Include the progress variables for this target.
-include vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/progress.make
+include CMakeFiles/vision_msgs_generate_messages_nodejs.dir/progress.make
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js
+CMakeFiles/vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js
 
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from vision_msgs/ObjectHypothesisWithPose.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from vision_msgs/ObjectHypothesisWithPose.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from vision_msgs/ObjectHypothesis.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from vision_msgs/ObjectHypothesis.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from vision_msgs/BoundingBox3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from vision_msgs/BoundingBox3D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from vision_msgs/VisionInfo.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from vision_msgs/VisionInfo.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/VisionInfo.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from vision_msgs/Detection3DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from vision_msgs/Detection3DArray.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from vision_msgs/Classification2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from vision_msgs/Classification2D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from vision_msgs/BoundingBox3DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from vision_msgs/BoundingBox3DArray.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Javascript code from vision_msgs/Detection2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Javascript code from vision_msgs/Detection2D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Javascript code from vision_msgs/Detection3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Vector3.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating Javascript code from vision_msgs/Detection3D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Javascript code from vision_msgs/BoundingBox2DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Javascript code from vision_msgs/BoundingBox2DArray.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Javascript code from vision_msgs/Classification3D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointCloud2.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesis.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/sensor_msgs/msg/PointField.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Javascript code from vision_msgs/Classification3D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Classification3D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating Javascript code from vision_msgs/BoundingBox2D.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating Javascript code from vision_msgs/BoundingBox2D.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
-/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating Javascript code from vision_msgs/Detection2DArray.msg"
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/sensor_msgs/msg/Image.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/ObjectHypothesisWithPose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Pose.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/std_msgs/msg/Header.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Quaternion.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/BoundingBox2D.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js: /opt/ros/melodic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating Javascript code from vision_msgs/Detection2DArray.msg"
+	catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg/Detection2DArray.msg -Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -p vision_msgs -o /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg
 
-vision_msgs_generate_messages_nodejs: vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification2D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection3D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Classification3D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js
-vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js
-vision_msgs_generate_messages_nodejs: vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build.make
+vision_msgs_generate_messages_nodejs: CMakeFiles/vision_msgs_generate_messages_nodejs
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesisWithPose.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/ObjectHypothesis.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/VisionInfo.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3DArray.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification2D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox3DArray.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection3D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2DArray.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Classification3D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/BoundingBox2D.js
+vision_msgs_generate_messages_nodejs: /home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/gennodejs/ros/vision_msgs/msg/Detection2DArray.js
+vision_msgs_generate_messages_nodejs: CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build.make
 
 .PHONY : vision_msgs_generate_messages_nodejs
 
 # Rule to build all files generated by this target.
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build: vision_msgs_generate_messages_nodejs
+CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build: vision_msgs_generate_messages_nodejs
 
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build
+.PHONY : CMakeFiles/vision_msgs_generate_messages_nodejs.dir/build
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/clean:
-	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -P CMakeFiles/vision_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/clean
+CMakeFiles/vision_msgs_generate_messages_nodejs.dir/clean:
+	$(CMAKE_COMMAND) -P CMakeFiles/vision_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
+.PHONY : CMakeFiles/vision_msgs_generate_messages_nodejs.dir/clean
 
-vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/depend:
-	cd /home/felice/command_interaction/ROS/hri_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
-.PHONY : vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/depend
+CMakeFiles/vision_msgs_generate_messages_nodejs.dir/depend:
+	cd /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/src/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs /home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/CMakeFiles/vision_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+.PHONY : CMakeFiles/vision_msgs_generate_messages_nodejs.dir/depend
 

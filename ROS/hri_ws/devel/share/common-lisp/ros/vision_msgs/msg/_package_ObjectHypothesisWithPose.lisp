@@ -1,8 +1,1 @@
-(cl:in-package vision_msgs-msg)
-(cl:export '(ID-VAL
-          ID
-          SCORE-VAL
-          SCORE
-          POSE-VAL
-          POSE
-))
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/common-lisp/ros/vision_msgs/msg/_package_ObjectHypothesisWithPose.lisp

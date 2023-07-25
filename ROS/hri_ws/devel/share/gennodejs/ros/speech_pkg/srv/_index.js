@@ -1,14 +1,1 @@
-
-"use strict";
-
-let Talker = require('./Talker.js')
-let ClassificationMSI = require('./ClassificationMSI.js')
-let Classification = require('./Classification.js')
-let Manager = require('./Manager.js')
-
-module.exports = {
-  Talker: Talker,
-  ClassificationMSI: ClassificationMSI,
-  Classification: Classification,
-  Manager: Manager,
-};
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/_index.js

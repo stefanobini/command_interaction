@@ -1,0 +1,1 @@
+/home/felice/command_interaction/ROS/hri_ws/devel/.private/move_base_msgs/share/roseus/ros/move_base_msgs/msg/MoveBaseGoal.l

@@ -15,7 +15,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/felice/command_interaction/ROS/hri_ws/devel/include"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include"
   "/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/include"
   "/opt/ros/melodic/include"
   "/usr/src/googletest/googletest/include"
@@ -23,7 +23,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/felice/command_interaction/ROS/hri_ws/build/gtest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/home/felice/command_interaction/ROS/hri_ws/build/vision_msgs/gtest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

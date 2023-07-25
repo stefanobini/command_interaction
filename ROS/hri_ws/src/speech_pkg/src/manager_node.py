@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 
 import sys
+
 import rospy
+import actionlib    # Brings in the SimpleActionClient
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal # Brings in the .action file and messages used by the move base action
+import dynamic_reconfigure
+
 from speech_pkg.srv import *
 import uuid
 from colorama import Fore
@@ -15,7 +20,7 @@ from iri_object_transportation_msgs.msg import explicit_information
 from speech_pkg.srv import Classification, ClassificationResponse, ClassificationMSI
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, REDUCED_INTENTS_DICT
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1, INTENT_TO_ACTION
 from demo_utils.post_request import MyRequestPost
 
 
@@ -190,12 +195,12 @@ def run_demo_MSIexp0(req):
     
     
     #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
-    if res.cmd == len(REDUCED_INTENTS_DICT)-1:
+    if res.cmd == len(INTENTS_DICT_MSIEXP0)-1:
         return ManagerResponse(True)    # res.flag
 
     message = explicit_information()
     message.header = Header()
-    message.header.frame_id = REDUCED_INTENTS_DICT[res.cmd][LANG][0]
+    message.header.frame_id = INTENTS_DICT_MSIEXP0[res.cmd][LANG][0]
     message.header.stamp = rospy.Time.now()
     message.fsr_values = [1. for i in range(5)]
     message.sw_values = [False for i in range(5)]
@@ -203,7 +208,7 @@ def run_demo_MSIexp0(req):
     #pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
     pub.publish(message)
     
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(REDUCED_INTENTS_DICT[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS_DICT_MSIEXP0[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
     print(res_str)
     
     '''
@@ -212,6 +217,65 @@ def run_demo_MSIexp0(req):
             f.write(res_str)
     '''
     speech_counter += 1
+
+    return ManagerResponse(True)    # res.flag
+
+
+def run_demo_MSIexp1(req):
+    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner
+
+    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
+    res = classify(req.data)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
+    if res.intent == len(INTENTS_DICT_MSIEXP1)-1:
+        return ManagerResponse(True)    # res.flag
+    
+    x, y = 0, 0
+    if res.intent == 8:    # lazy stop
+        time.sleep(0.5) # wait 0.5 s
+        actioner.cancel_goal()
+    elif res.intent == 9:    # immediately stop
+        actioner.cancel_goal()
+    elif res.intent in [10, 11]:   # not handled
+        return ManagerResponse(True)    # res.flag
+    else:
+        x = INTENT_TO_ACTION[res.intent]["x"]
+        y = INTENT_TO_ACTION[res.intent]["y"]
+        # Creates a new goal with the MoveBaseGoal constructor
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = "map"
+        goal.target_pose.header.stamp = rospy.Time.now()
+        # Move 'x' meters forward along the x axis of the "map" coordinate frame 
+        goal.target_pose.pose.position.x = x
+        goal.target_pose.pose.position.y = y
+        # No rotation of the mobile base frame w.r.t. map frame
+        goal.target_pose.pose.orientation.w = 1.0
+        goal.target_pose.pose.orientation.x = 0.0
+        goal.target_pose.pose.orientation.y = 0.0
+        goal.target_pose.pose.orientation.z = 0.0
+        """ To action TIAGO robot
+        # Sends the goal to the action server.
+        actioner.send_goal(goal)
+        # Waits for the server to finish performing the action.
+        wait = actioner.wait_for_result()
+        # If the result doesn't arrive, assume the Server is not available
+        if not wait:
+            rospy.logerr("Action server not available!")
+            rospy.signal_shutdown("Action server not available!")
+        else:
+        # Result of executing the action
+            return actioner.get_result()
+        #"""
+    
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS[res.intent]["text"][LANG], res.int_probs[res.intent]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(EXPLICIT_INTENTS[LANG][res.explicit], res.exp_probs[res.explicit]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(IMPLICIT_INTENTS[res.implicit][LANG], res.imp_probs[res.implicit]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    print(res_str)
+
+    if rospy.get_param("/save_speech") == True:
+        with open(SPEECH_INFO_FILE, "a") as f:
+            f.write(res_str)
+
+    speech_counter += 1
+    # res = speech(res.cmd, res.probs)
 
     return ManagerResponse(True)    # res.flag
 
@@ -265,6 +329,16 @@ def run_demo_msi(req):
     return ManagerResponse(True)    # res.flag
 
 
+def setPlannerParameters(max_vel_x:float):
+    node_to_reconfigure = "/move_by/move_base/PalLocalPlanner"
+    client = dynamic_reconfigure.client.Client(node_to_reconfigure)
+    params = {
+        #'acc_lim_x': 0.65,
+        'max_vel_x': max_vel_x
+        }
+    client.update_configuration(params)
+    return True
+
 if __name__ == "__main__":
     DEMO = rospy.get_param("/demo")
     LANG = rospy.get_param("/language")
@@ -274,6 +348,7 @@ if __name__ == "__main__":
     pub = rospy.Publisher('speech_command', String, queue_size=1)
     # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisAWS/Speech', Speech, queue_size=10)
     # pub = rospy.Publisher('/UNISA/SpeechGestureAnalysisCOBOT/Speech', Speech, queue_size=10)
+    actioner = None
     
     rospy.init_node('manager')
     
@@ -312,6 +387,13 @@ if __name__ == "__main__":
         rospy.Service('manager_service', Manager, run_demo_MSIexp0)
         classify = rospy.ServiceProxy('classifier_service', Classification)
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
+    elif DEMO == "MSIexp1":
+        rospy.Service('manager_service', Manager, run_demo_MSIexp1)
+        classify = rospy.ServiceProxy('classifier_service', Classification)
+        actioner = actionlib.SimpleActionClient('move_base',MoveBaseAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
+        actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
+        tiago_service = rospy.ServiceProxy('/move_base/PalLocalPlanner/set_parameters', Classification)
+        
     #command_eng = DEMO_CMD_ENG
     #command_ita = DEMO_CMD_ITA
     # rospy.Service('manager_service', Manager, run_demo7)
