@@ -21,7 +21,7 @@ from colorama import Back, Fore
 from typing import Dict, List, Tuple
 
 # from settings.MTL_conf import settings
-from mtl_exp.scr_si_loss import MT_loss
+from msi_exp.scr_si_loss import MT_loss
 
 
 class HardSharing_PL(pl.LightningModule):

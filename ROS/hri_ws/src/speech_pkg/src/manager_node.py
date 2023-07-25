@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 import sys
 
 import rospy
 import actionlib    # Brings in the SimpleActionClient
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal # Brings in the .action file and messages used by the move base action
-import dynamic_reconfigure
+import dynamic_reconfigure.client
 
 from speech_pkg.srv import *
 import uuid
@@ -20,7 +20,7 @@ from iri_object_transportation_msgs.msg import explicit_information
 from speech_pkg.srv import Classification, ClassificationResponse, ClassificationMSI
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1, INTENT_TO_ACTION
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_MSIEXP0, INTENTS_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1, INTENT_TO_ACTION
 from demo_utils.post_request import MyRequestPost
 
 
@@ -34,7 +34,7 @@ LEFT_IDs, AHEAD_IDs, RIGHT_IDs, STOP_IDs = [6,7], [2,3], [8,9], [10,11]
 
 
 # NOT USED METHOD
-def publish_cmd(command:int, confidence:float):
+def publish_cmd(command, confidence):
     global command_eng, command_ita, robot_uuid
 
     # Make Command message
@@ -195,12 +195,12 @@ def run_demo_MSIexp0(req):
     
     
     #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
-    if res.cmd == len(INTENTS_DICT_MSIEXP0)-1:
+    if res.cmd == len(INTENTS_MSIEXP0)-1:
         return ManagerResponse(True)    # res.flag
 
     message = explicit_information()
     message.header = Header()
-    message.header.frame_id = INTENTS_DICT_MSIEXP0[res.cmd][LANG][0]
+    message.header.frame_id = INTENTS_MSIEXP0[res.cmd][LANG][0]
     message.header.stamp = rospy.Time.now()
     message.fsr_values = [1. for i in range(5)]
     message.sw_values = [False for i in range(5)]
@@ -208,7 +208,7 @@ def run_demo_MSIexp0(req):
     #pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
     pub.publish(message)
     
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS_DICT_MSIEXP0[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS_MSIEXP0[res.cmd][LANG][0], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
     print(res_str)
     
     '''
@@ -227,7 +227,7 @@ def run_demo_MSIexp1(req):
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
     #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
-    if res.intent == len(INTENTS_DICT_MSIEXP1)-1:
+    if res.intent == len(INTENTS_MSIEXP1)-1:
         return ManagerResponse(True)    # res.flag
     
     x, y = 0, 0
@@ -253,7 +253,9 @@ def run_demo_MSIexp1(req):
         goal.target_pose.pose.orientation.x = 0.0
         goal.target_pose.pose.orientation.y = 0.0
         goal.target_pose.pose.orientation.z = 0.0
-        """ To action TIAGO robot
+        # Set velocity according to the urgency
+        setPlannerParameters(max_vel_x=INTENT_TO_ACTION[res.intent]["speed"])
+        #""" To action TIAGO robot
         # Sends the goal to the action server.
         actioner.send_goal(goal)
         # Waits for the server to finish performing the action.
@@ -267,7 +269,8 @@ def run_demo_MSIexp1(req):
             return actioner.get_result()
         #"""
     
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS[res.intent]["text"][LANG], res.int_probs[res.intent]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(EXPLICIT_INTENTS[LANG][res.explicit], res.exp_probs[res.explicit]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(IMPLICIT_INTENTS[res.implicit][LANG], res.imp_probs[res.implicit]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    #res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(EXPLICIT_INTENTS_MSIEXP1[LANG][res.explicit], res.exp_probs[res.explicit]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(IMPLICIT_INTENTS[res.implicit][LANG], res.imp_probs[res.implicit]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
     print(res_str)
 
     if rospy.get_param("/save_speech") == True:
@@ -329,8 +332,8 @@ def run_demo_msi(req):
     return ManagerResponse(True)    # res.flag
 
 
-def setPlannerParameters(max_vel_x:float):
-    node_to_reconfigure = "/move_by/move_base/PalLocalPlanner"
+def setPlannerParameters(max_vel_x):
+    node_to_reconfigure = "/move_base/PalLocalPlanner"
     client = dynamic_reconfigure.client.Client(node_to_reconfigure)
     params = {
         #'acc_lim_x': 0.65,
@@ -389,10 +392,10 @@ if __name__ == "__main__":
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
     elif DEMO == "MSIexp1":
         rospy.Service('manager_service', Manager, run_demo_MSIexp1)
-        classify = rospy.ServiceProxy('classifier_service', Classification)
+        classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
         actioner = actionlib.SimpleActionClient('move_base',MoveBaseAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
         actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
-        tiago_service = rospy.ServiceProxy('/move_base/PalLocalPlanner/set_parameters', Classification)
+        #tiago_service = rospy.ServiceProxy('move_base/PalLocalPlanner/set_parameters', Classification)
         
     #command_eng = DEMO_CMD_ENG
     #command_ita = DEMO_CMD_ITA

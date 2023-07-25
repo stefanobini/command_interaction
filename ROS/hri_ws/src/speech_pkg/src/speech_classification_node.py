@@ -22,7 +22,7 @@ from PIL import Image
 
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
 #from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
-from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MSIEXP0, INTENTS_DICT_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1
+from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_MSIEXP0, INTENTS_MSIEXP1, EXPLICIT_INTENTS_MSIEXP1
 import time
 import torchaudio
 from dotmap import DotMap
@@ -45,7 +45,7 @@ from msi_exp.MSI_hardsharing import HardSharing_PL as HardSharingMSI
 MODEL_PATH = "models"
 
 
-def get_melspectrogram(waveform:torch.Tensor) -> torch.Tensor:
+def get_melspectrogram(waveform:torch.Tensor):
         """Compute Mel-Spectrogram of a waveform given as input (waveform).
         The method use torchaudio library for the trasformation. All the parameters (sample_rate, n_fft, win_length, hop_length, n_mels) are taken from the configuration file.
         
@@ -65,7 +65,7 @@ def get_melspectrogram(waveform:torch.Tensor) -> torch.Tensor:
         transformation = torchaudio.transforms.MelSpectrogram(sample_rate=settings.input.sample_rate, n_fft=settings.input.spectrogram.n_fft, win_length=settings.input.spectrogram.win_length, hop_length=settings.input.spectrogram.hop_length, n_mels=settings.input.mel.n_mels).cuda()
         return transformation(waveform)
 
-def amplitude_to_db_spectrogram(spectrogram:torch.Tensor) -> torch.Tensor:
+def amplitude_to_db_spectrogram(spectrogram:torch.Tensor):
         """Convert amplitude spectrogram in dB spectrogram.
         The method use torchaudio library.
         
@@ -141,13 +141,13 @@ def select_parameters(language="eng", demo="7"):
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "MSIexp0":
-        COMMANDS = INTENTS_DICT_MSIEXP0
+        COMMANDS = INTENTS_MSIEXP0
         ckpt_folder = models_path.joinpath('demo_'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, settings.noise.curriculum_learning.distribution, "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "MSIexp1":
         ckpt_folder = models_path.joinpath('demo_'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, settings.noise.curriculum_learning.distribution, "checkpoints")
+        ckpt_folder = models_path.joinpath(ckpt_folder, settings.model.network, "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     else:
         print(Back.RED + "ERROR in the launch file with the parameter <demo>")
@@ -613,11 +613,11 @@ class ClassifierMSIexp0:
 
 class ClassifierMSIexp1:
     def __init__(self, ckpt_folder, ckpt_name):
-        self.threshold_1 = None
-        self.threshold_2 = None
+        self.threshold_1 = 0.7
+        self.threshold_2 = 0.0
         self.lang = rospy.get_param("/language")
 
-        labels = list((INTENTS.keys(), EXPLICIT_INTENTS[self.lang].keys(), IMPLICIT_INTENTS.keys()))
+        labels = list((INTENTS_MSIEXP1.keys(), EXPLICIT_INTENTS_MSIEXP1[self.lang].keys(), IMPLICIT_INTENTS.keys()))
         task_n_labels = list((len(labels[0]), len(labels[1]), len(labels[2])))
 
         assert settings.model.network in ["HS_msi"]
@@ -676,7 +676,7 @@ class ClassifierMSIexp1:
         int_probs = int_probs.cpu().detach().numpy()
         exp_probs = exp_probs.cpu().detach().numpy()
         imp_probs = imp_probs.cpu().detach().numpy()
-        intent = np.argmax(int_probs, axis=1) if np.max(int_probs, axis=1) > self.threshold_1 else np.array([-1])
+        intent = np.argmax(int_probs, axis=1) if np.max(int_probs, axis=1) > self.threshold_1 else np.array([len(INTENTS_MSIEXP1)-1])
         explicit = np.argmax(exp_probs, axis=1)
         implicit = np.argmax(imp_probs, axis=1)
         """
@@ -699,6 +699,17 @@ class ClassifierMSIexp1:
         '''
 
         return intent, int_probs, explicit, exp_probs, implicit, imp_probs
+
+    def parse_req(self, req):
+        prev_time = time.time()
+        signal = self.convert(req.data.data)
+        intent, int_probs, explicit, exp_probs, implicit, imp_probs = self.predict(signal)
+        infer_time = time.time() - prev_time
+        self.times.append(infer_time)
+        # self.times_file.write("{:.3f}\n".format(sum(self.times)/len(self.times)))
+        with open(os.path.join("/home/felice/command_interaction/ROS/hri_ws", "times.txt"), "w") as f_out:
+            f_out.write("{:.3f} s\n".format(sum(self.times)/len(self.times)))
+        return ClassificationMSIResponse(int(intent[0]), int_probs.tolist()[0], int(explicit[0]), exp_probs.tolist()[0], int(implicit[0]), imp_probs.tolist()[0])
 
     def init_node(self):
         rospy.init_node('classifier')
