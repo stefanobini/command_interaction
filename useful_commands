@@ -33,8 +33,7 @@ sudo docker exec -it command_demo  /bin/bash
 # Docker for IRI Lab
 sudo docker build -t docker_msi_demo . --network=host
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name msi_demo docker_msi_demo
-sudo docker exec -it msi_demo  /bin/bash
-
+irilab
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
@@ -50,6 +49,12 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 
 '''For connect to another ROS core inside local network'''
 export ROS_MASTER_URI=http://10.68.0.1:11311 && export ROS_IP=10.68.0.128
+python -m pip install requests
+apt-get install ros-melodic-ros-tutorials ros-melodic-geometry-tutorials ros-melodic-rviz ros-melodic-rosbash ros-melodic-rqt-tf-tree
+rosdep init
+rosdep update
+apt-get install ntpdate
+ntpdate -q 10.68.0.1
 
 '''For FELICE'''
 roslaunch speech_pkg start_felice.launch    # SCR experiemntation

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+import tf
 
 import rospy
 import actionlib    # Brings in the SimpleActionClient
@@ -9,9 +10,12 @@ import dynamic_reconfigure.client
 
 from speech_pkg.srv import *
 import uuid
+import colorama
+colorama.init(autoreset=True)
 from colorama import Fore
 from datetime import datetime
 import time
+import threading
 
 from std_msgs.msg import String, Header
 from speech_pkg.msg import Command, Speech
@@ -222,7 +226,7 @@ def run_demo_MSIexp0(req):
 
 
 def run_demo_MSIexp1(req):
-    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner
+    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner, robot_coordinates, listener
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -230,48 +234,74 @@ def run_demo_MSIexp1(req):
     if res.intent == len(INTENTS_MSIEXP1)-1:
         return ManagerResponse(True)    # res.flag
     
-    x, y = 0, 0
+    t = tf.Transformer(True, rospy.Duration(10.0))
+    
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
+    print(res_str)
+
+    map_goal = MoveBaseGoal()
+    map_goal.target_pose.header.frame_id = "map"    # ["odom", "map"]
+    map_goal.target_pose.header.stamp = rospy.Time.now()
+    # Move 'x' meters forward along the x axis of the "map" coordinate frame 
+    map_goal.target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
+    map_goal.target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
+    # No rotation of the mobile base frame w.r.t. map frame
+    map_goal.target_pose.pose.orientation.w = 0.0
+    map_goal.target_pose.pose.orientation.x = 0.0
+    map_goal.target_pose.pose.orientation.y = 0.0
+    map_goal.target_pose.pose.orientation.z = 0.0
+    
     if res.intent == 8:    # lazy stop
         time.sleep(0.5) # wait 0.5 s
         actioner.cancel_goal()
     elif res.intent == 9:    # immediately stop
         actioner.cancel_goal()
-    elif res.intent in [10, 11]:   # not handled
-        return ManagerResponse(True)    # res.flag
     else:
-        x = INTENT_TO_ACTION[res.intent]["x"]
-        y = INTENT_TO_ACTION[res.intent]["y"]
-        # Creates a new goal with the MoveBaseGoal constructor
-        goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = "map"
-        goal.target_pose.header.stamp = rospy.Time.now()
-        # Move 'x' meters forward along the x axis of the "map" coordinate frame 
-        goal.target_pose.pose.position.x = x
-        goal.target_pose.pose.position.y = y
-        # No rotation of the mobile base frame w.r.t. map frame
-        goal.target_pose.pose.orientation.w = 1.0
-        goal.target_pose.pose.orientation.x = 0.0
-        goal.target_pose.pose.orientation.y = 0.0
-        goal.target_pose.pose.orientation.z = 0.0
+        if res.intent in [10, 11]:
+            map_target_pose = map_goal.target_pose
+        else:
+            # Creates a new goal with the MoveBaseGoal constructor
+            robot_goal = MoveBaseGoal()
+            robot_goal.target_pose.header.frame_id = "base_link"    # ["odom", "map", "base_link"]
+            robot_goal.target_pose.header.stamp = rospy.Time.now()
+            # Move 'x' meters forward along the x axis of the "base_link" coordinate frame 
+            robot_goal.target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
+            robot_goal.target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
+            # No rotation of the mobile base frame w.r.t. robot frame
+            robot_goal.target_pose.pose.orientation.w = 0.0
+            robot_goal.target_pose.pose.orientation.x = 0.0
+            robot_goal.target_pose.pose.orientation.y = 0.0
+            robot_goal.target_pose.pose.orientation.z = 0.0
+
+            # Quaternion trasformation from robot frame to map frame
+            listener.waitForTransform(map_goal.target_pose.header.frame_id, robot_goal.target_pose.header.frame_id, robot_goal.target_pose.header.stamp, rospy.Duration(5.0))
+            map_target_pose = listener.transformPose(map_goal.target_pose.header.frame_id, robot_goal.target_pose)
+
         # Set velocity according to the urgency
-        setPlannerParameters(max_vel_x=INTENT_TO_ACTION[res.intent]["speed"])
-        #""" To action TIAGO robot
+        #setPlannerParameters(max_vel_x=INTENT_TO_ACTION[res.intent]["speed"])
+        #print("Speed set to ", INTENT_TO_ACTION[res.intent]["speed"])
+        #''' To action TIAGO robot
         # Sends the goal to the action server.
-        actioner.send_goal(goal)
+        #actioner.send_goal(goal)
+        #print("Action sended!")
+        #'''
         # Waits for the server to finish performing the action.
-        wait = actioner.wait_for_result()
+        #wait = actioner.wait_for_result()
+        #print("Action completed!")
         # If the result doesn't arrive, assume the Server is not available
+        
+        '''
         if not wait:
             rospy.logerr("Action server not available!")
             rospy.signal_shutdown("Action server not available!")
         else:
         # Result of executing the action
             return actioner.get_result()
-        #"""
-    
-    #res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(EXPLICIT_INTENTS_MSIEXP1[LANG][res.explicit], res.exp_probs[res.explicit]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(IMPLICIT_INTENTS[res.implicit][LANG], res.imp_probs[res.implicit]) + Fore.CYAN + ' #\n' + '#'* 44 + '\n'
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
-    print(res_str)
+        #'''
+
+        map_goal.target_pose = map_target_pose
+
+        actioner.send_goal(map_goal)    
 
     if rospy.get_param("/save_speech") == True:
         with open(SPEECH_INFO_FILE, "a") as f:
@@ -393,8 +423,10 @@ if __name__ == "__main__":
     elif DEMO == "MSIexp1":
         rospy.Service('manager_service', Manager, run_demo_MSIexp1)
         classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
-        actioner = actionlib.SimpleActionClient('move_base',MoveBaseAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
+        actioner = actionlib.SimpleActionClient('move_base', MoveBaseAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
         actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
+        robot_coordinates = {"x":0, "y":0, "orientation":0}
+        listener = tf.TransformListener()
         #tiago_service = rospy.ServiceProxy('move_base/PalLocalPlanner/set_parameters', Classification)
         
     #command_eng = DEMO_CMD_ENG
@@ -410,4 +442,6 @@ if __name__ == "__main__":
 
     # speech = rospy.ServiceProxy('speech_service', Talker)
 
-    rospy.spin()
+    x = threading.Thread(target=rospy.spin())
+    x.start()
+    #rospy.spin()

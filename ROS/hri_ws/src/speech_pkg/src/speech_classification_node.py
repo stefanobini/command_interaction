@@ -613,7 +613,7 @@ class ClassifierMSIexp0:
 
 class ClassifierMSIexp1:
     def __init__(self, ckpt_folder, ckpt_name):
-        self.threshold_1 = 0.7
+        self.threshold_1 = 0.5
         self.threshold_2 = 0.0
         self.lang = rospy.get_param("/language")
 
