@@ -175,9 +175,17 @@ class Preprocessing():
             a = epoch * (self.settings.noise.min_snr - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr                           # modeled as a linear descending function plus a flat phase in the end
             b = self.settings.noise.max_snr
             snr = random.uniform(a=a, b=b)
+        elif self.settings.noise.curriculum_learning.distribution == "Anti_UniCL_PEM_v1":
+            a = self.settings.noise.min_snr
+            b = epoch * (self.settings.noise.max_snr - self.settings.noise.min_snr) / descent_epochs
+            snr = random.uniform(a=a, b=b)
         elif self.settings.noise.curriculum_learning.distribution == "UniCL_PEM_v2":
             a = epoch * (self.settings.noise.min_snr + self.settings.noise.curriculum_learning.uniform.step - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr - self.settings.noise.curriculum_learning.uniform.step
             b = epoch * (self.settings.noise.min_snr + self.settings.noise.curriculum_learning.uniform.step - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr
+            snr = random.uniform(a=a, b=b)
+        elif self.settings.noise.curriculum_learning.distribution == "Anti_UniCL_PEM_v2":
+            a = epoch * (self.settings.noise.max_snr + self.settings.noise.curriculum_learning.uniform.step - self.settings.noise.min_snr) / descent_epochs
+            b = a + self.settings.noise.curriculum_learning.uniform.step
             snr = random.uniform(a=a, b=b)
         elif self.settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v1":
             # model mu as a combination of descent linear function plus a constant  ->  \_
@@ -187,8 +195,20 @@ class Preprocessing():
             s2 = epoch * self.settings.noise.curriculum_learning.gaussian.max_sigma / self.settings.noise.curriculum_learning.epoch_saturation_time                          # modeled as a linear ascending function
             sigma = max(s1, s2)
             snr = np.random.normal(loc=mu, scale=sigma)
+        elif self.settings.noise.curriculum_learning.distribution == "Anti_GaussCL_PEM_v1":
+            # model mu as a combination of descent linear function plus a constant  ->  \_
+            mu = epoch * (self.settings.noise.max_snr - self.settings.noise.min_snr) / descent_epochs     # modeled as a linear ascending function plus a flat phase in the end
+            # model sigma as a triangular function                                  ->  \/
+            s1 = epoch * (-self.settings.noise.curriculum_learning.gaussian.max_sigma) / self.settings.noise.curriculum_learning.epoch_saturation_time + self.settings.noise.curriculum_learning.gaussian.max_sigma      # modeled as a linear descending function
+            s2 = epoch * self.settings.noise.curriculum_learning.gaussian.max_sigma / self.settings.noise.curriculum_learning.epoch_saturation_time                          # modeled as a linear ascending function
+            sigma = max(s1, s2)
+            snr = np.random.normal(loc=mu, scale=sigma)
         elif self.settings.noise.curriculum_learning.distribution == "GaussCL_PEM_v2":
             mu = epoch * (self.settings.noise.min_snr - self.settings.noise.max_snr) / descent_epochs + self.settings.noise.max_snr     # modeled as a linear descending function plus a flat phase in the end
+            sigma = self.settings.noise.curriculum_learning.gaussian.sigma
+            snr = np.random.normal(loc=mu, scale=sigma)
+        elif self.settings.noise.curriculum_learning.distribution == "Anti_GaussCL_PEM_v2":
+            mu = epoch * (self.settings.noise.max_snr - self.settings.noise.min_snr) / descent_epochs     # modeled as a linear ascending function plus a flat phase in the end
             sigma = self.settings.noise.curriculum_learning.gaussian.sigma
             snr = np.random.normal(loc=mu, scale=sigma)
             

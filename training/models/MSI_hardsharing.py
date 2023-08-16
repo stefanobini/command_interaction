@@ -177,6 +177,13 @@ class HardSharing_PL(pl.LightningModule):
         #'''
         return x
 
+    def predict(self, x:torch.Tensor) -> torch.Tensor:
+        int_logits, exp_logits, imp_logits = self.forward(x)
+        int_probs = torch.nn.functional.softmax(input=int_logits, dim=1)
+        exp_probs = torch.nn.functional.softmax(input=exp_logits, dim=1)
+        imp_probs = torch.nn.functional.softmax(input=imp_logits, dim=1)
+        return int_probs, exp_probs, imp_probs 
+
 
     def set_train_dataloader(self, dataloader:torch.utils.data.DataLoader) -> torch.utils.data.DataLoader:
         """Set the training loader.

@@ -1,3 +1,7 @@
+"""
+python3 test.py --configuration SCR_conf 2>&1 | tee t0_log.txt
+"""
+
 import os
 import sys
 import argparse
