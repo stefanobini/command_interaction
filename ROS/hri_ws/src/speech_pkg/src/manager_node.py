@@ -226,7 +226,7 @@ def run_demo_MSIexp0(req):
 
 
 def run_demo_MSIexp1(req):
-    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner, robot_coordinates, listener
+    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner, listener
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
@@ -236,7 +236,8 @@ def run_demo_MSIexp1(req):
     
     t = tf.Transformer(True, rospy.Duration(10.0))
     
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
+    color = Fore.YELLOW if INTENTS_MSIEXP1[res.intent]["implicit"][LANG]["id"] else Fore.CYAN 
+    res_str = color + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
     print(res_str)
 
     map_goal = MoveBaseGoal()
@@ -245,11 +246,6 @@ def run_demo_MSIexp1(req):
     # Move 'x' meters forward along the x axis of the "map" coordinate frame 
     map_goal.target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
     map_goal.target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
-    # No rotation of the mobile base frame w.r.t. map frame
-    map_goal.target_pose.pose.orientation.w = 0.0
-    map_goal.target_pose.pose.orientation.x = 0.0
-    map_goal.target_pose.pose.orientation.y = 0.0
-    map_goal.target_pose.pose.orientation.z = 0.0
     
     if res.intent == 8:    # lazy stop
         time.sleep(0.5) # wait 0.5 s
@@ -257,28 +253,25 @@ def run_demo_MSIexp1(req):
     elif res.intent == 9:    # immediately stop
         actioner.cancel_goal()
     else:
+        # Creates a new goal with the MoveBaseGoal constructor
+        robot_goal = MoveBaseGoal()
+        robot_goal.target_pose.header.frame_id = "base_link"    # ["odom", "map", "base_link"]
+        robot_goal.target_pose.header.stamp = rospy.Time.now()
+        # Move 'x' meters forward along the x axis of the "base_link" coordinate frame 
+        robot_goal.target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
+        robot_goal.target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
+        
+        # Quaternion trasformation from robot frame to map frame
+        listener.waitForTransform(map_goal.target_pose.header.frame_id, robot_goal.target_pose.header.frame_id, robot_goal.target_pose.header.stamp, rospy.Duration(5.0))
+        map_target_pose = listener.transformPose(map_goal.target_pose.header.frame_id, robot_goal.target_pose)
+        
         if res.intent in [10, 11]:
-            map_target_pose = map_goal.target_pose
-        else:
-            # Creates a new goal with the MoveBaseGoal constructor
-            robot_goal = MoveBaseGoal()
-            robot_goal.target_pose.header.frame_id = "base_link"    # ["odom", "map", "base_link"]
-            robot_goal.target_pose.header.stamp = rospy.Time.now()
-            # Move 'x' meters forward along the x axis of the "base_link" coordinate frame 
-            robot_goal.target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
-            robot_goal.target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
-            # No rotation of the mobile base frame w.r.t. robot frame
-            robot_goal.target_pose.pose.orientation.w = 0.0
-            robot_goal.target_pose.pose.orientation.x = 0.0
-            robot_goal.target_pose.pose.orientation.y = 0.0
-            robot_goal.target_pose.pose.orientation.z = 0.0
-
-            # Quaternion trasformation from robot frame to map frame
-            listener.waitForTransform(map_goal.target_pose.header.frame_id, robot_goal.target_pose.header.frame_id, robot_goal.target_pose.header.stamp, rospy.Duration(5.0))
-            map_target_pose = listener.transformPose(map_goal.target_pose.header.frame_id, robot_goal.target_pose)
+            map_target_pose.pose.position.x = INTENT_TO_ACTION[res.intent]["x"]
+            map_target_pose.pose.position.y = INTENT_TO_ACTION[res.intent]["y"]
+            
 
         # Set velocity according to the urgency
-        #setPlannerParameters(max_vel_x=INTENT_TO_ACTION[res.intent]["speed"])
+        setPlannerParameters(max_vel_x=INTENT_TO_ACTION[res.intent]["speed"])
         #print("Speed set to ", INTENT_TO_ACTION[res.intent]["speed"])
         #''' To action TIAGO robot
         # Sends the goal to the action server.
@@ -301,7 +294,21 @@ def run_demo_MSIexp1(req):
 
         map_goal.target_pose = map_target_pose
 
-        actioner.send_goal(map_goal)    
+        actioner.send_goal(map_goal)
+        #'''
+        # Waits for the server to finish performing the action.
+        #wait = actioner.wait_for_result()
+        #print("Action completed!")
+        # If the result doesn't arrive, assume the Server is not available
+        '''
+        if not wait:
+            rospy.logerr("Action server not available!")
+            rospy.signal_shutdown("Action server not available!")
+        else:
+        # Result of executing the action
+            #return actioner.get_result()
+            return ManagerResponse(True)    # res.flag
+        #'''
 
     if rospy.get_param("/save_speech") == True:
         with open(SPEECH_INFO_FILE, "a") as f:

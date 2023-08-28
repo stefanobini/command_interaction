@@ -32,8 +32,9 @@ sudo docker exec -it command_demo  /bin/bash
 
 # Docker for IRI Lab
 sudo docker build -t docker_msi_demo . --network=host
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name msi_demo docker_msi_demo
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --net host --runtime nvidia -dit --name msi_demo docker_msi_demo
 irilab
+sudo docker exec -it msi_demo  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
@@ -100,4 +101,4 @@ curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?ty
 
 # To detect audio device
 python3 -m pip install sounddevice
-python -m sounddevice
+python3 -m sounddevice
