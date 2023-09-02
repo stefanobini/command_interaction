@@ -12,7 +12,7 @@ settings.tasks:List[str] = ["command"]                                   # [["co
 settings.demo:str = "scr"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -46,7 +46,7 @@ settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "mobilenetv2"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -93,7 +93,7 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "Anti_GaussCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "Anti_UniCL_PEM_v1", "UniCL_PEM_v2", "Anti_UniCL_PEM_v2", "GaussCL_PEM_v1", "Anti_GaussCL_PEM_v1", "GaussCL_PEM_v2", "Anti_GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "Anti_UniCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "Anti_UniCL_PEM_v1", "UniCL_PEM_v2", "Anti_UniCL_PEM_v2", "GaussCL_PEM_v1", "Anti_GaussCL_PEM_v1", "GaussCL_PEM_v2", "Anti_GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
@@ -114,3 +114,5 @@ try:
 except FileNotFoundError:
     print("This field in <{}.py> file rise an ERROR because the fold <{}> doesn't exist".format(settings.name, ckpt_path)) 
 settings.testing.results_path:str = None
+settings.testing.real_data.folder:str = os.path.join("datasets", "MIVIA_CRF_ISC")
+settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "all")                 # ["clean", "noisy", "all"]

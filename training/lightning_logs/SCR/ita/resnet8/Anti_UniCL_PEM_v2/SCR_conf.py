@@ -67,7 +67,7 @@ settings.model.conformer.convolution_first: bool = True
 '''Training'''
 settings.training.test_model:bool = False   
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 36
+settings.training.num_workers:str = 24
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:int = 0                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
@@ -108,9 +108,11 @@ settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.d
 '''Test'''
 settings.testing.folder:str = os.path.join("testing", settings.experimentation)
 settings.testing.n_folds:int = 8
-ckpt_path:str = os.path.join(settings.logger.folder, settings.experimentation, settings.input.language, settings.noise.curriculum_learning.distribution, "checkpoints")
+ckpt_path:str = os.path.join(settings.logger.folder, settings.experimentation, settings.input.language, settings.model.network, settings.noise.curriculum_learning.distribution, "checkpoints")
 try:
     settings.testing.ckpt_path:str = os.path.join(ckpt_path, os.listdir(ckpt_path)[0])
 except FileNotFoundError:
     print("This field in <{}.py> file rise an ERROR because the fold <{}> doesn't exist".format(settings.name, ckpt_path)) 
 settings.testing.results_path:str = None
+settings.testing.real_data.folder:str = os.path.join("datasets", "MIVIA_CRF_ISC")
+settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "all")                 # ["clean", "noisy", "all"]

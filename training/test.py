@@ -48,7 +48,7 @@ if torch.cuda.is_available():
     # os.environ["CUDA_VISIBLE_DEVICES"] = str(available_devices)
     print(Back.GREEN + "CUDA acceleration available on <{}> devices: <{}>".format(torch.cuda.device_count(), available_devices))
     # print(Back.GREEN + "The current device is <{}>, you select device <{}>".format(torch.cuda.current_device(), settings.training.device))
-    pin_memory = True if settings.training.device=="cuda" else False
+pin_memory = True if settings.training.device=="cuda" else False
 
 ########################
 #     Setting Seed     #

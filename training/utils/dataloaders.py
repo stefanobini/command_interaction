@@ -106,9 +106,9 @@ class MiviaDataset(Dataset):
         waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
-
+        
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command)
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -120,8 +120,8 @@ class MiviaDataset(Dataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command)
-
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
+   
     def _get_group(self, heading:str) -> List[int]:
         """Get the list of the samples group for the passed column.
         
@@ -413,11 +413,15 @@ class TestingMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
 
-        if settings.experimentation == "MTL":
+        if settings.testing.real_data.folder != None:
+            self.dataset_path = settings.testing.real_data.folder
+            self.speech_annotations = settings.testing.real_data.annotations
+        elif settings.experimentation == "MTL":
             self.dataset_path = os.path.join(self.settings.dataset.folder)
+            self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "testing")
-        self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
+            self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
 
     
     def __getitem__(self, index) -> Tuple[torch.Tensor, int, str, str, str, int, int]:
@@ -462,9 +466,6 @@ class TestingMiviaDataset(MiviaDataset):
         elif self.settings.input.type == "melspectrogram":
             item = self.preprocessing.get_melspectrogram(item)   # (channel, n_mels, time)
         
-        #########################################################################
-        # ATTENZIONEEEEEEEE!!!!!!!!!!!!!!!! NON SO SE IL MULTIPLIER è 10. o 20. #
-        #########################################################################
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         
