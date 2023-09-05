@@ -80,3 +80,35 @@ DEMO_CMD_ITA = {
     7: "Prendi la mostrina comandi",
     8: "Nessun comando"
 } """
+
+"""DEMO_CMD_ENG = {
+    0: "Increase the height",
+    1: "Decrease the height",
+    2: "Start",
+    3: "Stop",S
+    4: "Go",
+    5: "Release",
+    6: "Bring me the gun screwdriver",
+    7: "Take the gun screwdriver",
+    8: "Bring me the elbow screwdriver",
+    9: "Take the elbow screwdriver",
+    10: "Bring me the windows control panel",
+    11: "Take the windows control panel",
+    12: "No command"
+}
+
+DEMO_CMD_ITA = {
+    0: "Piu alto",
+    1: "Piu basso",
+    2: "Start",
+    3: "Stop",
+    4: "Libera",
+    5: "Rilascia",
+    6: "Portami l'avvitatore elettrico",
+    7: "Prendi l'avvitatore elettrico",
+    8: "Portami l'avvitatore a gomito",
+    9: "Prendi l'avvitatore a gomito",
+    10: "Portami la mostrina comandi",
+    11: "Prendi la mostrina comandi",
+    12: "Nessun comando"
+}"""

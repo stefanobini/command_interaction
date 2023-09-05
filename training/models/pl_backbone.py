@@ -88,7 +88,7 @@ class PL_Backbone(pl.LightningModule):
         
     def set_results_path(self):
         self.results_folder = os.path.join(self.settings.logger.folder, self.settings.logger.name, self.settings.logger.version)
-        self.results_file = os.path.join(self.results_folder, "test_results.txt")
+        self.results_file = os.path.join(self.results_folder, "real_test_results.txt") if self.settings.testing.real_data.folder else os.path.join(self.results_folder, "test_results.txt")
         if os.path.exists(self.results_file):
             os.remove(self.results_file)
         self.results_file_snr = os.path.join(self.results_folder, "test_results_snr.txt")
@@ -380,7 +380,7 @@ class PL_Backbone(pl.LightningModule):
         '''
     
 
-    def test_step(self, batch, batch_idx, dataloader_idx):
+    def test_step(self, batch, batch_idx, dataloader_idx=0):
         """Hook function performing the test step.
         Forward the model, compute the loss function and the information for TensorBoard logger.
         
@@ -432,7 +432,7 @@ class PL_Backbone(pl.LightningModule):
             balanced_accuracies.append(balanced_accuracy.cpu().numpy())
             reject_accuracies.append(reject_accuracy.cpu().numpy())
 
-            #''' ADD SNRs Analysis
+            ''' ADD SNRs Analysis
             # Construct and fill dictionary that contains the predictions and target devided by SNR
             for snr in self.snrs:
                 outputs[snr] = {"logits": list(), "targets": list()}

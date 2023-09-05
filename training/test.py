@@ -138,6 +138,6 @@ trainer = pl.Trainer(
 ########################
 #      Test Model      #
 ########################
-model = model.load_from_checkpoint(settings.testing.ckpt_path, settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights)
+model = model.load_from_checkpoint(settings.testing.ckpt_path, settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights, map_location={"cuda:1":"cuda:0"})
 model.set_test_dataloaders(dataloaders=test_loaders)
 trainer.test(model=model, dataloaders=test_loaders, ckpt_path=settings.testing.ckpt_path, verbose=True, datamodule=None)

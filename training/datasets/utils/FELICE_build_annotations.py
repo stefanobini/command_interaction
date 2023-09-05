@@ -1,83 +1,20 @@
 import os
 import pandas
 from tqdm import tqdm
+from FELICE_cmd_map import FULL, OLD_CMD_LABEL_3, OLD_CMD_LABEL_3_AND_7, OLD_CMD_LABEL_7, OLD_CMD_LABEL_7_PLUS, PHASE_I_ROBOT
 
 
 LANGS = ["eng", "ita"]
-DEMO = "full"  # ["full", "3", "7", "7_plus"]
+DEMO = "full"  # ["full", "3", "7", "7_plus", "phase_I"]
 IN_DATASET_FOLDER = "MIVIA_ISC_v1"
 OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
 ANNOTATION_FILE = "dataset.csv"
 COLUMNS = ["path", "type", "subtype", "speaker", "command"]
 BALANCE_REJECT_SAMPLES = False
 REJECT_PERCENTAGE = 0.75
-OLD_CMD_LABEL_3_AND_7 = {
-    2:0,
-    3:1,
-    23:2,
-    20:3,
-    6:4,
-    7:5,
-    16:6,
-    17:7
-}
-OLD_CMD_LABEL_3 = {
-    2:0,
-    3:1,
-    4:2,
-    5:3
-}
-OLD_CMD_LABEL_7 = {
-    23:0,
-    20:1,
-    6:2,
-    7:3,
-    16:4,
-    17:5
-}
-OLD_CMD_LABEL_7_PLUS = {
-    23:0,
-    20:1,
-    6:2,
-    7:3,
-    8:4,
-    9:5,
-    16:6,
-    17:7
-}
-FULL = {
-    0:0,
-    1:1,
-    2:2,
-    3:3,
-    4:4,
-    5:5,
-    6:6,
-    7:7,
-    8:8,
-    9:9,
-    10:10,
-    11:11,
-    12:12,
-    13:13,
-    14:14,
-    15:15,
-    16:16,
-    17:17,
-    18:18,
-    19:19,
-    20:20,
-    21:21,
-    22:22,
-    23:23,
-    24:24,
-    25:25,
-    26:26,
-    27:27,
-    28:28,
-    29:29,
-    30:30
-}
+GOOGLE_USEFUL_COMMANDS = {os.path.join("dataset", "google_speech_commands_v1", "go"):   22,
+                          os.path.join("dataset", "google_speech_commands_v1", "stop"): 24}
+
 if DEMO == str(3):
     OLD_CMD_LABEL = OLD_CMD_LABEL_3
 elif DEMO == str(7):
@@ -86,6 +23,8 @@ elif DEMO == "7_plus":
     OLD_CMD_LABEL = OLD_CMD_LABEL_7_PLUS
 elif DEMO == "full":
     OLD_CMD_LABEL = FULL
+elif DEMO == "phase_I":
+    OLD_CMD_LABEL = PHASE_I_ROBOT
 
 for lang in LANGS:
     in_dataset_folder = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", lang)
@@ -105,6 +44,20 @@ for lang in LANGS:
             out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
             out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
             out_dict["command"].append(OLD_CMD_LABEL[in_df.iloc[idx]["command"]])
+        elif DEMO == "phase_I":
+            if os.path.join(lang, "stop") in in_df.iloc[idx]["path"]:
+                out_dict["path"].append(in_df.iloc[idx]["path"])
+                out_dict["type"].append("google_speech_commands")
+                out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
+                out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
+                out_dict["command"].append(24)
+            elif lang == "eng":
+                if os.path.join(lang, "go") in in_df.iloc[idx]["path"]:
+                    out_dict["path"].append(in_df.iloc[idx]["path"])
+                    out_dict["type"].append("google_speech_commands")
+                    out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
+                    out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
+                    out_dict["command"].append(22)
         elif DEMO == "full":
             if os.path.join(lang, "stop") in in_df.iloc[idx]["path"]:
                 out_dict["path"].append(in_df.iloc[idx]["path"])
@@ -157,6 +110,18 @@ for lang in LANGS:
             out_dict["command"].append(len(OLD_CMD_LABEL))
 
         df_iter.set_description("Building <{}> annotation file.".format(lang))
+
+    '''
+    # Add "go" and "stop" samples from Google Speech Command dataset
+    if lang == "eng":
+        for cmd_path in GOOGLE_USEFUL_COMMANDS:
+            for path in os.listdir(cmd_path):
+                out_dict["path"].append(in_df.iloc[idx]["path"])
+                out_dict["type"].append("google_speech_commands")
+                out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
+                out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
+                out_dict["command"].append(GOOGLE_USEFUL_COMMANDS[cmd_path])
+    '''
 
     out_df = pandas.DataFrame(data=out_dict, columns=COLUMNS)
 
