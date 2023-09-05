@@ -51,6 +51,7 @@ acquisition/speech/detected_voices/*
 *.pyc
 # *.model
 *.jpg
+*.ogg
 
 # general directories
 __pycache__
