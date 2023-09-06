@@ -6,11 +6,11 @@ from math import floor
 from typing import Tuple
 
 
-LANGS = ["eng", "esp", "ita"]
+LANGS = ["eng", "ita"]
 
 #DATASET = os.path.join("SCR_experimentation")
-#DATASET = os.path.join("FELICE", "demofull")
-DATASET = os.path.join("MSI_exp0")
+DATASET = os.path.join("FELICE", "demophase_I")
+#DATASET = os.path.join("MIVIA_ISC_v2")
 DATASET_PATH = os.path.join("datasets", DATASET)
 
 HEADING = ["path", "type", "subtype", "speaker", "command"]
@@ -72,7 +72,8 @@ def get_df_attribute_set(attribute_group, attribute_list:list, heading) -> pd.Da
 ############
 # COMMANDS #
 ############
-for lang in LANGS:
+lang_iter = tqdm(LANGS)
+for lang in lang_iter:
     # output_path = os.path.join(DATASET_PATH, "annotations", "with_reject", lang)
     output_path = os.path.join(DATASET_PATH, "annotations", lang)
     os.makedirs(output_path, exist_ok=True)
@@ -152,6 +153,8 @@ for lang in LANGS:
     out_file = os.path.join(output_path, "testing.csv")
     df = pd.DataFrame(data=test_df, columns=HEADING)
     df.to_csv(path_or_buf=out_file, index=False)
+
+    lang_iter.set_description("Working on {} language".format(lang.upper()))
 
 """
 ''' Read NOISE annotation file '''

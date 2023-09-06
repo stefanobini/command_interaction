@@ -20,9 +20,9 @@ from commands import COMMANDS
 HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
-DATASET_NAME = "MIVIA_ISC_v1"
+DATASET_NAME = "MIVIA_ISC_v2"
 IN_PATH = os.path.join("datasets", DATASET_NAME)
-OUT_DATASET = os.path.join("datasets", "SCR_experimentation")
+OUT_DATASET = os.path.join("datasets", "MIVIA_ISC_v2")
 OUT_PATH = os.path.join(OUT_DATASET, "annotations")
 
 cmd_path = "commands"
@@ -35,7 +35,7 @@ def add_command_samples(data, lang_path, speaker, samples):
     type = "command"
     for sample in samples:
         sample_path = os.path.join(lang_path, sample)
-        subtype = "telegram_bot"
+        subtype = "telegram_bot" if len(sample.split('_'))==2 else "google"
         command = int(sample.split("_")[1].split(".")[0]) if sample.split("_")[1] not in LANGS else int(sample.split("_")[2].split(".")[0])
         data["path"].append(sample_path)
         data["type"].append(type)

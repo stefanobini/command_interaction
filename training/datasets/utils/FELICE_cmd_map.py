@@ -68,13 +68,13 @@ FULL = {
 
 PHASE_I_ROBOT = {
     23:0,   # start
-    24:1,   # stop
-    22:2,   # go
     20:1,   # release
-    6:2,    # bring me the gun screwdriver
-    7:3,    # take the gun screwdriver
-    8:4,    # bring me the elbow screwdriver
-    9:5,    # take the gun screwdriver
+    6: 2,   # bring me the gun screwdriver
+    7: 3,   # take the gun screwdriver
+    8: 4,   # bring me the elbow screwdriver
+    9: 5,   # take the gun screwdriver
     16:6,   # bring me the windows control panel
-    17:7    # teke the windows control panel
+    17:7,   # take the windows control panel
+    22:8,   # go
+    24:9    # stop
 }

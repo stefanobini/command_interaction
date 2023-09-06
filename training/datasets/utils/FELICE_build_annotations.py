@@ -5,15 +5,17 @@ from FELICE_cmd_map import FULL, OLD_CMD_LABEL_3, OLD_CMD_LABEL_3_AND_7, OLD_CMD
 
 
 LANGS = ["eng", "ita"]
-DEMO = "full"  # ["full", "3", "7", "7_plus", "phase_I"]
-IN_DATASET_FOLDER = "MIVIA_ISC_v1"
+DEMO = "phase_I"  # ["full", "3", "7", "7_plus", "phase_I"]
+IN_DATASET_FOLDER = "MIVIA_ISC_v2"
 OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
 ANNOTATION_FILE = "dataset.csv"
 COLUMNS = ["path", "type", "subtype", "speaker", "command"]
 BALANCE_REJECT_SAMPLES = False
 REJECT_PERCENTAGE = 0.75
+'''
 GOOGLE_USEFUL_COMMANDS = {os.path.join("dataset", "google_speech_commands_v1", "go"):   22,
                           os.path.join("dataset", "google_speech_commands_v1", "stop"): 24}
+'''
 
 if DEMO == str(3):
     OLD_CMD_LABEL = OLD_CMD_LABEL_3
@@ -44,20 +46,6 @@ for lang in LANGS:
             out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
             out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
             out_dict["command"].append(OLD_CMD_LABEL[in_df.iloc[idx]["command"]])
-        elif DEMO == "phase_I":
-            if os.path.join(lang, "stop") in in_df.iloc[idx]["path"]:
-                out_dict["path"].append(in_df.iloc[idx]["path"])
-                out_dict["type"].append("google_speech_commands")
-                out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
-                out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                out_dict["command"].append(24)
-            elif lang == "eng":
-                if os.path.join(lang, "go") in in_df.iloc[idx]["path"]:
-                    out_dict["path"].append(in_df.iloc[idx]["path"])
-                    out_dict["type"].append("google_speech_commands")
-                    out_dict["subtype"].append(in_df.iloc[idx]["subtype"])
-                    out_dict["speaker"].append(in_df.iloc[idx]["speaker"])
-                    out_dict["command"].append(22)
         elif DEMO == "full":
             if os.path.join(lang, "stop") in in_df.iloc[idx]["path"]:
                 out_dict["path"].append(in_df.iloc[idx]["path"])

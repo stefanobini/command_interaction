@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 
 LANGS = ["eng", "ita"]
-DATASET_NAME = "MIVIA_ISC_v1"
+DATASET_NAME = "MIVIA_ISC_v2"
 DATASET_PATH = os.path.join("datasets", DATASET_NAME)
 
 ####################

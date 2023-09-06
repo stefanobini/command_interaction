@@ -13,12 +13,12 @@ import torchaudio
 from utils.preprocessing import Preprocessing
 from utils.settings.SCR_conf import settings
 
-SRC_DATASET = "MSIexp1"
+SRC_DATASET = "MIVIA_ISC_v2"
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
-SRC_DATASET_PATH = ""
-OUT_PATH = ""
+SRC_DATASET_PATH = str()
+OUT_PATH = str()
 LANGs = list()
 SPEECH_HEADING, NOISE_HEADING, FULL_HEADING = list(), list(), list()
 SNRs = range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step)
@@ -38,6 +38,10 @@ elif "MSIexp1" in SRC_DATASET:
     SPEECH_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
     NOISE_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
     FULL_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
+
+SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
+OUT_PATH = os.path.join("datasets", "FELICE", "demophase_I")
+LANGs = ["eng", "ita"]
 
 
 def get_item(speech_annotations, noise_annotations, index, preprocess):
