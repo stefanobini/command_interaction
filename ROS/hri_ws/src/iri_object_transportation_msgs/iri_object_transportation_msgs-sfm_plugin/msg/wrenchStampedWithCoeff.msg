@@ -1,0 +1,2 @@
+geometry_msgs/WrenchStamped external_force
+float32 coefficient

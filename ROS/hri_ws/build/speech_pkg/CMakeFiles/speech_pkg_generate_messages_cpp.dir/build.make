@@ -58,6 +58,7 @@ speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_int
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Speech.h
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/SpeechData.h
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/SystemHealth.h
+speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h
 speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h
@@ -95,12 +96,20 @@ speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_int
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from speech_pkg/SystemHealth.msg"
 	cd /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg -e /opt/ros/melodic/share/gencpp/cmake/..
 
+/home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv
+/home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
+/home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h: /opt/ros/melodic/share/gencpp/msg.h.template
+/home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h: /opt/ros/melodic/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from speech_pkg/ClassificationMSI.srv"
+	cd /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg -e /opt/ros/melodic/share/gencpp/cmake/..
+
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h: /opt/ros/melodic/share/gencpp/msg.h.template
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h: /opt/ros/melodic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from speech_pkg/Manager.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from speech_pkg/Manager.srv"
 	cd /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg -e /opt/ros/melodic/share/gencpp/cmake/..
 
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
@@ -108,14 +117,14 @@ speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp: /home/felice/command_int
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h: /opt/ros/melodic/share/gencpp/msg.h.template
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h: /opt/ros/melodic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from speech_pkg/Classification.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from speech_pkg/Classification.srv"
 	cd /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg -e /opt/ros/melodic/share/gencpp/cmake/..
 
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h: /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h: /opt/ros/melodic/share/gencpp/msg.h.template
 /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h: /opt/ros/melodic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from speech_pkg/Talker.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from speech_pkg/Talker.srv"
 	cd /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg && /home/felice/command_interaction/ROS/hri_ws/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv -Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p speech_pkg -o /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg -e /opt/ros/melodic/share/gencpp/cmake/..
 
 speech_pkg_generate_messages_cpp: speech_pkg/CMakeFiles/speech_pkg_generate_messages_cpp
@@ -124,6 +133,7 @@ speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/de
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Speech.h
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/SpeechData.h
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/SystemHealth.h
+speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/ClassificationMSI.h
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Manager.h
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Classification.h
 speech_pkg_generate_messages_cpp: /home/felice/command_interaction/ROS/hri_ws/devel/include/speech_pkg/Talker.h

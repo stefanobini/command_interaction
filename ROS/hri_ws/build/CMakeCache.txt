@@ -378,6 +378,15 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//The directory containing a CMake configuration file for iri_object_transportation_msgs-sfm_plugin.
+iri_object_transportation_msgs-sfm_plugin_DIR:PATH=iri_object_transportation_msgs-sfm_plugin_DIR-NOTFOUND
+
+//Value Computed by CMake
+iri_object_transportation_msgs_BINARY_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/iri_object_transportation_msgs-sfm_plugin
+
+//Value Computed by CMake
+iri_object_transportation_msgs_SOURCE_DIR:STATIC=/home/felice/command_interaction/ROS/hri_ws/src/iri_object_transportation_msgs/iri_object_transportation_msgs-sfm_plugin
+
 //Path to a library.
 lib:FILEPATH=/opt/ros/melodic/lib/libxmlrpcpp.so
 

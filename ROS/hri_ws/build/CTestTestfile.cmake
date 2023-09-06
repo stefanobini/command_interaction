@@ -5,7 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("firos")
+subdirs("iri_object_transportation_msgs/iri_object_transportation_msgs-sfm_plugin")
 subdirs("speech_pkg")
 subdirs("vision_msgs")
 subdirs("gesture_pkg")

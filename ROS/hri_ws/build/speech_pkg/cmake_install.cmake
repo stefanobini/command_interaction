@@ -50,6 +50,7 @@ endif()
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/speech_pkg/srv" TYPE FILE FILES
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+    "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv"
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
     )

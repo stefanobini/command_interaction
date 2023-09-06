@@ -69,6 +69,7 @@ class ImageCallback:
         previous_timestamp = self.timestamp
         self.timestamp = time.time()
         frame_rate = round(1 / (self.timestamp - previous_timestamp), 2)
+        print(frame_rate)
         (w_fps, h_fps), _ = cv2.getTextSize(str(frame_rate), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, 2)
         x_fps, y_fps = 10, 10
         offset = 5
@@ -92,6 +93,7 @@ class ImageCallback:
             cv2.rectangle(img, (left, top), (right, bottom),  (0, 255, 0), 2)
             #cv2.putText(img, '{} ({:.2f})'.format(detection.header.frame_id, detection.results[0].score), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
             cv2.putText(img, '{}'.format(detection.header.frame_id), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
+            print(detection.header.frame_id))
             
             
             #cv2.putText(img, "{}".format(detection.results[0].id), (int(detection.bbox.center.x)-10, int(detection.bbox.center.y)-10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (255, 0, 0), 3)

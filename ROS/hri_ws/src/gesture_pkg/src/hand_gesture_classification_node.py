@@ -75,8 +75,8 @@ class Callback:
         #prevoius_timestamp = self.timestamp
         # rospy.loginfo(img.shape)
         
-        #hands = self.detector.detect(img_rgb)
-        hands = self.detector.onnx_cpu_detect(img_rgb)
+        hands = self.detector.detect(img_rgb)
+        #hands = self.detector.onnx_cpu_detect(img_rgb)
 
         #self.timestamp = time.time()
         #det_time = self.timestamp - prevoius_timestamp    # -> 0.13 s
@@ -135,7 +135,7 @@ class Callback:
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
         if self.post_request is not None:
             # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
-            self.post_request.send_command(command_id=detection.header.frame_id, confidence=detection.results.score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+            self.post_request.send_command(command_id=int(detection.header.frame_id), confidence=float(detection.results[0].score))    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
         else:
             # self.publisher.publish(response)
             self.publisher.publish(detection)
@@ -164,7 +164,7 @@ class HandDetectorNode:
         else:
             callback = Callback(pub, detector)
         
-        print ('#################\n#               #\n# MODELS LOADED #\n#               #\n#################')
+        print('#################\n#               #\n# MODELS LOADED #\n#               #\n#################')
         sub = rospy.Subscriber("in_rgb", Image, callback)
 
         rospy.spin()

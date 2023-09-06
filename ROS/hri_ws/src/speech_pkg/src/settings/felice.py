@@ -8,7 +8,7 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "testing"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "FELICE"
-settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
+settings.task:str = "SCR"                                                                                        # ["SCR", "SI", "SCR_SI"]
 info = ""
 
 '''Input'''

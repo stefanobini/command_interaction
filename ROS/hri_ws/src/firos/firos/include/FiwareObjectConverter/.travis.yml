@@ -1,9 +1,0 @@
-language: python
-
-python:
-  - "2.7"
-
-jobs:
-  include:
-    - stage: "Unit Tests"
-      script: python -m unittest discover

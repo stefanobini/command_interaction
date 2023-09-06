@@ -101,9 +101,9 @@ class MyRequestPost:
         response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
 
         if response.ok: # response successful
-            print("CB response -> status " + response.status_code.__str__())
+            #print("CB response -> status " + response.status_code.__str__())
         else: # response ko
-            print("CB response -> " + response.text)
+            #print("CB response -> " + response.text)
 
 
     def send_command(self, command_id, confidence):
@@ -123,6 +123,6 @@ class MyRequestPost:
         response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(entity), data = msg, headers = CB_HEADER)
 
         if response.ok: # response successful
-            print("CB response -> status " + response.status_code.__str__())
+            #print("CB response -> status " + response.status_code.__str__())
         else: # response ko
-            print("CB response -> " + response.text)
+            #print("CB response -> " + response.text)

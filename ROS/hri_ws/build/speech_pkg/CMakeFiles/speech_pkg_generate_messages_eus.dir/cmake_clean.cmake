@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l"
+  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/ClassificationMSI.l"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l"
   "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l"

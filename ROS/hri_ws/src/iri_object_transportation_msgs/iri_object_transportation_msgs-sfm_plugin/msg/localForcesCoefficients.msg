@@ -1,0 +1,5 @@
+Header header
+float32 goal_coefficient
+float32 attractor_coefficient
+float32[] obstacles_coefficients
+float32 total_coefficient

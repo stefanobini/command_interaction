@@ -12,6 +12,9 @@ rostopic echo comunication_pkg/Speech
 # Automatically update date
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
+# Network
+watch -n1 iwconfig  # Signal power
+nmcli dev wifi  # List of network
 
 # Docker for SPEECH DEMO
 sudo docker build -t docker_felice_demo . --network=host
@@ -37,8 +40,12 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 # Address for visualization: http://10.0.1.222:5000/
 # Open with Google Chrome
 
+'''For connect to another ROS core inside local network'''
+export ROS_MASTER_URI=http://10.68.0.1:11311 && export ROS_IP=10.68.0.131
+
 '''For FELICE'''
 roslaunch speech_pkg start_felice.launch
+roslaunch speech_pkg start.launch           # MSI experiemntation
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch
