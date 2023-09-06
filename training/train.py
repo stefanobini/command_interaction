@@ -1,4 +1,5 @@
 """
+python3 train.py --configuration FELICE_conf 2>&1 | tee t0_log.txt
 python3 train.py --configuration SCR_conf 2>&1 | tee t0_log.txt
 python3 train.py --configuration MTL_conf 2>&1 | tee t0_log.txt
 python3 train.py --configuration MSIexp0_conf 2>&1 | tee t0_log.txt

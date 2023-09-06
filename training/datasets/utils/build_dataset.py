@@ -20,7 +20,7 @@ FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "
 SRC_DATASET_PATH = str()
 OUT_PATH = str()
 LANGs = list()
-SPEECH_HEADING, NOISE_HEADING, FULL_HEADING = list(), list(), list()
+#SPEECH_HEADING, NOISE_HEADING, FULL_HEADING = list(), list(), list()
 SNRs = range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step)
 
 if "MIVIA_ISC_v1" in SRC_DATASET:
