@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -40,7 +40,7 @@ struct twistStampedArray_
    typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
-   typedef std::vector< ::iri_object_transportation_msgs::twistStamped_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::iri_object_transportation_msgs::twistStamped_<ContainerAllocator> >> _twist_array_type;
+   typedef std::vector< ::iri_object_transportation_msgs::twistStamped_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::iri_object_transportation_msgs::twistStamped_<ContainerAllocator> >::other >  _twist_array_type;
   _twist_array_type twist_array;
 
 

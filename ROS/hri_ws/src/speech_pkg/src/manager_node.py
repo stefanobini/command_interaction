@@ -1,14 +1,13 @@
 #!/usr/bin/python
 
 import sys
-import tf
+#import tf
 
 import rospy
 import actionlib    # Brings in the SimpleActionClient
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal # Brings in the .action file and messages used by the move base action
 import dynamic_reconfigure.client
 
-from speech_pkg.srv import *
 import uuid
 import colorama
 colorama.init(autoreset=True)
@@ -20,6 +19,8 @@ import threading
 from std_msgs.msg import String, Header
 from speech_pkg.msg import Command, Speech
 from iri_object_transportation_msgs.msg import explicit_information
+from speech_pkg.msg import IntentAction, IntentGoal
+from speech_pkg.srv import *
 
 from speech_pkg.srv import Classification, ClassificationResponse, ClassificationMSI
 from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
@@ -33,6 +34,7 @@ speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03
+INTENT_THRESHOLD = 0.5
 res_str = ""
 LEFT_IDs, AHEAD_IDs, RIGHT_IDs, STOP_IDs = [6,7], [2,3], [8,9], [10,11]
 
@@ -225,7 +227,7 @@ def run_demo_MSIexp0(req):
     return ManagerResponse(True)    # res.flag
 
 
-def run_demo_MSIexp1(req):
+def run_demo_MSIexp1_IRI(req):
     global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner, listener
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
@@ -320,6 +322,51 @@ def run_demo_MSIexp1(req):
     return ManagerResponse(True)    # res.flag
 
 
+def run_demo_MSIexp1_MIVIA(req):
+    global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, actioner, listener
+
+    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
+    res = classify(req.data)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected intents ' + '#'*10 + '\n{}\n{:.3f}\n'.format(res.intent, res.int_probs[res.intent]) + '#'*38 + Fore.RESET)
+    goal = IntentGoal()
+    goal.intent = res.intent
+    if res.intent == len(INTENTS_MSIEXP1)-1 or res.intent < INTENT_THRESHOLD:
+        return ManagerResponse(True)    # res.flag
+    elif res.intent == 8:    # lazy stop
+        time.sleep(0.5) # wait 0.5 s
+        actioner.cancel_goal()
+    elif res.intent == 9:    # immediately stop
+        actioner.cancel_goal()
+    else:
+        actioner.send_goal(goal)
+        #'''
+        # Waits for the server to finish performing the action.
+        #wait = actioner.wait_for_result()
+        #print("Action completed!")
+        # If the result doesn't arrive, assume the Server is not available
+        '''
+        if not wait:
+            rospy.logerr("Action server not available!")
+            rospy.signal_shutdown("Action server not available!")
+        else:
+        # Result of executing the action
+            #return actioner.get_result()
+            return ManagerResponse(True)    # res.flag
+        #'''
+    
+    color = Fore.YELLOW if INTENTS_MSIEXP1[res.intent]["implicit"][LANG]["id"] else Fore.CYAN 
+    res_str = color + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# {}: {:.3f} #\n#  #\n'.format(INTENTS_MSIEXP1[res.intent]["text"][LANG], res.int_probs[res.intent]) + '#'* 44 + '\n'
+    print(res_str)
+    
+    if rospy.get_param("/save_speech") == True:
+        with open(SPEECH_INFO_FILE, "a") as f:
+            f.write(res_str)
+
+    speech_counter += 1
+    # res = speech(res.cmd, res.probs)
+
+    return ManagerResponse(True)    # res.flag
+
 def run_demo_msi(req):
     global SPEECH_INFO_FILE, speech_counter, FIWARE_CB, LANG, pub
 
@@ -380,6 +427,7 @@ def setPlannerParameters(max_vel_x):
     return True
 
 if __name__ == "__main__":
+    print("MANAGER NODE - start")
     DEMO = rospy.get_param("/demo")
     LANG = rospy.get_param("/language")
     FIWARE_CB = rospy.get_param("/fiware_cb")
@@ -428,13 +476,20 @@ if __name__ == "__main__":
         classify = rospy.ServiceProxy('classifier_service', Classification)
         pub = rospy.Publisher('feedback_data', explicit_information, queue_size=1)
     elif DEMO == "MSIexp1":
-        rospy.Service('manager_service', Manager, run_demo_MSIexp1)
+        '''For IRI experiments
+        rospy.Service('manager_service', Manager, run_demo_MSIexp1_IRI)
         classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
         actioner = actionlib.SimpleActionClient('move_base', MoveBaseAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
         actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
         robot_coordinates = {"x":0, "y":0, "orientation":0}
         listener = tf.TransformListener()
         #tiago_service = rospy.ServiceProxy('move_base/PalLocalPlanner/set_parameters', Classification)
+        #'''
+        #'''For MIVIA experiments
+        rospy.Service('manager_service', Manager, run_demo_MSIexp1_MIVIA)
+        classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
+        actioner = actionlib.SimpleActionClient('move_base', IntentAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
+        actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
         
     #command_eng = DEMO_CMD_ENG
     #command_ita = DEMO_CMD_ITA
@@ -452,3 +507,4 @@ if __name__ == "__main__":
     x = threading.Thread(target=rospy.spin())
     x.start()
     #rospy.spin()
+    print("MANAGER NODE - end")

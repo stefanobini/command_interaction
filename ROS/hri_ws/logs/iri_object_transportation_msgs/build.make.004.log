@@ -1,0 +1,25 @@
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_narrowPathMarkersArray
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_wrenchStampedWithCoeff
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_twistStamped
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_localForcesSFM
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_wrenchStampedArray
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_localForcesCoefficients
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_wrenchWithCoeffArray
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_explicit_information
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target _iri_object_transportation_msgs_generate_messages_check_deps_twistStampedArray
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target geometry_msgs_generate_messages_eus
+[ 19%] Built target iri_object_transportation_msgs_generate_messages_lisp
+[ 38%] Built target iri_object_transportation_msgs_generate_messages_nodejs
+[ 59%] Built target iri_object_transportation_msgs_generate_messages_py
+[ 78%] Built target iri_object_transportation_msgs_generate_messages_cpp
+[100%] Built target iri_object_transportation_msgs_generate_messages_eus
+[100%] Built target iri_object_transportation_msgs_generate_messages

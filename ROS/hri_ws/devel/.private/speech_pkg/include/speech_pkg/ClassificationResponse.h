@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -38,7 +38,7 @@ struct ClassificationResponse_
    typedef int8_t _cmd_type;
   _cmd_type cmd;
 
-   typedef std::vector<float, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<float>> _probs_type;
+   typedef std::vector<float, typename ContainerAllocator::template rebind<float>::other >  _probs_type;
   _probs_type probs;
 
 

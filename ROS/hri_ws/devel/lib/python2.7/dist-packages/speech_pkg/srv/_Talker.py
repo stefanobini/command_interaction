@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages/speech_pkg/srv/_Talker.py

@@ -1,22 +1,22 @@
-[  0%] Built target std_msgs_generate_messages_py
-[  0%] Built target std_msgs_generate_messages_cpp
 [  0%] Built target vision_msgs_generate_messages_cpp
+[  0%] Built target _gesture_pkg_generate_messages_check_deps_CameraInfo
+[  0%] Built target std_msgs_generate_messages_cpp
 [  0%] Built target vision_msgs_generate_messages_py
-[  0%] Built target std_msgs_generate_messages_nodejs
-[  0%] Built target vision_msgs_generate_messages_nodejs
-[  0%] Built target std_msgs_generate_messages_eus
-[  0%] Built target std_msgs_generate_messages_lisp
-[  0%] Built target vision_msgs_generate_messages_lisp
 [  0%] Built target sensor_msgs_generate_messages_cpp
 [  0%] Built target sensor_msgs_generate_messages_py
-[  0%] Built target vision_msgs_generate_messages_eus
-[  0%] Built target sensor_msgs_generate_messages_lisp
+[  0%] Built target vision_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_nodejs
 [  0%] Built target sensor_msgs_generate_messages_nodejs
-[  0%] Built target sensor_msgs_generate_messages_eus
-[  0%] Built target _gesture_pkg_generate_messages_check_deps_CameraInfo
-[ 28%] Built target gesture_pkg_generate_messages_cpp
-[ 57%] Built target gesture_pkg_generate_messages_nodejs
+[  0%] Built target sensor_msgs_generate_messages_lisp
+[  0%] Built target vision_msgs_generate_messages_lisp
+[  0%] Built target vision_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_eus
+[ 14%] Built target gesture_pkg_generate_messages_cpp
+[ 14%] Built target sensor_msgs_generate_messages_eus
+[ 28%] Built target gesture_pkg_generate_messages_nodejs
+[ 57%] Built target gesture_pkg_generate_messages_py
 [ 85%] Built target gesture_pkg_generate_messages_eus
-[ 85%] Built target gesture_pkg_generate_messages_py
 [100%] Built target gesture_pkg_generate_messages_lisp
 [100%] Built target gesture_pkg_generate_messages

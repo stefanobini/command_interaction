@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/gennodejs/ros/speech_pkg/srv/Talker.js

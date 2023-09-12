@@ -1,0 +1,13 @@
+[31m[1mCMake Error[0m at /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/cmake/speech_pkg-genmsg.cmake:3 (message):
+  Could not find messages which
+  '/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentAction.msg'
+  depends on.  Did you forget to specify generate_messages(DEPENDENCIES ...)?
+
+  Cannot locate message [utin8] in package [speech_pkg] with paths
+  [['/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg',
+  '/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg']]
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/melodic/share/genmsg/cmake/genmsg-extras.cmake:307 (include)
+  CMakeLists.txt:77 (generate_messages)
+
+

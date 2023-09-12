@@ -143,7 +143,22 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/ClassificationMSI.srv"
     "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
-    "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/speech_pkg/action" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/action/Intent.action")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/speech_pkg/msg" TYPE FILE FILES
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentAction.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentActionGoal.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentActionResult.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentActionFeedback.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentGoal.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentResult.msg"
+    "/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/speech_pkg/msg/IntentFeedback.msg"
     )
 endif()
 

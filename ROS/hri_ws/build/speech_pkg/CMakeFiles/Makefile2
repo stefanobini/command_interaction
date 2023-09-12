@@ -71,7 +71,7 @@ CMakeFiles/speech_pkg_genpy.dir/all: CMakeFiles/speech_pkg_generate_messages_py.
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 17
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_genpy.dir/rule
@@ -103,7 +103,7 @@ CMakeFiles/speech_pkg_gennodejs.dir/all: CMakeFiles/speech_pkg_generate_messages
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_gennodejs.dir/rule
@@ -127,25 +127,32 @@ clean: CMakeFiles/speech_pkg_gennodejs.dir/clean
 # Target rules for target CMakeFiles/speech_pkg_generate_messages_nodejs.dir
 
 # All Build rule for target.
-CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
-CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
-CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make CMakeFiles/speech_pkg_generate_messages_nodejs.dir/depend
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build.make CMakeFiles/speech_pkg_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=40,41,42,43,44,45,46,47,48 "Built target speech_pkg_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=58,59,60,61,62,63,64,65,66,67,68,69,70,71,72 "Built target speech_pkg_generate_messages_nodejs"
 .PHONY : CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_generate_messages_nodejs.dir/rule
@@ -177,7 +184,7 @@ CMakeFiles/speech_pkg_genlisp.dir/all: CMakeFiles/speech_pkg_generate_messages_l
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_genlisp.dir/rule
@@ -201,25 +208,32 @@ clean: CMakeFiles/speech_pkg_genlisp.dir/clean
 # Target rules for target CMakeFiles/speech_pkg_generate_messages_lisp.dir
 
 # All Build rule for target.
-CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/move_base_msgs_generate_messages_lisp.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/move_base_msgs_generate_messages_lisp.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
-CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
-CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_lisp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make CMakeFiles/speech_pkg_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_lisp.dir/build.make CMakeFiles/speech_pkg_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=31,32,33,34,35,36,37,38,39 "Built target speech_pkg_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=43,44,45,46,47,48,49,50,51,52,53,54,55,56,57 "Built target speech_pkg_generate_messages_lisp"
 .PHONY : CMakeFiles/speech_pkg_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_generate_messages_lisp.dir/rule
@@ -240,48 +254,6 @@ clean: CMakeFiles/speech_pkg_generate_messages_lisp.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/speech_pkg_generate_messages_eus.dir
-
-# All Build rule for target.
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/move_base_msgs_generate_messages_eus.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/std_msgs_generate_messages_eus.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
-CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/depend
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=21,22,23,24,25,26,27,28,29,30 "Built target speech_pkg_generate_messages_eus"
-.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/speech_pkg_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 10
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_eus: CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
-
-.PHONY : speech_pkg_generate_messages_eus
-
-# clean rule for target.
-CMakeFiles/speech_pkg_generate_messages_eus.dir/clean:
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
-.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/speech_pkg_gencpp.dir
 
 # All Build rule for target.
@@ -293,7 +265,7 @@ CMakeFiles/speech_pkg_gencpp.dir/all: CMakeFiles/speech_pkg_generate_messages_cp
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_gencpp.dir/rule
@@ -310,6 +282,102 @@ CMakeFiles/speech_pkg_gencpp.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/speech_pkg_gencpp.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_ClassificationMSI"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_ClassificationMSI: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_Gesture"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_Gesture: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_Gesture
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentActionResult"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentActionResult: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentActionResult
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/clean
 
 .PHONY : clean
 
@@ -446,24 +514,31 @@ clean: CMakeFiles/move_base_msgs_generate_messages_lisp.dir/clean
 
 # All Build rule for target.
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/std_msgs_generate_messages_py.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/move_base_msgs_generate_messages_py.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
-CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
 CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
-CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_py.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_py.dir/build.make CMakeFiles/speech_pkg_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_py.dir/build.make CMakeFiles/speech_pkg_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=49,50,51,52,53,54,55,56,57,58,59 "Built target speech_pkg_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89 "Built target speech_pkg_generate_messages_py"
 .PHONY : CMakeFiles/speech_pkg_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 17
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_generate_messages_py.dir/rule
@@ -512,38 +587,6 @@ CMakeFiles/move_base_msgs_generate_messages_eus.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/move_base_msgs_generate_messages_eus.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir
-
-# All Build rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/depend
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_ClassificationMSI"
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_ClassificationMSI: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_ClassificationMSI
-
-# clean rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/clean
 
 .PHONY : clean
 
@@ -740,6 +783,87 @@ clean: CMakeFiles/move_base_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/speech_pkg_generate_messages_eus.dir
+
+# All Build rule for target.
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/move_base_msgs_generate_messages_eus.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/std_msgs_generate_messages_eus.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/actionlib_msgs_generate_messages_eus.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
+CMakeFiles/speech_pkg_generate_messages_eus.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/depend
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42 "Built target speech_pkg_generate_messages_eus"
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/speech_pkg_generate_messages_eus.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 16
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_eus.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+speech_pkg_generate_messages_eus: CMakeFiles/speech_pkg_generate_messages_eus.dir/rule
+
+.PHONY : speech_pkg_generate_messages_eus
+
+# clean rule for target.
+CMakeFiles/speech_pkg_generate_messages_eus.dir/clean:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_eus.dir/build.make CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
+.PHONY : CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/speech_pkg_generate_messages_eus.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentGoal"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentGoal: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentGoal
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/speech_pkg_geneus.dir
 
 # All Build rule for target.
@@ -751,7 +875,7 @@ CMakeFiles/speech_pkg_geneus.dir/all: CMakeFiles/speech_pkg_generate_messages_eu
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 16
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_geneus.dir/rule
@@ -804,6 +928,38 @@ clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentFeedback"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentFeedback: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentFeedback
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/std_msgs_generate_messages_eus.dir
 
 # All Build rule for target.
@@ -832,6 +988,134 @@ CMakeFiles/std_msgs_generate_messages_eus.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/std_msgs_generate_messages_eus.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentActionFeedback"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentActionFeedback: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentActionFeedback
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentResult"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentResult: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentResult
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_SystemHealth"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_SystemHealth: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/download_extra_data.dir
+
+# All Build rule for target.
+CMakeFiles/download_extra_data.dir/all:
+	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/depend
+	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target download_extra_data"
+.PHONY : CMakeFiles/download_extra_data.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/download_extra_data.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/download_extra_data.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/download_extra_data.dir/rule
+
+# Convenience name for target.
+download_extra_data: CMakeFiles/download_extra_data.dir/rule
+
+.PHONY : download_extra_data
+
+# clean rule for target.
+CMakeFiles/download_extra_data.dir/clean:
+	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/clean
+.PHONY : CMakeFiles/download_extra_data.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/download_extra_data.dir/clean
 
 .PHONY : clean
 
@@ -900,6 +1184,87 @@ clean: CMakeFiles/run_tests.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/speech_pkg_generate_messages_cpp.dir
+
+# All Build rule for target.
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/move_base_msgs_generate_messages_cpp.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentGoal.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionFeedback.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentResult.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/depend
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 "Built target speech_pkg_generate_messages_cpp"
+.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 15
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+speech_pkg_generate_messages_cpp: CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
+
+.PHONY : speech_pkg_generate_messages_cpp
+
+# clean rule for target.
+CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean:
+	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
+.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/std_msgs_generate_messages_cpp.dir
+
+# All Build rule for target.
+CMakeFiles/std_msgs_generate_messages_cpp.dir/all:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/depend
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
+.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/std_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_cpp: CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : std_msgs_generate_messages_cpp
+
+# clean rule for target.
+CMakeFiles/std_msgs_generate_messages_cpp.dir/clean:
+	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
+.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/doxygen.dir
 
 # All Build rule for target.
@@ -928,102 +1293,6 @@ CMakeFiles/doxygen.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/doxygen.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir
-
-# All Build rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/depend
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_Talker"
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Talker: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_Talker
-
-# clean rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/clean:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/clean
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/download_extra_data.dir
-
-# All Build rule for target.
-CMakeFiles/download_extra_data.dir/all:
-	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/depend
-	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target download_extra_data"
-.PHONY : CMakeFiles/download_extra_data.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/download_extra_data.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/download_extra_data.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/download_extra_data.dir/rule
-
-# Convenience name for target.
-download_extra_data: CMakeFiles/download_extra_data.dir/rule
-
-.PHONY : download_extra_data
-
-# clean rule for target.
-CMakeFiles/download_extra_data.dir/clean:
-	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/clean
-.PHONY : CMakeFiles/download_extra_data.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/download_extra_data.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir
-
-# All Build rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/depend
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_SystemHealth"
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
-
-# Convenience name for target.
-_speech_pkg_generate_messages_check_deps_SystemHealth: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/rule
-
-.PHONY : _speech_pkg_generate_messages_check_deps_SystemHealth
-
-# clean rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/clean
 
 .PHONY : clean
 
@@ -1065,8 +1334,8 @@ clean: CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
 # All Build rule for target.
 CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_nodejs.dir/all
 CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_lisp.dir/all
-CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_eus.dir/all
 CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_py.dir/all
+CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_eus.dir/all
 CMakeFiles/speech_pkg_generate_messages.dir/all: CMakeFiles/speech_pkg_generate_messages_cpp.dir/all
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages.dir/build.make CMakeFiles/speech_pkg_generate_messages.dir/depend
 	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages.dir/build.make CMakeFiles/speech_pkg_generate_messages.dir/build
@@ -1080,7 +1349,7 @@ all: CMakeFiles/speech_pkg_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/speech_pkg_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 48
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 78
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
 .PHONY : CMakeFiles/speech_pkg_generate_messages.dir/rule
@@ -1293,80 +1562,6 @@ clean: CMakeFiles/geometry_msgs_generate_messages_lisp.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/std_msgs_generate_messages_cpp.dir
-
-# All Build rule for target.
-CMakeFiles/std_msgs_generate_messages_cpp.dir/all:
-	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/depend
-	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
-.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/std_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : std_msgs_generate_messages_cpp
-
-# clean rule for target.
-CMakeFiles/std_msgs_generate_messages_cpp.dir/clean:
-	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
-.PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/speech_pkg_generate_messages_cpp.dir
-
-# All Build rule for target.
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/move_base_msgs_generate_messages_cpp.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_ClassificationMSI.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Classification.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Speech.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Talker.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SystemHealth.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Manager.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/all
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/all: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/depend
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num=12,13,14,15,16,17,18,19,20 "Built target speech_pkg_generate_messages_cpp"
-.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 9
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/speech_pkg_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-speech_pkg_generate_messages_cpp: CMakeFiles/speech_pkg_generate_messages_cpp.dir/rule
-
-.PHONY : speech_pkg_generate_messages_cpp
-
-# clean rule for target.
-CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean:
-	$(MAKE) -f CMakeFiles/speech_pkg_generate_messages_cpp.dir/build.make CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
-.PHONY : CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/speech_pkg_generate_messages_cpp.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/clean_test_results.dir
 
 # All Build rule for target.
@@ -1463,6 +1658,38 @@ clean: CMakeFiles/geometry_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir
+
+# All Build rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentAction"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/rule
+
+# Convenience name for target.
+_speech_pkg_generate_messages_check_deps_IntentAction: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/rule
+
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentAction
+
+# clean rule for target.
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentAction.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_SpeechData.dir
 
 # All Build rule for target.
@@ -1527,34 +1754,34 @@ clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_Command.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir
+# Target rules for target CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir
 
 # All Build rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/depend
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_Gesture"
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/depend
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles --progress-num= "Built target _speech_pkg_generate_messages_check_deps_IntentActionGoal"
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule: cmake_check_build_system
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/felice/command_interaction/ROS/hri_ws/build/speech_pkg/CMakeFiles 0
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/rule
 
 # Convenience name for target.
-_speech_pkg_generate_messages_check_deps_Gesture: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/rule
+_speech_pkg_generate_messages_check_deps_IntentActionGoal: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/rule
 
-.PHONY : _speech_pkg_generate_messages_check_deps_Gesture
-
-# clean rule for target.
-CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean:
-	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
-.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
+.PHONY : _speech_pkg_generate_messages_check_deps_IntentActionGoal
 
 # clean rule for target.
-clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_Gesture.dir/clean
+CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/clean:
+	$(MAKE) -f CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/build.make CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/clean
+.PHONY : CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/_speech_pkg_generate_messages_check_deps_IntentActionGoal.dir/clean
 
 .PHONY : clean
 

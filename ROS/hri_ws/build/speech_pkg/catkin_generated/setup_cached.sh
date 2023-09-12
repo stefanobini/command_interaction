@@ -8,6 +8,9 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/felice/command_interaction/ROS/hri_ws/build/speech_pkg'
+export PYTHONPATH="/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/lib/python2.7/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg:$ROS_PACKAGE_PATH"

@@ -2,15 +2,30 @@
 (cl:in-package :asdf)
 
 (defsystem "speech_pkg-msg"
-  :depends-on (:roslisp-msg-protocol :roslisp-utils :std_msgs-msg
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :actionlib_msgs-msg
+               :std_msgs-msg
 )
   :components ((:file "_package")
     (:file "Command" :depends-on ("_package_Command"))
     (:file "_package_Command" :depends-on ("_package"))
     (:file "Gesture" :depends-on ("_package_Gesture"))
     (:file "_package_Gesture" :depends-on ("_package"))
+    (:file "IntentAction" :depends-on ("_package_IntentAction"))
+    (:file "_package_IntentAction" :depends-on ("_package"))
+    (:file "IntentActionFeedback" :depends-on ("_package_IntentActionFeedback"))
+    (:file "_package_IntentActionFeedback" :depends-on ("_package"))
+    (:file "IntentActionGoal" :depends-on ("_package_IntentActionGoal"))
+    (:file "_package_IntentActionGoal" :depends-on ("_package"))
+    (:file "IntentActionResult" :depends-on ("_package_IntentActionResult"))
+    (:file "_package_IntentActionResult" :depends-on ("_package"))
+    (:file "IntentFeedback" :depends-on ("_package_IntentFeedback"))
+    (:file "_package_IntentFeedback" :depends-on ("_package"))
+    (:file "IntentGoal" :depends-on ("_package_IntentGoal"))
+    (:file "_package_IntentGoal" :depends-on ("_package"))
     (:file "IntentIRI" :depends-on ("_package_IntentIRI"))
     (:file "_package_IntentIRI" :depends-on ("_package"))
+    (:file "IntentResult" :depends-on ("_package_IntentResult"))
+    (:file "_package_IntentResult" :depends-on ("_package"))
     (:file "Speech" :depends-on ("_package_Speech"))
     (:file "_package_Speech" :depends-on ("_package"))
     (:file "SpeechData" :depends-on ("_package_SpeechData"))

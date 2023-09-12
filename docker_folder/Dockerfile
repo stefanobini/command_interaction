@@ -119,6 +119,8 @@ RUN python3 -m pip install -U jetson-stats
 RUN apt install python-pip -y
 RUN python3 -m pip install colorama
 RUN python -m pip install colorama
+RUN python -m pip install requests
+
 
 #Utils DemoFramework
 RUN pip3 install cvbridge3

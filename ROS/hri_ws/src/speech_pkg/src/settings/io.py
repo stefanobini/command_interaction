@@ -13,8 +13,8 @@ io.store.video_fps = 3
 
 ################## MICROPHONE ##################
 
-#io.mic.device_index = 24 # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0) # FOR JETSON XAVIER NX
-io.mic.device_index = 12 # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0) # FOR IRI PC
+io.mic.device_index = 24 # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0) # FOR JETSON XAVIER NX
+#io.mic.device_index = 12 # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0) # FOR IRI PC
 io.mic.sample_rate = 16000
 io.mic.channels = 1 # Mono - 2 for Stereo
 io.mic.frames_per_buffer = 480  # before is 1600

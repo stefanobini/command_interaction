@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/include/vision_msgs/ObjectHypothesis.h

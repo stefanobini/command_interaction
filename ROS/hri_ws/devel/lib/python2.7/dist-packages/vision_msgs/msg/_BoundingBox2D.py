@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/lib/python2.7/dist-packages/vision_msgs/msg/_BoundingBox2D.py

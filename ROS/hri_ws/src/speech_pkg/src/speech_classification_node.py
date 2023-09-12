@@ -718,6 +718,7 @@ class ClassifierMSIexp1:
 
 
 if __name__ == "__main__":
+    print("SPEECH CLASSIFICATION NODE - start")
     THRESHOLD_1 = 0.9     # 0.004 - 0.1
     THRESHOLD_2 = 0.7     # 0.999 - 0.9
 
@@ -735,3 +736,4 @@ if __name__ == "__main__":
     #classifier = ClassifierMSI(threshold_1=THRESHOLD_1, threshold_2=THRESHOLD_2)
     #classifier = ClassifierMSIexp0(commands=commands, ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)
     classifier = ClassifierMSIexp1(ckpt_folder=ckpt_folder, ckpt_name=ckpt_name)
+    print("SPEECH CLASSIFICATION NODE - end")

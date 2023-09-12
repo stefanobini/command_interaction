@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/vision_msgs/share/roseus/ros/vision_msgs/msg/BoundingBox3D.l

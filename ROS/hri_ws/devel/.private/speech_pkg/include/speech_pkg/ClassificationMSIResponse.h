@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -46,19 +46,19 @@ struct ClassificationMSIResponse_
    typedef int8_t _intent_type;
   _intent_type intent;
 
-   typedef std::vector<float, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<float>> _int_probs_type;
+   typedef std::vector<float, typename ContainerAllocator::template rebind<float>::other >  _int_probs_type;
   _int_probs_type int_probs;
 
    typedef int8_t _explicit_type;
   _explicit_type explicit;
 
-   typedef std::vector<float, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<float>> _exp_probs_type;
+   typedef std::vector<float, typename ContainerAllocator::template rebind<float>::other >  _exp_probs_type;
   _exp_probs_type exp_probs;
 
    typedef int8_t _implicit_type;
   _implicit_type implicit;
 
-   typedef std::vector<float, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<float>> _imp_probs_type;
+   typedef std::vector<float, typename ContainerAllocator::template rebind<float>::other >  _imp_probs_type;
   _imp_probs_type imp_probs;
 
 

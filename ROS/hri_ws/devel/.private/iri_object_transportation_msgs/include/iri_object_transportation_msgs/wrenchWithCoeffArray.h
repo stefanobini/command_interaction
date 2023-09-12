@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -40,7 +40,7 @@ struct wrenchWithCoeffArray_
    typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
-   typedef std::vector< ::iri_object_transportation_msgs::wrenchStampedWithCoeff_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::iri_object_transportation_msgs::wrenchStampedWithCoeff_<ContainerAllocator> >> _wrench_array_type;
+   typedef std::vector< ::iri_object_transportation_msgs::wrenchStampedWithCoeff_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::iri_object_transportation_msgs::wrenchStampedWithCoeff_<ContainerAllocator> >::other >  _wrench_array_type;
   _wrench_array_type wrench_array;
 
 

@@ -1,4 +1,4 @@
-The system is: Linux - 5.15.0-76-generic - x86_64
+The system is: Linux - 4.9.253-tegra - aarch64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /usr/bin/cc 
 Build flags: 
@@ -28,42 +28,40 @@ The CXX compiler identification is GNU, found in "/home/felice/command_interacti
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_4725f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_4725f.dir/build.make CMakeFiles/cmTC_4725f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ad833/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ad833.dir/build.make CMakeFiles/cmTC_ad833.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_4725f.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_4725f.dir/testCCompiler.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_4725f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4725f.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_4725f.dir/testCCompiler.c.o  -o cmTC_4725f 
+Building C object CMakeFiles/cmTC_ad833.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_ad833.dir/testCCompiler.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_ad833
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ad833.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_ad833.dir/testCCompiler.c.o  -o cmTC_ad833 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f7109/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f7109.dir/build.make CMakeFiles/cmTC_f7109.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_40221/fast"
+/usr/bin/make -f CMakeFiles/cmTC_40221.dir/build.make CMakeFiles/cmTC_40221.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_f7109
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7109.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o  -o cmTC_f7109 
+Building C object CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_40221
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_40221.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o  -o cmTC_40221 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
-COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
-OFFLOAD_TARGET_NAMES=nvptx-none
-OFFLOAD_TARGET_DEFAULT=1
-Target: x86_64-linux-gnu
-Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper
+Target: aarch64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
 Thread model: posix
-gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
-COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
-LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_f7109' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccToJ8HH.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_f7109 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_f7109' '-mtune=generic' '-march=x86-64'
+gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
+COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_40221' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccQezz1y.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_40221 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_40221' '-mlittle-endian' '-mabi=lp64'
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -71,32 +69,30 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_f7109/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_f7109.dir/build.make CMakeFiles/cmTC_f7109.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_40221/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_40221.dir/build.make CMakeFiles/cmTC_40221.dir/build]
   ignore line: [make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_f7109]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7109.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o  -o cmTC_f7109 ]
+  ignore line: [Building C object CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_40221]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_40221.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o  -o cmTC_40221 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
-  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-  ignore line: [Target: x86_64-linux-gnu]
-  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper]
+  ignore line: [Target: aarch64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
-  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_f7109' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccToJ8HH.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_f7109 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+  ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_40221' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccQezz1y.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_40221 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccToJ8HH.res] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccQezz1y.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -104,31 +100,32 @@ Parsed C implicit link information from above output:
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [--build-id] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
-    arg [-m] ==> ignore
-    arg [elf_x86_64] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-export-dynamic] ==> ignore
     arg [-dynamic-linker] ==> ignore
-    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [/lib/ld-linux-aarch64.so.1] ==> ignore
+    arg [-X] ==> ignore
+    arg [-EL] ==> ignore
+    arg [-maarch64linux] ==> ignore
+    arg [--fix-cortex-a53-843419] ==> ignore
     arg [-pie] ==> ignore
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_f7109] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [cmTC_40221] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7]
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu]
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib]
+    arg [-L/lib/aarch64-linux-gnu] ==> dir [/lib/aarch64-linux-gnu]
     arg [-L/lib/../lib] ==> dir [/lib/../lib]
-    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-    arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_f7109.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..]
+    arg [CMakeFiles/cmTC_40221.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -140,19 +137,18 @@ Parsed C implicit link information from above output:
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
     arg [--pop-state] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7] ==> [/usr/lib/gcc/aarch64-linux-gnu/7]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu] ==> [/usr/lib/aarch64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/aarch64-linux-gnu] ==> [/lib/aarch64-linux-gnu]
   collapse library dir [/lib/../lib] ==> [/lib]
-  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/aarch64-linux-gnu] ==> [/usr/lib/aarch64-linux-gnu]
   collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-  collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> [/usr/lib]
   implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+  implicit dirs: [/usr/lib/gcc/aarch64-linux-gnu/7;/usr/lib/aarch64-linux-gnu;/usr/lib;/lib/aarch64-linux-gnu;/lib]
   implicit fwks: []
 
 
@@ -161,14 +157,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_c905b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_c905b.dir/build.make CMakeFiles/cmTC_c905b.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_3eec9/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3eec9.dir/build.make CMakeFiles/cmTC_3eec9.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_c905b.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_c905b.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
-Linking C executable cmTC_c905b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c905b.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_c905b.dir/feature_tests.c.o  -o cmTC_c905b 
+Building C object CMakeFiles/cmTC_3eec9.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_3eec9.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
+Linking C executable cmTC_3eec9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3eec9.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3eec9.dir/feature_tests.c.o  -o cmTC_3eec9 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -181,14 +177,14 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5ebcd/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5ebcd.dir/build.make CMakeFiles/cmTC_5ebcd.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_377cb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_377cb.dir/build.make CMakeFiles/cmTC_377cb.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_5ebcd.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_5ebcd.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
-Linking C executable cmTC_5ebcd
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ebcd.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_5ebcd.dir/feature_tests.c.o  -o cmTC_5ebcd 
+Building C object CMakeFiles/cmTC_377cb.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_377cb.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
+Linking C executable cmTC_377cb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_377cb.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_377cb.dir/feature_tests.c.o  -o cmTC_377cb 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -201,14 +197,14 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_bfaaf/fast"
-/usr/bin/make -f CMakeFiles/cmTC_bfaaf.dir/build.make CMakeFiles/cmTC_bfaaf.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_63e25/fast"
+/usr/bin/make -f CMakeFiles/cmTC_63e25.dir/build.make CMakeFiles/cmTC_63e25.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_bfaaf.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_bfaaf.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
-Linking C executable cmTC_bfaaf
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bfaaf.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_bfaaf.dir/feature_tests.c.o  -o cmTC_bfaaf 
+Building C object CMakeFiles/cmTC_63e25.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_63e25.dir/feature_tests.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.c
+Linking C executable cmTC_63e25
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63e25.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_63e25.dir/feature_tests.c.o  -o cmTC_63e25 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -219,42 +215,40 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_2b856/fast"
-/usr/bin/make -f CMakeFiles/cmTC_2b856.dir/build.make CMakeFiles/cmTC_2b856.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_a3176/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a3176.dir/build.make CMakeFiles/cmTC_a3176.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_2b856.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_2b856.dir/testCXXCompiler.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_2b856
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b856.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_2b856.dir/testCXXCompiler.cxx.o  -o cmTC_2b856 
+Building CXX object CMakeFiles/cmTC_a3176.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_a3176.dir/testCXXCompiler.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_a3176
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3176.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_a3176.dir/testCXXCompiler.cxx.o  -o cmTC_a3176 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e01ea/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e01ea.dir/build.make CMakeFiles/cmTC_e01ea.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_aaeed/fast"
+/usr/bin/make -f CMakeFiles/cmTC_aaeed.dir/build.make CMakeFiles/cmTC_aaeed.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_e01ea
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e01ea.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e01ea 
+Building CXX object CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_aaeed
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aaeed.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_aaeed 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
-COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
-OFFLOAD_TARGET_NAMES=nvptx-none
-OFFLOAD_TARGET_DEFAULT=1
-Target: x86_64-linux-gnu
-Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper
+Target: aarch64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
 Thread model: posix
-gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
-COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
-LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e01ea' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cccgUs9c.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_e01ea /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e01ea' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
+COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_aaeed' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sHQyc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_aaeed /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_aaeed' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -262,32 +256,30 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_e01ea/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_e01ea.dir/build.make CMakeFiles/cmTC_e01ea.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_aaeed/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_aaeed.dir/build.make CMakeFiles/cmTC_aaeed.dir/build]
   ignore line: [make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_e01ea]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e01ea.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e01ea ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_aaeed]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aaeed.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_aaeed ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
-  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-  ignore line: [Target: x86_64-linux-gnu]
-  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper]
+  ignore line: [Target: aarch64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
   ignore line: [Thread model: posix]
-  ignore line: [gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) ]
-  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e01ea' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cccgUs9c.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_e01ea /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+  ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_aaeed' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9sHQyc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_aaeed /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cccgUs9c.res] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cc9sHQyc.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -295,31 +287,32 @@ Parsed CXX implicit link information from above output:
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [--build-id] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
-    arg [-m] ==> ignore
-    arg [elf_x86_64] ==> ignore
     arg [--hash-style=gnu] ==> ignore
     arg [--as-needed] ==> ignore
     arg [-export-dynamic] ==> ignore
     arg [-dynamic-linker] ==> ignore
-    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [/lib/ld-linux-aarch64.so.1] ==> ignore
+    arg [-X] ==> ignore
+    arg [-EL] ==> ignore
+    arg [-maarch64linux] ==> ignore
+    arg [--fix-cortex-a53-843419] ==> ignore
     arg [-pie] ==> ignore
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_e01ea] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [cmTC_aaeed] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7]
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu]
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib]
+    arg [-L/lib/aarch64-linux-gnu] ==> dir [/lib/aarch64-linux-gnu]
     arg [-L/lib/../lib] ==> dir [/lib/../lib]
-    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-    arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-    arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_e01ea.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..]
+    arg [CMakeFiles/cmTC_aaeed.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -327,19 +320,18 @@ Parsed CXX implicit link information from above output:
     arg [-lc] ==> lib [c]
     arg [-lgcc_s] ==> lib [gcc_s]
     arg [-lgcc] ==> lib [gcc]
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-    arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7] ==> [/usr/lib/gcc/aarch64-linux-gnu/7]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu] ==> [/usr/lib/aarch64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/aarch64-linux-gnu] ==> [/lib/aarch64-linux-gnu]
   collapse library dir [/lib/../lib] ==> [/lib]
-  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/aarch64-linux-gnu] ==> [/usr/lib/aarch64-linux-gnu]
   collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-  collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> [/usr/lib]
   implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+  implicit dirs: [/usr/lib/gcc/aarch64-linux-gnu/7;/usr/lib/aarch64-linux-gnu;/usr/lib;/lib/aarch64-linux-gnu;/lib]
   implicit fwks: []
 
 
@@ -348,14 +340,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_4b0e5/fast"
-/usr/bin/make -f CMakeFiles/cmTC_4b0e5.dir/build.make CMakeFiles/cmTC_4b0e5.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_5f760/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5f760.dir/build.make CMakeFiles/cmTC_5f760.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_4b0e5.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_4b0e5.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_4b0e5
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4b0e5.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_4b0e5.dir/feature_tests.cxx.o  -o cmTC_4b0e5 
+Building CXX object CMakeFiles/cmTC_5f760.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_5f760.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_5f760
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5f760.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5f760.dir/feature_tests.cxx.o  -o cmTC_5f760 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -421,14 +413,14 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_ed909/fast"
-/usr/bin/make -f CMakeFiles/cmTC_ed909.dir/build.make CMakeFiles/cmTC_ed909.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_5a36b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5a36b.dir/build.make CMakeFiles/cmTC_5a36b.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_ed909.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_ed909.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_ed909
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ed909.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_ed909.dir/feature_tests.cxx.o  -o cmTC_ed909 
+Building CXX object CMakeFiles/cmTC_5a36b.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_5a36b.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_5a36b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5a36b.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5a36b.dir/feature_tests.cxx.o  -o cmTC_5a36b 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -494,14 +486,14 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_11737/fast"
-/usr/bin/make -f CMakeFiles/cmTC_11737.dir/build.make CMakeFiles/cmTC_11737.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d932e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d932e.dir/build.make CMakeFiles/cmTC_d932e.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_11737.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_11737.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_11737
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11737.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_11737.dir/feature_tests.cxx.o  -o cmTC_11737 
+Building CXX object CMakeFiles/cmTC_d932e.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_d932e.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_d932e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d932e.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_d932e.dir/feature_tests.cxx.o  -o cmTC_d932e 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -567,14 +559,14 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0e002/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0e002.dir/build.make CMakeFiles/cmTC_0e002.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_44b10/fast"
+/usr/bin/make -f CMakeFiles/cmTC_44b10.dir/build.make CMakeFiles/cmTC_44b10.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_0e002.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_0e002.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_0e002
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0e002.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_0e002.dir/feature_tests.cxx.o  -o cmTC_0e002 
+Building CXX object CMakeFiles/cmTC_44b10.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_44b10.dir/feature_tests.cxx.o -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_44b10
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_44b10.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_44b10.dir/feature_tests.cxx.o  -o cmTC_44b10 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
@@ -638,28 +630,28 @@ make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/ir
 Determining if the include file pthread.h exists passed with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9a551/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9a551.dir/build.make CMakeFiles/cmTC_9a551.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9f907/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9f907.dir/build.make CMakeFiles/cmTC_9f907.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9a551.dir/CheckIncludeFile.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_9a551.dir/CheckIncludeFile.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_9a551
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9a551.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_9a551.dir/CheckIncludeFile.c.o  -o cmTC_9a551 
+Building C object CMakeFiles/cmTC_9f907.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_9f907.dir/CheckIncludeFile.c.o   -c /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_9f907
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9f907.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_9f907.dir/CheckIncludeFile.c.o  -o cmTC_9f907 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
 Change Dir: /home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fc5f5/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fc5f5.dir/build.make CMakeFiles/cmTC_fc5f5.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_6f837/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6f837.dir/build.make CMakeFiles/cmTC_6f837.dir/build
 make[1]: Entering directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_fc5f5.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_fc5f5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_fc5f5
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc5f5.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_fc5f5.dir/CheckFunctionExists.c.o  -o cmTC_fc5f5 -lpthread 
+Building C object CMakeFiles/cmTC_6f837.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_6f837.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_6f837
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6f837.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_6f837.dir/CheckFunctionExists.c.o  -o cmTC_6f837 -lpthread 
 make[1]: Leaving directory '/home/felice/command_interaction/ROS/hri_ws/build/iri_object_transportation_msgs/CMakeFiles/CMakeTmp'
 
 

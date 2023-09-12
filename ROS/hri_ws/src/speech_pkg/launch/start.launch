@@ -5,6 +5,7 @@
     <!-- <param name="fiware_cb" type="str" value="10.0.1.226"/> -->  <!-- mivia_network -->
     <!-- <param name="fiware_cb" type="str" value="192.168.1.181"/> -->  <!-- beisHome_network -->
     <param name="fiware_cb" type="str" value="None"/>  <!-- beisHome_network -->
+    <param name="pepper_ip" type="str" value="10.0.1.207"/>
 
     <param name="vad" type="str" value="webrtcvad" />
     <param name="save_speech" type="bool" value="False"/>

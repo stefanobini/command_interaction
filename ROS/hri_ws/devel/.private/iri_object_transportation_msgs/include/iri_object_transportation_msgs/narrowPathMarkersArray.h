@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -49,16 +49,16 @@ struct narrowPathMarkersArray_
    typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
-   typedef std::vector< ::std_msgs::Bool_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::std_msgs::Bool_<ContainerAllocator> >> _marker_valid_array_type;
+   typedef std::vector< ::std_msgs::Bool_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::std_msgs::Bool_<ContainerAllocator> >::other >  _marker_valid_array_type;
   _marker_valid_array_type marker_valid_array;
 
-   typedef std::vector< ::geometry_msgs::PoseStamped_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::geometry_msgs::PoseStamped_<ContainerAllocator> >> _marker_pose_array_type;
+   typedef std::vector< ::geometry_msgs::PoseStamped_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::PoseStamped_<ContainerAllocator> >::other >  _marker_pose_array_type;
   _marker_pose_array_type marker_pose_array;
 
-   typedef std::vector< ::geometry_msgs::WrenchStamped_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::geometry_msgs::WrenchStamped_<ContainerAllocator> >> _marker_wrench_array_type;
+   typedef std::vector< ::geometry_msgs::WrenchStamped_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::WrenchStamped_<ContainerAllocator> >::other >  _marker_wrench_array_type;
   _marker_wrench_array_type marker_wrench_array;
 
-   typedef std::vector< ::geometry_msgs::PoseStamped_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::geometry_msgs::PoseStamped_<ContainerAllocator> >> _marker_goal_array_type;
+   typedef std::vector< ::geometry_msgs::PoseStamped_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::PoseStamped_<ContainerAllocator> >::other >  _marker_goal_array_type;
   _marker_goal_array_type marker_goal_array;
 
 

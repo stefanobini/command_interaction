@@ -1,1 +1,0 @@
-/home/felice/command_interaction/ROS/hri_ws/devel/.private/speech_pkg/share/roseus/ros/speech_pkg/srv/Talker.l

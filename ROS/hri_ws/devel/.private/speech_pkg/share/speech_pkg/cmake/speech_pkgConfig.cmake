@@ -185,7 +185,7 @@ foreach(t ${speech_pkg_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "rospy;std_msgs;message_runtime;iri_object_transportation_msgs")
+set(depends "rospy;std_msgs;message_runtime;iri_object_transportation_msgs;actionlib_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

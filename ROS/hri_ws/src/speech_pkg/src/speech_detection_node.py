@@ -194,6 +194,7 @@ class SpeechDetectionNode:
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
+    print("SPEECH DETECTION NODE - start")
     SPEECH_SAMPLES_PATH = '/home/felice/command_interaction/ROS/detected_voices'
 
     rospy.loginfo("Waiting manager service")                            # added by BEIS
@@ -204,3 +205,4 @@ if __name__ == '__main__':
 
     speech_detection = SpeechDetectionNode()
     speech_detection.start()
+    print("SPEECH DETECTION NODE - end")

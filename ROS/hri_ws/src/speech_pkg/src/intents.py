@@ -1,3 +1,6 @@
+from math import pi
+
+
 INTENTS = {
     0:  {
         "explicit":{
@@ -1210,16 +1213,16 @@ CONVERSION_EXPLICIT_MSIEXP1 = {
     "ita":[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]
 }
 INTENT_TO_ACTION = {
-    0   :{"x":1.5,  "y":0.,     "speed":0.25},  # ahead (not urgent)
-    1   :{"x":1.5,  "y":0.,     "speed":1.},    # ahead (urgent)
-    2   :{"x":-1.5, "y":0.,     "speed":0.25},  # back (not urgent)
-    3   :{"x":1.5,  "y":0.,     "speed":1.},    # back (urgent)
-    4   :{"x":0.,   "y":1.5,    "speed":0.25},  # left (not urgent)
-    5   :{"x":0.,   "y":1.5,    "speed":1.},    # left (urgent)
-    6   :{"x":0.,   "y":-1.5,   "speed":0.25},  # right (not urgent)
-    7   :{"x":0.,   "y":-1.5,   "speed":1.},    # right (urgent)
-    8   :{"x":0.,   "y":0.,     "speed":0.25},  # stop (not urgent)
-    9   :{"x":0.,   "y":0.,     "speed":1.},    # stop (urgent)
-    10  :{"x":0.,   "y":0.,     "speed":0.25},  # come here
-    11  :{"x":0.,   "y":0.,     "speed":1.}     # come here (urgent)
+    0   :{"x":1.5,  "y":0.,     "speed":0.25,   "theta":0.0,    "eng":"I'm going ahead",            "ita":"Sto andando avanti"},                # ahead (not urgent)
+    1   :{"x":1.5,  "y":0.,     "speed":1.,     "theta":0.0,    "eng":"I'm going ahead quickly",    "ita":"Sto andando avanti rapidamente"},    # ahead (urgent)
+    2   :{"x":-1.5, "y":0.,     "speed":0.25,   "theta":pi,     "eng":"I'm going back",             "ita":"Sto andando indietro"},              # back (not urgent)
+    3   :{"x":1.5,  "y":0.,     "speed":1.,     "theta":pi,     "eng":"I'm going back quickly",     "ita":"Sto andando indietro rapidamente"},  # back (urgent)
+    4   :{"x":0.,   "y":1.5,    "speed":0.25,   "theta":pi/2,   "eng":"I'm going to left",          "ita":"Sto andando a sinistra"},            # left (not urgent)
+    5   :{"x":0.,   "y":1.5,    "speed":1.,     "theta":pi/2,   "eng":"I'm going to left quickly",  "ita":"Sto andando a sinistra rapidamente"},# left (urgent)
+    6   :{"x":0.,   "y":-1.5,   "speed":0.25,   "theta":-pi/2,  "eng":"I'm going to right",         "ita":"Sto andando a destra"},              # right (not urgent)
+    7   :{"x":0.,   "y":-1.5,   "speed":1.,     "theta":-pi/2,  "eng":"I'm going to right quickly", "ita":"Sto andando a destra rapidamente"},  # right (urgent)
+    8   :{"x":0.,   "y":0.,     "speed":0.25,   "theta":0.0,    "eng":"I'm stopping",               "ita":"Mi sto fermando"},                   # stop (not urgent)
+    9   :{"x":0.,   "y":0.,     "speed":1.,     "theta":0.0,    "eng":"I'm stopping now",           "ita":"Mi sto fermando rapidamente"},       # stop (urgent)
+    10  :{"x":0.,   "y":0.,     "speed":0.25,   "theta":0.0,    "eng":"I'm coming",                 "ita":"Sto venendo"},                       # come here
+    11  :{"x":0.,   "y":0.,     "speed":1.,     "theta":0.0,    "eng":"I'm coming quickly",         "ita":"Sto venendo rapidamente"}            # come here (urgent)
 }

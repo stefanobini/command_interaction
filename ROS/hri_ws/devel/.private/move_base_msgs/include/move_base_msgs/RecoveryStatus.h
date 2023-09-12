@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <memory>
+#include <map>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -49,7 +49,7 @@ struct RecoveryStatus_
    typedef uint16_t _total_number_of_recoveries_type;
   _total_number_of_recoveries_type total_number_of_recoveries;
 
-   typedef std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>> _recovery_behavior_name_type;
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _recovery_behavior_name_type;
   _recovery_behavior_name_type recovery_behavior_name;
 
 
@@ -261,7 +261,7 @@ struct Printer< ::move_base_msgs::RecoveryStatus_<ContainerAllocator> >
     s << indent << "total_number_of_recoveries: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.total_number_of_recoveries);
     s << indent << "recovery_behavior_name: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>::stream(s, indent + "  ", v.recovery_behavior_name);
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.recovery_behavior_name);
   }
 };
 
