@@ -64,7 +64,6 @@ class PL_Backbone(pl.LightningModule):
 
 
     def set_model_parameters(self, num_labels:int, out_channel:int):
-        self.settings = self.settings
         self.task = self.settings.tasks[0].lower()
         self.num_labels = num_labels
         self.out_channel = out_channel
@@ -480,6 +479,7 @@ class PL_Backbone(pl.LightningModule):
         result_df = pandas.DataFrame(data=result_dict, columns=columns)
         result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
         with open(self.results_file, 'w') as fout:
+            fout.write("Dataloader\tAccuracy\tBalanced\tReject\n")
             avg_accuracy, avg_balanced_accuracy, avg_reject_accuracy = 0, 0, 0
             for dataloader in range(len(accuracies)):
                 fout.write("Dataloader {}:\t<{:.2f}> %\t<{:.2f}> %\t<{:.2f}> %\n".format(dataloader, accuracies[dataloader]*100, balanced_accuracies[dataloader]*100, reject_accuracies[dataloader]*100))

@@ -19,7 +19,7 @@ from tqdm import tqdm
 HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 LANGS = ["eng", "ita"]
-DATASET_PATH = "./datasets/MIVIA_ISC"
+DATASET_PATH = "./datasets/MIVIA_ISC_v2"
 REJECT_ANNOTATION_PATH = "./datasets/MIVIA_ISC/google_speech_commands_v1/google_annotations.csv"
 OUT_PATH = os.path.join(DATASET_PATH, "annotations")
 
@@ -57,7 +57,7 @@ def add_synthetic_samples(data, lang_path, subtype, samples):
             speaker = temp[0]
             if "google" in subtype:
                 speaker = "_".join(temp[0:3])
-            elif "nemo" in subtype:
+            elif "nemo" in subtype or "vocalware" in subtype:
                 speaker = "_".join(temp[0:2])
             command = int(sample.split(".")[0].split("_")[-1].replace("cmd", ""))
 

@@ -5,8 +5,8 @@ from tqdm import tqdm
 
 LANGS = ["eng", "ita"]
 
-IN_DATASET_PATH = "./datasets/MIVIA_ISC"
-OUTPUT_DATASET_PATH = "./datasets/MTL_scr_sr"
+IN_DATASET_PATH = "./datasets/MIVIA_ISC_v2"
+OUTPUT_DATASET_PATH = "./datasets/MTL_experimentation_1"
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 
 HEADING = ["path", "type", "subtype", "speaker", "command"]

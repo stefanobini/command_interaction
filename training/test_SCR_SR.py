@@ -1,3 +1,7 @@
+"""
+python3 test_SCR_SR.py --configuration MTL_conf
+"""
+
 import os
 import sys
 import colorama
@@ -39,7 +43,7 @@ pl.seed_everything(220295)
 #########################
 # Building Dataloaders  #
 #########################
-speakers = {"eng": 530, "ita": 502}
+speakers = {"eng": 328, "ita": 502}
 labels_1 = [i for i in range(32)]
 labels_2 = [i for i in range(speakers[settings.input.language])]
 # print(labels_1, len(labels_1))

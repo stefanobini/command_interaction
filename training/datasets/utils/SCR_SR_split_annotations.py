@@ -8,9 +8,9 @@ from typing import Tuple
 
 LANGS = ["eng", "ita"]
 
-INPUT_DATASET_PATH = os.path.join("datasets", "MTL_scr_sr")
-INPUT_NOISE_PATH = os.path.join("datasets", "MIVIA_ISC", "annotations", "noise")
-OUTPUT_DATASET_PATH = os.path.join("datasets", "MTL_scr_sr")
+INPUT_DATASET_PATH = os.path.join("datasets", "MTL_experimentation_1")
+INPUT_NOISE_PATH = os.path.join("datasets", "MIVIA_ISC_v2", "annotations", "noise")
+OUTPUT_DATASET_PATH = os.path.join("datasets", "MTL_experimentation_1")
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 OUTPUT_NOISE_PATH = os.path.join(OUTPUT_DATASET_PATH, "annotations", "noise")
 os.makedirs(OUTPUT_NOISE_PATH, exist_ok=True)

@@ -32,28 +32,24 @@ Before starting with the training of the system you should create the dataset wi
 ### Dataset and annotation file for SCR and SID
 To create annotation files:
 ```bash
-python3 datasets/scripts/remove_underrepresented_speakers.py
+python3 datasets/utils/SCR_SR_remove_underrepresented_speakers.py
 ```
 
 After moving the previous annotation file in the new experiemntation folder and renamed it in "dataset_no_speaker_id.csv", use the following command to convert the name of the speaker in an ID:
 ```bash
-python3 datasets/scripts/fix_speaker_id.py
+python3 datasets/utils/fix_speaker_id.py
 ```
 
 To split dataset in training and validation set for training SCR-SID multitask network:
 ```bash
-python3 datasets/scripts/split_annotations_MTL_train.py
+python3 datasets/utils/SCR_SR_split_annotations.py
 ```
 
 To check if training and validation contain the same speakers:
 ```bash
-python3 datasets/scripts/check_speakers.py
+python3 datasets/utils/check_speakers.py
 ```
 
-To build the dataset (audio file):
-```bash
-python3 datasets/scripts/build_dataset.py
-```
 
 ### Dataset and annotation file for SCR and SRID
 After moving the previous annotation file in the new experiemntation folder and renamed it in "dataset_no_speaker_id.csv", use the following command to convert the name of the speaker in an ID:

@@ -3,8 +3,8 @@ import pandas
 from tqdm import tqdm
 
 
-IN_DATASET_PATH = "./datasets/MIVIA_ISC"
-OUTPUT_DATASET_PATH = "./datasets/MTL_experimentation"
+IN_DATASET_PATH = "./datasets/MIVIA_ISC_v2"
+OUTPUT_DATASET_PATH = "./datasets/MTL_experimentation_1"
 LANGS = ["eng", "ita"]
 HEADING = ["path", "type", "subtype", "speaker", "command"]
 MIN_N_SAMPLExSPEAKER = 11

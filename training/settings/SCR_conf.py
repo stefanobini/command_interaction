@@ -116,4 +116,4 @@ except FileNotFoundError:
 settings.testing.results_path:str = None
 settings.testing.real_data.folder:str = os.path.join("datasets", "MIVIA_CRF_ISC") # [None, os.path.join("datasets", "MIVIA_CRF_ISC")]
 if settings.testing.real_data.folder:
-    settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "test.csv")                 # ["clean.csv", "noisy.csv", "all.csv", "test.csv"]
+    settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "dataset.csv")                 # ["clean.csv", "noisy.csv", "all.csv", "test.csv"]

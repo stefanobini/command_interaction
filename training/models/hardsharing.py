@@ -68,6 +68,7 @@ class HardSharing_PL(pl.LightningModule):
         self.settings = settings
         self.tasks = settings.tasks
         self.n_tasks = len(self.tasks)
+        self.task_n_labels = task_n_labels
 
         embedding_size = settings.model.resnet8.out_channel
         self.conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
@@ -81,17 +82,16 @@ class HardSharing_PL(pl.LightningModule):
         self.speaker_features = torch.nn.Linear(embedding_size, settings.model.resnet8.speaker_embedding_size)
         self.speaker_output = torch.nn.Linear(settings.model.resnet8.speaker_embedding_size, task_n_labels[1])
         #'''
-        self.output_layers = dict()
+        #self.output_layers = dict()
         for task in range(self.n_tasks):
-            self.output_layers[self.tasks[task]] = torch.nn.Linear(embedding_size, task_n_labels[task])
+            self.add_module("out_{}".format(self.tasks[task]), torch.nn.Linear(embedding_size, task_n_labels[task]))
         # self.softmax = torch.nn.Softmax(dim=1)
 
         self.grad_norm = self.settings.training.loss.type == "grad_norm"
-        weights = torch.tensor(data=[0.8, 1.2]) if settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1., 1.])
+        weights = torch.tensor(data=[1.2, 0.8]) if settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1., 1.])
         self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks) * weights, requires_grad=self.grad_norm)
-        self.loss_fn = MT_loss(weights1=task_loss_weights[0], weights2=task_loss_weights[1])
+        self.loss_fn = MT_loss(weights=task_loss_weights)
         
-        self.task_n_labels = task_n_labels
         self.batch_size = settings.training.batch_size
         self.learning_rate = settings.training.lr.value
         self.snrs = list(range(settings.noise.min_snr, settings.noise.max_snr+settings.noise.snr_step, settings.noise.snr_step))
@@ -132,7 +132,8 @@ class HardSharing_PL(pl.LightningModule):
         shared_embedding = self.get_embeddings(x=x)
         outputs = list()
         for task in range(self.n_tasks):
-            outputs.append(self.output_layers[self.tasks[task]](shared_embedding))
+            output = getattr(self, "out_{}".format(self.tasks[task]))(shared_embedding)
+            outputs.append(output)
         return outputs
 
     def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
@@ -290,11 +291,11 @@ class HardSharing_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "loss", "logits", "targets" and average "snr" of the batch
         """
-        x, speakers, commands, snr = batch
-        command_logits, speaker_logits = self.forward(x=x)
+        x, task_targets, snr = batch
+        task_logits = self.forward(x=x)
 
         # Computing loss
-        self.losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        self.losses = self.loss_fn(task_logits=task_logits, task_targets=task_targets)
         weighted_task_loss = torch.mul(self.loss_weights, self.losses)
         loss = torch.sum(weighted_task_loss)
 
@@ -303,10 +304,11 @@ class HardSharing_PL(pl.LightningModule):
             # set L(0) to the Log(C) because we use CrossEntropy for both the tasks
             self.initial_task_loss = np.log(self.task_n_labels)
 
-        self.train_step_outputs.append({"command_logits": command_logits.detach(),
-                                        "speaker_logits": speaker_logits.detach(),
-                                        "commands": commands.detach(),
-                                        "speakers": speakers.detach(),
+        for task in range(self.n_tasks):
+            task_logits[task] = task_logits[task].detach()
+            task_targets[task] = task_targets[task].detach()
+        self.train_step_outputs.append({"task_logits":task_logits,
+                                        "task_targets":task_targets,
                                         "snr": snr.detach()})
         return loss
     
@@ -368,29 +370,24 @@ class HardSharing_PL(pl.LightningModule):
         """
         len_train = len(self.train_loader)              # compute size of training set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration. Start from the first batch iteration then concatenate the followings
-        command_logits = self.train_step_outputs[0]["command_logits"]
-        speaker_logits = self.train_step_outputs[0]["speaker_logits"]
-        commands = self.train_step_outputs[0]["commands"]
-        speakers = self.train_step_outputs[0]["speakers"]
+        task_logits = self.train_step_outputs[0]["task_logits"]
+        task_targets = self.train_step_outputs[0]["task_targets"]
         avg_snr = self.train_step_outputs[0]["snr"]
         for i in range(1, len_train):
-            command_logits = torch.concat(tensors=[command_logits, self.train_step_outputs[i]["command_logits"]])
-            commands = torch.concat(tensors=[commands, self.train_step_outputs[i]["commands"]])
-            speaker_logits = torch.concat(tensors=[speaker_logits, self.train_step_outputs[i]["speaker_logits"]])
-            speakers = torch.concat(tensors=[speakers, self.train_step_outputs[i]["speakers"]])
+            for task in range(self.n_tasks):
+                task_logits[task] = torch.concat(tensors=[task_logits[task], self.train_step_outputs[i]["task_logits"][task]])
+                task_targets[task] = torch.concat(tensors=[task_targets[task], self.train_step_outputs[i]["task_targets"][task]])
             avg_snr += self.train_step_outputs[i]["snr"]
         
-        losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        losses = self.loss_fn(task_logits=task_logits, task_targets=task_targets)
         weighted_task_loss = torch.mul(self.loss_weights, losses)
         loss = torch.sum(weighted_task_loss)
-        scr_loss, si_loss = losses[0], losses[1]
-  
-        command_predictions = torch.max(input=command_logits, dim=1).indices
-        speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
-        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
-        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
-        # command_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.num_label1, average="weighted")
-        # speaker_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.num_label2, average="weighted")
+
+        task_accuracies = list()
+        for task in range(self.n_tasks):
+            task_prediction = torch.max(input=task_logits[task], dim=1).indices
+            task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+            # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
         avg_snr /= len(self.train_step_outputs)
 
         # Clean list of the step outputs
@@ -399,13 +396,11 @@ class HardSharing_PL(pl.LightningModule):
         # self.logger.experiment.add_scalars("train_accuracy", {"command": command_accuracy, "speaker": speaker_accuracy}, global_step=self.global_step)
         # self.logger.experiment.add_scalars("train_accuracy", {"train_loss": loss, "command": scr_loss, "speaker": si_loss}, global_step=self.global_step)
         self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("scr_train_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("scr_train_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("scr_loss_weight", self.loss_weights[0].data, on_epoch=True, prog_bar=True, logger=True)
-        # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("si_train_loss", si_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("si_train_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("si_loss_weight", self.loss_weights[1].data, on_epoch=True, prog_bar=True, logger=True)
+        for task in range(self.n_tasks):
+            self.log("{}_train_loss".format(self.tasks[task]), losses[task], on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+            self.log("{}_train_accuracy".format(self.tasks[task]), task_accuracies[task], on_epoch=True, prog_bar=False, logger=True)
+            self.log("{}_loss_weight".format(self.tasks[task]), self.loss_weights[task].data, on_epoch=True, prog_bar=True, logger=True)
+            # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         self.log("train_snr", avg_snr, on_epoch=True, prog_bar=False, logger=True)
 
     
@@ -423,13 +418,11 @@ class HardSharing_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "logits", "targets", "snrs" of the batch
         """
-        x, speakers, commands, snr = batch
-        command_logits, speaker_logits = self.forward(x=x)
+        x, task_targets, snr = batch
+        task_logits = self.forward(x=x)
 
-        self.val_step_outputs.append({"command_logits": command_logits,
-                                      "speaker_logits": speaker_logits,
-                                      "commands": commands,
-                                      "speakers": speakers,
+        self.val_step_outputs.append({"task_logits": task_logits,
+                                      "task_targets": task_targets,
                                       "snrs": snr})
 
     def on_validation_epoch_end(self) -> None:
@@ -438,33 +431,30 @@ class HardSharing_PL(pl.LightningModule):
         """
         len_val = len(self.val_loader)              # compute size of validation set
         # Build the epoch logits, targets and snrs tensors from the values of each iteration
-        command_logits = self.val_step_outputs[0]["command_logits"]
-        speaker_logits = self.val_step_outputs[0]["speaker_logits"]
-        commands = self.val_step_outputs[0]["commands"]
-        speakers = self.val_step_outputs[0]["speakers"]
+        task_logits = self.val_step_outputs[0]["task_logits"]
+        task_targets = self.val_step_outputs[0]["task_targets"]
         snrs = self.val_step_outputs[0]["snrs"]
         for i in range(1, len_val):
-            command_logits = torch.concat(tensors=[command_logits, self.val_step_outputs[i]["command_logits"]])
-            commands = torch.concat(tensors=[commands, self.val_step_outputs[i]["commands"]])
-            speaker_logits = torch.concat(tensors=[speaker_logits, self.val_step_outputs[i]["speaker_logits"]])
-            speakers = torch.concat(tensors=[speakers, self.val_step_outputs[i]["speakers"]])
+            for task in range(self.n_tasks):
+                task_logits[task] = torch.concat(tensors=[task_logits[task], self.val_step_outputs[i]["task_logits"][task]])
+                task_targets[task] = torch.concat(tensors=[task_targets[task], self.val_step_outputs[i]["task_targets"][task]])
             snrs = torch.concat(tensors=[snrs, self.val_step_outputs[i]["snrs"]])
         
         # Clean list of the step outputs
         self.val_step_outputs.clear()  # free memory
 
         # Compute average metrics
-        losses = self.loss_fn(logits1=command_logits, targets1=commands, logits2=speaker_logits, targets2=speakers)
+        losses = self.loss_fn(task_logits=task_logits, task_targets=task_targets)
         weighted_task_loss = torch.mul(self.loss_weights, losses)
         gradNorm_loss = torch.sum(weighted_task_loss)
         loss = torch.sum((losses))
         scr_loss, si_loss = losses[0], losses[1]
 
-        command_predictions = torch.max(input=command_logits, dim=1).indices
-        speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
-        command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
-        speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
-        # balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=preds, target=targets, task="multiclass", num_classes=self.num_labels, average="weighted")
+        task_accuracies = list()
+        for task in range(self.n_tasks):
+            task_prediction = torch.max(input=task_logits[task], dim=1).indices
+            task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+            # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
         '''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
         targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
@@ -474,13 +464,12 @@ class HardSharing_PL(pl.LightningModule):
         #print("Validation - preds: {}, targs: {}, snr: {}, loss: {}, accuracy: {}, balanced accuracy: {}, reject accuracy: {}".format(preds.size(), targs.size(), snrs.size(), loss, accuracy, balanced_accuracy, reject_accuracy))
 
         # Save for TensorBoard
-        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save train loss on tensorboard logger
-        self.log("val_gradNorm_loss", gradNorm_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("scr_val_loss", scr_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("scr_val_accuracy", command_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        # self.log("train_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
-        self.log("si_val_loss", si_loss, on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
-        self.log("si_val_accuracy", speaker_accuracy, on_epoch=True, prog_bar=False, logger=True)
+        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)    # save val loss on tensorboard logger
+        self.log("val_gradNorm_loss", gradNorm_loss, on_epoch=True, prog_bar=False, logger=True)
+        for task in range(self.n_tasks):
+            self.log("{}_val_loss".format(self.tasks[task]), losses[task], on_epoch=True, prog_bar=False, logger=True)    # save train loss on tensorboard logger
+            self.log("{}_val_accuracy".format(self.tasks[task]), task_accuracies[task], on_epoch=True, prog_bar=False, logger=True)
+            # self.log("val_balanced_accuracy", balanced_accuracy, on_epoch=True, prog_bar=False, logger=True)
         
     
     def test_step(self, batch, batch_idx, dataloader_idx=0):
@@ -497,71 +486,58 @@ class HardSharing_PL(pl.LightningModule):
         Dict[str, torch.Tensor]
             Dictionary containing "logits", "targets", "snrs" of the batch
         """
-        x, speakers, commands, snr = batch
-        command_logits, speaker_logits = self.forward(x=x)
-        self.test_step_outputs[dataloader_idx].append({"command_logits": command_logits,
-                                                       "speaker_logits": speaker_logits,
-                                                       "commands": commands,
-                                                       "speakers": speakers,
-                                                       "snrs": snr})
+        x, task_targets, snr = batch
+        task_logits = self.forward(x=x)
+        self.val_step_outputs[dataloader_idx].append({"task_logits": task_logits,
+                                                      "task_targets": task_targets,
+                                                      "snrs": snr})
     
     def on_test_epoch_end(self):
-        command_accuracies = list()
-        speaker_accuracies = list()
+        fold_task_accuracies = list()
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
             # Build the epoch logits, targets and snrs tensors from the values of each iteration
-            command_logits = self.test_step_outputs[dataloader][0]["command_logits"]
-            speaker_logits = self.test_step_outputs[dataloader][0]["speaker_logits"]
-            commands = self.test_step_outputs[dataloader][0]["commands"]
-            speakers = self.test_step_outputs[dataloader][0]["speakers"]
-            snrs = self.test_step_outputs[dataloader][0]["snrs"]
+            task_logits = self.test_step_outputs[dataloader][0]["task_logits"]
+            task_targets = self.test_step_outputs[dataloader][0]["task_targets"]
+            #snrs = self.test_step_outputs[dataloader[dataloader]][0]["snrs"]
 
             for step in range(1, test_len):
-                command_logits = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["command_logits"]])
-                speaker_logits = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["speaker_logits"]])
-                commands = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["commands"]])
-                speakers = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["speakers"]])
-                snrs = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["snrs"]])
+                for task in range(self.n_tasks):
+                    task_logits[task] = torch.concat(tensors=[task_logits[task], self.test_step_outputs[dataloader][step]["task_logits"][task]])
+                    task_targets[task] = torch.concat(tensors=[task_targets[task], self.test_step_outputs[dataloader][step]["task_targets"][task]])
+                #snrs = torch.concat(tensors=[self.test_step_outputs[dataloader][step]["snrs"]])
 
             # Clean list of the step outputs
             for fold in range(self.settings.testing.n_folds):
                 self.test_step_outputs.append(list())
 
             # Compute average metrics
-            command_predictions = torch.max(input=command_logits, dim=1).indices
-            speaker_predictions = torch.max(input=speaker_logits, dim=1).indices
-            command_accuracy = torchmetrics.functional.classification.accuracy(preds=command_predictions, target=commands, task="multiclass", num_classes=self.task_n_labels[0], average="micro")
-            speaker_accuracy = torchmetrics.functional.classification.accuracy(preds=speaker_predictions, target=speakers, task="multiclass", num_classes=self.task_n_labels[1], average="micro")
-        
-            command_accuracies.append(command_accuracy.cpu().numpy())
-            speaker_accuracies.append(speaker_accuracy.cpu().numpy())
+            task_accuracies = list()
+            for task in range(self.n_tasks):
+                task_prediction = torch.max(input=task_logits[task], dim=1).indices
+                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+                # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
+            fold_task_accuracies.append(task_accuracies)
             
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        columns = ["fold", "command_accuracy", "speaker_accuracy"]
-        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "command_accuracy": command_accuracies, "speaker_accuracy": speaker_accuracies}
+        columns = ["fold"]
+        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)]}
+        for task in range(self.n_tasks):
+            columns.append("{}_accuracy".format(self.tasks[task]))
+            result_dict["{}_accuracy".format(self.tasks[task])] = task_accuracies[task]
         result_df = pandas.DataFrame(data=result_dict, columns=columns)
         result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
 
         with open(self.results_file, 'w') as fout:
-            fout.write("\n### Speech-Command Recognition ###\n")
-            # Save the commands accuracies
-            avg = 0
-            for dataloader in range(len(command_accuracies)):
-                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, command_accuracies[dataloader]*100))
-                avg += command_accuracies[dataloader]*100
-            fout.write("-------------------------\n")
-            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(command_accuracies)))
-
-            # Save the speaker accuracies
-            fout.write("\n### Speaker Identification ###\n")
-            avg = 0
-            for dataloader in range(len(speaker_accuracies)):
-                fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, speaker_accuracies[dataloader]*100))
-                avg += speaker_accuracies[dataloader]*100
-            fout.write("-------------------------\n")
-            fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(speaker_accuracies)))
+            for task in range(self.n_tasks):
+                fout.write("\n### {} task ###\n".format(self.tasks[task].upper()))
+                avg = 0
+                for dataloader in range(len(fold_task_accuracies)):
+                    fout.write("Dataloader {}:\t<{:.2f}> %\n".format(dataloader, fold_task_accuracies[dataloader][task]*100))
+                    avg += fold_task_accuracies[dataloader][task]*100
+                fout.write("-------------------------\n")
+                fout.write("Total average:\t<{:.2f}> %\n".format(avg/len(fold_task_accuracies)))
     
 
     def configure_callbacks(self):

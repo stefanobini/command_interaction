@@ -198,7 +198,7 @@ class TrainingMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
         
-        if settings.experimentation == "MTL":
+        if "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
@@ -327,7 +327,7 @@ class ValidationMiviaDataset(MiviaDataset):
         """
         super().__init__(settings=settings)
 
-        if settings.experimentation == "MTL":
+        if "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
@@ -416,7 +416,7 @@ class TestingMiviaDataset(MiviaDataset):
         if settings.testing.real_data.folder:
             self.dataset_path = settings.testing.real_data.folder
             self.speech_annotations = pd.read_csv(settings.testing.real_data.annotations)
-        elif settings.experimentation == "MTL":
+        if "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
             self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
         else:
@@ -1123,7 +1123,7 @@ def _SI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(speaker)]
         avg_snr += snr
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
     targets = torch.stack(targets)
     avg_snr = torch.tensor(avg_snr/len(tensors))
     
@@ -1164,7 +1164,7 @@ def _SI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
         tensors += [tensor]    # tensor size (CxFxT)
         targets += [label_to_index(speaker)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
     targets = torch.stack(targets)
     snrs = torch.stack(snrs)
     return tensors, targets, snrs
@@ -1198,12 +1198,12 @@ def _MT_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.
         speakers += [label_to_index(speaker)]
         commands += [label_to_index(command)]
         avg_snr += snr
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
     speakers = torch.stack(speakers)
     commands = torch.stack(commands)
     avg_snr = torch.tensor(avg_snr/len(tensors))
 
-    return tensors, speakers, commands, avg_snr
+    return tensors, list((speakers, commands)), avg_snr
 
 def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
     """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
@@ -1228,11 +1228,11 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
         speakers += [label_to_index(speaker)]
         commands += [label_to_index(command)]
         snrs += [torch.tensor(snr)]
-    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=SPECT_PAD_STRIDE)
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
     speakers = torch.stack(speakers)
     commands = torch.stack(commands)
     snrs = torch.stack(snrs)
-    return tensors, speakers, commands, snrs
+    return tensors, list((speakers, commands)), snrs
 
 
 def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:

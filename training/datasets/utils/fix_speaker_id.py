@@ -4,8 +4,8 @@ import numpy
 
 
 LANGS = ["eng", "ita"]
-DATASET_PATH = os.path.join("datasets", "MTL_scr_sr", "annotations")
-HEADING = ["path", "type", "subtype", "speaker", "label"]
+DATASET_PATH = os.path.join("datasets", "MTL_experimentation_1", "annotations")
+HEADING = ["path", "type", "subtype", "speaker", "command"]
 
 speaker_dict = dict()
 for lang in LANGS:

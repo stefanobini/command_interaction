@@ -65,7 +65,7 @@ settings.model.conformer.convolution_first: bool = True
 '''Training'''
 settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 48
+settings.training.num_workers:str = 40
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:int = 0                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
@@ -80,7 +80,7 @@ settings.training.early_stop.patience:int = 8                              # def
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
 settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
-settings.training.optimizer.eps:float = settings.training.lr.value * 1e-3
+settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
@@ -104,7 +104,14 @@ additional_info = "_reduced_precision"
 settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = os.path.join("testing", "felice")
-settings.testing.n_folds:int = 10
-settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
+settings.testing.folder:str = os.path.join("testing", settings.experimentation)
+settings.testing.n_folds:int = 1
+ckpt_path:str = os.path.join(settings.logger.folder, settings.experimentation, settings.demo, settings.input.language, settings.model.network, settings.logger.version, "checkpoints")
+try:
+    settings.testing.ckpt_path:str = os.path.join(ckpt_path, os.listdir(ckpt_path)[-1])
+except FileNotFoundError:
+    print("This field in <{}.py> file rise an ERROR because the fold <{}> doesn't exist".format(settings.name, ckpt_path)) 
 settings.testing.results_path:str = None
+settings.testing.real_data.folder:str = os.path.join("datasets", "FELICE", "MIVIA_CRF_ISC_phaseI") # [None, os.path.join("datasets", "MIVIA_CRF_ISC")]
+if settings.testing.real_data.folder:
+    settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "dataset.csv")                 # ["clean.csv", "noisy.csv", "all.csv", "test.csv"]

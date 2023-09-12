@@ -1,5 +1,6 @@
 """
 python3 test.py --configuration SCR_conf 2>&1 | tee t0_log.txt
+python3 test.py --configuration FELICE_conf 2>&1 | tee t0_log.txt
 """
 
 import os
@@ -61,7 +62,7 @@ pl.seed_everything(220295)
 test_set, main_labels, test_collate_fn = None, list(), None
 if settings.tasks == ["command"]:
     test_set = TestingMiviaDataset(settings=settings)
-    labels = [[i for i in range(31)]] # test_set._get_labels()
+    labels = [[i for i in range(11)]] # test_set._get_labels()
     main_labels = labels[0]
     task_n_labels = len(main_labels)
     test_collate_fn = _SCR_val_collate_fn
@@ -138,6 +139,6 @@ trainer = pl.Trainer(
 ########################
 #      Test Model      #
 ########################
-model = model.load_from_checkpoint(settings.testing.ckpt_path, settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights, map_location={"cuda:1":"cuda:0"})
+model = model.load_from_checkpoint(settings.testing.ckpt_path, settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights, map_location={"cuda:0":"cuda:0"})
 model.set_test_dataloaders(dataloaders=test_loaders)
 trainer.test(model=model, dataloaders=test_loaders, ckpt_path=settings.testing.ckpt_path, verbose=True, datamodule=None)

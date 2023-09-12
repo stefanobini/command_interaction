@@ -78,3 +78,36 @@ PHASE_I_ROBOT = {
     22:8,   # go
     24:9    # stop
 }
+
+DEMO_PHASE_I= {
+    "eng":{0:  "Increase the height",
+           1:  "Decrease the height",
+           2:  "Increase the inclination",
+           3:  "Decrease the inclination",
+           4:  "Start",
+           5:  "Release",
+           6:  "Bring me the gun screwdriver",
+           7:  "Take the gun screwdriver",
+           8:  "Bring me the elbow screwdriver",
+           9:  "Take the elbow screwdriver",
+           10: "Bring me the windows control panel",
+           11: "Take the windows control panel",
+           12: "Go",
+           13: "Stop",
+           14: "No command"},
+    "ita":{0:  "Piu alto",
+           1:  "Piu basso",
+           2:  "Piu inclinato",
+           3:  "Meno inclinato",
+           4:  "Start",
+           5:  "Rilascia",
+           6:  "Portami l'avvitatore elettrico",
+           7:  "Prendi l'avvitatore elettrico",
+           8:  "Portami l'avvitatore a gomito",
+           9:  "Prendi l'avvitatore a gomito",
+           10: "Portami la mostrina comandi",
+           11: "Prendi la mostrina comandi",
+           12: "Libero",
+           13: "Stop",
+           14:  "Nessun comando"
+}}

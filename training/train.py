@@ -98,12 +98,12 @@ elif settings.tasks == ["speaker"]:
     task_n_labels = len(main_labels)
     train_collate_fn = _SI_train_collate_fn
     val_collate_fn = _SI_val_collate_fn
-elif settings.tasks == ["command", "speaker"]:
+elif settings.tasks == ["speaker", "command"]:
     train_set = TrainingMiviaDataset(settings=settings)
     val_set = ValidationMiviaDataset(settings=settings)
     labels = train_set._get_labels()
     main_labels = labels[1]
-    task_n_labels = list((len(labels[1]), len(labels[0])))
+    task_n_labels = list((len(labels[0]), len(labels[1])))
     train_collate_fn = _MT_train_collate_fn
     val_collate_fn = _MT_val_collate_fn
 elif settings.tasks == ["intent", "explicit", "implicit"]:

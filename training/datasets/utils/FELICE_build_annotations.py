@@ -6,8 +6,9 @@ from FELICE_cmd_map import FULL, OLD_CMD_LABEL_3, OLD_CMD_LABEL_3_AND_7, OLD_CMD
 
 LANGS = ["eng", "ita"]
 DEMO = "phase_I"  # ["full", "3", "7", "7_plus", "phase_I"]
-IN_DATASET_FOLDER = "MIVIA_ISC_v2"
-OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
+IN_DATASET_FOLDER = "MIVIA_CRF_ISC"
+#OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
+OUT_DATASET_FOLDER = os.path.join("FELICE", "MIVIA_CRF_ISC_phaseI")
 ANNOTATION_FILE = "dataset.csv"
 COLUMNS = ["path", "type", "subtype", "speaker", "command"]
 BALANCE_REJECT_SAMPLES = False

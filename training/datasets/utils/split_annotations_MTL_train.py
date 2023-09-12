@@ -7,9 +7,9 @@ from typing import Tuple
 
 LANGS = ["eng", "ita"]
 
-DATASET_PATH = "./datasets/MTL_scr_sid"
+DATASET_PATH = "./datasets/MTL_experimentation_1"
 NOISE_ANNOTATIONS_FILE = os.path.join(DATASET_PATH, "annotations", "noise", "dataset.csv")
-OUT_PATH = "./datasets/MTL_scr_sid"
+OUT_PATH = "./datasets/MTL_experimentation_1"
 if not os.path.isdir(OUT_PATH):
         os.makedirs(OUT_PATH)
 NOISE_OUTPUT_PATH = os.path.join(OUT_PATH, "annotations", "noise")
@@ -94,6 +94,7 @@ for lang in LANGS:
 ############
 #   NOISE  #
 ############
+"""
 ''' Read NOISE annotation file '''
 noise_df = pd.read_csv(NOISE_ANNOTATIONS_FILE, sep=',')
 
@@ -142,3 +143,4 @@ valid_noise_df = valid_noise_df.sample(frac=1)
 out_file = os.path.join(NOISE_OUTPUT_PATH, "validation.csv")
 noise_df = pd.DataFrame(data=valid_noise_df, columns=NOISE_HEADING)
 noise_df.to_csv(path_or_buf=out_file, index=False)
+"""
