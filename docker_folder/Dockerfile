@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
 
 # setup keys
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
 # setup environment
 ENV LANG C.UTF-8
@@ -36,12 +36,13 @@ RUN apt install python3-pip -y
 RUN python3 -m pip install -U catkin_tools
 RUN apt-get install ros-melodic-rospy -y
 
-RUN sudo pip3 install rospkg && \
+RUN sudo python3 -m pip install rospkg && \
     sudo apt install -y ros-melodic-naoqi-bridge-msgs && \
     sudo apt install -y ros-melodic-vision-msgs
 
 COPY ./ros_entrypoint.sh /
 COPY ./qi_install.sh /
+COPY ./qi-3.0.0-cp36-cp36m-linux_aarch64.whl /
 
 RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
     tar -xvzf qi_jetson.tar.gz && \
@@ -54,29 +55,43 @@ RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/downl
 ENTRYPOINT ["/ros_entrypoint.sh"]
 
 # Pyrealsense 2 installation
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        python3-setuptools \
-        python3-dev \
-        libssl-dev \
-        libusb-1.0-0-dev \
-        pkg-config \
-        libgtk-3-dev \
-        libglfw3-dev \
-        libgl1-mesa-dev \
-        libglu1-mesa-dev \
-        sudo 
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#        python3-setuptools \
+#        python3-dev \
+#        libssl-dev \
+#        libusb-1.0-0-dev \
+#        pkg-config \
+#        libgtk-3-dev \
+#        libglfw3-dev \
+#        libgl1-mesa-dev \
+#        libglu1-mesa-dev \
+#        sudo 
 
+#RUN python3 -m pip install pyrealsense2
+#RUN python -m pip install pyrealsense2
+
+RUN sudo apt install libssl-dev
+RUN sudo apt-get install unzip
+RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.48.0.zip && \
+    unzip v2.48.0.zip && \
+    cd librealsense-2.48.0 && \
+    mkdir build && \
+    cd build && \
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64 && \
+    export PATH=$PATH:$CUDA_HOME/bin && \
+    make -j4 && \
+    sudo make install && \
 #RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    #cd librealsense && \
-    #./scripts/setup_udev_rules.sh && \
-    #mkdir build && \
-    #cd build && \
-    #cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    #sudo make uninstall && \
-    #sudo make clean && \
-    #sudo make -j4 && \
-    #sudo make install 
+#    cd librealsense && \
+#    ./scripts/setup_udev_rules.sh && \
+#    mkdir build && \
+#    cd build && \
+#    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+#    sudo make uninstall && \
+#    sudo make clean && \
+#    sudo make -j4 && \
+#    sudo make install 
 
 ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
@@ -87,7 +102,7 @@ RUN apt-get update && \
         python-pyaudio \
         flac 
 
-RUN pip3 install \
+RUN python3 -m pip install \
         PyAudio==0.2.11 \
         pyusb==1.0.2 \
         click==7.1.2
@@ -115,6 +130,8 @@ RUN python3 -m pip install sounddevice
 RUN python3 -m pip install webrtcvad
 RUN python3 -m pip install netifaces
 RUN python3 -m pip install -U jetson-stats
+RUN python3 -m pip install URLEncoder
+RUN python3 -m pip install qi-3.0.0-cp36-cp36m-linux_aarch64.whl
 
 RUN apt install python-pip -y
 RUN python3 -m pip install colorama
@@ -123,39 +140,39 @@ RUN python -m pip install requests
 
 
 #Utils DemoFramework
-RUN pip3 install cvbridge3
-RUN sudo pip3 install flask
+RUN python3 -m pip install cvbridge3
+RUN sudo python3 -m pip install flask
 RUN sudo apt install python-cv-bridge -y
 RUN sudo apt install python-opencv -y
 
 #INSTALL PYREALSE
-RUN apt install -y --no-install-recommends \
-       python3-setuptools \
-       python3-dev \
-       libssl-dev \
-       libusb-1.0-0-dev \
-       pkg-config \
-       libgtk-3-dev \
-       libglfw3-dev \
-        libgl1-mesa-dev \
-        libglu1-mesa-dev \
-        sudo 
+#RUN apt install -y --no-install-recommends \
+#       python3-setuptools \
+#       python3-dev \
+#       libssl-dev \
+#       libusb-1.0-0-dev \
+#       pkg-config \
+#       libgtk-3-dev \
+#       libglfw3-dev \
+#       libgl1-mesa-dev \
+#       libglu1-mesa-dev \
+#       sudo 
 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
+#RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+#    cd librealsense && \
+#    ./scripts/setup_udev_rules.sh && \
+#    mkdir build && \
+#    cd build && \
+#    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
+#    sudo make uninstall && \
+#    sudo make clean && \
+#    sudo make -j4 && \
+#    sudo make install 
 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
 # DOTMAP
-RUN pip2 install dotmap==1.3.23 
+RUN python -m pip install dotmap==1.3.23 
 
 # RUN apt-get install -q -y net-tools 
 RUN python -m pip install ifcfg
@@ -173,11 +190,11 @@ RUN python3 -m pip install Pillow
 #RUN python3 -m pip install torchvision==0.10.0
 
 # ONNX libraries
-pip3 install -U openmim
-mim install mmcv-full
-git clone https://github.com/open-mmlab/mmdetection.git
-cd mmdetection
-pip3 install -v -e .
+#pip3 install -U openmim
+#mim install mmcv-full
+#git clone https://github.com/open-mmlab/mmdetection.git
+#cd mmdetection
+#pip3 install -v -e .
 # wget https://nvidia.box.com/shared/static/jy7nqva7l88mq9i8bw3g3sklzf4kccn2.whl -O onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # pip3 install onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
 # python3 -m pip install onnxruntime

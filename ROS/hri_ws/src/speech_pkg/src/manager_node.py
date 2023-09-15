@@ -488,7 +488,7 @@ if __name__ == "__main__":
         #'''For MIVIA experiments
         rospy.Service('manager_service', Manager, run_demo_MSIexp1_MIVIA)
         classify = rospy.ServiceProxy('classifier_service', ClassificationMSI)
-        actioner = actionlib.SimpleActionClient('move_base', IntentAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
+        actioner = actionlib.SimpleActionClient('pepper_action_node', IntentAction) # Create an action client called "move_base" with action definition file "MoveBaseAction"
         actioner.wait_for_server()  # Waits until the action server has started up and started listening for goals.
         
     #command_eng = DEMO_CMD_ENG

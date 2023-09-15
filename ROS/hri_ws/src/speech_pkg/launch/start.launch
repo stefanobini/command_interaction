@@ -14,4 +14,6 @@
     <node pkg="speech_pkg" name="manager" type="manager_node.py" output="screen"/>
     <node pkg="speech_pkg" name="speech_detection_node" type="speech_detection_node.py" output="screen"/>
     <node pkg="speech_pkg" name="microphone_node" type="microphone_node.py" output="screen"/>
+    <node pkg="speech_pkg" name="pepper_action_node" type="pepper_action_node.py" output="screen"/>
+    <node pkg="speech_pkg" name="pepper_posture_node" type="pepper_posture_node.py" output="screen"/>
 </launch>

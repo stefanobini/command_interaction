@@ -5,8 +5,8 @@ import rospy
 import qi
 
 import actionlib
-from actionlib_msgs import GoalID
-from speech_pkg.msg import IntentAction
+#from actionlib_msgs import GoalID
+from speech_pkg.msg import IntentAction, IntentResult
 
 from lang_settings import AVAILABLE_LANGS
 from intents import INTENT_TO_ACTION
@@ -14,26 +14,28 @@ from intents import INTENT_TO_ACTION
 
 class PepperAction(object):
 
-    def init(self, name:str, ip:str, language:str):
+    def __init__(self, name, ip, language):
         self._action_name = name
-        self._as = actionlib.SimpleActionServer(self._action_name, IntentAction, execute_cb=self.execute_cb, auto_start=False)
-        self.connect_robot()
         self.ip = ip
         self.language = language
+        self._as = actionlib.SimpleActionServer(self._action_name, IntentAction, execute_cb=self.execute_cb, auto_start=False)
+        self.connect_robot()
         self._as.start()
 
     def execute_cb(self, message):
         # r = rospy.Rate(1)
         start = rospy.get_time()
         '''Execute goal'''
-        '''
-        self.say(out_str=INTENT_TO_ACTION[self.language])
-        self.move_wheels(intent=message.data)
+        #'''
+        self.say(out_str=INTENT_TO_ACTION[message.intent][self.language])
+        self.move_wheels(intent=message.intent)
         #'''
         duration = rospy.Duration(rospy.get_time()-start)
         rospy.loginfo('%s: Succeeded' % self._action_name)
-        self._as.set_succeeded(duration)
-        print("Arthur Beis is the best.")
+        result = IntentResult()
+        result.time_elapsed = duration
+        self._as.set_succeeded(result)
+        #print("Arthur Beis is the best.")
     
     def connect_robot(self):
         # Connect to the robot
@@ -44,12 +46,13 @@ class PepperAction(object):
 
         self.motion_service = session.service("ALMotion")
         self.motion_service.wakeUp()
+        self.motion_service.moveInit()
 
         #TextToSpeech service
         self.tts = session.service("ALTextToSpeech")
         self.tts.setLanguage("Italian" if self.language == "ita" else "English")
-        self.tts.setVolume(0)
-        self.tts.say("Hello")
+        self.tts.setVolume(0.7)
+        self.tts.say("Hola")
     
     def say(self, out_str):
         try:
@@ -59,19 +62,24 @@ class PepperAction(object):
             session.connect('tcp://%s:9559' % self.ip )
             self.tts = session.service("ALTextToSpeech")
             self.tts.setLanguage("Italian" if self.language == "ita" else "English")
+            self.tts.setVolume(0.7)
             self.tts.say(out_str)
 
     def move_wheels(self, intent):
         try:
-            self.motion_service.moveTo(x=INTENT_TO_ACTION[intent]['x'], y=INTENT_TO_ACTION[intent]['y'], theta=INTENT_TO_ACTION[intent]["theta"])
-        except Exception:
+            print(INTENT_TO_ACTION[intent]['x'], INTENT_TO_ACTION[intent]['y'], INTENT_TO_ACTION[intent]['theta'])
+            self.motion_service.moveTo(0.2, 0.2, 3.14)
+            self.motion_service.moveTo(INTENT_TO_ACTION[intent]['x'], INTENT_TO_ACTION[intent]['y'], INTENT_TO_ACTION[intent]["theta"])
+        except Exception as e:
+            print(e)
             session = qi.Session()
             session.connect('tcp://%s:9559' % self.ip)
             self.motion_service = session.service("ALMotion")
-            self.motion_service.moveTo(x=INTENT_TO_ACTION[intent]['x'], y=INTENT_TO_ACTION[intent]['y'], theta=INTENT_TO_ACTION[intent]["theta"])
+            #self.motion_service.moveTo(0.2, 0.2, 3.14)
+            self.motion_service.moveTo(INTENT_TO_ACTION[intent]['x'], INTENT_TO_ACTION[intent]['y'], INTENT_TO_ACTION[intent]["theta"])
             self.tts = session.service("ALTextToSpeech")
             self.tts.setLanguage("Italian" if self.language == "ita" else "English")
-            self.tts.setVolume(0.7)
+            #self.tts.setVolume(0.7)
 
 
 if __name__ == "__main__":

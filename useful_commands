@@ -51,6 +51,7 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 '''For connect to another ROS core inside local network'''
 export ROS_MASTER_URI=http://10.68.0.1:11311 && export ROS_IP=10.68.0.128
 python -m pip install requests
+python3 -m pip install URLEncoder
 apt-get install ros-melodic-ros-tutorials ros-melodic-geometry-tutorials ros-melodic-rviz ros-melodic-rosbash ros-melodic-rqt-tf-tree
 rosdep init
 rosdep update

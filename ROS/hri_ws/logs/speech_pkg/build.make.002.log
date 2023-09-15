@@ -1,0 +1,36 @@
+[  0%] Built target move_base_msgs_generate_messages_cpp
+[  0%] Built target actionlib_msgs_generate_messages_cpp
+[  0%] Built target _speech_pkg_generate_messages_check_deps_Gesture
+[  0%] Built target _speech_pkg_generate_messages_check_deps_ClassificationMSI
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentActionResult
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentActionGoal
+[  0%] Built target _speech_pkg_generate_messages_check_deps_Classification
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentGoal
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentActionFeedback
+[  0%] Built target _speech_pkg_generate_messages_check_deps_Speech
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentFeedback
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentResult
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target move_base_msgs_generate_messages_nodejs
+[  0%] Built target _speech_pkg_generate_messages_check_deps_SystemHealth
+[  0%] Built target _speech_pkg_generate_messages_check_deps_IntentAction
+[  0%] Built target actionlib_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target _speech_pkg_generate_messages_check_deps_Manager
+[  0%] Built target _speech_pkg_generate_messages_check_deps_SpeechData
+[  0%] Built target _speech_pkg_generate_messages_check_deps_Command
+[  0%] Built target move_base_msgs_generate_messages_lisp
+[  0%] Built target move_base_msgs_generate_messages_py
+[  0%] Built target actionlib_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target actionlib_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target move_base_msgs_generate_messages_eus
+[  0%] Built target actionlib_msgs_generate_messages_eus
+[ 19%] Built target speech_pkg_generate_messages_cpp
+[ 38%] Built target speech_pkg_generate_messages_nodejs
+[ 57%] Built target speech_pkg_generate_messages_lisp
+[ 79%] Built target speech_pkg_generate_messages_py
+[100%] Built target speech_pkg_generate_messages_eus
+[100%] Built target speech_pkg_generate_messages
