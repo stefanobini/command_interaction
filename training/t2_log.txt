@@ -1,45 +1,0 @@
-Loaded </mnt/sdc1/sbini/command_interaction/training/settings/SCR_conf.py> as configuration file.
-CUDA acceleration available on <1> devices: <[0]>
-Global seed set to 2
-The TensorBoard logggers will be saved in <lightning_logs/SCR/ita/resnet8/Anti_UniCL_PEM_v2>.
-GPU available: True (cuda), used: True
-TPU available: False, using: 0 TPU cores
-IPU available: False, using: 0 IPUs
-HPU available: False, using: 0 HPUs
-The following callbacks returned in `LightningModule.configure_callbacks` will override existing callbacks passed to Trainer: ModelCheckpoint
-/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:615: UserWarning: Checkpoint directory lightning_logs/SCR/ita/resnet8/Anti_UniCL_PEM_v2/checkpoints exists and is not empty.
-  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-
-   | Name    | Type             | Params
-----------------------------------------------
-0  | conv0   | Conv2d           | 405   
-1  | pool    | AvgPool2d        | 0     
-2  | bn1     | BatchNorm2d      | 0     
-3  | conv1   | Conv2d           | 18.2 K
-4  | bn2     | BatchNorm2d      | 0     
-5  | conv2   | Conv2d           | 18.2 K
-6  | bn3     | BatchNorm2d      | 0     
-7  | conv3   | Conv2d           | 18.2 K
-8  | bn4     | BatchNorm2d      | 0     
-9  | conv4   | Conv2d           | 18.2 K
-10 | bn5     | BatchNorm2d      | 0     
-11 | conv5   | Conv2d           | 18.2 K
-12 | bn6     | BatchNorm2d      | 0     
-13 | conv6   | Conv2d           | 18.2 K
-14 | output  | Linear           | 1.4 K 
-15 | softmax | Softmax          | 0     
-16 | loss_fn | CrossEntropyLoss | 0     
-----------------------------------------------
-111 K     Trainable params
-0         Non-trainable params
-111 K     Total params
-0.445     Total estimated model params size (MB)
-Training: 0it [00:00, ?it/s]Training:   0%|          | 0/40 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/40 [00:00<?, ?it/s] Epoch 0:   2%|▎         | 1/40 [01:05<42:37, 65.58s/it]Epoch 0:   2%|▎         | 1/40 [01:05<42:37, 65.58s/it, v_num=M_v2]Epoch 0:   5%|▌         | 2/40 [01:05<20:46, 32.81s/it, v_num=M_v2]Epoch 0:   5%|▌         | 2/40 [01:05<20:46, 32.81s/it, v_num=M_v2]Epoch 0:   8%|▊         | 3/40 [01:05<13:29, 21.89s/it, v_num=M_v2]Epoch 0:   8%|▊         | 3/40 [01:05<13:29, 21.89s/it, v_num=M_v2]Epoch 0:  10%|█         | 4/40 [01:05<09:51, 16.43s/it, v_num=M_v2]Epoch 0:  10%|█         | 4/40 [01:05<09:51, 16.43s/it, v_num=M_v2]Epoch 0:  12%|█▎        | 5/40 [01:05<07:40, 13.15s/it, v_num=M_v2]Epoch 0:  12%|█▎        | 5/40 [01:05<07:40, 13.15s/it, v_num=M_v2]Epoch 0:  15%|█▌        | 6/40 [01:05<06:12, 10.96s/it, v_num=M_v2]Epoch 0:  15%|█▌        | 6/40 [01:05<06:12, 10.96s/it, v_num=M_v2]Epoch 0:  18%|█▊        | 7/40 [01:05<05:10,  9.40s/it, v_num=M_v2]Epoch 0:  18%|█▊        | 7/40 [01:05<05:10,  9.40s/it, v_num=M_v2]Epoch 0:  20%|██        | 8/40 [01:05<04:23,  8.23s/it, v_num=M_v2]Epoch 0:  20%|██        | 8/40 [01:05<04:23,  8.23s/it, v_num=M_v2]Epoch 0:  22%|██▎       | 9/40 [01:05<03:46,  7.32s/it, v_num=M_v2]Epoch 0:  22%|██▎       | 9/40 [01:05<03:46,  7.32s/it, v_num=M_v2]Epoch 0:  25%|██▌       | 10/40 [01:05<03:17,  6.59s/it, v_num=M_v2]Epoch 0:  25%|██▌       | 10/40 [01:05<03:17,  6.59s/it, v_num=M_v2]Epoch 0:  28%|██▊       | 11/40 [01:05<02:53,  6.00s/it, v_num=M_v2]Epoch 0:  28%|██▊       | 11/40 [01:05<02:53,  6.00s/it, v_num=M_v2]Epoch 0:  30%|███       | 12/40 [01:06<02:34,  5.50s/it, v_num=M_v2]Epoch 0:  30%|███       | 12/40 [01:06<02:34,  5.50s/it, v_num=M_v2]Epoch 0:  32%|███▎      | 13/40 [01:06<02:17,  5.08s/it, v_num=M_v2]Epoch 0:  32%|███▎      | 13/40 [01:06<02:17,  5.08s/it, v_num=M_v2]Epoch 0:  35%|███▌      | 14/40 [01:06<02:02,  4.72s/it, v_num=M_v2]Epoch 0:  35%|███▌      | 14/40 [01:06<02:02,  4.72s/it, v_num=M_v2]Epoch 0:  38%|███▊      | 15/40 [01:06<01:50,  4.41s/it, v_num=M_v2]Epoch 0:  38%|███▊      | 15/40 [01:06<01:50,  4.41s/it, v_num=M_v2]Epoch 0:  40%|████      | 16/40 [01:06<01:39,  4.14s/it, v_num=M_v2]Epoch 0:  40%|████      | 16/40 [01:06<01:39,  4.14s/it, v_num=M_v2]Epoch 0:  42%|████▎     | 17/40 [01:06<01:29,  3.90s/it, v_num=M_v2]Epoch 0:  42%|████▎     | 17/40 [01:06<01:29,  3.90s/it, v_num=M_v2]Epoch 0:  45%|████▌     | 18/40 [01:06<01:21,  3.68s/it, v_num=M_v2]Epoch 0:  45%|████▌     | 18/40 [01:06<01:21,  3.68s/it, v_num=M_v2]Epoch 0:  48%|████▊     | 19/40 [01:06<01:13,  3.49s/it, v_num=M_v2]Epoch 0:  48%|████▊     | 19/40 [01:06<01:13,  3.49s/it, v_num=M_v2]Epoch 0:  50%|█████     | 20/40 [01:06<01:06,  3.32s/it, v_num=M_v2]Epoch 0:  50%|█████     | 20/40 [01:06<01:06,  3.32s/it, v_num=M_v2]Epoch 0:  52%|█████▎    | 21/40 [01:06<01:00,  3.16s/it, v_num=M_v2]Epoch 0:  52%|█████▎    | 21/40 [01:06<01:00,  3.16s/it, v_num=M_v2]Epoch 0:  55%|█████▌    | 22/40 [01:06<00:54,  3.02s/it, v_num=M_v2]Epoch 0:  55%|█████▌    | 22/40 [01:06<00:54,  3.02s/it, v_num=M_v2]Epoch 0:  57%|█████▊    | 23/40 [01:06<00:49,  2.89s/it, v_num=M_v2]Epoch 0:  57%|█████▊    | 23/40 [01:06<00:49,  2.89s/it, v_num=M_v2]Epoch 0:  60%|██████    | 24/40 [01:06<00:44,  2.77s/it, v_num=M_v2]Epoch 0:  60%|██████    | 24/40 [01:06<00:44,  2.77s/it, v_num=M_v2]Epoch 0:  62%|██████▎   | 25/40 [01:29<00:53,  3.57s/it, v_num=M_v2]Epoch 0:  62%|██████▎   | 25/40 [01:29<00:53,  3.57s/it, v_num=M_v2]Epoch 0:  65%|██████▌   | 26/40 [01:29<00:48,  3.43s/it, v_num=M_v2]Epoch 0:  65%|██████▌   | 26/40 [01:29<00:48,  3.43s/it, v_num=M_v2]Epoch 0:  68%|██████▊   | 27/40 [01:30<00:43,  3.36s/it, v_num=M_v2]Epoch 0:  68%|██████▊   | 27/40 [01:30<00:43,  3.36s/it, v_num=M_v2]Epoch 0:  70%|███████   | 28/40 [01:30<00:38,  3.25s/it, v_num=M_v2]Epoch 0:  70%|███████   | 28/40 [01:30<00:38,  3.25s/it, v_num=M_v2]Epoch 0:  72%|███████▎  | 29/40 [01:30<00:34,  3.13s/it, v_num=M_v2]Epoch 0:  72%|███████▎  | 29/40 [01:30<00:34,  3.13s/it, v_num=M_v2]Epoch 0:  75%|███████▌  | 30/40 [01:56<00:38,  3.89s/it, v_num=M_v2]Epoch 0:  75%|███████▌  | 30/40 [01:56<00:38,  3.89s/it, v_num=M_v2]Epoch 0:  78%|███████▊  | 31/40 [01:56<00:33,  3.77s/it, v_num=M_v2]Epoch 0:  78%|███████▊  | 31/40 [01:56<00:33,  3.77s/it, v_num=M_v2]Epoch 0:  80%|████████  | 32/40 [01:56<00:29,  3.65s/it, v_num=M_v2]Epoch 0:  80%|████████  | 32/40 [01:56<00:29,  3.65s/it, v_num=M_v2]Epoch 0:  82%|████████▎ | 33/40 [01:56<00:24,  3.54s/it, v_num=M_v2]Epoch 0:  82%|████████▎ | 33/40 [01:56<00:24,  3.54s/it, v_num=M_v2]Epoch 0:  85%|████████▌ | 34/40 [01:56<00:20,  3.44s/it, v_num=M_v2]Epoch 0:  85%|████████▌ | 34/40 [01:56<00:20,  3.44s/it, v_num=M_v2]Epoch 0:  88%|████████▊ | 35/40 [01:56<00:16,  3.34s/it, v_num=M_v2]Epoch 0:  88%|████████▊ | 35/40 [01:56<00:16,  3.34s/it, v_num=M_v2]Epoch 0:  90%|█████████ | 36/40 [01:56<00:12,  3.25s/it, v_num=M_v2]Epoch 0:  90%|█████████ | 36/40 [01:56<00:12,  3.25s/it, v_num=M_v2]Epoch 0:  92%|█████████▎| 37/40 [01:56<00:09,  3.16s/it, v_num=M_v2]Epoch 0:  92%|█████████▎| 37/40 [01:56<00:09,  3.16s/it, v_num=M_v2]Epoch 0:  95%|█████████▌| 38/40 [01:56<00:06,  3.08s/it, v_num=M_v2]Epoch 0:  95%|█████████▌| 38/40 [01:56<00:06,  3.08s/it, v_num=M_v2]Epoch 0:  98%|█████████▊| 39/40 [01:56<00:02,  3.00s/it, v_num=M_v2]Epoch 0:  98%|█████████▊| 39/40 [01:56<00:02,  3.00s/it, v_num=M_v2]Epoch 0: 100%|██████████| 40/40 [01:56<00:00,  2.92s/it, v_num=M_v2]Epoch 0: 100%|██████████| 40/40 [01:56<00:00,  2.92s/it, v_num=M_v2]
-Validation: 0it [00:00, ?it/s]
-Validation:   0%|          | 0/58 [00:00<?, ?it/s]
-Validation DataLoader 0:   0%|          | 0/58 [00:00<?, ?it/s]
-Validation DataLoader 0:   2%|▏         | 1/58 [00:00<00:00, 94.93it/s]
-Validation DataLoader 0:   3%|▎         | 2/58 [00:01<00:53,  1.04it/s]
-Validation DataLoader 0:   5%|▌         | 3/58 [00:03<00:57,  1.05s/it]
-Validation DataLoader 0:   7%|▋         | 4/58 [00:03<00:42,  1.27it/s]

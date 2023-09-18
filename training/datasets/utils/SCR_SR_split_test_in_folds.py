@@ -1,6 +1,9 @@
 """Divide the test set into different folds in order to test the statistical validity of the results.
 The folds will be disjoint and balanced with respect to the commands and SNR. Also, the application of noise to different
-SNR is done after splitting so as not to have the same starting audio sample on different folds."""
+SNR is done after splitting so as not to have the same starting audio sample on different folds.
+
+python3 datasets/utils/SCR_SR_split_test_in_folds.py
+"""
 
 import os
 import pandas as pd
@@ -12,7 +15,7 @@ DATASET_PATH = os.path. join("datasets", "MTL_experimentation_1")
 ANNOTATION_FILE_NAME = "testing.csv"
 ANNOTATION_PATH = os.path.join(DATASET_PATH, "annotations")
 LANGs = ["eng", "ita"]
-HEADINGS = ["path", "type", "subtype", "speaker", "command", "snr"]
+HEADINGS = ["path", "type", "subtype", "speaker", "command", "gender", "age", "snr"]
 N_FOLDS = 20
 
 

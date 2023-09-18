@@ -9,7 +9,15 @@ settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "testing"]
 settings.experimentation:str = "MTL_1"
 settings.task:str = "SCR_SI"
-settings.tasks:List[str] = ["speaker", "command"]                                   # [["command"], ["speaker"], ["speaker", "command"], ["intent", "explicit", "implicit"]]
+if settings.task == "SI":
+    settings.tasks:List[str] = ["speaker"]
+elif settings.task == "SCR":
+    settings.tasks:List[str] = ["command"]
+elif settings.task == "SCR_SI":
+    settings.tasks:List[str] = ["speaker", "command"]
+else:
+    print("{} is not a valid task".format(settings.task))
+# settings.tasks:List[str] = ["speaker"]                                   # [["command"], ["speaker"], ["speaker", "command"], ["intent", "explicit", "implicit"]]
 info = ""
 
 '''Input'''
@@ -69,7 +77,7 @@ settings.model.mobilenetv2.pretrain_path:str = "./pretrained_models/mobilenetv2_
 # settings.model.mobilenetv2.pretrain_path:str = ""
 # Conformer
 settings.model.conformer.num_heads: int = 4
-settings.model.conformer.ffn_dim: int = 128
+settings.model.conformer.ffn_dim: int = 16
 settings.model.conformer.num_layers: int = 4
 settings.model.conformer.depthwise_conv_kernel_size: int = 31
 settings.model.conformer.dropout: float = 0.0
@@ -98,7 +106,7 @@ settings.training.accelerator:str = "gpu"                                   # de
 settings.training.device:str = 0                                        # list of the GPU devices to use
 settings.training.max_epochs:int = 100
 settings.training.min_epochs:int = 1
-settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
+settings.training.batch_size:int = 64                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
 settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"

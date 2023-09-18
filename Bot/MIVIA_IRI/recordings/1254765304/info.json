@@ -24,7 +24,6 @@
             6,
             7,
             8,
-            9,
             10,
             11,
             12,
@@ -90,8 +89,8 @@
             22
         ]
     },
-    "acquiring_intent": 13,
+    "acquiring_intent": 18,
     "acquiring_lang": "eng",
-    "acquiring_version": 5,
-    "last_int_date": "2023-07-13 13:56:19.703370"
+    "acquiring_version": 0,
+    "last_int_date": "2023-09-14 10:13:51.172184"
 }

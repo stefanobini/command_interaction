@@ -17,8 +17,15 @@ import telegram
 from colorama import Back, Fore, Style, init
 init(autoreset=True)
 
-from utils.bot_messages import BOT_MESSAGES
-from utils.intents import INTENTS_DICT, INTENT_REPETITIONS
+try:
+    # If run from the parent folder
+    from utils.bot_messages import BOT_MESSAGES
+    from utils.intents import INTENTS_DICT, INTENT_REPETITIONS
+except ModuleNotFoundError:
+    # If run from the "utils" folder
+    from bot_messages import BOT_MESSAGES
+    from intents import INTENTS_DICT, INTENT_REPETITIONS
+
 
 logger = logging.getLogger(__name__)
 BASE_PATH = "audio_samples"

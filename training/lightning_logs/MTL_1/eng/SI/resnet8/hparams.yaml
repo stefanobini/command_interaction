@@ -4,40 +4,56 @@ loss_weights: !!python/object/apply:torch._utils._rebuild_tensor_v2
     gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
     AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
     aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-    Z2UKcQFYCQAAADE0MDk5NTYxNnECWAMAAABjcHVxA01IAU50cQRRLoACXXEAWAkAAAAxNDA5OTU2
-    MTZxAWEuSAEAAAAAAAAMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzO
-    RzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzO
-    RzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzO
-    RzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzO
-    RzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzO
-    RzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5H
-    OwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7
-    DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsMzkc7DM5HOwzORzsM
-    zkc7DM5HOwzORzsMzkc7
+    Z2UKcQFYCQAAADE0NjYyNjgxNnECWAMAAABjcHVxA00yAk50cQRRLoACXXEAWAkAAAAxNDY2MjY4
+    MTZxAWEuMgIAAAAAAABlOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU5
+    6TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnp
+    OmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
+    ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56Tpl
+    Oek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6ZTnpOmU56TplOek6
 - 0
 - !!python/tuple
-  - 328
+  - 562
 - !!python/tuple
   - 1
 - false
 - !!python/object/apply:collections.OrderedDict
   - []
-num_labels: 328
+num_labels: 562
 settings: !!python/object/apply:dotmap.DotMap
   dictitems:
     dataset: &id039 !!python/object/apply:dotmap.DotMap
@@ -309,7 +325,7 @@ settings: !!python/object/apply:dotmap.DotMap
             convolution_first: false
             depthwise_conv_kernel_size: 31
             dropout: 0.0
-            ffn_dim: 128
+            ffn_dim: 16
             num_heads: 4
             num_layers: 4
             use_group_norm: false
@@ -319,7 +335,7 @@ settings: !!python/object/apply:dotmap.DotMap
             - - - num_heads
                 - 4
               - - ffn_dim
-                - 128
+                - 16
               - - num_layers
                 - 4
               - - depthwise_conv_kernel_size
@@ -504,7 +520,7 @@ settings: !!python/object/apply:dotmap.DotMap
     training: &id042 !!python/object/apply:dotmap.DotMap
       dictitems:
         accelerator: gpu
-        batch_size: 128
+        batch_size: 64
         check_val_every_n_epoch: 1
         checkpoint: &id032 !!python/object/apply:dotmap.DotMap
           dictitems:
@@ -539,12 +555,12 @@ settings: !!python/object/apply:dotmap.DotMap
                 - - - alpha
                     - 0.5
                 _prevent_method_masking: false
-            type: grad_norm
+            type: fixed_weights
           state:
             _dynamic: true
             _map: !!python/object/apply:collections.OrderedDict
             - - - type
-                - grad_norm
+                - fixed_weights
               - - grad_norm
                 - *id029
             _prevent_method_masking: false
@@ -618,7 +634,7 @@ settings: !!python/object/apply:dotmap.DotMap
           - - min_epochs
             - 1
           - - batch_size
-            - 128
+            - 64
           - - lr
             - *id031
           - - checkpoint

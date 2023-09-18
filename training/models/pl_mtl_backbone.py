@@ -80,6 +80,8 @@ class PL_MTL_Backbone(pl.LightningModule):
         self.conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
         self.pool = torch.nn.AvgPool2d(self.settings.model.resnet8.pooling_size)  # flipped -- better for 80 log-Mels
         self.n_layers = n_layers = 6
+        self.n_shared_layer = self.n_layers
+        self.last_shared_layer_name = f'conv{self.n_shared_layer}'
         self.convs = [torch.nn.Conv2d(embedding_size, embedding_size, (3, 3), padding=1, bias=False) for _ in range(n_layers)]
         for i, conv in enumerate(self.convs):
             self.add_module(f'bn{i + 1}', torch.nn.BatchNorm2d(embedding_size, affine=False))
@@ -271,7 +273,7 @@ class PL_MTL_Backbone(pl.LightningModule):
     
 
     def get_last_shared_layer(self):
-        return getattr(self, f'conv{self.n_layers}')
+        return getattr(self, self.last_shared_layer_name)
 
 
     def on_train_start(self) -> None:

@@ -1,3 +1,7 @@
+"""
+python3 datasets/utils/SCR_SR_remove_underrepresented_speakers.py
+"""
+
 import os
 import pandas
 from tqdm import tqdm
@@ -9,9 +13,9 @@ IN_DATASET_PATH = "./datasets/MIVIA_ISC_v2"
 OUTPUT_DATASET_PATH = "./datasets/MTL_experimentation_1"
 os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 
-HEADING = ["path", "type", "subtype", "speaker", "command"]
+HEADING = ["path", "type", "subtype", "speaker", "command", "gender", "age"]
 
-MIN_N_SAMPLExSPEAKER = 25
+MIN_N_SAMPLExSPEAKER = 15
 
 
 for lang in LANGS:
@@ -36,9 +40,7 @@ for lang in LANGS:
 
     output_annotation_file = os.path.join(output_annotation_folder, "dataset_no_speaker_id.csv")
     out_df = in_df.loc[in_df["speaker"].isin(speakers)]
-    # print(out_df.groupby(["speaker"])["path"].count().reset_index(name="count").sort_values(["count"], ascending=False).reset_index().iloc[-10:])
     out_df.to_csv(path_or_buf=output_annotation_file, index=False)
 
     output_speaker_count = os.path.join(output_annotation_folder, "dataset_speakers_count.csv")
-    # print(out_df.groupby(["speaker"])["path"].count().reset_index(name="count").sort_values(["count"], ascending=False).reset_index().iloc[-10:])
     sort_speaker_df.to_csv(path_or_buf=output_speaker_count, index=False)

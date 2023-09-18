@@ -15,7 +15,7 @@ os.makedirs(OUTPUT_DATASET_PATH, exist_ok=True)
 OUTPUT_NOISE_PATH = os.path.join(OUTPUT_DATASET_PATH, "annotations", "noise")
 os.makedirs(OUTPUT_NOISE_PATH, exist_ok=True)
 
-HEADING = ["path", "type", "subtype", "speaker", "command"]
+HEADING = ["path", "type", "subtype", "speaker", "command", "gender", "age"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
 TRAINING = 0.8

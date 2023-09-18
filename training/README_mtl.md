@@ -50,6 +50,11 @@ To check if training and validation contain the same speakers:
 python3 datasets/utils/check_speakers.py
 ```
 
+To split analyze the statistical significance, split the test set:
+```bash
+python3 datasets/utils/SCR_SR_split_test_in_folds.py
+```
+
 
 ### Dataset and annotation file for SCR and SRID
 After moving the previous annotation file in the new experiemntation folder and renamed it in "dataset_no_speaker_id.csv", use the following command to convert the name of the speaker in an ID:

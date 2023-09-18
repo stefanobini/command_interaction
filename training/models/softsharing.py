@@ -75,6 +75,7 @@ class SoftSharing_PL(PL_MTL_Backbone):
         self.n_layers = n_layers = 6
         self.n_shared_layer = n_shared_layer = 3
         self.n_branched_layer = n_branched_layer = n_layers - n_shared_layer
+        self.last_shared_layer_name = f'shared_conv{self.n_shared_layer}'
 
         self.shared_conv0 = torch.nn.Conv2d(1, embedding_size, (3, 3), padding=(1, 1), bias=False)
         self.shared_pool = torch.nn.AvgPool2d(self.settings.model.resnet8.pooling_size)  # flipped -- better for 80 log-Mels
