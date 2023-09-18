@@ -30,6 +30,12 @@ sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=
 felice
 sudo docker exec -it command_demo  /bin/bash
 
+# Docker for MSI DEMO
+sudo docker build -t docker_intent_demo . --network=host
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name intent_demo docker_intent_demo
+felice
+sudo docker exec -it intent_demo  /bin/bash
+
 # Docker for IRI Lab
 sudo docker build -t docker_msi_demo . --network=host
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/irilab/command_interaction/ROS:/home/felice/command_interaction/ROS --net host --runtime nvidia -dit --name msi_demo docker_msi_demo

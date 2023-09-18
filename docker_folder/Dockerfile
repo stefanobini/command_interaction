@@ -71,17 +71,6 @@ ENTRYPOINT ["/ros_entrypoint.sh"]
 #RUN python3 -m pip install pyrealsense2
 #RUN python -m pip install pyrealsense2
 
-RUN sudo apt install libssl-dev
-RUN sudo apt-get install unzip
-RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.48.0.zip && \
-    unzip v2.48.0.zip && \
-    cd librealsense-2.48.0 && \
-    mkdir build && \
-    cd build && \
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64 && \
-    export PATH=$PATH:$CUDA_HOME/bin && \
-    make -j4 && \
-    sudo make install && \
 #RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
 #    cd librealsense && \
 #    ./scripts/setup_udev_rules.sh && \
@@ -93,7 +82,7 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.48.
 #    sudo make -j4 && \
 #    sudo make install 
 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
 # ReSpeaker installation
 RUN apt-get update && \
