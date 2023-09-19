@@ -4,8 +4,8 @@ loss_weights: !!python/object/apply:torch._utils._rebuild_tensor_v2
     gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
     AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
     aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-    Z2UKcQFYCQAAADY0MjI0OTQ1NnECWAMAAABjcHVxA0sHTnRxBFEugAJdcQBYCQAAADY0MjI0OTQ1
-    NnEBYS4HAAAAAAAAACVJEj4lSRI+JUkSPiVJEj4lSRI+JUkSPiVJEj4=
+    Z2UKcQFYCQAAADYzNzY5MjY0MHECWAMAAABjcHVxA0sHTnRxBFEugAJdcQBYCQAAADYzNzY5MjY0
+    MHEBYS4HAAAAAAAAACVJEj4lSRI+JUkSPiVJEj4lSRI+JUkSPiVJEj4=
 - 0
 - !!python/tuple
   - 7
@@ -194,26 +194,26 @@ settings: !!python/object/apply:dotmap.DotMap
     logger: &id031 !!python/object/apply:dotmap.DotMap
       dictitems:
         folder: lightning_logs
-        name: FELICE/demo7/eng
-        version: UniCL_PEM_v2
+        name: FELICE/demo7/eng/resnet8
+        version: UniCL_PEM_v2_reduced_precision
       state:
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - folder
             - lightning_logs
           - - name
-            - FELICE/demo7/eng
+            - FELICE/demo7/eng/resnet8
           - - version
-            - UniCL_PEM_v2
+            - UniCL_PEM_v2_reduced_precision
         _prevent_method_masking: false
     mode: training
     model: &id028 !!python/object/apply:dotmap.DotMap
       dictitems:
         conformer: &id016 !!python/object/apply:dotmap.DotMap
           dictitems:
-            convolution_first: false
+            convolution_first: true
             depthwise_conv_kernel_size: 31
-            dropout: 0.0
+            dropout: 0.2
             ffn_dim: 128
             num_heads: 4
             num_layers: 4
@@ -230,11 +230,11 @@ settings: !!python/object/apply:dotmap.DotMap
               - - depthwise_conv_kernel_size
                 - 31
               - - dropout
-                - 0.0
+                - 0.2
               - - use_group_norm
                 - false
               - - convolution_first
-                - false
+                - true
             _prevent_method_masking: false
         input: &id013 !!python/object/apply:dotmap.DotMap
           dictitems:
@@ -354,14 +354,14 @@ settings: !!python/object/apply:dotmap.DotMap
     testing: &id032 !!python/object/apply:dotmap.DotMap
       dictitems:
         ckpt_path: ./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt
-        folder: testing/PRL
+        folder: testing/felice
         n_folds: 10
         results_path: null
       state:
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - folder
-            - testing/PRL
+            - testing/felice
           - - n_folds
             - 10
           - - ckpt_path
@@ -386,7 +386,7 @@ settings: !!python/object/apply:dotmap.DotMap
               - - save_top_k
                 - 1
             _prevent_method_masking: false
-        device: 2
+        device: 3
         early_stop: &id023 !!python/object/apply:dotmap.DotMap
           dictitems:
             patience: 8
@@ -410,7 +410,7 @@ settings: !!python/object/apply:dotmap.DotMap
             _prevent_method_masking: false
         max_epochs: -1
         min_epochs: 1
-        num_workers: 16
+        num_workers: 48
         optimizer: &id025 !!python/object/apply:dotmap.DotMap
           dictitems:
             amsgrad: false
@@ -447,17 +447,20 @@ settings: !!python/object/apply:dotmap.DotMap
                 - 5
             _prevent_method_masking: false
         reject_percentage: 0.5
+        test_model: false
       state:
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
-        - - - reject_percentage
+        - - - test_model
+            - false
+          - - reject_percentage
             - 0.5
           - - num_workers
-            - 16
+            - 48
           - - accelerator
             - gpu
           - - device
-            - 2
+            - 3
           - - max_epochs
             - -1
           - - min_epochs

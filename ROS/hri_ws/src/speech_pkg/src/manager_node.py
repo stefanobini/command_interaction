@@ -20,7 +20,8 @@ SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt
 speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
-START_THRESHOLD = 0.03
+START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
+CMD_THRESHOLD = 0.8
 res_str = ""
 
 
@@ -76,7 +77,7 @@ def run_demo7(req):
         elif res.cmd == len(command_eng)-1:
             cmd = offset-1
             prob = res.probs[res.cmd]
-        else: #res.cmd != len(command_eng)-1:
+        elif res.probs[res.cmd] > CMD_THRESHOLD: #res.cmd != len(command_eng)-1:
             cmd = res.cmd + offset
             prob = res.probs[res.cmd]
             post_request.send_command(command_id=cmd, confidence=prob)
