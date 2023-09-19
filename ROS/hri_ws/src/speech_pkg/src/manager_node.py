@@ -10,7 +10,7 @@ import time
 
 from std_msgs.msg import String
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I, DEMO_PHASE_I
 #from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 from speech_pkg.msg import Command, Speech
 from demo_utils.post_request import MyRequestPost
@@ -21,7 +21,7 @@ speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
-CMD_THRESHOLD = 0.8
+CMD_THRESHOLD = 0.5
 res_str = ""
 
 
@@ -54,7 +54,7 @@ def run_demo7(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
+    print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
 
     """
     if not robot_listening and (res.cmd == 0 or (res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng))):
@@ -83,8 +83,8 @@ def run_demo7(req):
             post_request.send_command(command_id=cmd, confidence=prob)
         #cb_reply_time = time.time() - cb_reply_time
         #print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
-        """
-        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n{}'.format(command_ita[cmd], prob, res.probs) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        #"""
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_PHASE_I["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n{}'.format(DEMO_PHASE_I["ita"][cmd], prob, res.probs) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         #print(res_str)
         #"""
         
@@ -200,6 +200,11 @@ if __name__ == "__main__":
         offset = 5
         command_eng = DEMO7P_CMD_ENG
         command_ita = DEMO7P_CMD_ITA
+        rospy.Service('manager_service', Manager, run_demo7)
+    elif DEMO == "7_phaseI":
+        offset = 4
+        command_eng = DEMO7_PHASE_I["eng"]
+        command_ita = DEMO7_PHASE_I["ita"]
         rospy.Service('manager_service', Manager, run_demo7)
     elif DEMO == "full":
         offset = 0

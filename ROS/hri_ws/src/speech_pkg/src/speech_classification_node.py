@@ -20,7 +20,7 @@ from colorama import Fore, Back
 import librosa
 from PIL import Image
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
 #from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
 import time
 import torchaudio
@@ -28,12 +28,7 @@ from dotmap import DotMap
 
 #from mtl_exp.MTL_conf import settings
 from settings.felice import settings
-from mtl_exp.resnet8 import ResNet8_PL
-from mtl_exp.hardsharing import HardSharing_PL
-from mtl_exp.softsharing import SoftSharing_PL
-
-
-MODEL_PATH = "models"
+from models.resnet8 import ResNet8_PL
 
 
 def get_melspectrogram(waveform:torch.Tensor) -> torch.Tensor:
@@ -90,7 +85,7 @@ def preprocess(waveform: np.ndarray):
 
 def select_parameters(language="eng", demo="7"):
     #models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
-    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(MODEL_PATH)
+    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(settings.logger.folder)
     COMMANDS = None
     if demo == "3":
         if language == 'eng':
@@ -116,7 +111,7 @@ def select_parameters(language="eng", demo="7"):
             #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
         ckpt_folder = models_path.joinpath('demo'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1] 
+        ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "7_plus":
         if language == 'eng':
             COMMANDS = DEMO7P_CMD_ENG
@@ -128,7 +123,11 @@ def select_parameters(language="eng", demo="7"):
             #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
         ckpt_folder = models_path.joinpath('demo'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1] 
+        ckpt_name = os.listdir(path=ckpt_folder)[-1]
+    elif demo == "7_phaseI":
+        COMMANDS = DEMO7_PHASE_I[language]
+        ckpt_folder = models_path.joinpath('demo'+demo, language, settings.model.network, settings.noise.curriculum_learning.distribution, "checkpoints")
+        ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "full":
         if language == 'eng':
             COMMANDS = DEMO_CMD_ENG

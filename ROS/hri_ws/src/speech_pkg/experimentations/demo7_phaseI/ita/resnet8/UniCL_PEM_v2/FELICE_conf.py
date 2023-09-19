@@ -1,4 +1,4 @@
-"""Trial with MTL"""
+""" DEMO FULL - ENG - ResNet15 - UniCL_PEM_v2 """
 import os
 from typing import List
 from dotmap import DotMap
@@ -6,10 +6,10 @@ from dotmap import DotMap
 settings = DotMap()
 
 settings.name:str = __file__
-settings.mode:str = "testing"                                                                                          # ["training", "testing"]
+settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
-settings.task:str = "SCR_SI"                                                                                        # ["SCR", "SI", "SCR_SI"]
-info = ""
+settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
+settings.demo:str = "demophase_I"                             # ["demo3", "demo7", "demo7_plus", "demofull", "demophase_I"]
 
 '''Input'''
 settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
@@ -37,63 +37,37 @@ settings.input.mfcc.norm:str = "ortho"
 settings.input.mfcc.log_mels:bool = True                                                                            # Default value [False], but NVIDIA NeMo use True
 
 '''Dataset'''
-settings.dataset.folder = os.path.join("datasets", "MIVIA_ISC")
-settings.dataset.annotations = os.path.join("datasets", "MTL_scr_sr", "annotations")
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "validation.csv")
-settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.annotations, settings.input.language, "testing.csv")
-settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.annotations, "noise", "training.csv")
-settings.dataset.knn.annotations = os.path.join("datasets", "MTL_scr_srid", "annotations")
-settings.dataset.knn.training.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "training.csv")
-settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn.annotations, settings.input.language, "testing.csv")
-# settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
-# settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
+settings.dataset.folder = os.path.join("datasets", "FELICE", settings.demo)
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
+settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
+settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
 
 '''Model'''
-settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
-settings.model.resnet8.pooling_size = (4, 3)                            # Default: (4, 3)
-settings.model.resnet8.out_channel = 45                                 # Default: 45
-settings.model.resnet8.speaker_embedding_size:int = settings.model.resnet8.out_channel      # beforre was multiplied by 2
+settings.model.resnet8.pooling_size = (4, 3)
+settings.model.resnet8.out_channel = 45
 settings.model.resnet8.pretrain_path:str = "./pretrained_models/res8_0/model-best.pt.bin"
-#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/eng/SCR/resnet8_PEM/checkpoints/epoch=42-step=5160.ckpt"       # SCR, eng
-#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/eng/SI/resnet8_PEM/checkpoints/epoch=103-step=12480.ckpt"      # SI, eng
-#settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/ita/SCR/resnet8_PEM/checkpoints/epoch=60-step=6771.ckpt"       # SCR, ita
-settings.model.resnet8.pretrain_path:str = "./lightning_logs/MTL/ita/SI/resnet8_PEM/checkpoints/epoch=60-step=6771.ckpt"        # SI, ita
 # MobileNet V2
-settings.model.mobilenetv2.speaker_embedding_size:int = 100
 settings.model.mobilenetv2.pretrain_path:str = "./pretrained_models/mobilenetv2_0/model-best.pt.bin"
-# settings.model.mobilenetv2.pretrain_path:str = ""
 # Conformer
 settings.model.conformer.num_heads: int = 4
 settings.model.conformer.ffn_dim: int = 128
 settings.model.conformer.num_layers: int = 4
 settings.model.conformer.depthwise_conv_kernel_size: int = 31
-settings.model.conformer.dropout: float = 0.0
+settings.model.conformer.dropout: float = 0.2
 settings.model.conformer.use_group_norm: bool = False
-settings.model.conformer.convolution_first: bool = False
-# Multitask - Hard Sharing, resnet8
-#settings.model.hard_sharing.pretrain_path:str = "./lightning_logs/MTL/eng/SCR_SI/HS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=71-step=8640.ckpt"    # eng
-settings.model.hard_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI/HS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=122-step=13653.ckpt"  # ita
-# Multitask - Soft Sharing, resnet8
-#settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/eng/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=193-step=23280.ckpt"  # eng
-settings.model.soft_sharing.pretrain_path:str = "./lightning_logs/MTL/ita/SCR_SI/SS_PEM_grad_norm_alfa_0o05/checkpoints/epoch=95-step=10656.ckpt"   # ita
-
-'''k-Nearest Neighbor'''
-settings.knn.n_samples_per_speaker:List[int] = [1, 3, 5, 10, 20]
-settings.knn.metric:str = "distance"  # ["similarity", "distance"]
-settings.knn.function:str = "euclidean"    # ["cosine", "euclidean"]
-settings.knn.cosine_similarity.eps:float = 1e-8
-settings.knn.cosine_similarity.dim:int = 0
-settings.knn.plotting:bool = False  # If <True> plot the train example on two dimension through T-SNE reduction
+settings.model.conformer.convolution_first: bool = True
 
 '''Training'''
+settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 12
+settings.training.num_workers:str = 40
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:str = 0                                        # list of the GPU devices to use
+settings.training.device:int = 0                                         # list of the GPU devices to use
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
@@ -106,15 +80,13 @@ settings.training.early_stop.patience:int = 8                              # def
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
 settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
-settings.training.optimizer.eps:float = settings.training.lr.value * 1e-3
+settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
-settings.training.loss.type:str = "equal_weights"                               # ["grad_norm", "equal_weights"]
-settings.training.loss.grad_norm.alpha:float = 0.05                         # Default = 0.12. For task with different level of complexity ah higher value of alpha should be used to enforce the stronger training rate balancing
 
 '''Noise & Curriculum Learning'''
-settings.noise.min_snr:int = 40                                              # [-10, 20]
+settings.noise.min_snr:int = 0                                              # [-10, 0]
 settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
@@ -126,12 +98,13 @@ settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_s
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2
 
 '''Logger'''
-settings.logger.folder:str = "experimentations"
-settings.logger.name:str = os.path.join(settings.experimentation, settings.input.language, settings.task)       # name of the experiment
-settings.logger.version:str = settings.noise.curriculum_learning.distribution
+settings.logger.folder:str = "lightning_logs"
+settings.logger.name:str = os.path.join("FELICE", settings.demo, settings.input.language, settings.model.network)                                                                             # name of the experiment
+additional_info = "_reduced_precision"
+settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = "testing"
+settings.testing.folder:str = os.path.join("testing", "felice")
 settings.testing.n_folds:int = 10
 settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
 settings.testing.results_path:str = None

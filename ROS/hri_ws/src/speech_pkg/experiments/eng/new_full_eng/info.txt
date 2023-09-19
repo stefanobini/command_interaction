@@ -1,6 +1,0 @@
-Language:               English
-Synthetics samples:     Yes
-Noise range:            [-10; 40]
-Curriculum Learning:    Yes
-Noise Distribution:     Dynamic Normal, mu as decreasing linear function, sigma as triangular function in [25, 50]
-Version:                Gaussian CL-PEM v1
