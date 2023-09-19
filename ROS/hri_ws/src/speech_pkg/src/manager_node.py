@@ -54,7 +54,7 @@ def run_demo7(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
+    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
 
     """
     if not robot_listening and (res.cmd == 0 or (res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng))):
@@ -68,7 +68,7 @@ def run_demo7(req):
         prob = None
         #cb_reply_time = time.time()
         if FIWARE_CB == "None":
-            pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
+            pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
         # REMOVE FALSE FROM THE FOLLOWING LINE, insert only for test
         elif res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1 and False:
             cmd = offset
@@ -83,9 +83,9 @@ def run_demo7(req):
             post_request.send_command(command_id=cmd, confidence=prob)
         #cb_reply_time = time.time() - cb_reply_time
         #print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
-        #"""
-        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_PHASE_I["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n{}'.format(DEMO_PHASE_I["ita"][cmd], prob, res.probs) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
-        #print(res_str)
+        """
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        print(res_str)
         #"""
         
         if rospy.get_param("/save_speech") == True:
