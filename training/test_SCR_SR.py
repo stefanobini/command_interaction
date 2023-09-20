@@ -43,9 +43,9 @@ pl.seed_everything(220295)
 #########################
 # Building Dataloaders  #
 #########################
-speakers = {"eng": 328, "ita": 502}
-labels_1 = [i for i in range(32)]
-labels_2 = [i for i in range(speakers[settings.input.language])]
+speakers = {"eng": 562, "ita": 502}
+labels_1 = [i for i in range(speakers[settings.input.language])]
+labels_2 = [i for i in range(32)]
 # print(labels_1, len(labels_1))
 # print(labels_2, len(labels_2)) # 44, 85
 labels, train_collate_fn, val_collate_fn = list(), None, None
@@ -53,12 +53,12 @@ if settings.task == "SCR_SI":
     labels = labels_1
     task_n_labels = list((len(labels_1), len(labels_2)))
     collate_fn = _MT_val_collate_fn
-elif settings.task == "SCR":
-    labels = labels_1
-    collate_fn = _SCR_val_collate_fn
 elif settings.task == "SI":
-    labels = labels_2
+    labels = labels_1
     collate_fn = _SI_val_collate_fn
+elif settings.task == "SCR":
+    labels = labels_2
+    collate_fn = _SCR_val_collate_fn
 else:
     sys.exit("The <{}> task is not allowed.".format(settings.task))
 

@@ -498,7 +498,7 @@ class PL_MTL_Backbone(pl.LightningModule):
         """
         x, task_targets, snr = batch
         task_logits = self.forward(x=x)
-        self.val_step_outputs[dataloader_idx].append({"task_logits": task_logits,
+        self.test_step_outputs[dataloader_idx].append({"task_logits": task_logits,
                                                       "task_targets": task_targets,
                                                       "snrs": snr})
     
@@ -525,7 +525,7 @@ class PL_MTL_Backbone(pl.LightningModule):
             task_accuracies = list()
             for task in range(self.n_tasks):
                 task_prediction = torch.max(input=task_logits[task], dim=1).indices
-                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro").cpu().numpy())
                 # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
             fold_task_accuracies.append(task_accuracies)
             

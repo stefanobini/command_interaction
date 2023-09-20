@@ -59,7 +59,7 @@ settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "SS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
+settings.model.network:str = "HS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
