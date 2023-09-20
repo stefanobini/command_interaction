@@ -1,3 +1,7 @@
+"""
+python3 utils/SCR_SR_validate_test.py
+"""
+
 import os
 import pandas
 import numpy as np
@@ -12,10 +16,10 @@ TASK = "SI"
 TASK_1 = "SI"                   # ["SCR", "SI", "SCR_SI"]
 APPROACH_1 = "resnet8"     # ["resnet8", "HS_equal_weights", "SS_equal_weights", "HS_fixed_weights", "SS_fixed_weights", "HS_grad_norm", "SS_grad_norm"]
 TASK_2 = "SCR_SI"                   # ["SCR", "SI", "SCR_SI"]
-APPROACH_2 = "SS_fixed_weights"         # ["resnet8", "HS_equal_weights", "SS_equal_weights", "HS_fixed_weights", "SS_fixed_weights", "HS_grad_norm", "SS_grad_norm"]
+APPROACH_2 = "SS_equal_weights"         # ["resnet8", "HS_equal_weights", "SS_equal_weights", "HS_fixed_weights", "SS_fixed_weights", "HS_grad_norm", "SS_grad_norm"]
 
-SAMPLE_PATH_1 = os.path.join("lightning_logs", "MTL", LANG, TASK_1, APPROACH_1, "test_results.csv")
-SAMPLE_PATH_2 = os.path.join("lightning_logs", "MTL", LANG, TASK_2, APPROACH_2, "test_results.csv")
+SAMPLE_PATH_1 = os.path.join("lightning_logs", "MTL_1", LANG, TASK_1, APPROACH_1, "test_results.csv")
+SAMPLE_PATH_2 = os.path.join("lightning_logs", "MTL_1", LANG, TASK_2, APPROACH_2, "test_results.csv")
 
 
 def get_distribution(df:pandas.DataFrame, col:str):

@@ -503,6 +503,13 @@ class PL_MTL_Backbone(pl.LightningModule):
                                                       "snrs": snr})
     
     def on_test_epoch_end(self):
+        columns = ["fold"]
+        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)]}
+        for task in range(self.n_tasks):
+            column = "{}_accuracy".format(self.tasks[task])
+            result_dict[column] = list()
+            columns.append(column)
+
         fold_task_accuracies = list()
         for dataloader in range(len(self.test_step_outputs)):
             test_len = len(self.test_loaders[dataloader])              # compute size of validation set
@@ -525,17 +532,14 @@ class PL_MTL_Backbone(pl.LightningModule):
             task_accuracies = list()
             for task in range(self.n_tasks):
                 task_prediction = torch.max(input=task_logits[task], dim=1).indices
-                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro").cpu().numpy())
+                task_accuracy = torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro").cpu().numpy()
+                task_accuracies.append(task_accuracy)
                 # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
+                result_dict["{}_accuracy".format(self.tasks[task])].append(task_accuracy)
             fold_task_accuracies.append(task_accuracies)
             
 
         '''ADD STATITICAL ANALYSIS ON <accuracies>'''
-        columns = ["fold"]
-        result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)]}
-        for task in range(self.n_tasks):
-            columns.append("{}_accuracy".format(self.tasks[task]))
-            result_dict["{}_accuracy".format(self.tasks[task])] = task_accuracies[task]
         result_df = pandas.DataFrame(data=result_dict, columns=columns)
         result_df.to_csv(path_or_buf=self.results_file.replace(".txt", ".csv"), columns=columns, index=False)
 
