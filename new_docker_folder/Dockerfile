@@ -11,38 +11,12 @@ FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 RUN apt-get update 
 RUN apt-get install -y apt-transport-https
 RUN apt-get install net-tools
+#RUN sudo apt-get install apt-utils
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
     && rm -rf /var/lib/apt/lists/*
 RUN apt update
-
-
-#####################################
-### INSTALL PyRealSense libraries ###
-#####################################
-RUN apt install -y --no-install-recommends \
-    python3-setuptools \
-    python3-dev \
-    libssl-dev \
-    libusb-1.0-0-dev \
-    pkg-config \
-    libgtk-3-dev \
-    libglfw3-dev \
-    libgl1-mesa-dev \
-    libglu1-mesa-dev \
-    sudo 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true && \
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
 
 
 #############################################
@@ -52,7 +26,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources
 
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 #RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0F164EEB
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654RUN
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 
 ENV LANG C.UTF-8
@@ -100,11 +74,11 @@ ENTRYPOINT ["/ros_entrypoint.sh"]
 #################################
 RUN python3 -m pip install --upgrade pip
 RUN yes | apt-get install portaudio19-dev python-all-dev python3-all-dev
-RUN python3 -m pip install pyaudio
-# RUN python3 -m pip install \
-#         PyAudio==0.2.11 \
-#         pyusb==1.0.2 \
-#         click==7.1.2
+#RUN python3 -m pip install pyaudio
+RUN python3 -m pip install \
+        PyAudio==0.2.11 \
+        pyusb==1.0.2 \
+        click==7.1.2
 #RUN apt-get install python3-setuptools -y
 RUN python3 -m pip install torchmetrics==0.6.0
 #RUN python3 -m pip install git+https://github.com/NVIDIA/NeMo.git@v1.4.0#egg=nemo_toolkit[asr]
@@ -138,6 +112,34 @@ RUN python -m pip install ifcfg
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN apt install libsndfile1 -y
+
+
+#####################################
+### INSTALL PyRealSense libraries ###
+#####################################
+RUN apt install -y --no-install-recommends \
+    python3-setuptools \
+    python3-dev \
+    libssl-dev \
+    libusb-1.0-0-dev \
+    pkg-config \
+    libgtk-3-dev \
+    libglfw3-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    sudo 
+RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+    cd librealsense && \
+    ./scripts/setup_udev_rules.sh && \
+    mkdir build && \
+    cd build && \
+    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3 && \ 
+    sudo make uninstall && \
+    sudo make clean && \
+    sudo make -j4 && \
+    sudo make install 
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#-DPYTHON_EXECUTABLE=/usr/bin/python3
 
 
 ###################################
