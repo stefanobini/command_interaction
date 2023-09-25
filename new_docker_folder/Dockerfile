@@ -8,15 +8,41 @@ FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 ###########################################################
 #### INSTALL Utils packages, libraries and dependencies ###
 ###########################################################
-RUN apt-get update 
-RUN apt-get install -y apt-transport-https
-RUN apt-get install net-tools
+RUN apt-get update && apt-get install net-tools && yes | apt-get install curl
 #RUN sudo apt-get install apt-utils
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
     && rm -rf /var/lib/apt/lists/*
 RUN apt update
+
+
+#####################################
+### INSTALL PyRealSense libraries ###
+#####################################
+RUN apt install -y --no-install-recommends \
+    python3-setuptools \
+    python3-dev \
+    libssl-dev \
+    libusb-1.0-0-dev \
+    pkg-config \
+    libgtk-3-dev \
+    libglfw3-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    sudo 
+RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
+    cd librealsense && \
+    ./scripts/setup_udev_rules.sh && \
+    mkdir build && \
+    cd build && \
+    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3 && \ 
+    sudo make uninstall && \
+    sudo make clean && \
+    sudo make -j4 && \
+    sudo make install 
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
+#-DPYTHON_EXECUTABLE=/usr/bin/python3
 
 
 #############################################
@@ -93,6 +119,9 @@ RUN python3 -m pip install colorama
 RUN python3 -m pip install cvbridge3
 RUN python3 -m pip install flask
 RUN python3 -m pip install Pillow
+RUN python3 -m pip install soundfile
+RUN python3 -m pip install librosa
+RUN python3 -m pip install pytorch-lightning
 RUN apt install python3-opencv -y
 
 
@@ -112,34 +141,6 @@ RUN python -m pip install ifcfg
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN apt install libsndfile1 -y
-
-
-#####################################
-### INSTALL PyRealSense libraries ###
-#####################################
-RUN apt install -y --no-install-recommends \
-    python3-setuptools \
-    python3-dev \
-    libssl-dev \
-    libusb-1.0-0-dev \
-    pkg-config \
-    libgtk-3-dev \
-    libglfw3-dev \
-    libgl1-mesa-dev \
-    libglu1-mesa-dev \
-    sudo 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3 && \ 
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
-#-DPYTHON_EXECUTABLE=/usr/bin/python3
 
 
 ###################################

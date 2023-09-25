@@ -389,7 +389,7 @@ class MTLClassifier:
 
 if __name__ == "__main__":
     THRESHOLD_1 = 0.1     # 0.004
-    THRESHOLD_2 = 0.7     # 0.999 - 0.9
+    THRESHOLD_2 = 0.5     # 0.999 - 0.9
 
     LANGUAGE = rospy.get_param("/language")
     DEMO = rospy.get_param("/demo")

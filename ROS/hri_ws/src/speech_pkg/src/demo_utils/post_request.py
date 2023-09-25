@@ -4,7 +4,7 @@ from datetime import datetime
 import rospy
 from colorama import Fore
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA#, DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_PHASE_I#, DEMO_CMD_ENG, DEMO_CMD_ITA
 from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 
 
@@ -19,11 +19,14 @@ elif DEMO == str(7):
 elif DEMO == "7_plus":
         command_eng = DEMO7P_CMD_ENG
         command_ita = DEMO7P_CMD_ITA
+elif DEMO == "7_phaseI":
+        command_eng = DEMO_PHASE_I["eng"]
+        command_ita = DEMO_PHASE_I["ita"]
 elif DEMO == "full":
         command_eng = DEMO_CMD_ENG
         command_ita = DEMO_CMD_ITA
-command_eng = DEMO_CMD_ENG
-command_ita = DEMO_CMD_ITA
+#command_eng = DEMO_CMD_ENG
+#command_ita = DEMO_CMD_ITA
 
 CB_HEADER = {'Content-Type': 'application/json; charset=utf-8'}
 
