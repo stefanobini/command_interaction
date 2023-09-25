@@ -20,6 +20,7 @@ RUN apt update
 #####################################
 ### INSTALL PyRealSense libraries ###
 #####################################
+# https://cognitivexr.at/blog/2021/07/29/installing-pyrealsense2-nvidia-jetson-xavier-nx.html
 RUN apt install -y --no-install-recommends \
     python3-setuptools \
     python3-dev \
@@ -30,19 +31,18 @@ RUN apt install -y --no-install-recommends \
     libglfw3-dev \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
-    sudo 
-RUN git clone https://github.com/IntelRealSense/librealsense.git &&\
-    cd librealsense && \
-    ./scripts/setup_udev_rules.sh && \
-    mkdir build && \
-    cd build && \
-    cmake ../ -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3 && \ 
-    sudo make uninstall && \
-    sudo make clean && \
-    sudo make -j4 && \
-    sudo make install 
+    unzip \
+    sudo
+RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.48.0.zip && \
+    unzip v2.48.0.zip && \
+    cd librealsense-2.48.0 && \
+    mkdir build && cd build && \
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64 && \
+    export PATH=$PATH:$CUDA_HOME/bin && \
+    cmake ../ -DFORCE_RSUSB_BACKEND=ON -DBUILD_PYTHON_BINDINGS:bool=true -DPYTHON_EXECUTABLE=/usr/bin/python3 -DBUILD_WITH_CUDA=true && \
+    make -j4 && \
+    sudo make install
 ENV PYTHONPATH "${PYTHONPATH}:/usr/local/lib/python3.6/pyrealsense2"
-#-DPYTHON_EXECUTABLE=/usr/bin/python3
 
 
 #############################################
