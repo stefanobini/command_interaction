@@ -110,7 +110,7 @@ class MyRequestPost:
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/", data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful
@@ -137,7 +137,7 @@ class MyRequestPost:
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful

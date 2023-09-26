@@ -2,7 +2,6 @@ import json
 import requests
 from datetime import datetime
 
-from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 
 CB_HEADER = {'Content-Type': 'application/json; charset=utf-8'}
 
@@ -18,7 +17,7 @@ class MyRequestPost:
         # entity instantiation message
         msg_create = """{
                 "id": "UNISA.SpeechGestureAnalysis.SystemHealth",
-                "type": "Speech",
+                "type": "Gesture",
                 "timestamp": {
                         "type": "DateTime",
                         "value": "1995-02-22T06:30:22.12"
@@ -59,7 +58,7 @@ class MyRequestPost:
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/", data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful
@@ -80,7 +79,7 @@ class MyRequestPost:
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful

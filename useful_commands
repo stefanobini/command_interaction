@@ -24,15 +24,11 @@ sudo docker exec -it felice_demo  /bin/bash
 
 # Docker for WHOLE DEMO
 sudo docker build -t docker_command_demo . --network=host
-sudo docker build -t fake_docker . --network=host
 sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name command_demo docker_command_demo
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name fake_container fake_docker
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_demo7 unisa_docker
-felice
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker
 sudo docker exec -it command_demo  /bin/bash
-sudo docker exec -it fake_container  /bin/bash
-sudo docker exec -it unisa_demo7  /bin/bash
+sudo docker exec -it unisa_container  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
@@ -47,8 +43,9 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 # Open with Google Chrome
 
 '''For FELICE'''
-roslaunch speech_pkg start_felice.launch
-roslaunch gesture_pkg gesture_demo_felice.launch
+roslaunch speech_pkg felice_speech_demo.launch
+roslaunch gesture_pkg felice_gesture_demo.launch
+roslaunch felice_demo.launch
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch

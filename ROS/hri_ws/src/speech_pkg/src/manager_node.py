@@ -70,11 +70,11 @@ def run_demo7(req):
         if FIWARE_CB == "None":
             pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
         # REMOVE FALSE FROM THE FOLLOWING LINE, insert only for test
-        elif res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1 and False:
+        elif False and res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1:
             cmd = offset
             prob = res.probs[0]
             post_request.send_command(command_id=cmd, confidence=prob)
-        elif res.cmd == len(command_eng)-1:
+        elif res.cmd==len(command_eng)-1 or res.cmd==0:   # "Start" command is not handle until now
             cmd = offset-1
             prob = res.probs[res.cmd]
         elif res.probs[res.cmd] > CMD_THRESHOLD: #res.cmd != len(command_eng)-1:

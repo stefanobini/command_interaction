@@ -1,6 +1,7 @@
 import json
 import requests
 from datetime import datetime
+from colorama import Fore
 
 from commands import GESTURE_COMMANDS
 
@@ -86,7 +87,7 @@ class MyRequestPost:
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/", data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/", data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful
@@ -106,12 +107,14 @@ class MyRequestPost:
         self.json_update['command']['metadata']['italian']['value'] = GESTURE_COMMANDS[command_id]["ita"]
         self.json_update['confidence']['value'] = confidence
 
-        #print(type(self.json_update['command']['value']))
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK  ' + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURE_COMMANDS[command_id]["eng"], confidence) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURE_COMMANDS[command_id]["ita"], confidence) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        print(res_str)
+
         msg = json.dumps(self.json_update)
         #print(msg)
 
         # send request
-        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data = msg, headers = CB_HEADER)
+        response = requests.post(self.CB_BASE_URL+"entities/{}/attrs".format(self.entity), data=msg, headers=CB_HEADER)
 
         """
         if response.ok: # response successful
