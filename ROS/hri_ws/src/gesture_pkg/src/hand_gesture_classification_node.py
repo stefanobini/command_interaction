@@ -14,7 +14,7 @@ from std_msgs.msg import String
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
 # from demo_utils.ai.video.hand_detection import HandDetector
 
-from commands import GESTURE_COMMANDS
+from commands import GESTURE_COMMANDS, GESTURES
 # from settings import demo_settings
 from demo_utils.gesture_recognition import SlidingWindow
 from demo_utils.overlap_tracking_hand import CentroidTracker
@@ -24,7 +24,7 @@ from demo_utils.post_request import MyRequestPost
 
 os.environ['TF_GPU_ALLOCATOR'] = 'cuda_sqmalloc_async'
 WINDOW_SIZE = 6                                         # size of the sliding windows to average the gesture classification
-N_GESTURES = len(GESTURE_COMMANDS)                      # number of gesture considered
+N_GESTURES = len(GESTURES)                      # number of gesture considered
 MAX_DISAPPEARED = 6                                     # number of frames after wich the tracker consider an unseen entity disappeared
 LANGUAGE = "eng"                                        # "eng" or "ita"
 DETECTOR_THRESH = 0.4
@@ -96,6 +96,7 @@ class Callback:
         y_center = (hands['roi'][3] + hands['roi'][1]) // 2
         
         #"""
+        gesture, confidence = 0, 0.
         (objectID, (centroid_x, centroid_y)) = next(iter(centr_hands_in_frame.items()))
         if centroid_x==x_center and centroid_y==y_center:
             probabilty_vector = np.zeros(14)
@@ -133,9 +134,11 @@ class Callback:
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
-        if self.post_request is not None:
+        gesture = int(detection.header.frame_id)
+        confidence = float(detection.results[0].score)
+        if self.post_request is not None and gesture!=0:
             # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
-            self.post_request.send_command(command_id=int(detection.header.frame_id), confidence=float(detection.results[0].score))    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+            self.post_request.send_command(command_id=gesture, confidence=confidence)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
         else:
             # self.publisher.publish(response)
             self.publisher.publish(detection)

@@ -6,6 +6,7 @@ from PIL import Image
 from torchvision.models.detection.ssdlite import ssdlite320_mobilenet_v3_large as mobilenetv3ssd
 from torchvision.transforms import functional as F
 from torchvision.transforms import transforms as T, InterpolationMode
+from commands import GESTURES
 #import onnx
 #import onnxruntime
 #from onnxruntime.quantization import quantize_dynamic, QuantType
@@ -13,9 +14,10 @@ from torchvision.transforms import transforms as T, InterpolationMode
 #import torch
 
 # os.environ['CUDA_VISIBLE_DEVICES']=""
-PATH_MODELS = os.path.join( os.path.dirname(os.path.realpath(__file__)), "..",  "models")
+PATH_MODELS = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..",  "models")
 
-TORCH_PATH = os.path.join(PATH_MODELS, "15ep_2022_10_20_09_29_2th_finetuning_model.pt")
+#TORCH_PATH = os.path.join(PATH_MODELS, "15ep_2022_10_20_09_29_2th_finetuning_model.pt")
+TORCH_PATH = os.path.join(PATH_MODELS, "demo7_first_trial", "rgb.pt")
 #TORCH_PATH = os.path.join(PATH_MODELS, "mobilenetv3_rgb_fp16.pt")
 #TORCH_PATH = os.path.join(PATH_MODELS, "mobilenetv3_rgb_int8.pt")
 # WEIGHTS_PATH = os.path.join(PATH_MODELS, "10ep_2022_10_20_13_45_2th_finetuning_model_depth.pt") #depth
@@ -48,7 +50,7 @@ def reframe_box_masks_to_image_masks(box_masks, boxes, image_height, image_width
     A tensor of size [num_masks, image_height, image_width] with the same dtype
     as `box_masks`.
   """
-  resize_method = 'nearest' if box_masks.dtype == tf.uint8 else resize_method
+  resize_method = 'nearest' if box_masks.dtype == torch.uint8 else resize_method    # before box_masks.dtype == tf.uint8
 
 
 class OneStageDetector:
@@ -68,7 +70,7 @@ class OneStageDetector:
     def __init__(self, conf_thresh=0.3, size_thresh=None):
         self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
         #""" PyTorch model
-        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=14)
+        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=len(DEMO7_GESTURES))
         #self.weights = torch.load(WEIGHTS_PATH)
         self.net.load_state_dict(torch.load(TORCH_PATH, map_location=self.device)["model_state_dict"])
         self.net.to(self.device)

@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 from colorama import Fore
 
-from commands import GESTURE_COMMANDS
+from commands import GESTURES
 
 CB_HEADER = {'Content-Type': 'application/json; charset=utf-8'}
 
@@ -103,11 +103,11 @@ class MyRequestPost:
 
         self.json_update['timestamp']['value'] = datetime.now().isoformat()
         self.json_update['command']['value'] = int(command_id)
-        self.json_update['command']['metadata']['english']['value'] = GESTURE_COMMANDS[command_id]["eng"]
-        self.json_update['command']['metadata']['italian']['value'] = GESTURE_COMMANDS[command_id]["ita"]
+        self.json_update['command']['metadata']['english']['value'] = GESTURES[command_id]["eng"]
+        self.json_update['command']['metadata']['italian']['value'] = GESTURES[command_id]["ita"]
         self.json_update['confidence']['value'] = confidence
 
-        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK  ' + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURE_COMMANDS[command_id]["eng"], confidence) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURE_COMMANDS[command_id]["ita"], confidence) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        res_str = Fore.CYAN + '#'*6 + ' GESTURE FRAME  ' + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURES[command_id]["eng"], confidence) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(GESTURES[command_id]["ita"], confidence) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
 
         msg = json.dumps(self.json_update)
