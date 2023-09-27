@@ -21,7 +21,7 @@ speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
-CMD_THRESHOLD = 0.5
+CMD_THRESHOLD = 0.8
 res_str = ""
 
 

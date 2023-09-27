@@ -1,4 +1,4 @@
-'''
+#'''
 GESTURES = {
     0: {"eng": "No command", "ita": "Nessun comando"},
     1: {"eng": "Come here", "ita": "Vieni qui"},

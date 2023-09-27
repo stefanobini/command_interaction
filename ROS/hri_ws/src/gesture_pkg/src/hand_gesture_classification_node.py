@@ -8,13 +8,14 @@ import numpy as np
 import os
 import uuid
 import PIL
+from colorama import Fore
 
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
 # from demo_utils.ai.video.hand_detection import HandDetector
 
-from commands import GESTURE_COMMANDS, GESTURES
+from commands import GESTURES
 # from settings import demo_settings
 from demo_utils.gesture_recognition import SlidingWindow
 from demo_utils.overlap_tracking_hand import CentroidTracker
@@ -130,7 +131,7 @@ class Callback:
             detection.results.append(result)
             # detection.source_img =self.bridge.cv2_to_imgmsg(img)
         #"""
-
+        cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/frame_{05d}".format(self.frame), image=img_bgr)
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
@@ -167,7 +168,7 @@ class HandDetectorNode:
         else:
             callback = Callback(pub, detector)
         
-        print('#################\n#               #\n# MODELS LOADED #\n#               #\n#################')
+        print(Fore.GREEN + '#################\n#               #\n# MODELS LOADED #\n#               #\n#################' + Fore.RESET)
         sub = rospy.Subscriber("in_rgb", Image, callback)
 
         rospy.spin()

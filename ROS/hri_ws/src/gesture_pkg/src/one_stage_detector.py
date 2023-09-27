@@ -17,7 +17,7 @@ from commands import GESTURES
 PATH_MODELS = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..",  "models")
 
 #TORCH_PATH = os.path.join(PATH_MODELS, "15ep_2022_10_20_09_29_2th_finetuning_model.pt")
-TORCH_PATH = os.path.join(PATH_MODELS, "demo7_first_trial", "rgb.pt")
+TORCH_PATH = os.path.join(PATH_MODELS, "demo7", "rgb.pt")
 #TORCH_PATH = os.path.join(PATH_MODELS, "mobilenetv3_rgb_fp16.pt")
 #TORCH_PATH = os.path.join(PATH_MODELS, "mobilenetv3_rgb_int8.pt")
 # WEIGHTS_PATH = os.path.join(PATH_MODELS, "10ep_2022_10_20_13_45_2th_finetuning_model_depth.pt") #depth
@@ -70,7 +70,7 @@ class OneStageDetector:
     def __init__(self, conf_thresh=0.3, size_thresh=None):
         self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
         #""" PyTorch model
-        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=len(DEMO7_GESTURES))
+        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=len(GESTURES))
         #self.weights = torch.load(WEIGHTS_PATH)
         self.net.load_state_dict(torch.load(TORCH_PATH, map_location=self.device)["model_state_dict"])
         self.net.to(self.device)
