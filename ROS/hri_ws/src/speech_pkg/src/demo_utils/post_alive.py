@@ -17,7 +17,7 @@ class MyRequestPost:
         # entity instantiation message
         msg_create = """{
                 "id": "UNISA.SpeechGestureAnalysis.SystemHealth",
-                "type": "Speech",
+                "type": "SystemHealth",
                 "timestamp": {
                         "type": "DateTime",
                         "value": "1995-02-22T06:30:22.12"
@@ -62,10 +62,10 @@ class MyRequestPost:
 
         """
         if response.ok: # response successful
-            #print("CB response -> status " + response.status_code.__str__())
+            print("CB response -> status " + response.status_code.__str__())
         else: # response ko
-            #print("CB response -> " + response.text)
-        """
+            print("CB response -> " + response.text)
+        #"""
         
         
     def send_alive(self, status):
@@ -83,7 +83,7 @@ class MyRequestPost:
 
         """
         if response.ok: # response successful
-            #print("CB response (ALIVE msg) -> status " + response.status_code.__str__())
+            print("CB response (ALIVE msg) -> status " + response.status_code.__str__())
         else: # response ko
-            #print("CB response (ALIVE msg) -> " + response.text)
-        """
+            print("CB response (ALIVE msg) -> " + response.text)
+        #"""

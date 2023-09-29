@@ -21,7 +21,7 @@ speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
-CMD_THRESHOLD = 0.8
+CMD_THRESHOLD = 0.0
 res_str = ""
 
 
@@ -64,8 +64,8 @@ def run_demo7(req):
 
     if robot_listening:
         # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        cmd = None
-        prob = None
+        cmd = len(command_eng)-1
+        prob = 0.
         #cb_reply_time = time.time()
         if FIWARE_CB == "None":
             pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
@@ -192,12 +192,12 @@ if __name__ == "__main__":
         command_ita = DEMO3_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo3)
     elif DEMO == str(7):
-        offset = 5
+        offset = 4
         command_eng = DEMO7_CMD_ENG
         command_ita = DEMO7_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo7)
     elif DEMO == "7_plus":
-        offset = 5
+        offset = 4
         command_eng = DEMO7P_CMD_ENG
         command_ita = DEMO7P_CMD_ITA
         rospy.Service('manager_service', Manager, run_demo7)

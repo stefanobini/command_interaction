@@ -54,7 +54,8 @@ class Callback:
         response = Detection2DArray()
         response.header.stamp = msg.header.stamp
         img_bgr = np.ndarray(shape=(msg.height, msg.width, 3), dtype=np.uint8, buffer=msg.data) # RAW image with shape (height, width, channel)
-        cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_bgr)
+        img_printed = img_bgr
+        cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_printed)
         '''
         red = image[2,:,:]
         green = image[1,:,:]
@@ -63,9 +64,9 @@ class Callback:
         #img_bgr = np.moveaxis(img_bgr, [0,1,2], [1,2,0])    # from (H, W, C) to (C, H, W)
         img_bgr = np.moveaxis(img_bgr, [0,1,2], [2,1,0])    # from (H, W, C) to (C, W, H)
         img_rgb = np.ndarray(img_bgr.shape, dtype=np.float32) # / 255.0
-        img_rgb[0,:,:] = img_bgr[0,:,:]
+        img_rgb[0,:,:] = img_bgr[2,:,:]
         img_rgb[1,:,:] = img_bgr[1,:,:]
-        img_rgb[2,:,:] = img_bgr[2,:,:]
+        img_rgb[2,:,:] = img_bgr[0,:,:]
         '''
         rgb2print = np.moveaxis(img_rgb, [0,1,2], [2,1,0]).astype(np.uint8)
         print(rgb2print.shape)
@@ -100,7 +101,7 @@ class Callback:
         gesture, confidence = 0, 0.
         (objectID, (centroid_x, centroid_y)) = next(iter(centr_hands_in_frame.items()))
         if centroid_x==x_center and centroid_y==y_center:
-            probabilty_vector = np.zeros(14)
+            probabilty_vector = np.zeros(self.n_gestures)
             label_predicted = int(hands['label'])
             score_prediction = float(hands['confidence'])
             probabilty_vector[label_predicted] = score_prediction
@@ -131,7 +132,8 @@ class Callback:
             detection.results.append(result)
             # detection.source_img =self.bridge.cv2_to_imgmsg(img)
         #"""
-        cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/frame_{05d}".format(self.frame), image=img_bgr)
+        #cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/frame_{:05d}.png".format(self.frame), img=img_printed)
+        cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/gesture{:02d}_frame_{}.png".format(gesture, str(self.frame)[-1:]), img=img_printed)
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET

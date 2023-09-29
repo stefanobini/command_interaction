@@ -117,7 +117,7 @@ class MyRequestPost:
             print("CB response -> status " + response.status_code.__str__())
         else: # response ko
             print("CB response -> " + response.text)
-        """
+        #"""
 
         
     def send_command(self, command_id, confidence):

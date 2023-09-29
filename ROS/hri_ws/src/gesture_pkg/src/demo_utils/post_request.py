@@ -26,7 +26,7 @@ class MyRequestPost:
                 },
                 "command": {
                         "type": "Number",
-                        "value": 13,
+                        "value": 0,
                         "metadata":{
                                 "english":{
                                         "type": "String",
@@ -53,7 +53,7 @@ class MyRequestPost:
                 },
                 "command": {
                         "type": "Number",
-                        "value": 13,
+                        "value": 0,
                         "metadata":{
                                 "english":{
                                         "type": "String",

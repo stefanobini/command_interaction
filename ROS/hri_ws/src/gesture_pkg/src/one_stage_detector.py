@@ -67,10 +67,11 @@ class OneStageDetector:
     For more details refer to opencv docs.
     '''
 
-    def __init__(self, conf_thresh=0.3, size_thresh=None):
+    def __init__(self, conf_thresh=0.3, size_thresh=None, n_gestures=len(GESTURES)):
         self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+        self.n_gestures = n_gestures
         #""" PyTorch model
-        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=len(GESTURES))
+        self.net = mobilenetv3ssd(pretrained_backbone=True, num_classes=self.n_gestures)
         #self.weights = torch.load(WEIGHTS_PATH)
         self.net.load_state_dict(torch.load(TORCH_PATH, map_location=self.device)["model_state_dict"])
         self.net.to(self.device)
@@ -124,9 +125,9 @@ class OneStageDetector:
             scores = scores[:pred_detections]
             labels = labels[:pred_detections]
             index_argmin = np.argmin(labels)  #check if a valid gesture is detected
-            if  index_argmin != 13:
+            if  index_argmin != self.n_gestures:
                 #If valid gesture is detected, we take the index of valid gesture [1,12] with higher scores
-                index_valid_gesture = np.argmax((np.where(labels< 13, scores, 0.)))
+                index_valid_gesture = np.argmax((np.where(labels<self.n_gestures, scores, 0.)))
                 boxes = boxes[index_valid_gesture]
                 scores = scores[index_valid_gesture]
                 labels = labels[index_valid_gesture]
@@ -147,7 +148,7 @@ class OneStageDetector:
             return {
                     'roi': [0.,0.,0.,0.],
                     'type': 'hand',
-                    'label': 13,
+                    'label': self.n_gestures,
                     'confidence' : 0.
                     }
 
@@ -179,9 +180,9 @@ class OneStageDetector:
             scores = scores[:pred_detections]
             labels = labels[:pred_detections]
             index_argmin = np.argmin(labels)  #check if a valid gesture is detected
-            if  index_argmin != 13:
+            if  index_argmin != self.n_gestures:
                 #If valid gesture is detected, we take the index of valid gesture [1,12] with higher scores
-                index_valid_gesture = np.argmax((np.where(labels< 13, scores, 0.)))
+                index_valid_gesture = np.argmax((np.where(labels<self.n_gestures, scores, 0.)))
                 boxes = boxes[index_valid_gesture]
                 scores = scores[index_valid_gesture]
                 labels = labels[index_valid_gesture]
@@ -202,7 +203,7 @@ class OneStageDetector:
             return {
                     'roi': [0.,0.,0.,0.],
                     'type': 'hand',
-                    'label': 13,
+                    'label': self.n_gestures,
                     'confidence' : 0.
                     }
 
@@ -244,9 +245,9 @@ class OneStageDetector:
         if pred_detections > 0:
             outputs = self.reduce_size_tensor(outputs, pred_detections)
             index_argmin = torch.argmin(outputs["labels"]).item()  #check if a valid gesture is detected
-            if  index_argmin != 13:
+            if  index_argmin != self.n_gestures-1:
                 #If valid gesture is detected, we take the index of valid gesture [1,12] with higher scores
-                index_valid_gesture = torch.argmax((torch.where(outputs["labels"]< 13, outputs["scores"], torch.tensor(0., dtype=torch.float32, device=self.device))))
+                index_valid_gesture = torch.argmax((torch.where(outputs["labels"]< self.n_gestures-1, outputs["scores"], torch.tensor(0., dtype=torch.float32, device=self.device))))
                 outputs = {"boxes":outputs["boxes"][index_valid_gesture], "labels": outputs["labels"][index_valid_gesture], "scores": outputs["scores"][index_valid_gesture]}
             #if argmin == 13, only no gesture are detected
             else:
@@ -259,7 +260,7 @@ class OneStageDetector:
             return {
                             'roi': [0.,0.,0.,0.],
                             'type': 'hand',
-                            'label': 13,
+                            'label': self.n_gestures-1,
                             'confidence' : 0.,
                             # 'rects': rects
                         }
