@@ -1,3 +1,8 @@
+#BRANCH: pl_lightninh_v2, for training the model, telegram bots and TTS service
+Model_Augmentation/
+ROS/
+docker_folder/
+
 # Visual Code files
 .vscode
 
@@ -52,6 +57,7 @@ acquisition/speech/detected_voices/*
 # *.model
 *.jpg
 *.ogg
+*.json
 
 # general directories
 __pycache__

@@ -288,7 +288,7 @@ class TrainingMiviaDataset(MiviaDataset):
         spect = Image.fromarray(np.uint8(item[0].cpu().numpy()))
         spect.save("example.png")
         '''
-        
+        # CHECK THIS IN FELICE DEMO, IF I DO IT
         if self.settings.input.spectrogram.type == "db":
             item = self.preprocessing.amplitude_to_db_spectrogram(spectrogram=item)
         

@@ -9189,7 +9189,6 @@ commands/1067240777/ita/ita_3.wav,command,telegram_bot,1067240777,3,Female,['20-
 rejects/ita/common_voice_it_17437858.wav,reject,mozilla,unknown,31,,
 synthetics/google/standard/eng/IN_Wavenet_C_cmd18.wav,synthetic,google_standard,google_male,18,Male,
 commands/1908497562/ita/ita_1.wav,command,telegram_bot,1908497562,1,Male,['10-20']
-rejects/ita/_background_noise__README.md,reject,google,README.md,31,,
 commands/2a89ad5c/ita/ita_24_0.wav,command,google,2a89ad5c,24,,
 commands/765587623/ita/ita_25.wav,command,telegram_bot,765587623,25,Female,['20-30']
 rejects/eng/four_cfde27ba_nohash_0.wav,reject,google,cfde27ba,31,,
@@ -16695,7 +16694,6 @@ rejects/eng/common_voice_en_23344306.wav,reject,mozilla,unknown,31,,
 commands/2144090201/ita/ita_22.wav,command,telegram_bot,2144090201,22,Female,['30-40']
 rejects/ita/common_voice_it_20089666.wav,reject,mozilla,unknown,31,,
 commands/b959cd0c/eng/eng_22_1.wav,command,google,b959cd0c,22,,
-rejects/eng/_background_noise__README.md,reject,google,README.md,31,,
 commands/1936687856/ita/ita_0.wav,command,telegram_bot,1936687856,0,Female,['20-30']
 rejects/ita/common_voice_it_26282130.wav,reject,mozilla,unknown,31,,
 rejects/ita/happy_b41a92a3_nohash_0.wav,reject,google,b41a92a3,31,,

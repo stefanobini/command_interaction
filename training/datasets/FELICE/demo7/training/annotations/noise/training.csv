@@ -1,4 +1,4 @@
-path,type,subtype,speaker,label,noise_path,noise_type,noise_subtype,snr
+path,type,subtype,speaker,command,noise_path,noise_type,noise_subtype,snr
 noises/crf_melfi/production_line/production_line_153_000.wav,crf_melfi,production_line,,,,,,
 noises/strumenti_di_lavoro_lavorazione_metalli/grinder_mola/pialla_elettrica_011.wav,strumenti_di_lavoro_lavorazione_metalli,grinder_mola,,,,,,
 noises/crf_melfi/robot/felice_robot_040.wav,crf_melfi,robot,,,,,,

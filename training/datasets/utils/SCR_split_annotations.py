@@ -1,3 +1,7 @@
+"""
+python3 datasets/utils/SCR_split_annotations.py
+"""
+
 import os
 import random
 import pandas as pd
@@ -9,16 +13,17 @@ from typing import Tuple
 LANGS = ["eng", "ita"]
 
 #DATASET = os.path.join("SCR_experimentation")
-DATASET = os.path.join("FELICE", "demophase_I")
+DATASET = os.path.join("FELICE", "demo7")
 #DATASET = os.path.join("MIVIA_ISC_v2")
 DATASET_PATH = os.path.join("datasets", DATASET)
+ANNOTATION_FILENAME = "dataset.csv"
 
 HEADING = ["path", "type", "subtype", "speaker", "command"]
 NOISE_HEADING = ["path", "type", "subtype"]
 
-TRAINING = 0.8
-VALIDATION = 0.1
-TEST = 0.1
+TRAINING = 0.98
+VALIDATION = 0.01
+TEST = 0.01
 
 
 def split_dataframe(df:pd.DataFrame, train_rate:float, valid_rate:float, test_rate:float) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -77,7 +82,7 @@ for lang in lang_iter:
     # output_path = os.path.join(DATASET_PATH, "annotations", "with_reject", lang)
     output_path = os.path.join(DATASET_PATH, "annotations", lang)
     os.makedirs(output_path, exist_ok=True)
-    annotation_file = os.path.join(output_path, "dataset.csv")
+    annotation_file = os.path.join(output_path, ANNOTATION_FILENAME)
 
     ''' Read annotation file '''
     df = pd.read_csv(annotation_file, sep=',')
@@ -159,7 +164,7 @@ for lang in lang_iter:
 """
 ''' Read NOISE annotation file '''
 noise_path = os.path.join(DATASET_PATH, "annotations", "noise")
-noise_file = os.path.join(noise_path, "dataset.csv")
+noise_file = os.path.join(noise_path, ANNOTATION_FILENAME)
 noise_df = pd.read_csv(noise_file, sep=',')
 
 ''' Shuffle the row of the NOISE dataframe '''

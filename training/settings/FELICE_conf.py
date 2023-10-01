@@ -9,7 +9,7 @@ settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
 settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
-settings.demo:str = "demophase_I"                             # ["demo3", "demo7", "demo7_plus", "demofull", "demophase_I"]
+settings.demo:str = "demo7"                             # ["demo3", "demo7", "demo7_plus", "demofull", "demophase_I"]
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
@@ -24,7 +24,7 @@ settings.input.spectrogram.n_fft:int = 512                                      
 settings.input.spectrogram.window:str = "hann"
 settings.input.spectrogram.win_sec:float = settings.input.spectrogram.n_fft / settings.input.sample_rate            # default=0.025
 settings.input.spectrogram.hop_sec:float = settings.input.spectrogram.win_sec / 2                                   # default=0.012
-settings.input.spectrogram.win_length:int = int(settings.input.spectrogram.win_sec * settings.input.sample_rate)
+settings.input.spectrogram.win_length:int = int(settings.input.spectrogram.win_sec * settings.input.sample_rate)    # 512
 settings.input.spectrogram.hop_length:int = settings.input.spectrogram.win_length // 2
 settings.input.spectrogram.padding.value:float = -80. if settings.input.spectrogram.type == "db" else 0.            #  IF YOU CHANGE THIS VALUE CHECH "SPECT_PAD_VALUE and SPECT_PAD_STRiDE" IN dataloaders.py
 settings.input.spectrogram.padding.stride:int = 0                                                                  # silence between two padding patches, in pixel ( IF YOU CHANGE THIS VALUE CHECH "SPECT_PAD_VALUE and SPECT_PAD_STRiDE" IN dataloaders.py)

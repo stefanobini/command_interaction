@@ -1,38 +1,24 @@
-OLD_CMD_LABEL_3_AND_7 = {
-    2:0,
-    3:1,
-    23:2,
-    20:3,
-    6:4,
-    7:5,
-    16:6,
-    17:7
-}
-OLD_CMD_LABEL_3 = {
+DEMO_3 = {
     2:0,
     3:1,
     4:2,
     5:3
 }
-OLD_CMD_LABEL_7 = {
-    23:0,
-    20:1,
-    6:2,
-    7:3,
-    16:4,
-    17:5
+
+DEMO_7 = {
+    23:0,   # start
+    20:1,   # release
+    6: 2,   # bring me the gun screwdriver
+    7: 3,   # take the gun screwdriver
+    8: 4,   # bring me the elbow screwdriver
+    9: 5,   # take the gun screwdriver
+    16:6,   # bring me the windows control panel
+    17:7,   # take the windows control panel
+    22:8,   # go
+    24:9    # stop
 }
-OLD_CMD_LABEL_7_PLUS = {
-    23:0,
-    20:1,
-    6:2,
-    7:3,
-    8:4,
-    9:5,
-    16:6,
-    17:7
-}
-FULL = {
+
+DEMO_FULL = {
     0:0,
     1:1,
     2:2,
@@ -64,19 +50,6 @@ FULL = {
     28:28,
     29:29,
     30:30
-}
-
-PHASE_I_ROBOT = {
-    23:0,   # start
-    20:1,   # release
-    6: 2,   # bring me the gun screwdriver
-    7: 3,   # take the gun screwdriver
-    8: 4,   # bring me the elbow screwdriver
-    9: 5,   # take the gun screwdriver
-    16:6,   # bring me the windows control panel
-    17:7,   # take the windows control panel
-    22:8,   # go
-    24:9    # stop
 }
 
 DEMO_PHASE_I= {

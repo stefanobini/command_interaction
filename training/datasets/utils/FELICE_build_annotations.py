@@ -1,15 +1,19 @@
+"""
+python3 datasets/utils/FELICE_build_annotations.py
+"""
+
 import os
 import pandas
 from tqdm import tqdm
-from FELICE_cmd_map import FULL, OLD_CMD_LABEL_3, OLD_CMD_LABEL_3_AND_7, OLD_CMD_LABEL_7, OLD_CMD_LABEL_7_PLUS, PHASE_I_ROBOT
+from FELICE_cmd_map import DEMO_3, DEMO_7, DEMO_FULL, DEMO_PHASE_I
 
 
 LANGS = ["eng", "ita"]
-DEMO = "phase_I"  # ["full", "3", "7", "7_plus", "phase_I"]
-IN_DATASET_FOLDER = "MIVIA_CRF_ISC"
-#OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
-OUT_DATASET_FOLDER = os.path.join("FELICE", "MIVIA_CRF_ISC_phaseI")
-ANNOTATION_FILE = "dataset.csv"
+DEMO = "7"  # ["full", "3", "7"]
+IN_DATASET_FOLDER = "MIVIA_ISC_v2"
+OUT_DATASET_FOLDER = os.path.join("FELICE", "demo"+DEMO)
+#OUT_DATASET_FOLDER = os.path.join("FELICE", "demo3")
+ANNOTATION_FILE = "dataset_plus_crf.csv"
 COLUMNS = ["path", "type", "subtype", "speaker", "command"]
 BALANCE_REJECT_SAMPLES = False
 REJECT_PERCENTAGE = 0.75
@@ -19,22 +23,23 @@ GOOGLE_USEFUL_COMMANDS = {os.path.join("dataset", "google_speech_commands_v1", "
 '''
 
 if DEMO == str(3):
-    OLD_CMD_LABEL = OLD_CMD_LABEL_3
+    OLD_CMD_LABEL = DEMO_3
 elif DEMO == str(7):
-    OLD_CMD_LABEL = OLD_CMD_LABEL_7
-elif DEMO == "7_plus":
-    OLD_CMD_LABEL = OLD_CMD_LABEL_7_PLUS
+    OLD_CMD_LABEL = DEMO_7
 elif DEMO == "full":
-    OLD_CMD_LABEL = FULL
+    OLD_CMD_LABEL = DEMO_FULL
 elif DEMO == "phase_I":
-    OLD_CMD_LABEL = PHASE_I_ROBOT
+    OLD_CMD_LABEL = DEMO_PHASE_I
 
+in_noise_folder = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", "noise")
+in_noise_path = os.path.join(in_noise_folder, "dataset.csv")
+in_noise_df = pandas.read_csv(filepath_or_buffer=in_noise_path, sep=',')
 for lang in LANGS:
     in_dataset_folder = os.path.join("datasets", IN_DATASET_FOLDER, "annotations", lang)
     os.makedirs(in_dataset_folder, exist_ok=True)
-    in_dataset_path = os.path.join(in_dataset_folder, ANNOTATION_FILE)
     out_dataset_folder = os.path.join("datasets", OUT_DATASET_FOLDER, "annotations", lang)
     os.makedirs(out_dataset_folder, exist_ok=True)
+    in_dataset_path = os.path.join(in_dataset_folder, ANNOTATION_FILE)
     out_dataset_path = os.path.join(out_dataset_folder, ANNOTATION_FILE)
     in_df = pandas.read_csv(filepath_or_buffer=in_dataset_path, sep=',')
     out_dict = {"path": list(), "type": list(), "subtype": list(), "speaker": list(), "command": list()}
@@ -99,7 +104,13 @@ for lang in LANGS:
             out_dict["command"].append(len(OLD_CMD_LABEL))
 
         df_iter.set_description("Building <{}> annotation file.".format(lang))
-
+    
+    for idx in in_noise_df.index:
+        out_dict["path"].append(in_noise_df.iloc[idx]["path"])
+        out_dict["type"].append("reject")
+        out_dict["subtype"].append(in_noise_df.iloc[idx]["subtype"])
+        out_dict["speaker"].append("unknown")
+        out_dict["command"].append(len(OLD_CMD_LABEL))
     '''
     # Add "go" and "stop" samples from Google Speech Command dataset
     if lang == "eng":

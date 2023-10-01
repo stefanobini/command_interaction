@@ -1,6 +1,7 @@
 """
 Build dataset reading the annotation files and creating the audio files.
 Training file are just copied, while on validation and test one the noise was applied.
+python3 datasets/utils/build_dataset.py
 """
 
 import os
@@ -40,7 +41,7 @@ elif "MSIexp1" in SRC_DATASET:
     FULL_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
 
 SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
-OUT_PATH = os.path.join("datasets", "FELICE", "demophase_I")
+OUT_PATH = os.path.join("datasets", "FELICE", "demo7")
 LANGs = ["eng", "ita"]
 
 

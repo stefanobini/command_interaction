@@ -22914,7 +22914,6 @@ rejects/eng/common_voice_en_23341925.wav,reject,mozilla,unknown,31,,
 commands/1153694021/eng/eng_1.wav,command,telegram_bot,1153694021,1,Male,['30-40']
 commands/2114178392/eng/eng_14.wav,command,telegram_bot,2114178392,14,Female,['50-60']
 rejects/eng/one_13d7b8c9_nohash_0.wav,reject,google,13d7b8c9,31,,
-rejects/eng/_background_noise__README.md,reject,google,README.md,31,,
 rejects/eng/cat_3bfd30e6_nohash_0.wav,reject,google,3bfd30e6,31,,
 commands/10f2bb12/eng/eng_24_0.wav,command,google,10f2bb12,24,,
 rejects/eng/common_voice_en_20557667.wav,reject,mozilla,unknown,31,,
