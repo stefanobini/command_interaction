@@ -21,7 +21,9 @@ speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
+GO_THRESHOLD = 0.7
 CMD_THRESHOLD = 0.0
+RELEASE_THRESHOLD = 0.15
 res_str = ""
 
 
@@ -74,7 +76,13 @@ def run_demo7(req):
             cmd = offset
             prob = res.probs[0]
             post_request.send_command(command_id=cmd, confidence=prob)
-        elif res.cmd==len(command_eng)-1 or res.cmd==0:   # "Start" command is not handle until now
+        elif res.cmd==8 and res.probs[8]<GO_THRESHOLD:
+            pass
+        elif res.probs[1]>RELEASE_THRESHOLD:
+            cmd = offset+1
+            prob = res.probs[1]
+            post_request.send_command(command_id=cmd, confidence=prob)
+        elif res.cmd==len(command_eng)-1 or res.cmd==0 or res.cmd==9:   # "Start", "Stop" command is not handle until now
             cmd = offset-1
             prob = res.probs[res.cmd]
         elif res.probs[res.cmd] > CMD_THRESHOLD: #res.cmd != len(command_eng)-1:

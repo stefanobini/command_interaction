@@ -1,3 +1,8 @@
+# BRANCH: felice_phase_I, ignore all the folder that are not involved in ROS demo
+Bot/
+Model_Augmentation/
+TTS/
+
 # Visual Code files
 .vscode
 

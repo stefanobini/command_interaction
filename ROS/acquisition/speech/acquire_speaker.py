@@ -7,7 +7,8 @@ import time
 from pathlib import Path
 import os
 import json
-from commands import COMMANDS
+from commands import ADD_COMMANDS as COMMANDS
+from colorama import Fore
 
 
 '''
@@ -33,7 +34,7 @@ class Microphone:
 
         #self.stream = self.open_stream()
 
-        dataset_path = Path(get_curr_dir()).joinpath("recordings")
+        dataset_path = Path(get_curr_dir()).joinpath("recordings_new")
         os.makedirs(dataset_path, exist_ok=True)
         dir_list = os.listdir(dataset_path)
         if dir_list == []:
@@ -134,7 +135,7 @@ if __name__ == "__main__":
             repeat = True
             audio = None
             while repeat:
-                print("Say: <{}>\t(<Enter> to stop recording)".format(text.upper()))
+                print("Say:"+Fore.GREEN+ "<{}>".format(text.upper())+Fore.RESET+"\t(<Enter> to stop recording)")
                 mic.acquire_audio()
                 audio = mic.convert_channel()
                 in_str = input("Do you want repeat the command? (y/n)")
