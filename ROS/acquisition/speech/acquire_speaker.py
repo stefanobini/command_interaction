@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 import os
 import json
-from commands import ADD_COMMANDS as COMMANDS
+from commands import COMMANDS
 from colorama import Fore
 
 

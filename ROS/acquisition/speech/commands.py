@@ -28,7 +28,9 @@ COMMANDS = {
         25:"Take the speaker frame",
         26:"Open",
         27:"Close",
-        28:"Release" 
+        28:"Release",
+        29:"Go",
+        30:"Back home"
     },
     "ita":{
         0: "Piu alto",
@@ -59,7 +61,9 @@ COMMANDS = {
         25:"Prendi il telaio altoparlante",
         26:"Apri",
         27:"Chiudi",
-        28:"Rilascia" 
+        28:"Rilascia",
+        29:"Libero",
+        30:"Torna in base"
     }
 }
 
