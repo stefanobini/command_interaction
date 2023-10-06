@@ -69,8 +69,10 @@ def run_demo7(req):
         cmd = len(command_eng)-1
         prob = 0.
         #cb_reply_time = time.time()
-        if FIWARE_CB == "None":
-            pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
+        if FIWARE_CB == "None" and res.cmd!=len(command_eng)-1 and res.probs[res.cmd] > CMD_THRESHOLD:
+            # pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
+            res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+            print(res_str)
         # REMOVE FALSE FROM THE FOLLOWING LINE, insert only for test
         elif False and res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1:
             cmd = offset

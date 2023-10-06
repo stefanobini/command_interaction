@@ -14,13 +14,12 @@ sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -
 
 # Network
 watch -n1 iwconfig  # Signal power
-nmcli dev wifi  # List of network
-
+nmcli dev wifi  # List of networ
 # Docker for WHOLE DEMO
 sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_image
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker
-sudo docker exec -it unisa_container /bin/bash
+sudo docker exec -it unisa_container  /bin/bash
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
@@ -71,14 +70,6 @@ git pull --no-edit
 
 git checkout -b fiware
 git push -u origin fiware
-
-# To detect audio device
-python3 -m pip install sounddevice
-python3 -m sounddevice
-
-# For camera info
-v4l2-ctl --list-devices  # list device
-v4l2-ctl --list-formats-ext # frame size, frame rate
 
 # FIWARE
 CONTEXT_BROAKER = "192.168.2.106"

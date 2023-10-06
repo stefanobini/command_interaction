@@ -33,8 +33,8 @@ io.speech.format = 'int16' # 'float32'
 
 #################### CAMERA ####################
 
-io.camera.device = 0 # 0. Realsense - 1. Pepper
-io.camera.fps = 15 #6, 15, 30, 60, 90
+io.camera.device = 2 # 0. Realsense - 1. Pepper - 2. RGB frame on OpenCV
+io.camera.fps = 6 #6, 15, 30, 60, 90
 io.camera.pepper.resolution = 2 #0. 160x120 - 1. 320x240 - 2. 640x480 - 3. 1280x960
 io.camera.pepper.camera = 0 #0. Top - 1. Bottom
 io.camera.realsense.width = 640

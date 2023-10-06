@@ -265,7 +265,7 @@ class OneStageDetector:
                             # 'rects': rects
                         }
 
-        out_label_for_classification = float(outputs["labels"].item())
+        out_label_for_classification = outputs["labels"].item()
         out_bbox_for_classification = outputs["boxes"].tolist()
         out_score_for_classification = float(outputs["scores"].item())
         hand_results = {

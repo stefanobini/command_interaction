@@ -2,7 +2,7 @@
 from cv_bridge import CvBridge
 from gesture_pkg.srv import *
 from settings import demo_settings
-from demo_utils.video import RealSenseImageSource 
+from demo_utils.video import RealSenseImageSource, OpenCVImageSource
 from sensor_msgs.msg import Image
 import cv2
 import rospy
@@ -80,7 +80,8 @@ class ImageInputNode:
         rospy.init_node(NODE_NAME, log_level=rospy.DEBUG)
         pub = rospy.Publisher('in_rgb', Image, queue_size=1)
         
-        image_source = RealSenseImageSource(fps=demo_settings.io.camera.fps)
+        # image_source = RealSenseImageSource(fps=demo_settings.io.camera.fps)
+        image_source = OpenCVImageSource(fps=demo_settings.io.camera.fps)
         callback_function = PublisherCallback(pub, image_source)
         service_callback = ServiceCallback(image_source)
         rospy.Service('camera_info', CameraInfo, service_callback)

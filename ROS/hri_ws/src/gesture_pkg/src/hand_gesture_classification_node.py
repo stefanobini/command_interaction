@@ -9,6 +9,7 @@ import os
 import uuid
 import PIL
 from colorama import Fore
+import torchvision.transforms as transforms 
 
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
@@ -21,14 +22,15 @@ from demo_utils.gesture_recognition import SlidingWindow
 from demo_utils.overlap_tracking_hand import CentroidTracker
 from one_stage_detector import OneStageDetector
 from demo_utils.post_request import MyRequestPost
+from settings.io import io
 
 
 os.environ['TF_GPU_ALLOCATOR'] = 'cuda_sqmalloc_async'
-WINDOW_SIZE = 6                                         # size of the sliding windows to average the gesture classification
+WINDOW_SIZE = io.camera.fps                                         # size of the sliding windows to average the gesture classification
 N_GESTURES = len(GESTURES)                      # number of gesture considered
-MAX_DISAPPEARED = 6                                     # number of frames after wich the tracker consider an unseen entity disappeared
+MAX_DISAPPEARED = io.camera.fps                                     # number of frames after wich the tracker consider an unseen entity disappeared
 LANGUAGE = "eng"                                        # "eng" or "ita"
-DETECTOR_THRESH = 0.4
+DETECTOR_THRESH = 0.8
 SIZE_THRESH = None
 ROBOT_UUID = uuid.uuid1().node
 
@@ -47,53 +49,37 @@ class Callback:
         self.sliding_windows = dict()
         self.frame = 0
         self.timestamp = time.time()
-        self.bridge = CvBridge()
+        self.transforms = transforms.Compose([transforms.ToTensor()]) 
 
 
     def __call__(self, msg):
+        #prevoius_timestamp = self.timestamp
         response = Detection2DArray()
         response.header.stamp = msg.header.stamp
         img_bgr = np.ndarray(shape=(msg.height, msg.width, 3), dtype=np.uint8, buffer=msg.data) # RAW image with shape (height, width, channel)
-        img_printed = img_bgr
+        pil_image = None
+        try:
+            #cv_image = self.bridge.imgmsg_to_cv2(img_bgr)
+            cv_image = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+            pil_image = PIL.Image.fromarray(cv_image)
+            img = self.transforms(pil_image)
+        except CvBridgeError as e:
+            print(e)
+        img_printed = cv_image
         cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_printed)
-        '''
-        red = image[2,:,:]
-        green = image[1,:,:]
-        blue = image[0,:,:]
-        '''
-        #img_bgr = np.moveaxis(img_bgr, [0,1,2], [1,2,0])    # from (H, W, C) to (C, H, W)
-        img_bgr = np.moveaxis(img_bgr, [0,1,2], [2,1,0])    # from (H, W, C) to (C, W, H)
-        img_rgb = np.ndarray(img_bgr.shape, dtype=np.float32) # / 255.0
-        img_rgb[0,:,:] = img_bgr[2,:,:]
-        img_rgb[1,:,:] = img_bgr[1,:,:]
-        img_rgb[2,:,:] = img_bgr[0,:,:]
-        '''
-        rgb2print = np.moveaxis(img_rgb, [0,1,2], [2,1,0]).astype(np.uint8)
-        print(rgb2print.shape)
-        im = PIL.Image.fromarray(rgb2print)
-        im.save("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_rgb.png")
-        #'''
 
-        #prevoius_timestamp = self.timestamp
         # rospy.loginfo(img.shape)
         
-        hands = self.detector.detect(img_rgb)
+        hands = self.detector.detect(img)
+
+        #print(hands['label'], GESTURES[hands['label']]["eng"])
         #hands = self.detector.onnx_cpu_detect(img_rgb)
 
-        #self.timestamp = time.time()
-        #det_time = self.timestamp - prevoius_timestamp    # -> 0.13 s
-        #frame_rate = round(1 / (det_time), 2)
-        #print(frame_rate)
-        
         hand_bboxes = list()
-
         x_center = (hands['roi'][2] + hands['roi'][0]) // 2
         y_center = (hands['roi'][3] + hands['roi'][1]) // 2
-        
         hand_bboxes.append(hands['roi'])
-        
         centr_hands_in_frame, window_hands_in_frame = self.hands_tracker.update(rects=hand_bboxes)
-    
         x_center = (hands['roi'][2] + hands['roi'][0]) // 2
         y_center = (hands['roi'][3] + hands['roi'][1]) // 2
         
@@ -132,19 +118,24 @@ class Callback:
             detection.results.append(result)
             # detection.source_img =self.bridge.cv2_to_imgmsg(img)
         #"""
-        #cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/frame_{:05d}.png".format(self.frame), img=img_printed)
-        cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/gesture{:02d}_frame_{}.png".format(gesture, str(self.frame)[-1:]), img=img_printed)
+        #cv2.imwrite(filename="/home/felice/command_interaction/ROS/detected_frames/gesture{:02d}_frame_{}.png".format(gesture, str(self.frame)[-1:]), img=img_printed)
         self.frame += 1
         
         # self.publisher.publish(response)      # IF WE WANT PUBLISH ON WEBVIEWER TO SEE THE RESULTS ON PEPPER?S TABLET
         gesture = int(detection.header.frame_id)
         confidence = float(detection.results[0].score)
+        #print(gesture, GESTURES[gesture]["eng"])
         if self.post_request is not None and gesture!=0:
             # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
             self.post_request.send_command(command_id=gesture, confidence=confidence)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
         else:
             # self.publisher.publish(response)
             self.publisher.publish(detection)
+        
+        #self.timestamp = time.time()
+        #det_time = self.timestamp - prevoius_timestamp    
+        #frame_rate = round(1 / (det_time), 2)
+        #print("FPS:\t{:.1f}\tTime:\t{:.4f} s".format(frame_rate, det_time))    # -> {FPS: 8;    Time: 0.125 s}
         
 
 
