@@ -1,9 +1,9 @@
 settings: !!python/object/apply:dotmap.DotMap
   dictitems:
-    dataset: &id038 !!python/object/apply:dotmap.DotMap
+    dataset: &id037 !!python/object/apply:dotmap.DotMap
       dictitems:
         annotations: datasets/MSI/annotations
-        folder: datasets/MIVIA_ISC
+        folder: datasets/MSI
         knn: &id009 !!python/object/apply:dotmap.DotMap
           dictitems:
             annotations: datasets/MTL_scr_srid/annotations
@@ -95,7 +95,7 @@ settings: !!python/object/apply:dotmap.DotMap
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - folder
-            - datasets/MIVIA_ISC
+            - datasets/MSI
           - - annotations
             - datasets/MSI/annotations
           - - speech
@@ -106,7 +106,7 @@ settings: !!python/object/apply:dotmap.DotMap
             - *id009
         _prevent_method_masking: false
     experimentation: MTL
-    input: &id037 !!python/object/apply:dotmap.DotMap
+    input: &id036 !!python/object/apply:dotmap.DotMap
       dictitems:
         language: eng
         mel: &id013 !!python/object/apply:dotmap.DotMap
@@ -209,7 +209,7 @@ settings: !!python/object/apply:dotmap.DotMap
           - - mfcc
             - *id014
         _prevent_method_masking: false
-    knn: &id040 !!python/object/apply:dotmap.DotMap
+    knn: &id039 !!python/object/apply:dotmap.DotMap
       dictitems:
         cosine_similarity: &id016 !!python/object/apply:dotmap.DotMap
           dictitems:
@@ -246,7 +246,7 @@ settings: !!python/object/apply:dotmap.DotMap
           - - plotting
             - false
         _prevent_method_masking: false
-    logger: &id043 !!python/object/apply:dotmap.DotMap
+    logger: &id042 !!python/object/apply:dotmap.DotMap
       dictitems:
         folder: lightning_logs
         name: MTL/eng/MSI
@@ -262,7 +262,7 @@ settings: !!python/object/apply:dotmap.DotMap
             - HS_msi
         _prevent_method_masking: false
     mode: testing
-    model: &id039 !!python/object/apply:dotmap.DotMap
+    model: &id038 !!python/object/apply:dotmap.DotMap
       dictitems:
         conformer: &id021 !!python/object/apply:dotmap.DotMap
           dictitems:
@@ -372,8 +372,8 @@ settings: !!python/object/apply:dotmap.DotMap
           - - soft_sharing
             - *id023
         _prevent_method_masking: false
-    name: /home/sbini_loc/command_interaction/training/settings/MTL_conf.py
-    noise: &id042 !!python/object/apply:dotmap.DotMap
+    name: /mnt/sdc1/sbini/command_interaction/training/settings/MSI_conf.py
+    noise: &id041 !!python/object/apply:dotmap.DotMap
       dictitems:
         curriculum_learning: &id026 !!python/object/apply:dotmap.DotMap
           dictitems:
@@ -381,8 +381,8 @@ settings: !!python/object/apply:dotmap.DotMap
             epoch_saturation_time: 50
             gaussian: &id025 !!python/object/apply:dotmap.DotMap
               dictitems:
-                max_sigma: 0
-                min_sigma: 0.0
+                max_sigma: 20
+                min_sigma: 10.0
                 sigma: 10
               state:
                 _dynamic: true
@@ -390,9 +390,9 @@ settings: !!python/object/apply:dotmap.DotMap
                 - - - sigma
                     - 10
                   - - max_sigma
-                    - 0
+                    - 20
                   - - min_sigma
-                    - 0.0
+                    - 10.0
                 _prevent_method_masking: false
             uniform: &id024 !!python/object/apply:dotmap.DotMap
               dictitems:
@@ -417,13 +417,13 @@ settings: !!python/object/apply:dotmap.DotMap
             _prevent_method_masking: false
         descent_ratio: 1.0
         max_snr: 40
-        min_snr: 40
+        min_snr: 20
         snr_step: 5
       state:
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
         - - - min_snr
-            - 40
+            - 20
           - - max_snr
             - 40
           - - snr_step
@@ -434,11 +434,11 @@ settings: !!python/object/apply:dotmap.DotMap
             - *id026
         _prevent_method_masking: false
     task: MSI
-    tasks: &id036
+    tasks: &id035
     - intent
     - explicit
     - implicit
-    testing: &id044 !!python/object/apply:dotmap.DotMap
+    testing: &id043 !!python/object/apply:dotmap.DotMap
       dictitems:
         n_folds: 20
       state:
@@ -447,7 +447,7 @@ settings: !!python/object/apply:dotmap.DotMap
         - - - n_folds
             - 20
         _prevent_method_masking: false
-    training: &id041 !!python/object/apply:dotmap.DotMap
+    training: &id040 !!python/object/apply:dotmap.DotMap
       dictitems:
         accelerator: gpu
         batch_size: 128
@@ -464,7 +464,7 @@ settings: !!python/object/apply:dotmap.DotMap
               - - save_top_k
                 - 1
             _prevent_method_masking: false
-        device: 3
+        device: 0
         early_stop: &id031 !!python/object/apply:dotmap.DotMap
           dictitems:
             patience: 8
@@ -506,7 +506,7 @@ settings: !!python/object/apply:dotmap.DotMap
               - - value
                 - 0.01
             _prevent_method_masking: false
-        max_epochs: -1
+        max_epochs: 100
         min_epochs: 1
         num_workers: 48
         optimizer: &id033 !!python/object/apply:dotmap.DotMap
@@ -545,25 +545,22 @@ settings: !!python/object/apply:dotmap.DotMap
                 - 5
             _prevent_method_masking: false
         reject_percentage: 0.5
-        test_model: &id035 !!python/object/apply:dotmap.DotMap
-          state:
-            _dynamic: true
-            _map: !!python/object/apply:collections.OrderedDict
-            - []
-            _prevent_method_masking: false
+        test_model: false
       state:
         _dynamic: true
         _map: !!python/object/apply:collections.OrderedDict
-        - - - reject_percentage
+        - - - test_model
+            - false
+          - - reject_percentage
             - 0.5
           - - num_workers
             - 48
           - - accelerator
             - gpu
           - - device
-            - 3
+            - 0
           - - max_epochs
-            - -1
+            - 100
           - - min_epochs
             - 1
           - - batch_size
@@ -582,14 +579,12 @@ settings: !!python/object/apply:dotmap.DotMap
             - *id033
           - - loss
             - *id034
-          - - test_model
-            - *id035
         _prevent_method_masking: false
   state:
     _dynamic: true
     _map: !!python/object/apply:collections.OrderedDict
     - - - name
-        - /home/sbini_loc/command_interaction/training/settings/MTL_conf.py
+        - /mnt/sdc1/sbini/command_interaction/training/settings/MSI_conf.py
       - - mode
         - testing
       - - experimentation
@@ -597,23 +592,23 @@ settings: !!python/object/apply:dotmap.DotMap
       - - task
         - MSI
       - - tasks
-        - *id036
+        - *id035
       - - input
-        - *id037
+        - *id036
       - - dataset
-        - *id038
+        - *id037
       - - model
-        - *id039
+        - *id038
       - - knn
-        - *id040
+        - *id039
       - - training
-        - *id041
+        - *id040
       - - noise
-        - *id042
+        - *id041
       - - logger
-        - *id043
+        - *id042
       - - testing
-        - *id044
+        - *id043
     _prevent_method_masking: false
 task_loss_weights: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
@@ -645,6 +640,6 @@ task_loss_weights: !!python/object/apply:numpy.core.multiarray._reconstruct
     - null
     - null
 task_n_labels:
-- 23
-- 57
+- 24
+- 72
 - 2

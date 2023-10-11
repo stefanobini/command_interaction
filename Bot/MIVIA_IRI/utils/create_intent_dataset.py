@@ -7,7 +7,7 @@ from intents import INTENTS_DICT, CONVERSION_DICT_MSIEXP0, CONVERSION_DICT_MSI
 DATASET_NAME = "MSI"
 INPUT_DATABASE = os.path.join("recordings")
 OUTPUT_DATASET = os.path.join("..", "..", "training", "datasets", DATASET_NAME)
-EXPERIMENTATION = "reduced" # ["reduced", "full"]
+EXPERIMENTATION = "full" # ["reduced", "full"]
 REGEX = "^[0-9]*"
 intents = INTENTS_DICT
 if EXPERIMENTATION == "reduced":

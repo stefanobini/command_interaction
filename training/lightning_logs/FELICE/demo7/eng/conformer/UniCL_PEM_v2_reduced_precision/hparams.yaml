@@ -1,0 +1,526 @@
+loss_weights: !!python/object/apply:torch._utils._rebuild_tensor_v2
+- !!python/object/apply:torch.storage._load_from_bytes
+  - !!binary |
+    gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+    AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+    aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+    Z2UKcQFYCgAAADExMDY4NTQwOTZxAlgDAAAAY3B1cQNLC050cQRRLoACXXEAWAoAAAAxMTA2ODU0
+    MDk2cQFhLgsAAAAAAAAAjC66PYwuuj2MLro9jC66PYwuuj2MLro9jC66PYwuuj2MLro9jC66PYwu
+    uj0=
+- 0
+- !!python/tuple
+  - 11
+- !!python/tuple
+  - 1
+- false
+- !!python/object/apply:collections.OrderedDict
+  - []
+num_labels: 11
+settings: !!python/object/apply:dotmap.DotMap
+  dictitems:
+    dataset: &id029 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        folder: datasets/FELICE/demo7
+        noise: &id006 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            training: &id001 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                annotations: datasets/FELICE/demo7/training/annotations/noise/training.csv
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - annotations
+                    - datasets/FELICE/demo7/training/annotations/noise/training.csv
+                _prevent_method_masking: false
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - training
+                - *id001
+            _prevent_method_masking: false
+        speech: &id005 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            testing: &id004 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                annotations: datasets/FELICE/demo7/testing/annotations/eng/testing.csv
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - annotations
+                    - datasets/FELICE/demo7/testing/annotations/eng/testing.csv
+                _prevent_method_masking: false
+            training: &id002 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                annotations: datasets/FELICE/demo7/training/annotations/eng/training.csv
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - annotations
+                    - datasets/FELICE/demo7/training/annotations/eng/training.csv
+                _prevent_method_masking: false
+            validation: &id003 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                annotations: datasets/FELICE/demo7/validation/annotations/eng/validation.csv
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - annotations
+                    - datasets/FELICE/demo7/validation/annotations/eng/validation.csv
+                _prevent_method_masking: false
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - training
+                - *id002
+              - - validation
+                - *id003
+              - - testing
+                - *id004
+            _prevent_method_masking: false
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - folder
+            - datasets/FELICE/demo7
+          - - speech
+            - *id005
+          - - noise
+            - *id006
+        _prevent_method_masking: false
+    demo: demo7
+    experimentation: FELICE
+    input: &id028 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        language: eng
+        mel: &id010 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            n_mels: 40
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - n_mels
+                - 40
+            _prevent_method_masking: false
+        mfcc: &id011 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            dct_type: 2
+            log_mels: true
+            n_mfcc: 40
+            norm: ortho
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - n_mfcc
+                - 40
+              - - dct_type
+                - 2
+              - - norm
+                - ortho
+              - - log_mels
+                - true
+            _prevent_method_masking: false
+        noise: &id008 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            max_gain: 50.0
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - max_gain
+                - 50.0
+            _prevent_method_masking: false
+        sample_rate: 16000
+        spectrogram: &id009 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            hop_length: 256
+            hop_sec: 0.016
+            n_fft: 512
+            normalize: false
+            padding: &id007 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                stride: 0
+                value: -80.0
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - value
+                    - -80.0
+                  - - stride
+                    - 0
+                _prevent_method_masking: false
+            type: db
+            win_length: 512
+            win_sec: 0.032
+            window: hann
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - type
+                - db
+              - - normalize
+                - false
+              - - n_fft
+                - 512
+              - - window
+                - hann
+              - - win_sec
+                - 0.032
+              - - hop_sec
+                - 0.016
+              - - win_length
+                - 512
+              - - hop_length
+                - 256
+              - - padding
+                - *id007
+            _prevent_method_masking: false
+        type: melspectrogram
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - language
+            - eng
+          - - type
+            - melspectrogram
+          - - sample_rate
+            - 16000
+          - - noise
+            - *id008
+          - - spectrogram
+            - *id009
+          - - mel
+            - *id010
+          - - mfcc
+            - *id011
+        _prevent_method_masking: false
+    logger: &id033 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        folder: lightning_logs
+        name: FELICE/demo7/eng/conformer
+        version: UniCL_PEM_v2_reduced_precision
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - folder
+            - lightning_logs
+          - - name
+            - FELICE/demo7/eng/conformer
+          - - version
+            - UniCL_PEM_v2_reduced_precision
+        _prevent_method_masking: false
+    mode: training
+    model: &id030 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        conformer: &id016 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            convolution_first: true
+            depthwise_conv_kernel_size: 11
+            dropout: 0.2
+            ffn_dim: 128
+            num_heads: 4
+            num_layers: 4
+            use_group_norm: false
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - num_heads
+                - 4
+              - - ffn_dim
+                - 128
+              - - num_layers
+                - 4
+              - - depthwise_conv_kernel_size
+                - 11
+              - - dropout
+                - 0.2
+              - - use_group_norm
+                - false
+              - - convolution_first
+                - true
+            _prevent_method_masking: false
+        input: &id013 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            normalize: false
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - normalize
+                - false
+            _prevent_method_masking: false
+        mobilenetv2: &id015 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            pretrain_path: ./pretrained_models/mobilenetv2_0/model-best.pt.bin
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - pretrain_path
+                - ./pretrained_models/mobilenetv2_0/model-best.pt.bin
+            _prevent_method_masking: false
+        network: conformer
+        pretrain: false
+        resnet8: &id014 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            out_channel: 45
+            pooling_size: &id012 !!python/tuple
+            - 4
+            - 3
+            pretrain_path: ./pretrained_models/res8_0/model-best.pt.bin
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - pooling_size
+                - *id012
+              - - out_channel
+                - 45
+              - - pretrain_path
+                - ./pretrained_models/res8_0/model-best.pt.bin
+            _prevent_method_masking: false
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - network
+            - conformer
+          - - pretrain
+            - false
+          - - input
+            - *id013
+          - - resnet8
+            - *id014
+          - - mobilenetv2
+            - *id015
+          - - conformer
+            - *id016
+        _prevent_method_masking: false
+    n_labels: 11
+    name: /mnt/sdc1/sbini/command_interaction/training/settings/FELICE_conf.py
+    noise: &id032 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        curriculum_learning: &id019 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            distribution: UniCL_PEM_v2
+            epoch_saturation_time: 50
+            gaussian: &id018 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                max_sigma: 40
+                min_sigma: 20.0
+                sigma: 10
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - sigma
+                    - 10
+                  - - max_sigma
+                    - 40
+                  - - min_sigma
+                    - 20.0
+                _prevent_method_masking: false
+            uniform: &id017 !!python/object/apply:dotmap.DotMap
+              dictitems:
+                step: 10
+              state:
+                _dynamic: true
+                _map: !!python/object/apply:collections.OrderedDict
+                - - - step
+                    - 10
+                _prevent_method_masking: false
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - epoch_saturation_time
+                - 50
+              - - distribution
+                - UniCL_PEM_v2
+              - - uniform
+                - *id017
+              - - gaussian
+                - *id018
+            _prevent_method_masking: false
+        descent_ratio: 1.0
+        max_snr: 40
+        min_snr: 0
+        snr_step: 5
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - min_snr
+            - 0
+          - - max_snr
+            - 40
+          - - snr_step
+            - 5
+          - - descent_ratio
+            - 1.0
+          - - curriculum_learning
+            - *id019
+        _prevent_method_masking: false
+    tasks: &id027
+    - command
+    testing: &id034 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        folder: testing/FELICE
+        n_folds: 1
+        real_data: &id020 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            annotations: datasets/FELICE/MIVIA_CRF_ISC_phaseI/annotations/eng/dataset.csv
+            folder: datasets/FELICE/MIVIA_CRF_ISC_phaseI
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - folder
+                - datasets/FELICE/MIVIA_CRF_ISC_phaseI
+              - - annotations
+                - datasets/FELICE/MIVIA_CRF_ISC_phaseI/annotations/eng/dataset.csv
+            _prevent_method_masking: false
+        results_path: null
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - folder
+            - testing/FELICE
+          - - n_folds
+            - 1
+          - - results_path
+            - null
+          - - real_data
+            - *id020
+        _prevent_method_masking: false
+    training: &id031 !!python/object/apply:dotmap.DotMap
+      dictitems:
+        accelerator: gpu
+        batch_size: 128
+        check_val_every_n_epoch: 1
+        checkpoint: &id023 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            metric_to_track: val_loss
+            save_top_k: 1
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - metric_to_track
+                - val_loss
+              - - save_top_k
+                - 1
+            _prevent_method_masking: false
+        device: 0
+        early_stop: &id024 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            patience: 8
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - patience
+                - 8
+            _prevent_method_masking: false
+        lr: &id022 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            auto_find: false
+            value: 0.01
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - auto_find
+                - false
+              - - value
+                - 0.01
+            _prevent_method_masking: false
+        max_epochs: -1
+        min_epochs: 1
+        num_workers: 40
+        optimizer: &id026 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            amsgrad: false
+            betas: &id021
+            - 0.9
+            - 0.999
+            eps: 0.0001
+            grad_averaging: false
+            mode: min
+            weight_decay: 0.0001
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - mode
+                - min
+              - - weight_decay
+                - 0.0001
+              - - eps
+                - 0.0001
+              - - betas
+                - *id021
+              - - grad_averaging
+                - false
+              - - amsgrad
+                - false
+            _prevent_method_masking: false
+        reduce_lr_on_plateau: &id025 !!python/object/apply:dotmap.DotMap
+          dictitems:
+            patience: 5
+          state:
+            _dynamic: true
+            _map: !!python/object/apply:collections.OrderedDict
+            - - - patience
+                - 5
+            _prevent_method_masking: false
+        reject_percentage: 0.5
+        test_model: false
+      state:
+        _dynamic: true
+        _map: !!python/object/apply:collections.OrderedDict
+        - - - test_model
+            - false
+          - - reject_percentage
+            - 0.5
+          - - num_workers
+            - 40
+          - - accelerator
+            - gpu
+          - - device
+            - 0
+          - - max_epochs
+            - -1
+          - - min_epochs
+            - 1
+          - - batch_size
+            - 128
+          - - lr
+            - *id022
+          - - checkpoint
+            - *id023
+          - - check_val_every_n_epoch
+            - 1
+          - - early_stop
+            - *id024
+          - - reduce_lr_on_plateau
+            - *id025
+          - - optimizer
+            - *id026
+        _prevent_method_masking: false
+  state:
+    _dynamic: true
+    _map: !!python/object/apply:collections.OrderedDict
+    - - - name
+        - /mnt/sdc1/sbini/command_interaction/training/settings/FELICE_conf.py
+      - - mode
+        - training
+      - - experimentation
+        - FELICE
+      - - tasks
+        - *id027
+      - - demo
+        - demo7
+      - - n_labels
+        - 11
+      - - input
+        - *id028
+      - - dataset
+        - *id029
+      - - model
+        - *id030
+      - - training
+        - *id031
+      - - noise
+        - *id032
+      - - logger
+        - *id033
+      - - testing
+        - *id034
+    _prevent_method_masking: false

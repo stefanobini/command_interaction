@@ -15,13 +15,13 @@ def convert_audio(input_audio, output_audio):
     if process.returncode != 0:
         raise Exception("Conversion error for file:", input_audio)
 
-DST_DATASET_NAME = "MSIexp1"
+DST_DATASET_NAME = "MSI"
 SRC_DATASET = os.path.join("datasets", "google_speech_commands_v1")
 DST_DATASET = os.path.join("datasets", DST_DATASET_NAME)
 dst_rjt_dataset = os.path.join(DST_DATASET, "rejects")
-ENG_RJT_DATASET_SIZE = 2400/4
-ESP_RJT_DATASET_SIZE = 630/4
-ITA_RJT_DATASET_SIZE = 2600/4
+ENG_RJT_DATASET_SIZE = 2600/4
+ESP_RJT_DATASET_SIZE = 700/4
+ITA_RJT_DATASET_SIZE = 2700/4
 THRESH = True
 LANGs = ["eng", "esp", "ita"]
 CMD_LIST = {
@@ -78,7 +78,6 @@ RJT_LIST = {
         'seven',
         'sheila',
         'six',
-        'stop',
         'three',
         'tree',
         'two',
@@ -110,7 +109,6 @@ RJT_LIST = {
         'seven',
         'sheila',
         'six',
-        'stop',
         'three',
         'tree',
         'two',

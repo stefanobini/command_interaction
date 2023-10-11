@@ -13,7 +13,7 @@ import torchaudio
 from utils.preprocessing import Preprocessing
 from utils.settings.SCR_conf import settings
 
-SRC_DATASET = "MSIexp1"
+SRC_DATASET = "MSI"
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]

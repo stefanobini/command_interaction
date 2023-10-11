@@ -13,7 +13,7 @@ settings.tasks:List[str] = ["intent", "explicit", "implicit"]                   
 info = ""
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -51,7 +51,7 @@ settings.dataset.knn.testing.annotations:str = os.path.join(settings.dataset.knn
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "HS_msi"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
+settings.model.network:str = "HS"                                      # ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -93,7 +93,7 @@ settings.knn.plotting:bool = False  # If <True> plot the train example on two di
 '''Training'''
 settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 48
+settings.training.num_workers:str = 40
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:str = 0                                        # list of the GPU devices to use
 settings.training.max_epochs:int = 100
@@ -114,6 +114,7 @@ settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
 settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights", "fixed_weights"]
 settings.training.loss.grad_norm.alpha:float = 0.5                         # Default = 0.12. For task with different level of complexity an higher value of alpha should be used to enforce the stronger training rate balancing
+settings.training.loss.weights = [1., 1., 1.]
 
 '''Noise & Curriculum Learning'''
 settings.noise.min_snr:int = 20                                              # [-10, 20]

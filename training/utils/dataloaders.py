@@ -296,7 +296,7 @@ class TrainingMiviaDataset(MiviaDataset):
 
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
-
+        
         return rel_speech_path, item, self.settings.input.sample_rate, speech_item.type, speech_item.subtype, speech_item.speaker, int(speech_item.command), snr
 
 
@@ -415,8 +415,8 @@ class TestingMiviaDataset(MiviaDataset):
 
         if settings.testing.real_data.folder:
             self.dataset_path = settings.testing.real_data.folder
-            self.speech_annotations = pd.read_csv(settings.testing.real_data.annotations)
-        if "MTL" in settings.experimentation:
+            self.speech_annotations = pd.read_csv(settings.testing.real_data.annotations, sep=',')
+        elif "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
             self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
         else:
@@ -472,7 +472,7 @@ class TestingMiviaDataset(MiviaDataset):
         
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
-
+        
         return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), snr
             
 class knnMiviaDataset(MiviaDataset):
@@ -567,7 +567,12 @@ class MiviaSpeechIntent(Dataset):
         #path,type,subtype,speaker,intent,exp_intent,imp_intent
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
-        full_path = os.path.join(self.dataset_path, rel_path)
+        if "mozilla" in pre_item.subtype:
+            full_path = os.path.join("datasets", "mozilla_common_voices", rel_path)
+        elif "google" in pre_item.subtype:
+            full_path = os.path.join("datasets", "google_speech_commands_v1", rel_path)
+        else:
+            full_path = os.path.join(self.dataset_path, rel_path)
         waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
@@ -688,7 +693,12 @@ class Training_MSI(MiviaSpeechIntent):
         """
         speech_item = self.speech_annotations.iloc[index]
         rel_speech_path = speech_item.path
-        speech_path = os.path.join(self.dataset_path, rel_speech_path)
+        if "mozilla" in speech_item.subtype:
+            speech_path = os.path.join("datasets", "mozilla_common_voices", rel_speech_path)
+        elif "google" in speech_item.subtype:
+            speech_path = os.path.join("datasets", "google_speech_commands_v1", rel_speech_path)
+        else:
+            speech_path = os.path.join(self.dataset_path, rel_speech_path)
         speech, speech_sample_rate = torchaudio.load(filepath=speech_path)
         speech = self.preprocessing.resample_audio(waveform=speech, sample_rate=speech_sample_rate)  # uniform sample rate
         speech = torch.mean(input=speech, dim=0, keepdim=True)  # reduce to one channel
@@ -816,7 +826,12 @@ class Validation_MSI(MiviaSpeechIntent):
         """
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
-        full_path = os.path.join(self.dataset_path, rel_path)
+        if "mozilla" in pre_item.subtype:
+            full_path = os.path.join("datasets", "mozilla_common_voices", rel_path)
+        elif "google" in pre_item.subtype:
+            full_path = os.path.join("datasets", "google_speech_commands_v1", rel_path)
+        else:
+            full_path = os.path.join(self.dataset_path, rel_path)
         waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
@@ -904,7 +919,12 @@ class Testing_MSI(MiviaSpeechIntent):
         """
         pre_item = self.speech_annotations.iloc[index]
         rel_path = pre_item.path
-        full_path = os.path.join(self.dataset_path, rel_path)
+        if "mozilla" in pre_item.subtype:
+            full_path = os.path.join("datasets", "mozilla_common_voices", rel_path)
+        elif "google" in pre_item.subtype:
+            full_path = os.path.join("datasets", "google_speech_commands_v1", rel_path)
+        else:
+            full_path = os.path.join(self.dataset_path, rel_path)
         waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel

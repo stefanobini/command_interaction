@@ -16,15 +16,15 @@ def convert_audio(input_audio, output_audio):
         raise Exception("Conversion error for file:", input_audio)
 
 LANGs = ["eng", "esp", "ita"]
-DST_NAME = "MSIexp1"
+DST_NAME = "MSI"
 SRC_PATH = os.path.join("datasets", "mozilla_common_voices")
 DST_PATH = os.path.join("datasets", DST_NAME, "rejects")
 THRESH = True
 # N_SAMPLES = 8000
 N_SAMPLES = {
-    "eng":2400/4,
-    "esp":630/4,
-    "ita":2600/4
+    "eng":2600/4,
+    "esp":700/4,
+    "ita":2700/4
 }
 HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit"]
 OUT_ANNOTATION_PATH = os.path.join("datasets", DST_NAME, "mozilla_annotations_.csv")
@@ -61,8 +61,8 @@ for lang in LANGs:
                 # file_wav = AudioSegment.from_mp3(src_sample_path) # from .mp3 to .wav
                 # file_wav.export(dst_sample_path.replace('.mp3', '.wav'), format='wav')
             #"""
-
-            data["path"].append(file)
+            path = os.path.join(lang, file)
+            data["path"].append(path)
             data["type"].append("reject")
             data["subtype"].append("mozilla")
             data["speaker"].append("unknown")

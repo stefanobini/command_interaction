@@ -2,8 +2,9 @@
 python3 train.py --configuration FELICE_conf 2>&1 | tee t0_log.txt
 python3 train.py --configuration SCR_conf 2>&1 | tee t0_log.txt
 python3 train.py --configuration MTL_conf 2>&1 | tee t0_log.txt
-python3 train.py --configuration MSIexp0_conf 2>&1 | tee t0_log.txt
+python3 train.py --configuration MSIexp0_conf 2>&1 | tee t0_log.txtdh
 python3 train.py --configuration MSIexp1_conf 2>&1 | tee t0_log.txt
+python3 train.py --configuration MSI_conf 2>&1 | tee t0_log.txt
 """
 import os
 import sys
@@ -160,7 +161,7 @@ elif settings.model.network == "mobilenetv2":
 elif settings.model.network == "conformer":
     model = Conformer_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
 elif settings.model.network == "HS":
-    model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
+    model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=[None for i in range(len(settings.training.loss.weights))])).cuda(settings.training.device)
 elif settings.model.network == "SS":
     model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
 elif settings.model.network == "HS_msi":

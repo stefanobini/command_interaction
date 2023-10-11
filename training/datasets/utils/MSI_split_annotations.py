@@ -6,7 +6,7 @@ from typing import Tuple
 
 LANGS = ["eng", "esp", "ita"]
 
-DATASET_NAME = "MSIexp1"
+DATASET_NAME = "MSI"
 INPUT_DATASET_PATH = os.path.join("datasets", DATASET_NAME)
 INPUT_NOISE_PATH = os.path.join("datasets", DATASET_NAME, "annotations", "noise")
 OUTPUT_DATASET_PATH = os.path.join("datasets", DATASET_NAME)

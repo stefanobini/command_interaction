@@ -1,27 +1,11 @@
-from typing import Dict
-import os
-import sys
-import pickle
-import shutil
 from dotmap import DotMap
-import pandas
-
 import numpy as np
 import torch
-import torchmetrics
-from torch.optim.lr_scheduler import ReduceLROnPlateau
-import pytorch_lightning as pl
-from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
-
-# import torch_optimizer
-
 import colorama
 colorama.init(autoreset=True)
-from colorama import Back, Fore
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 # from settings.MTL_conf import settings
-from utils.scr_si_loss import MT_loss
 from models.pl_mtl_backbone import PL_MTL_Backbone
 
 

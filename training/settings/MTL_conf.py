@@ -122,6 +122,7 @@ settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
 settings.training.loss.type:str = "grad_norm"                               # ["grad_norm", "equal_weights", "fixed_weights"]
 settings.training.loss.grad_norm.alpha:float = 0.5                         # Default = 0.12. For task with different level of complexity an higher value of alpha should be used to enforce the stronger training rate balancing
+settings.training.loss.weights = [1.2, 0.8]
 
 '''Noise & Curriculum Learning'''
 settings.noise.min_snr:int = 40                                              # [-10, 20]

@@ -97,7 +97,7 @@ class PL_MTL_Backbone(pl.LightningModule):
 
     def set_training_parameters(self, task_loss_weights:np.float32=None):
         self.grad_norm = self.settings.training.loss.type == "grad_norm"
-        weights = torch.tensor(data=[1.2, 0.8]) if self.settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1., 1.])
+        weights = torch.tensor(data=self.settings.training.loss.weights) if self.settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1. for i in range(self.n_tasks)])
         self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks) * weights, requires_grad=self.grad_norm)
         self.loss_fn = MT_loss(weights=task_loss_weights)
         self.batch_size = self.settings.training.batch_size

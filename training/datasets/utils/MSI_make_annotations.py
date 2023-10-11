@@ -20,11 +20,11 @@ from intents import INTENTS, EXPLICIT_INTENTS, IMPLICIT_INTENTS, INTENTS_DICT_MS
 
 
 LANGS = ["eng", "esp", "ita"]
-IN_DATASET_NAME = "MSIexp1"
+IN_DATASET_NAME = "MSI"
 IN_DATASET_PATH = os.path.join("datasets", IN_DATASET_NAME)
 #REJECT_ANNOTATION_PATH = os.path.join("datasets", "REJECT_DATASET", "MSI_google_annotations_LANG.csv")
 REJECT_DATASETS = ["google_speech_commands_v1", "mozilla_common_voices", IN_DATASET_NAME]
-REJECT_NAMES = ["google", "mozilla", "telegram"]
+REJECT_NAMES = ["google", "mozilla"]#, "telegram"]
 REJECT_ANNOTATION_PATHS = [os.path.join(IN_DATASET_PATH, "{}_annotations_LANG.csv".format(dataset)) for dataset in REJECT_NAMES]
 OUT_PATH = os.path.join(IN_DATASET_PATH, "annotations")
 HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit"]
@@ -100,7 +100,7 @@ def add_reject_samples(path, subtype, lang, data):
         data["speaker"].append(rejects_df["speaker"][idx])
         if "MSIexp0" in IN_DATASET_NAME:
             data["command"].append(rejects_df["command"][idx])
-        elif "MSIexp1" in IN_DATASET_NAME:
+        elif "MSIexp1" in IN_DATASET_NAME or "MSI"==IN_DATASET_NAME:
             data["intent"].append(rejects_df["intent"][idx])
             data["explicit"].append(rejects_df["explicit"][idx])
             data["implicit"].append(rejects_df["implicit"][idx])
