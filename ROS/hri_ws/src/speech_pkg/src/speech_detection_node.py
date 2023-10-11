@@ -148,7 +148,7 @@ class SpeechDetectionNode:
 
         # Environment calibration
         self.speechRecognition.calibrate()                  # there is not in the DeSimone demo
-        self.speechRecognition.get_speech_frame(timeout=1)  # there is no timeout in the DeSimone demo
+        self.speechRecognition.get_speech_frame(timeout=2)  # there is no timeout in the DeSimone demo
 
 
         # Loop

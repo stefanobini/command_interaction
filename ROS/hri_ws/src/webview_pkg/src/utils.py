@@ -8,7 +8,7 @@ import os
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 
-from gesture_commands import GESTURE_COMMANDS
+from gesture_commands import GESTURES
 
 
 LANG = "eng"
@@ -76,7 +76,7 @@ class ImageStream(object):
             top = int(msg_state.bbox.center.y - msg_state.bbox.size_y//2)
             cv2.rectangle(img, (left, top), (right, bottom),  (0, 255, 0), 2)
             #cv2.putText(img, '{} ({:.2f})'.format(detection.header.frame_id, detection.results[0].score), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
-            cv2.putText(img, '{}'.format(GESTURE_COMMANDS[label][LANG]), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
+            cv2.putText(img, '{}'.format(GESTURES[label][LANG]), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
 
         #out.write(img)
         if not label == 13 and self.count > 10:
@@ -84,7 +84,7 @@ class ImageStream(object):
                 self.count = 0
                 self.previous_label = label
                 message = String()
-                message.data = GESTURE_COMMANDS[label][LANG]
+                message.data = GESTURES[label][LANG]
         self.image = img
         # print(self.image.shape)
         """ret, buffer = cv2.imencode('.jpg', img)

@@ -12,5 +12,4 @@ class GMM_VAD(VoiceActivityDetector):
         self.vad = webrtcvad.Vad(mode)
 
     def is_speech(self, buffer):
-
         return self.vad.is_speech(buffer,self.sampling_rate)

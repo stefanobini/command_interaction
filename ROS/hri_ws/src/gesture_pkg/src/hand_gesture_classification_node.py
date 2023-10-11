@@ -29,16 +29,16 @@ os.environ['TF_GPU_ALLOCATOR'] = 'cuda_sqmalloc_async'
 WINDOW_SIZE = io.camera.fps                                         # size of the sliding windows to average the gesture classification
 N_GESTURES = len(GESTURES)                      # number of gesture considered
 MAX_DISAPPEARED = io.camera.fps                                     # number of frames after wich the tracker consider an unseen entity disappeared
-LANGUAGE = "eng"                                        # "eng" or "ita"
-DETECTOR_THRESH = 0.8
+DETECTOR_THRESH = 0.5
 SIZE_THRESH = None
 ROBOT_UUID = uuid.uuid1().node
+GESTURE_THRESHOLD:float = 0.3
 
 
 class Callback:
 
     
-    def __init__(self, publisher=None, detector=None, post_request=None):
+    def __init__(self, publisher=None, detector=None, post_request=None, webviewer=False):
         self.bridge = CvBridge()
         self.detector = detector
         self.publisher = publisher
@@ -46,10 +46,12 @@ class Callback:
         self.hands_tracker = CentroidTracker(maxDisappeared=MAX_DISAPPEARED)
         self.window_size = WINDOW_SIZE
         self.n_gestures = N_GESTURES
+        self.webviewer = webviewer
         self.sliding_windows = dict()
         self.frame = 0
         self.timestamp = time.time()
         self.transforms = transforms.Compose([transforms.ToTensor()]) 
+        self.last_gesture = 0
 
 
     def __call__(self, msg):
@@ -125,13 +127,20 @@ class Callback:
         gesture = int(detection.header.frame_id)
         confidence = float(detection.results[0].score)
         #print(gesture, GESTURES[gesture]["eng"])
-        if self.post_request is not None and gesture!=0:
-            # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
-            self.post_request.send_command(command_id=gesture, confidence=confidence)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
-        else:
+        if gesture!=0 and gesture!=N_GESTURES-1 and confidence > GESTURE_THRESHOLD:
+            if self.post_request is not None:
+                # self.post_request.send_command(command_id=response.detections[0].header.frame_id, confidence=response.detections[0].results[0].score)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+                self.post_request.send_command(command_id=gesture, confidence=confidence)    # IF WE WANT PUBLISH ON FIWARE CONTEXTBROKER
+            elif gesture!=self.last_gesture:
+                res_str = Fore.MAGENTA + '#'*6 + ' GESTURE FRAME  ' + '#'*6 + '\n# ' + Fore.LIGHTMAGENTA_EX + '{}: {:.3f}'.format(GESTURES[gesture]["eng"], confidence) + Fore.MAGENTA + ' #\n# ' + Fore.LIGHTMAGENTA_EX + '{}: {:.3f}'.format(GESTURES[gesture]["ita"], confidence) + Fore.MAGENTA + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+                print(res_str)
+
+        if self.webviewer:
             # self.publisher.publish(response)
             self.publisher.publish(detection)
         
+        self.last_gesture = gesture
+
         #self.timestamp = time.time()
         #det_time = self.timestamp - prevoius_timestamp    
         #frame_rate = round(1 / (det_time), 2)
@@ -143,7 +152,7 @@ class HandDetectorNode:
 
 
     def start(self):
-        global LANGUAGE, ROBOT_UUID
+        global ROBOT_UUID
 
         rospy.init_node('hand_gesture_recognition_node', anonymous=True)
         # pub = rospy.Publisher("hand_gesture_recognition", Detection2DArray, queue_size=1)
@@ -153,13 +162,14 @@ class HandDetectorNode:
 
         LANGUAGE = rospy.get_param("/language")
         FIWARE_CB = rospy.get_param("/fiware_cb")
+        WEBVIEWER = rospy.get_param("/webviewer")
 
         if FIWARE_CB != "None":
             post_request = MyRequestPost(instance_uuid=ROBOT_UUID, entity="UNISA.SpeechGestureAnalysis.Gesture", msg_type="Gesture", address=FIWARE_CB, port=1026)
             post_request.create_entity()
-            callback = Callback(pub, detector, post_request)
-        else:
-            callback = Callback(pub, detector)
+            callback = Callback(publisher=pub, detector=detector, post_request=post_request)
+        if WEBVIEWER:
+            callback = Callback(publisher=pub, detector=detector, webviewer=WEBVIEWER)
         
         print(Fore.GREEN + '#################\n#               #\n# MODELS LOADED #\n#               #\n#################' + Fore.RESET)
         sub = rospy.Subscriber("in_rgb", Image, callback)

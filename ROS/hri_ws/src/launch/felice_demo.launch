@@ -1,10 +1,32 @@
 <launch>
-
-    <param name="language" type="str" value="ita"/>  <!-- "ita" or "eng" -->
+    <!-- General Settings -->
+    <param name="language" type="str" value="eng"/>  <!-- "ita" or "eng" -->
+    <param name="demo" type="str" value="7_phaseI"/>   <!-- full: full demo; 3: AWS demo; 7: robot demo (2 tools); 7_plus: robot demo (3 tools); 7_phaseI -->
     
+    <!-- NETWORK Settings -->
+    <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/>  --> <!-- CRF_network -->
+    <!-- <param name="fiware_cb" type="str" value="10.0.1.226"/> -->  <!-- mivia_network -->
+    <!-- <param name="fiware_cb" type="str" value="192.168.1.181"/> -->  <!-- beisHome_network -->
+    <param name="fiware_cb" type="str" value="None"/>  <!-- no Fiware -->
+
+    <!-- SPEECH Settings -->
+    <param name="vad" type="str" value="none" />   <!-- Try with Silero VAD ["webrtcvad", "silero", "none"]-->
+    <param name="save_speech" type="bool" value="False"/>
+
+    <!-- WEBVIEWER Settings -->
+    <param name="webviewer" type="bool" value="True"/>  <!-- ["False", "True"] -->
+
+    <!-- SPEECH Nodes -->
+    <node pkg="speech_pkg" name="classifier" type="speech_classification_node.py" output="screen"/>
+    <node pkg="speech_pkg" name="manager" type="manager_node.py" output="screen"/>
+    <node pkg="speech_pkg" name="speech_detection_node" type="speech_detection_node.py" output="screen"/>
+    <node pkg="speech_pkg" name="microphone_node" type="microphone_node.py" output="screen"/>
+
+    <!-- GESTURE Nodes -->
     <node pkg="gesture_pkg" name="image_input_node" type="image_input_node.py" output="screen"/>
     <node pkg="gesture_pkg" name="hand_gesture_classification_node" type="hand_gesture_classification_node.py" output="screen"/>
 
+    <!-- WEBVIEWER Node -->
     <node pkg="webview_pkg" name="webview_node" type="webview_node.py" output="screen"/>
 
 </launch>

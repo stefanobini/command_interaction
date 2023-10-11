@@ -19,12 +19,12 @@ colorama.init(autoreset=True)
 from colorama import Fore, Back
 import librosa
 from PIL import Image
-
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
-#from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
 import time
 import torchaudio
 from dotmap import DotMap
+
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
+#from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
 
 #from mtl_exp.MTL_conf import settings
 from settings.felice import settings

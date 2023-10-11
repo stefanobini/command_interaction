@@ -6,7 +6,7 @@
     <!-- <param name="fiware_cb" type="str" value="192.168.1.181"/> -->  <!-- beisHome_network -->
     <param name="fiware_cb" type="str" value="None"/>  <!-- no Fiware -->
 
-    <param name="vad" type="str" value="webrtcvad" />   <!-- Try with Silero VAD ["webrtcvad", "silero"]-->
+    <param name="vad" type="str" value="none" />   <!-- Try with Silero VAD ["webrtcvad", "silero", "none"]-->
     <param name="save_speech" type="bool" value="False"/>
 
     <node pkg="speech_pkg" name="classifier" type="speech_classification_node.py" output="screen"/>

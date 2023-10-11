@@ -22,7 +22,7 @@ robot_listening = True
 robot_uuid = uuid.uuid1().node
 START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
 GO_THRESHOLD = 0.7
-CMD_THRESHOLD = 0.0
+CMD_THRESHOLD = 0.5
 RELEASE_THRESHOLD = 0.15
 res_str = ""
 
@@ -70,9 +70,11 @@ def run_demo7(req):
         prob = 0.
         #cb_reply_time = time.time()
         if FIWARE_CB == "None" and res.cmd!=len(command_eng)-1 and res.probs[res.cmd] > CMD_THRESHOLD:
-            # pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
+            pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
             res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
             print(res_str)
+        elif FIWARE_CB == "None":
+            pass
         # REMOVE FALSE FROM THE FOLLOWING LINE, insert only for test
         elif False and res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1:
             cmd = offset

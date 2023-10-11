@@ -12,6 +12,11 @@ rostopic echo comunication_pkg/Speech
 # Automatically update date
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
+# Change Jetson power mode
+cat /etc/nvpmodel.conf          # To See all available modes.
+sudo /usr/sbin/nvpmodel -q      # To see current mode.
+sudo /usr/sbin/nvpmodel -m 2    # To change power mode. The last number is the selected mode.
+
 # Network
 watch -n1 iwconfig  # Signal power
 nmcli dev wifi  # List of network
@@ -37,7 +42,7 @@ roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost
 '''For FELICE'''
 roslaunch speech_pkg felice_speech_demo.launch
 roslaunch gesture_pkg felice_gesture_demo.launch
-roslaunch felice_demo.launch
+roslaunch src/launch/felice_demo.launch
 
 # roslaunch gesture_pkg gesture_demo_felice.launch
 # roslaunch gesture_pkg gesture_demo_pepper.launch
