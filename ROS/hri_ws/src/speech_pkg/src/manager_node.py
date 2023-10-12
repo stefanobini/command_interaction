@@ -20,10 +20,10 @@ SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt
 speech_counter = 0
 robot_listening = True
 robot_uuid = uuid.uuid1().node
-START_THRESHOLD = 0.03  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
-GO_THRESHOLD = 0.7
-CMD_THRESHOLD = 0.5
-RELEASE_THRESHOLD = 0.15
+START_THRESHOLD = 0.0  # NOW IT IS NOT USED; CHANGE IN THE CODE TO ABILITATE IT
+GO_THRESHOLD = 0.0
+CMD_THRESHOLD = 0.0
+RELEASE_THRESHOLD = 0.0
 res_str = ""
 
 
@@ -56,7 +56,7 @@ def run_demo7(req):
 
     # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    #print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
+    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
 
     """
     if not robot_listening and (res.cmd == 0 or (res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng))):

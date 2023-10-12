@@ -34,7 +34,7 @@ io.speech.format = 'int16' # 'float32'
 #################### CAMERA ####################
 
 io.camera.device = 0 # 0. Realsense - 1. Pepper
-io.camera.fps = 6
+io.camera.fps = 5
 io.camera.pepper.resolution = 0 #0. 160x120 - 1. 320x240 - 2. 640x480 - 3. 1280x960
 io.camera.pepper.camera = 0 #0. Top - 1. Bottom
 io.camera.realsense.width = 640

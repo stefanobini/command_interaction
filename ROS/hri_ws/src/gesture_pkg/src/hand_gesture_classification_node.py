@@ -68,7 +68,7 @@ class Callback:
         except CvBridgeError as e:
             print(e)
         img_printed = cv_image
-        cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_printed)
+        #cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_printed)
 
         # rospy.loginfo(img.shape)
         

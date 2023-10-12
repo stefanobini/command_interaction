@@ -1,13 +1,13 @@
 <launch>
     <param name="language" type="str" value="eng"/>  <!-- "ita" or "eng" -->
     <param name="demo" type="str" value="7_phaseI"/>   <!-- full: full demo; 3: AWS demo; 7: robot demo (2 tools); 7_plus: robot demo (3 tools); 7_phaseI -->
-    <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/>  --> <!-- CRF_network -->
+    <!-- <param name="fiware_cb" type="str" value="192.168.2.106"/> -->  <!-- CRF_network -->
     <!-- <param name="fiware_cb" type="str" value="10.0.1.226"/> -->  <!-- mivia_network -->
     <!-- <param name="fiware_cb" type="str" value="192.168.1.181"/> -->  <!-- beisHome_network -->
     <param name="fiware_cb" type="str" value="None"/>  <!-- no Fiware -->
 
-    <param name="vad" type="str" value="none" />   <!-- Try with Silero VAD ["webrtcvad", "silero", "none"]-->
-    <param name="save_speech" type="bool" value="False"/>
+    <param name="vad" type="str" value="webrtcvad" />   <!-- Try with Silero VAD ["webrtcvad", "silero", "none"]-->
+    <param name="save_speech" type="bool" value="True"/>
 
     <node pkg="speech_pkg" name="classifier" type="speech_classification_node.py" output="screen"/>
     <node pkg="speech_pkg" name="manager" type="manager_node.py" output="screen"/>

@@ -32,7 +32,7 @@ ai.audio.speaker_identification.model = '/home/nvidia/DemoFramework/demo_ws/src/
 ai.audio.vad.model = Path(get_curr_dir(__file__)).parent.parent.joinpath("vad", "silero_vad.jit")
 ai.audio.vad.threshold = 0.15
 ai.audio.vad.sampling_rate = 16000
-ai.audio.vad.mode = 3
+ai.audio.vad.mode = 0   # [0, 1, 2, 3] from the less aggressive to the most one
 ai.audio.vad.device = 'cuda'
 
 ###########################################
