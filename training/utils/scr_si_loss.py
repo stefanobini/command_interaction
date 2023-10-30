@@ -4,13 +4,16 @@ import torch.nn as nn
 
 
 class MT_loss(nn.Module):
-    def __init__(self, weights:List[torch.Tensor]):
+    def __init__(self, tasks:List[str], weights:List[torch.Tensor]):
         super(MT_loss, self).__init__()
 
         self.weights = weights
         self.loss_fn = list()
-        for weight in weights:
-            self.loss_fn.append(nn.CrossEntropyLoss(weight=weight))
+        for i in range(len(tasks)):
+            if tasks[i] == "snr":
+                self.loss_fn.append(nn.MSELoss())
+            else:
+                self.loss_fn.append(nn.CrossEntropyLoss(weight=weights[i]))
 
 
     def forward(self, task_logits, task_targets):

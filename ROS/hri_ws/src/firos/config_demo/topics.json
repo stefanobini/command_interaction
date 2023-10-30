@@ -1,4 +1,0 @@
-{
-	"/UNISA/SpeechGestureAnalysis/Speech":			["speech_pkg/Speech",			"subscriber"	],
-	"/UNISA/SpeechGestureAnalysis/SystemHealth":	["speech_pkg/SystemHealth",		"subscriber"	]
-}

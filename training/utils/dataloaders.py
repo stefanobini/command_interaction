@@ -200,8 +200,10 @@ class TrainingMiviaDataset(MiviaDataset):
         
         if "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
+        elif settings.noise.augmentation.type == "static":
+            self.dataset_path = os.path.join(self.settings.dataset.annotations, "training")
         else:
-            self.dataset_path = os.path.join(self.settings.dataset.folder, "training")
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
         n_rows = None if not settings.training.test_model else settings.training.batch_size*4
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.training.annotations, sep=',', nrows=n_rows)
         self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
@@ -251,17 +253,23 @@ class TrainingMiviaDataset(MiviaDataset):
         no_silent_speech = torch.index_select(input=speech, dim=0, index=torch.tensor(no_silent_indices))
         print("Speech size: {}\tNo-silent speech size: {}\n".format(speech.size(), no_silent_speech.size()))
         #'''
+        if self.settings.noise.augmentation.type is None:
+            snr = self.settings.noise.max_snr + 1
+            item = speech
+        elif self.settings.noise.augmentation.type == "static":
+            snr = speech_item.snr
+            item = speech
+        elif self.settings.noise.augmentation.type == "dynamic":
+            noise_index = index % len(self.noise_annotations)   # compute noise index
+            noise_item = self.noise_annotations.iloc[noise_index]
+            rel_noise_path = noise_item.path
+            noise_path = os.path.join(self.dataset_path, rel_noise_path)
+            noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
+            noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
+            noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
+            snr = self.preprocessing.compute_snr(epoch=self.epoch)
+            item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr)
 
-        noise_index = index % len(self.noise_annotations)   # compute noise index
-        noise_item = self.noise_annotations.iloc[noise_index]
-        rel_noise_path = noise_item.path
-        noise_path = os.path.join(self.dataset_path, rel_noise_path)
-        noise, noise_sample_rate = torchaudio.load(filepath=noise_path)
-        noise = self.preprocessing.resample_audio(waveform=noise, sample_rate=noise_sample_rate)     # uniform sample rate
-        noise = torch.mean(input=noise, dim=0, keepdim=True)    # reduce to one channel
-        
-        snr = self.preprocessing.compute_snr(epoch=self.epoch)
-        item = self.preprocessing.get_noisy_speech(speech=speech, noise=noise, snr_db=snr)
 
         '''
         global it
@@ -329,8 +337,10 @@ class ValidationMiviaDataset(MiviaDataset):
 
         if "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
+        elif settings.noise.augmentation.type  in ["static", "dynamic"]:
+            self.dataset_path = os.path.join(self.settings.dataset.annotations, "validation")
         else:
-            self.dataset_path = os.path.join(self.settings.dataset.folder, "validation")
+            self.dataset_path = os.path.join(self.settings.dataset.folder)
         n_rows = None if not settings.training.test_model else settings.training.batch_size*4
         self.speech_annotations = pd.read_csv(self.settings.dataset.speech.validation.annotations, sep=',', nrows=n_rows)
         self.speech_annotations = self.speech_annotations if not settings.training.test_model else self.speech_annotations.head(settings.training.batch_size*4)
@@ -370,11 +380,12 @@ class ValidationMiviaDataset(MiviaDataset):
         waveform, sample_rate = torchaudio.load(filepath=full_path)
         waveform = self.preprocessing.resample_audio(waveform=waveform, sample_rate=sample_rate)  # uniform sample rate
         item = torch.mean(input=waveform, dim=0, keepdim=True)  # reduce to one channel
+        snr = self.settings.noise.max_snr + 1 if self.settings.noise.augmentation.type is None else pre_item.snr
         
         #print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(item), item.shape, item.dtype, torch.min(item), torch.max(item), torch.mean(item)))
 
         if self.settings.input.type == "waveform":
-            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
+            return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), snr
         elif self.settings.input.type == "mfcc":
             item = self.preprocessing.get_mfcc(item)
         elif self.settings.input.type == "melspectrogram":
@@ -399,7 +410,7 @@ class ValidationMiviaDataset(MiviaDataset):
         if self.settings.input.spectrogram.normalize:
             item = normalize_tensor(tensor=item)
 
-        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), pre_item.snr
+        return rel_path, item, self.settings.input.sample_rate, pre_item.type, pre_item.subtype, pre_item.speaker, int(pre_item.command), snr
 
 class TestingMiviaDataset(MiviaDataset):
 
@@ -418,6 +429,9 @@ class TestingMiviaDataset(MiviaDataset):
             self.speech_annotations = pd.read_csv(settings.testing.real_data.annotations, sep=',')
         elif "MTL" in settings.experimentation:
             self.dataset_path = os.path.join(self.settings.dataset.folder)
+            self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
+        elif "SCR_erf" in settings.experimentation:
+            self.dataset_path = os.path.join(self.settings.dataset.annotations, "testing")
             self.speech_annotations = pd.read_csv(self.settings.dataset.speech.testing.annotations.replace(".csv", "_fold{0:02d}.csv".format(fold)), sep=',')
         else:
             self.dataset_path = os.path.join(self.settings.dataset.folder, "testing")
@@ -1253,6 +1267,69 @@ def _MT_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.In
     commands = torch.stack(commands)
     snrs = torch.stack(snrs)
     return tensors, list((speakers, commands)), snrs
+
+
+def _SCR_SNRE_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.Tensor]:
+    """Process the audio samples in batch to have the same duration.
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, command)
+    
+    Parameters
+    ----------
+    batch: List[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    torch.Tensor
+        Audio samples contained in the batch
+    Tuple[torch.IntTensor, torch.FloatTensor]
+        Commands and SNR of the samples contained in the batch
+    torch.Tensor
+        Average SNR of the samples contained in the batch
+    """
+    tensors, snrs, commands = list(), list(), list()
+    avg_snr = 0
+    max_length = 0
+    for path, tensor, _, _, _, _, command, snr in batch:
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        commands += [label_to_index(command)]
+        snrs += [torch.tensor(data=snr, dtype=torch.float32)]
+        avg_snr += snr
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    commands = torch.stack(commands)
+    snrs = torch.stack(snrs)
+    avg_snr = torch.tensor(avg_snr/len(tensors))
+
+    return tensors, list((commands, snrs)), avg_snr
+
+def _SCR_SNRE_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor]:
+    """Process the audio samples in batch to have the same duration. It is used for validation phase because it manages a CombinedLoader
+    The data tuple has the form:
+    (path, item, sample_rate, type, subtype, speaker, command, snr)
+    
+    Parameters
+    ----------
+    batch: Dict[torch.Tensor]
+        List of tensor contained in the batch
+
+    Returns
+    -------
+    Dict[int, torch.Tensor]
+        Combined batch (dictionary of batches) with audio sample of the same length
+    """
+    tensors, commands, snrs = list(), list(), list()
+    max_length = 0
+    for path, tensor, _, _, _, _, command, snr in batch:
+        max_length = tensor.size(2) if tensor.size(2)>max_length else max_length
+        tensors += [tensor]    # tensor size (CxFxT)
+        commands += [label_to_index(command)]
+        snrs += [torch.tensor(data=snr, dtype=torch.float32)]
+    tensors = pad_spectrograms(tensors, max_length=max_length, value=SPECT_PAD_VALUE, stride=PAD_STRIDE)
+    commands = torch.stack(commands)
+    snrs = torch.stack(snrs)
+    return tensors, list((commands, snrs)), snrs
 
 
 def _MSI_train_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]:

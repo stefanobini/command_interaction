@@ -91,8 +91,8 @@ class PL_Backbone(pl.LightningModule):
         if os.path.exists(self.results_file):
             os.remove(self.results_file)
         self.results_file_snr = os.path.join(self.results_folder, "test_results_snr.txt")
-        if os.path.exists(self.results_file_snr):
-            os.remove(self.results_file_snr)
+        #if os.path.exists(self.results_file_snr):
+        #    os.remove(self.results_file_snr)
 
 
     def forward(self, x:torch.Tensor) -> torch.Tensor:
@@ -344,30 +344,31 @@ class PL_Backbone(pl.LightningModule):
         '''
         ## Compute metrics for each SNR
         # Construct and fill dictionary that contains the predictions and target devided by SNR
-        outputs = dict()
-        for snr in self.snrs:
-            outputs[snr] = {"preds": list(), "targs": list()}
-        for idx in range(len(snrs)):
-        #for idx in range(len_val):
-            outputs[snrs[idx].item()]["preds"].append(preds[idx])
-            outputs[snrs[idx].item()]["targs"].append(targets[idx])
-        
-        # Convert lists in tensors
-        for snr in self.snrs:    
-            outputs[snr]["preds"] = torch.stack(outputs[snr]["preds"])
-            outputs[snr]["targs"] = torch.stack(outputs[snr]["targs"])
-        
-        # Compute metrics for each SNR
-        for snr in self.snrs:
-            snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
-            snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
-            pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
-            snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
+        if self.settings.noise.augmentation.type in ["static", "dynamic"]:
+            outputs = dict()
+            for snr in self.snrs:
+                outputs[snr] = {"preds": list(), "targs": list()}
+            for idx in range(len(snrs)):
+            #for idx in range(len_val):
+                outputs[snrs[idx].item()]["preds"].append(preds[idx])
+                outputs[snrs[idx].item()]["targs"].append(targets[idx])
             
-            self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
-            self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
-            self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
+            # Convert lists in tensors
+            for snr in self.snrs:    
+                outputs[snr]["preds"] = torch.stack(outputs[snr]["preds"])
+                outputs[snr]["targs"] = torch.stack(outputs[snr]["targs"])
+            
+            # Compute metrics for each SNR
+            for snr in self.snrs:
+                snr_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="micro")
+                snr_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=outputs[snr]["preds"], target=outputs[snr]["targs"], task="multiclass", num_classes=self.num_labels, average="weighted")
+                pred_reject_y = outputs[snr]["preds"] == (self.num_labels-1)    # '1' for reject, '0' for command
+                targ_reject_y = outputs[snr]["targs"] == (self.num_labels-1)    # '1' for reject, '0' for command
+                snr_reject_accuracy = torchmetrics.functional.classification.binary_accuracy(preds=pred_reject_y, target=targ_reject_y)
+                
+                self.log("accuracy_{}_dB".format(snr), snr_accuracy, on_epoch=True, logger=True)
+                self.log("balanced_accuracy_{}_dB".format(snr), snr_balanced_accuracy, on_epoch=True, logger=True)
+                self.log("reject_accuracy_{}_dB".format(snr), snr_reject_accuracy, on_epoch=True, logger=True)
 
         '''
         with open("val_preds.txt", "wb") as fout:
@@ -431,7 +432,7 @@ class PL_Backbone(pl.LightningModule):
             balanced_accuracies.append(balanced_accuracy.cpu().numpy())
             reject_accuracies.append(reject_accuracy.cpu().numpy())
 
-            ''' ADD SNRs Analysis
+            #''' ADD SNRs Analysis
             # Construct and fill dictionary that contains the predictions and target devided by SNR
             for snr in self.snrs:
                 outputs[snr] = {"logits": list(), "targets": list()}
@@ -473,7 +474,7 @@ class PL_Backbone(pl.LightningModule):
         
             #'''
             
-        #''' ADD STATITICAL ANALYSIS ON <accuracies>
+        ''' ADD STATITICAL ANALYSIS ON <accuracies>
         columns = ["fold", "accuracy", "balanced_accuracy", "reject_accuracy"]
         result_dict = {"fold": [i for i in range(self.settings.testing.n_folds)], "accuracy": accuracies, "balanced_accuracy": balanced_accuracies, "reject_accuracy": reject_accuracies}
         result_df = pandas.DataFrame(data=result_dict, columns=columns)

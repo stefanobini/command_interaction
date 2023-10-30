@@ -1,0 +1,16 @@
+# From ./Bot/MIVIA_IRI/ run:
+```bash
+python3 utils/create_intent_dataset.py
+```
+
+
+# From ./training/ run:
+```bash
+python3 datasets/utils/MSI_include_google.py 
+python3 datasets/utils/MSI_include_mozilla_rjt.py
+python3 datasets/utils/MSI_make_annotations.py
+python3 datasets/utils/MSI_split_annotations.py
+python3 datasets/utils/MSI_build_dataset.py
+
+python3 train.py --configuration MSI_conf 2>&1 | tee t0_log.txt
+```

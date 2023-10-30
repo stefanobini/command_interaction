@@ -1,8 +1,0 @@
-prefix=/home/felice/command_interaction/ROS/hri_ws/devel
-
-Name: comunication_pkg
-Description: Description of comunication_pkg
-Version: 0.0.0
-Cflags: -I/home/felice/command_interaction/ROS/hri_ws/devel/include
-Libs: -L${prefix}/lib 
-Requires: roscpp rospy std_msgs message_runtime

@@ -24,7 +24,9 @@ from models.hardsharing import HardSharing_PL
 # from models.hardsharing_mobilenetv2 import HardSharing_PL
 from models.softsharing import SoftSharing_PL
 # from models.softsharing_mobilenetv2 import SoftSharing_PL
-from models.MSI_hardsharing import HardSharing_PL as HardSharing_MSI
+
+
+N_COMMANDS = 31
 
 
 # Reduce the internal precision of the matrix multiplications (the type of the variable doesn't change)
@@ -62,7 +64,7 @@ pl.seed_everything(220295)
 test_set, main_labels, test_collate_fn = None, list(), None
 if settings.tasks == ["command"]:
     test_set = TestingMiviaDataset(settings=settings)
-    labels = [[i for i in range(11)]] # test_set._get_labels()
+    labels = [[i for i in range(N_COMMANDS)]] # test_set._get_labels()
     main_labels = labels[0]
     task_n_labels = len(main_labels)
     test_collate_fn = _SCR_val_collate_fn

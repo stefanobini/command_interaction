@@ -1,5 +1,8 @@
 #doc: https://python-telegram-bot.readthedocs.io/en/stable/
 #github rep: https://github.com/python-telegram-bot/python-telegram-bot
+"""
+python3 main.py 2>&1 | tee bot_log.txt
+"""
 
 import logging
 import time

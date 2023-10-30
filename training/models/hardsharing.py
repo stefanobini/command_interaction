@@ -76,32 +76,6 @@ class HardSharing_PL(PL_MTL_Backbone):
             self.add_module("out_{}".format(self.tasks[task]), torch.nn.Linear(embedding_size, task_n_labels[task]))
         # self.softmax = torch.nn.Softmax(dim=1)
         
-        
-    def forward(self, x:torch.Tensor) -> torch.Tensor:
-        """Forward the network.
-        Input size: (Batch, Channel, Frequency, Time)
-        
-        Parameters
-        ----------
-        x: torch.Tensor
-            Input tensor
-        
-        Returns
-        -------
-        torch.Tensor
-            Logit tensor
-        """
-        #print(Back.BLUE + "ResNet - input shape: {}".format(x.size()))
-        '''For SrID
-        shared_embedding, speaker_embedding = self.get_embeddings(x=x) # For SrID
-        return self.command_output(shared_embedding), self.speaker_output(speaker_embedding)
-        #'''
-        shared_embedding = self.get_embeddings(x=x)
-        outputs = list()
-        for task in range(self.n_tasks):
-            output = getattr(self, "out_{}".format(self.tasks[task]))(shared_embedding)
-            outputs.append(output)
-        return outputs
 
     def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
         """Extract the shared and speaker embeddings from the input.

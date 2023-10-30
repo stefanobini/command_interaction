@@ -1,4 +1,5 @@
 #VARS
+"""
 command_eng = {
     0: "Increase the illumination",
     1: "Decrease the illumination",
@@ -69,6 +70,65 @@ command_ita = {
     30: "Rilascia",
     31: "Portami la mostrina comandi",
     32: "Prendi la mostrina comandi"
+}
+"""
+
+command_eng = {
+    0: "Increase the height",
+    1: "Decrease the height",
+    2: "Increase the inclination",
+    3: "Decrease the inclination",
+    4: "Increase the illumination",
+    5: "Decrease the illumination",
+    6: "Bring me the gun screwdriver",
+    7: "Take the gun screwdriver",
+    8: "Bring me the elbow screwdriver one",
+    9: "Take the elbow screwdriver one",
+    10: "Bring me the elbow screwdriver two",
+    11: "Take the elbow screwdriver two",
+    12: "Bring me the window control panel",
+    13: "Take the window control panel",
+    14: "Bring me the window frame",
+    15: "Take the window frame",
+    16: "Bring me the speaker",
+    17: "Take the speaker",
+    18: "Bring me the object holder",
+    19: "Take the object holder",
+    20: "Bring me the speaker frame",
+    21: "Take the speaker frame",
+    22: "Open the gripper",
+    23: "Close the gripper",
+    24: "Go to the line side",
+    25: "Back home"
+}
+
+command_ita = {
+    0: "Piu alto",
+    1: "Piu basso",
+    2: "Piu inclinato",
+    3: "Meno inclinato",
+    4: "Piu luce",
+    5: "Meno luce",
+    6: "Portami l'avvitatore elettrico",
+    7: "Prendi l'avvitatore elettrico",
+    8: "Portami l'avvitatore a gomito uno",
+    9: "Prendi l'avvitatore a gomito uno",
+    10: "Portami l'avvitatore a gomito due",
+    11: "Prendi l'avvitatore a gomito due",
+    12: "Portami la mostrina comandi",
+    13: "Prendi la mostrina comandi",
+    14: "Portami il voletto",
+    15: "Prendi il voletto",
+    16: "Portami l'altoparlante",
+    17: "Prendi l'altoparlante",
+    18: "Portami il porta oggetti",
+    19: "Prendi il porta oggetti",
+    20: "Portami il telaio altoparlante",
+    21: "Prendi il telaio altoparlante",
+    22: "Apri la pinza",
+    23: "Chiudi la pinza",
+    24: "Libero",
+    25: "Torna a casa"
 }
 
 ITA_STR = {

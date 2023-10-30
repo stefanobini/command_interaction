@@ -19,7 +19,7 @@ from pytorch_lightning import loggers
 import pytorch_lightning as pl
 from pytorch_lightning.profilers import SimpleProfiler, AdvancedProfiler
 
-from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, Training_MSI, Validation_MSI, _SCR_train_collate_fn, _SCR_val_collate_fn, _SI_train_collate_fn, _SI_val_collate_fn, _MT_train_collate_fn, _MT_val_collate_fn, _MSI_train_collate_fn, _MSI_val_collate_fn
+from utils.dataloaders import TrainingMiviaDataset, ValidationMiviaDataset, Training_MSI, Validation_MSI, _SCR_train_collate_fn, _SCR_val_collate_fn, _SI_train_collate_fn, _SI_val_collate_fn, _MT_train_collate_fn, _MT_val_collate_fn, _MSI_train_collate_fn, _MSI_val_collate_fn, _SCR_SNRE_train_collate_fn, _SCR_SNRE_val_collate_fn
 #from settings.conf_1 import settings
 
 from models.resnet8 import ResNet8_PL
@@ -29,7 +29,6 @@ from models.hardsharing import HardSharing_PL
 # from models.hardsharing_mobilenetv2 import HardSharing_PL
 from models.softsharing import SoftSharing_PL
 # from models.softsharing_mobilenetv2 import SoftSharing_PL
-from models.MSI_hardsharing import HardSharing_PL as HardSharing_MSI
 
 
 # Reduce the internal precision of the matrix multiplications (the type of the variable doesn't change)
@@ -88,7 +87,7 @@ if settings.tasks == ["command"]:
     val_set = ValidationMiviaDataset(settings=settings)
     labels = train_set._get_labels()
     main_labels = labels[0]
-    task_n_labels = len(main_labels)
+    task_n_labels = [len(main_labels)]
     train_collate_fn = _SCR_train_collate_fn
     val_collate_fn = _SCR_val_collate_fn
 elif settings.tasks == ["speaker"]:
@@ -96,7 +95,7 @@ elif settings.tasks == ["speaker"]:
     val_set = ValidationMiviaDataset(settings=settings)
     labels = train_set._get_labels()
     main_labels = labels[0]
-    task_n_labels = len(main_labels)
+    task_n_labels = [len(main_labels)]
     train_collate_fn = _SI_train_collate_fn
     val_collate_fn = _SI_val_collate_fn
 elif settings.tasks == ["speaker", "command"]:
@@ -115,6 +114,14 @@ elif settings.tasks == ["intent", "explicit", "implicit"]:
     task_n_labels = list((len(labels[0]), len(labels[1]), len(labels[2])))
     train_collate_fn = _MSI_train_collate_fn
     val_collate_fn = _MSI_val_collate_fn
+elif settings.tasks == ["command", "snr"]:
+    train_set = TrainingMiviaDataset(settings=settings)
+    val_set = ValidationMiviaDataset(settings=settings)
+    labels = train_set._get_labels()
+    main_labels = labels[0]
+    task_n_labels = list((len(labels[0]), 1))
+    train_collate_fn = _SCR_SNRE_train_collate_fn
+    val_collate_fn = _SCR_SNRE_val_collate_fn
 else:
     sys.exit("The <{}> task is not allowed.".format(settings.tasks))
 
@@ -142,6 +149,7 @@ val_loader = torch.utils.data.DataLoader(dataset=val_set, batch_size=settings.tr
 assert settings.model.network in ["resnet8", "mobilenetv2", "conformer", "HS", "SS", "HS_msi"]
 model = None
 if settings.model.network == "resnet8":
+    task_n_labels = task_n_labels[0]
     model = ResNet8_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
     if settings.model.pretrain:
         #'''
@@ -154,20 +162,18 @@ if settings.model.network == "resnet8":
         # model = ResNet8_PL.load_from_checkpoint(checkpoint_path=settings.model.resnet8.pretrain_path, settings=settings, num_labels=len(labels), loss_weights=balanced_weights)
         print(Back.BLUE + "LOAD PRETRAINED MODEL: {}".format(settings.model.resnet8.pretrain_path))
 elif settings.model.network == "mobilenetv2":
+    task_n_labels = task_n_labels[0]
     model = MobileNetV2_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)
     if settings.model.pretrain:
         model.load_state_dict(torch.load(settings.model.mobilenetv2.pretrain_path, lambda s, l: s))
         #model = LitModel.load_from_checkpoint(settings.model.mobilenetv2.pretrain_path, in_dim=128, out_dim=task_n_labels)   # (B x C x F x T) -> (128 x 1 x 64 x )
 elif settings.model.network == "conformer":
+    task_n_labels = task_n_labels[0]
     model = Conformer_PL(settings=settings, num_labels=task_n_labels, loss_weights=balanced_weights).cuda(settings.training.device)  # Load model
 elif settings.model.network == "HS":
     model = HardSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=[None for i in range(len(settings.training.loss.weights))])).cuda(settings.training.device)
 elif settings.model.network == "SS":
     model = SoftSharing_PL(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None))).cuda(settings.training.device)
-elif settings.model.network == "HS_msi":
-    model = HardSharing_MSI(settings=settings, task_n_labels=task_n_labels, task_loss_weights=np.array(object=(None, None, None))).cuda(settings.training.device)
-    for task in range(model.n_tasks):
-        assert(getattr(model, "out_{}".format(model.tasks[task])).out_features == task_n_labels[task])
 
 model.set_train_dataloader(dataloader=train_loader)
 model.set_val_dataloader(dataloader=val_loader)
@@ -182,6 +188,7 @@ trainer = pl.Trainer(
     accelerator=settings.training.accelerator,
     devices=[settings.training.device],
     logger=logger,
+    max_steps=settings.training.max_steps,
     max_epochs=settings.training.max_epochs,
     min_epochs=settings.training.min_epochs,
     #track_grad_norm=2,

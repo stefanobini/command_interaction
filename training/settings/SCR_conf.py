@@ -7,9 +7,10 @@ settings = DotMap()
 
 settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
-settings.experimentation:str = "SCR"
+settings.experimentation:str = "SCR_erf"
 settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
 settings.demo:str = "scr"                             # ["demo3", "demo7", "demo7_plus", "demofull"]
+settings.noise.augmentation.type:str = "dynamic"                                # [None, "static", "dynamic"]
 
 '''Input'''
 settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
@@ -37,18 +38,20 @@ settings.input.mfcc.norm:str = "ortho"
 settings.input.mfcc.log_mels:bool = True                                                                            # Default value [False], but NVIDIA NeMo use True
 
 '''Dataset'''
-settings.dataset.folder = "./datasets/SCR_experimentation"
-settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
-settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
-settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
-settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
+settings.dataset.folder = os.path.join("datasets", "MIVIA_ISC_v2")
+settings.dataset.annotations = os.path.join("datasets", "SCR_experimentation_ERF")
+settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.annotations, "training", "annotations", settings.input.language, "training.csv") if settings.noise.augmentation.type == "static" else os.path.join(settings.dataset.annotations, "annotations", settings.input.language, "training.csv")
+settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.annotations, "validation", "annotations", settings.input.language, "validation.csv") if settings.noise.augmentation.type in ["static", "dynamic"] else os.path.join(settings.dataset.annotations, "annotations", settings.input.language, "validation.csv")
+settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.annotations, "testing", "annotations", settings.input.language, "testing.csv")
+settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.annotations, "training", "annotations", "noise", "training.csv")
 # settings.dataset.noise.validation.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "validation.csv")
 # settings.dataset.noise.testing.annotations:str = os.path.join(settings.dataset.folder, "annotations", "noise", "testing.csv")
 
 '''Model'''
-settings.model.network:str = "conformer"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
+settings.model.denoising_module:bool = False
 # ResNet8
 settings.model.resnet8.pooling_size = (4, 3)
 settings.model.resnet8.out_channel = 45
@@ -70,13 +73,15 @@ settings.training.reject_percentage:float = 0.5
 settings.training.num_workers:str = 24
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:int = 0                                         # list of the GPU devices to use
+settings.training.max_steps:int = -1
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
 settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
-settings.training.checkpoint.save_top_k:int = 3
+settings.training.checkpoint.save_top_k:int = 1
+settings.settings.training.checkpoint.min_delta:float = 0
 settings.training.check_val_every_n_epoch:int = 1
 settings.training.early_stop.patience:int = 8                              # default=3
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
@@ -93,7 +98,7 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "Anti_GaussCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "Anti_UniCL_PEM_v1", "UniCL_PEM_v2", "Anti_UniCL_PEM_v2", "GaussCL_PEM_v1", "Anti_GaussCL_PEM_v1", "GaussCL_PEM_v2", "Anti_GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "PEM"                 # Between ["PEM", "UniCL_PEM_v1", "Anti_UniCL_PEM_v1", "UniCL_PEM_v2", "Anti_UniCL_PEM_v2", "GaussCL_PEM_v1", "Anti_GaussCL_PEM_v1", "GaussCL_PEM_v2", "Anti_GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
@@ -103,17 +108,19 @@ settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curri
 settings.logger.folder:str = "lightning_logs"
 settings.logger.name:str = os.path.join(settings.experimentation, settings.input.language, settings.model.network)                                                                             # name of the experiment
 additional_info = ""
-settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
+if settings.experimentation == "SCR_erf":
+    version = "none" if settings.noise.augmentation.type is None else settings.noise.augmentation.type
+else:
+    version = settings.noise.curriculum_learning.distribution
+settings.logger.version:str = "{}{}".format(version, additional_info)
 
 '''Test'''
-settings.testing.folder:str = os.path.join("testing", settings.experimentation)
-settings.testing.n_folds:int = 1
-ckpt_path:str = os.path.join(settings.logger.folder, settings.experimentation, settings.input.language, settings.model.network, settings.noise.curriculum_learning.distribution, "checkpoints")
+settings.testing.n_folds:int = 8
+ckpt_path:str = os.path.join(settings.logger.folder, settings.logger.name, settings.logger.version, "checkpoints")
 try:
     settings.testing.ckpt_path:str = os.path.join(ckpt_path, os.listdir(ckpt_path)[-1])
 except FileNotFoundError:
     print("This field in <{}.py> file rise an ERROR because the fold <{}> doesn't exist".format(settings.name, ckpt_path)) 
-settings.testing.results_path:str = None
-settings.testing.real_data.folder:str = os.path.join("datasets", "MIVIA_CRF_ISC") # [None, os.path.join("datasets", "MIVIA_CRF_ISC")]
+settings.testing.real_data.folder:str = None # [None, os.path.join("datasets", "MIVIA_CRF_ISC")]
 if settings.testing.real_data.folder:
     settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "dataset.csv")                 # ["clean.csv", "noisy.csv", "all.csv", "test.csv"]

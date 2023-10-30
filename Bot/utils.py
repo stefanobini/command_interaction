@@ -77,6 +77,7 @@ class State:
                          "greeting": False,
                          "int_lang": None,
                          "gdpr": None,
+                         "lang": "both",
                          "gender": None,
                          "age": None,
                          "int_lang": None,
@@ -91,7 +92,7 @@ class State:
 
     def send_last_msg(self, bot):
         """Sends to user the last conversation message"""
-        bot.send_message(self.id, text=self.text_controller.get_str(22))
+        #bot.send_message(self.id, text=self.text_controller.get_str(22))
         time.sleep(0.5)
         bot.send_message(self.id, text=self.text_controller.get_str(9))
 

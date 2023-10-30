@@ -1,0 +1,39 @@
+/user/sbini/anaconda3/envs/dgx1/lib/python3.9/site-packages/telegram/ext/conversationhandler.py:287: UserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message.
+  warnings.warn(
+__main__ - INFO - 27-10-2023 07:17
+utils - INFO - Adding: 809571588 at 2023-10-27 19:29:59.707073
+utils - INFO - scheduled: {'809571588'} - 2023-10-27 07:17:32.708121
+callbacks - INFO - user 1254765304 has resetted profile - 2023-10-27 07:19:59.667148
+callbacks - INFO - Entra: {Stefano Bini, https://t.me/ArthurBeis, 1254765304, complete: False} - 27-10-2023 07:20:17
+callbacks - INFO - Entra: {Antonio, https://t.me/antonio_vicinanza96, 604202480, complete: False} - 27-10-2023 07:27:42
+callbacks - INFO - Entra: {Antonio Greco, None, 1153694021, complete: False} - 27-10-2023 07:27:52
+callbacks - INFO - user 604202480 has resetted profile - 2023-10-27 07:28:13.132585
+callbacks - INFO - Entra: {Antonio, https://t.me/antonio_vicinanza96, 604202480, complete: False} - 27-10-2023 07:28:14
+utils - WARNING - ValueError for 1153694021 selected index command: 12 for eng - 2023-10-27 07:36:46.827097
+utils - INFO - Adding: 604202480 at 2023-10-27 19:30:00.722758
+Exception in thread Thread-2:
+Traceback (most recent call last):
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/user/sbini/anaconda3/envs/dgx1/lib/python3.9/threading.py", line 1306, in run
+    self.function(*self.args, **self.kwargs)
+  File "/mnt/sdc1/sbini/command_interaction/Bot/utils.py", line 434, in wrapper
+    function()
+  File "/mnt/sdc1/sbini/command_interaction/Bot/utils.py", line 386, in check
+    delay = self._get_delay(state)
+  File "/mnt/sdc1/sbini/command_interaction/Bot/utils.py", line 331, in _get_delay
+    if last_date is None or Scheduler.user_is_sleeping(state):
+  File "/mnt/sdc1/sbini/command_interaction/Bot/utils.py", line 348, in user_is_sleeping
+    scheduled_hours = Scheduler.get_scheduled_hour(state)
+  File "/mnt/sdc1/sbini/command_interaction/Bot/utils.py", line 371, in get_scheduled_hour
+    with open(path) as fil:
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdc1/sbini/command_interaction/Bot/saves/1254765304/scheduler.json'
+callbacks - INFO - Entra: {Giovanni, None, 616564116, complete: False} - 27-10-2023 09:16:20
+utils - INFO - Removing: 809571588
+utils - INFO - Removing: 604202480
+utils - WARNING - ValueError for 616564116 selected index command: 4 for ita - 2023-10-27 20:28:09.776003
+utils - WARNING - ValueError for 616564116 selected index command: 15 for ita - 2023-10-27 20:28:15.259776
+callbacks - INFO - Entra: {Paolo Franco, https://t.me/Paoloooooooooo, 576705837, complete: False} - 28-10-2023 09:34:40
+callbacks - INFO - Entra: {Cristian Cerasuolo, https://t.me/Cri_StiAn_0, 812737352, complete: False} - 28-10-2023 13:41:08
+callbacks - INFO - Entra: {Fabrizio Sarno, https://t.me/fabriziosarno, 858368521, complete: False} - 28-10-2023 17:00:34
+callbacks - INFO - Entra: {Vangelis Loutsetis, None, 6316709527, complete: False} - 30-10-2023 09:15:48

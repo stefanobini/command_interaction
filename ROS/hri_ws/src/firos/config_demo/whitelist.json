@@ -1,4 +1,0 @@
-{
-    "publisher" :   [".*/Speech", ".*/SystemHealth"],
-    "subscriber":   [".*/Speech", ".*/SystemHealth"]
-}

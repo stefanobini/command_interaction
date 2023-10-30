@@ -1,1 +1,0 @@
-matchboxnet.py --dataset_path dataset/FELICE_demo7_extended --config ./matchboxnet_3x2x64_FELICE.yaml --lang eng --id 0 --log 0 --synth 1

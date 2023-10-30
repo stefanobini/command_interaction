@@ -13,10 +13,11 @@ import shutil
 LANG_STATE, GENDER_STATE, AGE_STATE, START, STATE, PAUSE = 0, 1, 2, 3, 4, 5
 logger = logging.getLogger(__name__)
 
-'''
-Asks to user to choose the commands lang. After sets the state to GENDER_STATE
-'''
+
 def get_lang(update: Update, context: CallbackContext):
+    """
+    Asks to user to choose the commands lang. After sets the state to GENDER_STATE
+    """
     update.callback_query.answer()
     state: State = context.user_data["state"]
     lang = update.callback_query.data.split("_")[1]
@@ -28,10 +29,11 @@ def get_lang(update: Update, context: CallbackContext):
     context.bot.send_message(state.id, state.get_str(6), reply_markup=InlineKeyboardMarkup(keyword))
     return GENDER_STATE
 
-'''
-Asks the gender of the user. After sets the state to AGE_STATE
-'''
+
 def get_gender(update: Update, context: CallbackContext):
+    """
+    Asks the gender of the user. After sets the state to AGE_STATE
+    """
     state: State = context.user_data["state"]
     gender = update.callback_query.data.split("_")[1]
     state.info["gender"] = gender
@@ -50,10 +52,11 @@ def get_gender(update: Update, context: CallbackContext):
     update.callback_query.answer()
     return AGE_STATE
 
-'''
-Asks the age of the user. After starts to send the commands
-'''
+
 def get_age(update: Update, context: CallbackContext):
+    """
+    Asks the age of the user. After starts to send the commands
+    """
     state: State = context.user_data["state"]
     query = update.callback_query
     age = query.data.split("_")[1]
@@ -69,27 +72,25 @@ def get_age(update: Update, context: CallbackContext):
     time.sleep(1.5)
     return start_conversation(update, context)
 
-'''
-This callback is classed when the user start the bot (/start command).
-Checks if the user has already started the bot: if no, starts a new conversation else continues the previous conversation.
-If the user has already done the data collection terminates the conversation
-'''
-def start(update: Update, context: CallbackContext) -> int:
 
+def start(update: Update, context: CallbackContext) -> int:
+    """
+    This callback is classed when the user start the bot (/start command).
+    Checks if the user has already started the bot: if no, starts a new conversation else continues the previous conversation.
+    If the user has already done the data collection terminates the conversation
+    """
     keyword = [[InlineKeyboardButton("Entrambe - Both", callback_data="lang_both")],
                 [InlineKeyboardButton("English", callback_data="lang_eng"),
                 InlineKeyboardButton("Italiano", callback_data="lang_ita")]]
 
     state = State(update.effective_user)
     context.user_data["state"] = state
-
     log_text = '{' + fr"{update.effective_user.full_name}, {update.effective_user.link}, {update.effective_user.id}, complete: {state.check_done()}" + '}'
     logger.info(fr"Entra: {log_text} - {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
 
     if state.check_done():
         update.message.reply_text(state.get_str(8))
         return ConversationHandler.END
-
     if state.info["gender"] != None:
         if state.info["age"] == None:
             age_set = get_age_set()
@@ -116,19 +117,21 @@ def start(update: Update, context: CallbackContext) -> int:
     update.message.reply_text(WELCOME_STR[2], reply_markup=InlineKeyboardMarkup(keyword))
     return LANG_STATE
 
-'''
-Asks a command to user
-'''
+
 def start_conversation(update: Update, context: CallbackContext):
+    """
+    Asks a command to user
+    """
     state: State = context.user_data["state"]
     cmd = state.get_current_command()
     send_command(state.id, bot=context.bot, cmd=cmd)
     return STATE
 
-'''
-Continues a previous conversation
-'''
+
 def restart_conversation(update: Update, context: CallbackContext):
+    """
+    Continues a previous conversation
+    """
     state = State(update.effective_user)
     context.user_data["state"] = state
 
@@ -147,16 +150,16 @@ def restart_conversation(update: Update, context: CallbackContext):
     send_command(state.id, bot=context.bot, cmd=cmd)
     return STATE
 
-'''
-Stores an audio file sent by user. Can asks to user if he wants to take a break
-'''
+
 def receive(update: Update, context: CallbackContext):
+    """
+    Stores an audio file sent by user. Can asks to user if he wants to take a break
+    """
     state: State = context.user_data["state"]
     state.save(update.message.voice.get_file())
     if state.check_done():
         state.send_last_msg(context.bot)
         return ConversationHandler.END
-    state.get_meme(context.bot)
     if state.check_pause():
         keyword = [[InlineKeyboardButton(state.get_str(11), callback_data="pause_y"), InlineKeyboardButton(state.get_str(12), callback_data="pause_n")]]
         update.message.reply_text(state.get_str(10), reply_markup=InlineKeyboardMarkup(keyword))
@@ -165,10 +168,11 @@ def receive(update: Update, context: CallbackContext):
     send_command(state.id, bot=context.bot, cmd=cmd)
     return STATE
 
-'''
-Read the user input and start or not a break
-'''
+
 def conv_pause(update: Update, context: CallbackContext):
+    """
+    Read the user input and start or not a break
+    """
     state: State = context.user_data["state"]
     query = update.callback_query
     cmd = state.get_current_command()
@@ -185,11 +189,11 @@ def conv_pause(update: Update, context: CallbackContext):
         query.answer()
         return STATE
 
-'''
-If the conversation ended but the user did not complete the task, 
-this callback continues the conversation when the user make a query using the Inline keyboard
-'''
+
 def select_query(update: Update, context: CallbackContext):
+    """
+    If the conversation ended but the user did not complete the task, this callback continues the conversation when the user make a query using the Inline keyboard
+    """
     query_data = update.callback_query.data
     state = State(update.effective_user)
     context.user_data["state"] = state
@@ -206,10 +210,11 @@ def select_query(update: Update, context: CallbackContext):
         update.callback_query.answer()
         return start(update, context)
 
-'''
-Deletes all user files
-'''
+
 def reset(update: Update, context: CallbackContext):
+    """
+    Deletes all user files
+    """
     userid = update.effective_user["id"]
     path = Path(get_curr_dir(__file__)).joinpath("saves", str(userid))
     if path.exists():

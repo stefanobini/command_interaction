@@ -41,7 +41,8 @@ elif "MSIexp1" in SRC_DATASET:
     FULL_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
 
 SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
-OUT_PATH = os.path.join("datasets", "FELICE", "demo7")
+#OUT_PATH = os.path.join("datasets", "FELICE", "demo7")
+OUT_PATH = os.path.join("datasets", "SCR_experimentation_ERF")
 LANGs = ["eng", "ita"]
 
 
@@ -154,6 +155,7 @@ def build_set(subset:str):
         shutil.copyfile(src=os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
 
 
-build_train_set()
-build_set(subset="validation")
-build_set(subset="testing")
+#build_train_set()
+build_set(subset="training")
+#build_set(subset="validation")
+#build_set(subset="testing")

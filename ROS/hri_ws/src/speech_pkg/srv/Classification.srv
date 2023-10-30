@@ -1,4 +1,0 @@
-speech_pkg/SpeechData data
----
-int8 cmd
-float32[] probs

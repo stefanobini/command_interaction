@@ -99,7 +99,7 @@ class PL_MTL_Backbone(pl.LightningModule):
         self.grad_norm = self.settings.training.loss.type == "grad_norm"
         weights = torch.tensor(data=self.settings.training.loss.weights) if self.settings.training.loss.type == "fixed_weights" else torch.tensor(data=[1. for i in range(self.n_tasks)])
         self.loss_weights = torch.nn.Parameter(data=torch.ones(self.n_tasks) * weights, requires_grad=self.grad_norm)
-        self.loss_fn = MT_loss(weights=task_loss_weights)
+        self.loss_fn = MT_loss(tasks=self.tasks, weights=task_loss_weights)
         self.batch_size = self.settings.training.batch_size
         self.learning_rate = self.settings.training.lr.value
         self.snrs = list(range(self.settings.noise.min_snr, self.settings.noise.max_snr+self.settings.noise.snr_step, self.settings.noise.snr_step))
@@ -143,7 +143,7 @@ class PL_MTL_Backbone(pl.LightningModule):
         outputs = list()
         for task in range(self.n_tasks):
             output = getattr(self, "out_{}".format(self.tasks[task]))(shared_embedding)
-            outputs.append(output)
+            outputs.append(torch.squeeze(output))
         return outputs
 
     def get_embeddings(self, x:torch.Tensor) -> torch.Tensor:
@@ -395,9 +395,12 @@ class PL_MTL_Backbone(pl.LightningModule):
 
         task_accuracies = list()
         for task in range(self.n_tasks):
-            task_prediction = torch.max(input=task_logits[task], dim=1).indices
-            task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
-            # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
+            if self.tasks[task] == "snr":
+                task_accuracies.append(torchmetrics.functional.mean_squared_error(preds=task_logits[task], target=task_targets[task]))
+            else:
+                task_prediction = torch.max(input=task_logits[task], dim=1).indices
+                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+                # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
         avg_snr /= len(self.train_step_outputs)
 
         # Clean list of the step outputs
@@ -462,9 +465,12 @@ class PL_MTL_Backbone(pl.LightningModule):
 
         task_accuracies = list()
         for task in range(self.n_tasks):
-            task_prediction = torch.max(input=task_logits[task], dim=1).indices
-            task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
-            # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
+            if self.tasks[task] == "snr":
+                task_accuracies.append(torchmetrics.functional.mean_squared_error(preds=task_logits[task], target=task_targets[task]))
+            else:
+                task_prediction = torch.max(input=task_logits[task], dim=1).indices
+                task_accuracies.append(torchmetrics.functional.classification.accuracy(preds=task_prediction, target=task_targets[task], task="multiclass", num_classes=self.task_n_labels[task], average="micro"))
+                # task_balanced_accuracy = torchmetrics.functional.classification.accuracy(preds=task_predictions[task], target=task_targets, task="multiclass", num_classes=self.task_n_labels[task], average="weighted")
         '''
         pred_reject_y = preds == (self.num_labels-1)             # '1' for reject, '0' for command
         targ_reject_y = targets == (self.num_labels-1)            # '1' for reject, '0' for command
@@ -556,7 +562,7 @@ class PL_MTL_Backbone(pl.LightningModule):
 
     def configure_callbacks(self):
         """Configure training callbacks (optimizers, checkpoint, schedulers, etc)."""
-        monitored_metric = "val_gradNorm_loss" if self.settings.training.loss.type == "grad_norm" and self.settings.task == "SCR_SI" else self.settings.training.checkpoint.metric_to_track
+        monitored_metric = self.settings.training.checkpoint.metric_to_track    #"val_gradNorm_loss" if self.settings.training.loss.type == "grad_norm" and self.settings.task == "SCR_SI" else self.settings.training.checkpoint.metric_to_track
         early_stop = EarlyStopping(monitor=monitored_metric, patience=self.settings.training.early_stop.patience, verbose=True, mode=self.settings.training.optimizer.mode, check_finite=True, check_on_train_epoch_end=False)
         lr_monitor = LearningRateMonitor(logging_interval="epoch")
         checkpoint = ModelCheckpoint(save_top_k=self.settings.training.checkpoint.save_top_k, monitor=self.settings.training.checkpoint.metric_to_track)
