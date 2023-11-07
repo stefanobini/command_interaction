@@ -1,11 +1,10 @@
 import os
-import sys
 import json
 from tqdm import tqdm
 
 
 DATASET_PATH = './saves'
-OUTPUT_PATH = './commands.json'
+OUTPUT_PATH = './info/commands.json'
 
 cmds = {
     "speakers": {"eng": 0, "ita": 0},

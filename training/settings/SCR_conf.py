@@ -115,7 +115,7 @@ else:
 settings.logger.version:str = "{}{}".format(version, additional_info)
 
 '''Test'''
-settings.testing.n_folds:int = 8
+settings.testing.n_folds:int = 1
 ckpt_path:str = os.path.join(settings.logger.folder, settings.logger.name, settings.logger.version, "checkpoints")
 try:
     settings.testing.ckpt_path:str = os.path.join(ckpt_path, os.listdir(ckpt_path)[-1])
