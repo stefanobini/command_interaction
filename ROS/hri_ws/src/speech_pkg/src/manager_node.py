@@ -129,15 +129,15 @@ def run_demo3(req):
     # print(res.cmd)
     #cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
     cmd = res.cmd
-    cb_reply_time = time.time()
+    #cb_reply_time = time.time()
     if FIWARE_CB == "None":
         pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
     elif cmd != len(command_eng)-1:
         post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
-    cb_reply_time = time.time() - cb_reply_time
-    print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
-    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
-    print(res_str)
+    #cb_reply_time = time.time() - cb_reply_time
+    #print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
+    #res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+    #print(res_str)
         
     if rospy.get_param("/save_speech"):
         with open(SPEECH_INFO_FILE, "a") as f:

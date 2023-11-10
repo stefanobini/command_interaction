@@ -71,7 +71,7 @@ class Callback:
         #cv2.imwrite("/home/felice/command_interaction/ROS/hri_ws/acquisition_test_bgr.png", img_printed)
 
         # rospy.loginfo(img.shape)
-        
+        #print(img, img.dtype, img.shape)
         hands = self.detector.detect(img)
 
         #print(hands['label'], GESTURES[hands['label']]["eng"])
