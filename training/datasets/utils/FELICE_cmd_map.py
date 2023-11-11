@@ -1,23 +1,34 @@
+N_COMMAND_SAMPLES = 1400
 DEMO_3 = {
-    2:0,
-    3:1,
-    4:2,
-    5:3
+    0:0,
+    1:1,
+    2:2,
+    3:3,
+    4:4,
+    5:5
 }
-
 DEMO_7 = {
-    23:0,   # start
-    20:1,   # release
-    6: 2,   # bring me the gun screwdriver
-    7: 3,   # take the gun screwdriver
-    8: 4,   # bring me the elbow screwdriver
-    9: 5,   # take the gun screwdriver
-    16:6,   # bring me the windows control panel
-    17:7,   # take the windows control panel
-    22:8,   # go
-    24:9    # stop
+    6:0, 
+    7:1, 
+    8:2, 
+    9:3, 
+    10:4, 
+    11:5, 
+    12:6, 
+    13:7, 
+    14:8, 
+    15:9,
+    16:10,
+    17:11,
+    18:12,
+    19:13,
+    20:14,
+    21:15,
+    22:16,
+    23:17,
+    24:18,
+    25:19 
 }
-
 DEMO_FULL = {
     0:0,
     1:1,
@@ -44,43 +55,65 @@ DEMO_FULL = {
     22:22,
     23:23,
     24:24,
-    25:25,
-    26:26,
-    27:27,
-    28:28,
-    29:29,
-    30:30
+    25:25
 }
-
-DEMO_PHASE_I= {
-    "eng":{0:  "Increase the height",
-           1:  "Decrease the height",
-           2:  "Increase the inclination",
-           3:  "Decrease the inclination",
-           4:  "Start",
-           5:  "Release",
-           6:  "Bring me the gun screwdriver",
-           7:  "Take the gun screwdriver",
-           8:  "Bring me the elbow screwdriver",
-           9:  "Take the elbow screwdriver",
-           10: "Bring me the windows control panel",
-           11: "Take the windows control panel",
-           12: "Go",
-           13: "Stop",
-           14: "No command"},
-    "ita":{0:  "Piu alto",
-           1:  "Piu basso",
-           2:  "Piu inclinato",
-           3:  "Meno inclinato",
-           4:  "Start",
-           5:  "Rilascia",
-           6:  "Portami l'avvitatore elettrico",
-           7:  "Prendi l'avvitatore elettrico",
-           8:  "Portami l'avvitatore a gomito",
-           9:  "Prendi l'avvitatore a gomito",
-           10: "Portami la mostrina comandi",
-           11: "Prendi la mostrina comandi",
-           12: "Libero",
-           13: "Stop",
-           14:  "Nessun comando"
-}}
+DEMO_FULL = {
+    "eng":{
+        0: "Increase the height",
+        1: "Decrease the height",
+        2: "Increase the inclination",
+        3: "Decrease the inclination",
+        4: "Increase the illumination",
+        5: "Decrease the illumination",
+        6: "Bring me the gun screwdriver",
+        7: "Take the gun screwdriver",
+        8: "Bring me the elbow screwdriver one",
+        9: "Take the elbow screwdriver one",
+        10: "Bring me the elbow screwdriver two",
+        11: "Take the elbow screwdriver two",
+        12: "Bring me the window control panel",
+        13: "Take the window control panel",
+        14: "Bring me the window frame",
+        15: "Take the window frame",
+        16: "Bring me the speaker",
+        17: "Take the speaker",
+        18: "Bring me the object holder",
+        19: "Take the object holder",
+        20: "Bring me the speaker frame",
+        21: "Take the speaker frame",
+        22: "Open the gripper",
+        23: "Close the gripper",
+        24: "Go to the line side",
+        25: "Back home",
+        26: "No command"
+    },
+    "ita":{
+        0: "Piu alto",
+        1: "Piu basso",
+        2: "Piu inclinato",
+        3: "Meno inclinato",
+        4: "Piu luce",
+        5: "Meno luce",
+        6: "Portami l'avvitatore elettrico",
+        7: "Prendi l'avvitatore elettrico",
+        8: "Portami l'avvitatore a gomito uno",
+        9: "Prendi l'avvitatore a gomito uno",
+        10: "Portami l'avvitatore a gomito due",
+        11: "Prendi l'avvitatore a gomito due",
+        12: "Portami la mostrina comandi",
+        13: "Prendi la mostrina comandi",
+        14: "Portami il voletto",
+        15: "Prendi il voletto",
+        16: "Portami l'altoparlante",
+        17: "Prendi l'altoparlante",
+        18: "Portami il porta oggetti",
+        19: "Prendi il porta oggetti",
+        20: "Portami il telaio altoparlante",
+        21: "Prendi il telaio altoparlante",
+        22: "Apri la pinza",
+        23: "Chiudi la pinza",
+        24: "Libero",
+        25: "Torna a casa",
+        26: "Nessun comando"
+    }
+}

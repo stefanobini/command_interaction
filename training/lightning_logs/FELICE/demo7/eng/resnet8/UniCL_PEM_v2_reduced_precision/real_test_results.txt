@@ -1,4 +1,0 @@
-Dataloader	Accuracy	Balanced	Reject
-Dataloader 0:	<95.77> %	<95.77> %	<96.77> %
--------------------------------------------------
-Total average:	<95.77> %	<95.77> %	<96.77> %

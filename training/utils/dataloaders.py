@@ -1422,52 +1422,6 @@ def _MSI_val_collate_fn(batch:List[torch.Tensor]) -> Tuple[torch.Tensor, torch.I
     return tensors, targets, snrs
 
 
-#########################
-### USELESS FUNCTIONS ###
-#########################
-def test_dataset(samples:List[int]) -> None:
-    for i in range(len(samples)):
-        if self.settings.input.type == "waveform":
-            waveform, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
-            val_waveform, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-
-            torchaudio.save("check_files/waveform_train_{}.wav".format(samples[i]), waveform, sample_rate) 
-            torchaudio.save("check_files/waveform_val_{}.wav".format(samples[i]), val_waveform, val_sample_rate)
-        elif self.settings.input.type == "melspectrogram":
-            speech_path, mel_spectrogram, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
-            speech_path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-            plot_melspectrogram(path="check_files/melspectrogram_train_{}_".format(samples[i]), melspectrogram=mel_spectrogram[0])
-            plot_melspectrogram(path="check_files/melspectrogram_val_{}_".format(samples[i]), melspectrogram=val_mel_spectrogram[0])
-        elif self.settings.input.type == "mfcc":
-            speech_path, mfcc, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
-            speech_path, val_mfcc, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-            plot_mfcc(path="check_files/mfcc_train_{}_".format(samples[i]), mfcc=mfcc[0])
-            plot_mfcc(path="check_files/mfcc_val_{}_".format(samples[i]), mfcc=val_mfcc[0])
-
-
-def test_dataloader(samples:List[int]) -> None:
-    if self.settings.input.type == "mfcc":
-        train_path = "check_files/mfcc_train_"
-        val_path = "check_files/mfcc_val_"
-    elif self.settings.input.type == "melspectrogram":
-        train_path = "check_files/melspectrogram_train_"
-        val_path = "check_files/melspectrogram_val_"
-
-    train, val = list(), list()
-    for i in range(len(samples)):
-        path, mel_spectrogram, sample_rate, type, subtype, speaker, command = train_set[samples[i]]
-        mel_spectrogram=mel_spectrogram.permute(2, 0, 1)
-        path, val_mel_spectrogram, val_sample_rate, val_type, val_subtype, val_speaker, val_label, val_snr = valid_set[samples[i]]
-        val_mel_spectrogram=val_mel_spectrogram.permute(2, 0, 1)
-        train.append(mel_spectrogram)
-        val.append(val_mel_spectrogram)
-    t = pad_spectrograms(train)
-    v = pad_spectrograms(val)
-    for i in range(len(samples)):
-        plot_melspectrogram(path=train_path+str(samples[i]), melspectrogram=t[i][0])
-        plot_melspectrogram(path=val_path+str(samples[i]), melspectrogram=v[i][0])
-
-
 if __name__ == "__main__":
 
     train_set = TrainingMiviaDataset(settings=sets)

@@ -1,6 +1,7 @@
 """
 Build dataset reading the annotation files and creating the audio files.
 Training file are just copied, while on validation and test one the noise was applied.
+
 python3 datasets/utils/build_dataset.py
 """
 
@@ -14,7 +15,7 @@ import torchaudio
 from utils.preprocessing import Preprocessing
 from utils.settings.SCR_conf import settings
 
-SRC_DATASET = "MIVIA_ISC_v2"
+SRC_DATASET = os.path.join("FELICE", "demo7")
 SPEECH_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 NOISE_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
 FULL_HEADING = ["path", "type", "subtype", "speaker", "command", "noise_path", "noise_type", "noise_subtype", "snr"]
@@ -28,6 +29,10 @@ if "MIVIA_ISC_v1" in SRC_DATASET:
     SRC_DATASET_PATH = os.path.join("datasets", "MIVIA_ISC_v1")
     OUT_PATH = os.path.join("datasets", "SCR_experimentation")
     LANGs = ["eng", "ita"]
+elif "demo" in SRC_DATASET:
+    SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
+    OUT_PATH = os.path.join("datasets", SRC_DATASET)
+    LANGs = ["eng", "ita"]
 elif "MSIexp0" in SRC_DATASET:
     SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
     OUT_PATH = os.path.join("datasets", SRC_DATASET)
@@ -39,11 +44,6 @@ elif "MSIexp1" in SRC_DATASET:
     SPEECH_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
     NOISE_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
     FULL_HEADING = ["path", "type", "subtype", "speaker", "intent", "explicit", "implicit", "noise_path", "noise_type", "noise_subtype", "snr"]
-
-SRC_DATASET_PATH = os.path.join("datasets", SRC_DATASET)
-#OUT_PATH = os.path.join("datasets", "FELICE", "demo7")
-OUT_PATH = os.path.join("datasets", "SCR_experimentation_ERF")
-LANGs = ["eng", "ita"]
 
 
 def get_item(speech_annotations, noise_annotations, index, preprocess):
@@ -155,7 +155,7 @@ def build_set(subset:str):
         shutil.copyfile(src=os.path.join(OUT_PATH, "annotations", "noise", "{}.csv".format(subset)), dst=out_file)
 
 
-#build_train_set()
-build_set(subset="training")
-#build_set(subset="validation")
+build_train_set()   # use this if you don't want have noise samples in training set
+#build_set(subset="training")   # use this if you want have noise samples in training set
+build_set(subset="validation")
 #build_set(subset="testing")

@@ -11,10 +11,10 @@ settings.mode:str = "training"                                                  
 settings.experimentation:str = "FELICE"
 settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
 settings.demo:str = "demo7"                             # ["demo3", "demo7", "demo7_plus", "demofull", "demophase_I"]
-settings.n_labels:int = 11                                  # SCR = {"demo7":11, "demo full":31, "demo3": 5}
+settings.n_labels:int = 21                                  # SCR = {"demo7":20, "demo full":31, "demo3": 7}
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -40,13 +40,14 @@ settings.input.mfcc.log_mels:bool = True                                        
 
 '''Dataset'''
 settings.dataset.folder = os.path.join("datasets", "FELICE", settings.demo)
+settings.dataset.annotations = os.path.join("datasets", "FELICE", settings.demo)
 settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
 settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
 settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", "noise", "training.csv")
 
 '''Model'''
-settings.model.network:str = "conformer"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
+settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
 settings.model.pretrain:bool = False
 settings.model.input.normalize:bool = False
 # ResNet8
@@ -67,14 +68,15 @@ settings.model.conformer.convolution_first: bool = True
 '''Training'''
 settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 40
+settings.training.num_workers:str = 20
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
 settings.training.device:int = 0                                         # list of the GPU devices to use
+settings.training.max_steps:int = -1
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
 settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
-settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
+settings.training.lr.value:float = 0.001                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
 settings.training.checkpoint.save_top_k:int = 1
 settings.training.check_val_every_n_epoch:int = 1
@@ -98,6 +100,7 @@ settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2
+settings.noise.augmentation.type:str = "dynamic"                                # [None, "static", "dynamic"]
 
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"

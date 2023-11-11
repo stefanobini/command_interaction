@@ -1,114 +1,124 @@
-DEMO7_CMDS_DICT = {
-    6:2,
-    7:3,
-    31:4,
-    32:5,
-    30:1,
-    18:0
-}# 'old_id':'new_id'
-DEMO7_CMDS_DICT_EXT = {
-    7:3,
-    32:5
-}# 'old_id':'new_id'
-
-# Thi is only for italian language, in order to include the command for mostrina comandi
-DEMO7_CMDS_DICT_EXT_2 = {
-    26:4,
-    27:5
-}# 'old_id':'new_id'
-
-DEMO3_CMDS_DICT = {
-    2:0,
-    3:1
-}# 'old_id':'new_id'
-
-FULL_DATASET = {
-    31: 16,
-    32: 17,
-    28: 18,
-    29: 19,
-    30: 20,  
-    16: 21,
-    17: 22,
-    18: 23,
-    19: 24,
-    20: 25,
-    21: 26,
-    22: 27,
-    23: 28,
-    24: 29,
-    25: 30
+DEMO_3 = {
+    "eng":{
+        0: "Increase the height",
+        1: "Decrease the height",
+        2: "Increase the inclination",
+        3: "Decrease the inclination",
+        4: "Increase the illumination",
+        5: "Decrease the illumination"
+    },
+    "ita":{
+        0: "Piu alto",
+        1: "Piu basso",
+        2: "Piu inclinato",
+        3: "Meno inclinato",
+        4: "Piu luce",
+        5: "Meno luce"
+    }
 }
 
-# Thi is only for italian language, in order to include the command for mostrina comandi
-MOSTRINA_CMDS = {
-    26:16,
-    27:17
-}# 'old_id':'new_id'
-
-FULL_DEMO = {
-    2:0,
-    3:1,
-    6:4,
-    7:5,
-    31:6,
-    32:7,
-    30:3,
-    18:2
+DEMO_7 = {
+    "eng":{
+        6: "Bring me the gun screwdriver",
+        7: "Take the gun screwdriver",
+        8: "Bring me the elbow screwdriver one",
+        9: "Take the elbow screwdriver one",
+        10: "Bring me the elbow screwdriver two",
+        11: "Take the elbow screwdriver two",
+        12: "Bring me the window control panel",
+        13: "Take the window control panel",
+        14: "Bring me the window frame",
+        15: "Take the window frame",
+        16: "Bring me the speaker",
+        17: "Take the speaker",
+        18: "Bring me the object holder",
+        19: "Take the object holder",
+        20: "Bring me the speaker frame",
+        21: "Take the speaker frame",
+        22: "Open the gripper",
+        23: "Close the gripper",
+        24: "Go to the line side",
+        25: "Back home"
+    },
+    "ita":{
+        6: "Portami l'avvitatore elettrico",
+        7: "Prendi l'avvitatore elettrico",
+        8: "Portami l'avvitatore a gomito uno",
+        9: "Prendi l'avvitatore a gomito uno",
+        10: "Portami l'avvitatore a gomito due",
+        11: "Prendi l'avvitatore a gomito due",
+        12: "Portami la mostrina comandi",
+        13: "Prendi la mostrina comandi",
+        14: "Portami il voletto",
+        15: "Prendi il voletto",
+        16: "Portami l'altoparlante",
+        17: "Prendi l'altoparlante",
+        18: "Portami il porta oggetti",
+        19: "Prendi il porta oggetti",
+        20: "Portami il telaio altoparlante",
+        21: "Prendi il telaio altoparlante",
+        22: "Apri la pinza",
+        23: "Chiudi la pinza",
+        24: "Libero",
+        25: "Torna a casa"
+    }
 }
 
-""" DEMO_CMD_ENG = {
-    0: "Increase the height",
-    1: "Decrease the height",
-    2: "Start",
-    3: "Release",
-    4: "Bring me the gun screwdriver",
-    5: "Take the gun screwdriver",
-    6: "Bring me the windows control panel",
-    7: "Take the windows control panel",
-    8: "No command"
+DEMO_FULL = {
+    "eng":{
+        0: "Increase the height",
+        1: "Decrease the height",
+        2: "Increase the inclination",
+        3: "Decrease the inclination",
+        4: "Increase the illumination",
+        5: "Decrease the illumination",
+        6: "Bring me the gun screwdriver",
+        7: "Take the gun screwdriver",
+        8: "Bring me the elbow screwdriver one",
+        9: "Take the elbow screwdriver one",
+        10: "Bring me the elbow screwdriver two",
+        11: "Take the elbow screwdriver two",
+        12: "Bring me the window control panel",
+        13: "Take the window control panel",
+        14: "Bring me the window frame",
+        15: "Take the window frame",
+        16: "Bring me the speaker",
+        17: "Take the speaker",
+        18: "Bring me the object holder",
+        19: "Take the object holder",
+        20: "Bring me the speaker frame",
+        21: "Take the speaker frame",
+        22: "Open the gripper",
+        23: "Close the gripper",
+        24: "Go to the line side",
+        25: "Back home"
+    },
+    "ita":{
+        0: "Piu alto",
+        1: "Piu basso",
+        2: "Piu inclinato",
+        3: "Meno inclinato",
+        4: "Piu luce",
+        5: "Meno luce",
+        6: "Portami l'avvitatore elettrico",
+        7: "Prendi l'avvitatore elettrico",
+        8: "Portami l'avvitatore a gomito uno",
+        9: "Prendi l'avvitatore a gomito uno",
+        10: "Portami l'avvitatore a gomito due",
+        11: "Prendi l'avvitatore a gomito due",
+        12: "Portami la mostrina comandi",
+        13: "Prendi la mostrina comandi",
+        14: "Portami il voletto",
+        15: "Prendi il voletto",
+        16: "Portami l'altoparlante",
+        17: "Prendi l'altoparlante",
+        18: "Portami il porta oggetti",
+        19: "Prendi il porta oggetti",
+        20: "Portami il telaio altoparlante",
+        21: "Prendi il telaio altoparlante",
+        22: "Apri la pinza",
+        23: "Chiudi la pinza",
+        24: "Libero",
+        25: "Torna a casa"
+    }
 }
-
-DEMO_CMD_ITA = {
-    0: "Piu alto",
-    1: "Piu basso",
-    2: "Start",
-    3: "Rilascia",
-    4: "Portami l'avvitatore elettrico",
-    5: "Prendi l'avvitatore elettrico",
-    6: "Portami la mostrina comandi",
-    7: "Prendi la mostrina comandi",
-    8: "Nessun comando"
-} """
-
-"""DEMO_CMD_ENG = {
-    0: "Increase the height",
-    1: "Decrease the height",
-    2: "Start",
-    3: "Stop",S
-    4: "Go",
-    5: "Release",
-    6: "Bring me the gun screwdriver",
-    7: "Take the gun screwdriver",
-    8: "Bring me the elbow screwdriver",
-    9: "Take the elbow screwdriver",
-    10: "Bring me the windows control panel",
-    11: "Take the windows control panel",
-    12: "No command"
-}
-
-DEMO_CMD_ITA = {
-    0: "Piu alto",
-    1: "Piu basso",
-    2: "Start",
-    3: "Stop",
-    4: "Libera",
-    5: "Rilascia",
-    6: "Portami l'avvitatore elettrico",
-    7: "Prendi l'avvitatore elettrico",
-    8: "Portami l'avvitatore a gomito",
-    9: "Prendi l'avvitatore a gomito",
-    10: "Portami la mostrina comandi",
-    11: "Prendi la mostrina comandi",
-    12: "Nessun comando"
-}"""
