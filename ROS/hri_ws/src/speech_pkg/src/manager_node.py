@@ -10,8 +10,7 @@ import time
 
 from std_msgs.msg import String
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I, DEMO_PHASE_I
-#from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO_3, DEMO_7, DEMO_FULL
 from speech_pkg.msg import Command, Speech
 from demo_utils.post_request import MyRequestPost
 
@@ -53,56 +52,30 @@ def publish_cmd(command:int, confidence:float):
 
 def run_demo7(req):
     global SPEECH_INFO_FILE, speech_counter, robot_listening, command_eng, command_ita, post_request, offset, FIWARE_CB, res_str
-
-    # print(Fore.GREEN + '#'*22 + '\n# Manager is running #\n' + '#'*22 + Fore.RESET)
     res = classify(req.data)
-    # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n{:.3f}/{}\n'.format(res.cmd, res.probs[res.cmd], res.probs) + '#'*38 + Fore.RESET)
-
-    """
-    if not robot_listening and (res.cmd == 0 or (res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng))):
-        robot_listening = True
-        print(Fore.LIGHTGREEN_EX + '-'*12 + ' ROBOT IS LISTENING ' + '-'*12 + Fore.RESET)
-    """
 
     if robot_listening:
-        # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        cmd = len(command_eng)-1
-        prob = 0.
+        cmd = res.cmd + offset
+        prob = res.probs[res.cmd]
+
         #cb_reply_time = time.time()
-        if FIWARE_CB == "None" and res.cmd!=len(command_eng)-1 and res.probs[res.cmd] > CMD_THRESHOLD:
-            pub.publish(DEMO7_PHASE_I["eng"][res.cmd] + " - " + DEMO7_PHASE_I["ita"][res.cmd])
-            res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
-            print(res_str)
-        elif FIWARE_CB == "None":
-            pass
-        # REMOVE FALSE FROM THE FOLLOWING LINE, insert only for test
-        elif False and res.probs[0]>START_THRESHOLD and res.cmd == len(command_eng)-1:
-            cmd = offset
-            prob = res.probs[0]
-            post_request.send_command(command_id=cmd, confidence=prob)
-        elif res.cmd==8 and res.probs[8]<GO_THRESHOLD:
-            pass
-        elif res.probs[1]>RELEASE_THRESHOLD:
-            cmd = offset+1
-            prob = res.probs[1]
-            post_request.send_command(command_id=cmd, confidence=prob)
-        elif res.cmd==len(command_eng)-1 or res.cmd==0 or res.cmd==9:   # "Start", "Stop" command is not handle until now
-            cmd = offset-1
-            prob = res.probs[res.cmd]
-        elif res.probs[res.cmd] > CMD_THRESHOLD: #res.cmd != len(command_eng)-1:
-            cmd = res.cmd + offset
-            prob = res.probs[res.cmd]
-            post_request.send_command(command_id=cmd, confidence=prob)
+        if cmd != len(DEMO_FULL["eng"])-1 and prob > CMD_THRESHOLD: # command is detected
+            if FIWARE_CB == "None":
+                pub.publish(DEMO_FULL["eng"][cmd] + " - " + DEMO_FULL["ita"][cmd])
+                res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["ita"][cmd], prob) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+                print(res_str)
+            else:
+                post_request.send_command(command_id=cmd, confidence=prob)
         #cb_reply_time = time.time() - cb_reply_time
         #print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
         """
-        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][res.cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+        res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO7_PHASE_I["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}\n'.format(DEMO7_PHASE_I["ita"][cmd], prob) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
         print(res_str)
         #"""
         
         if rospy.get_param("/save_speech") == True:
             with open(SPEECH_INFO_FILE, "w") as f:
-                res_str += '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], prob) + Fore.CYAN + ' #\n# ' + '{}: {:.3f}\n{}'.format(command_ita[cmd], prob, res.probs) + ' #\n' + '#'* 44 + '\n'
+                res_str += '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL[cmd], prob) + Fore.CYAN + ' #\n# ' + '{}: {:.3f}\n{}'.format(DEMO_FULL[cmd], prob, res.probs) + ' #\n' + '#'* 44 + '\n'
                 f.write(res_str)
 
     """
@@ -112,7 +85,6 @@ def run_demo7(req):
     """
 
     speech_counter += 1
-    # res = speech(res.cmd, res.probs)
 
     return ManagerResponse(True)    # res.flag
 
@@ -129,11 +101,15 @@ def run_demo3(req):
     # print(res.cmd)
     #cmd = res.cmd+6 if res.cmd == 2 else res.cmd    # to manage the unique command list
     cmd = res.cmd
+    prob = res.probs[res.cmd]
     #cb_reply_time = time.time()
-    if FIWARE_CB == "None":
-        pub.publish(command_eng[cmd] + " - " + command_ita[cmd])
-    elif cmd != len(command_eng)-1:
-        post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+    if cmd != len(command_eng)-1:
+        if FIWARE_CB == "None":
+            pub.publish(DEMO_FULL["eng"][cmd] + " - " + DEMO_FULL["ita"][cmd])
+            res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["ita"][cmd], prob) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+            print(res_str)
+        else:
+            post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
     #cb_reply_time = time.time() - cb_reply_time
     #print("COMUNICATION TIME: {:.4f} s".format(cb_reply_time))
     #res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
@@ -200,33 +176,14 @@ if __name__ == "__main__":
 
     if DEMO == str(3):
         offset = 0
-        command_eng = DEMO3_CMD_ENG
-        command_ita = DEMO3_CMD_ITA
+        command_eng = DEMO_3['eng']
+        command_ita = DEMO_3['ita']
         rospy.Service('manager_service', Manager, run_demo3)
     elif DEMO == str(7):
-        offset = 4
-        command_eng = DEMO7_CMD_ENG
-        command_ita = DEMO7_CMD_ITA
+        offset = 6
+        command_eng = DEMO_7['eng']
+        command_ita = DEMO_7['ita']
         rospy.Service('manager_service', Manager, run_demo7)
-    elif DEMO == "7_plus":
-        offset = 4
-        command_eng = DEMO7P_CMD_ENG
-        command_ita = DEMO7P_CMD_ITA
-        rospy.Service('manager_service', Manager, run_demo7)
-    elif DEMO == "7_phaseI":
-        offset = 4
-        command_eng = DEMO7_PHASE_I["eng"]
-        command_ita = DEMO7_PHASE_I["ita"]
-        rospy.Service('manager_service', Manager, run_demo7)
-    elif DEMO == "full":
-        offset = 0
-        command_eng = DEMO_CMD_ENG
-        command_ita = DEMO_CMD_ITA
-        rospy.Service('manager_service', Manager, run_demo_full)
-    #command_eng = DEMO_CMD_ENG
-    #command_ita = DEMO_CMD_ITA
-    # rospy.Service('manager_service', Manager, run_demo7)
-    # rospy.Service('manager_service', Manager, lambda req: run(req, speech_counter))
 
     if FIWARE_CB != "None":
         post_request = MyRequestPost(robot_uuid, entity="UNISA.SpeechGestureAnalysis.Speech", msg_type="Speech", address=FIWARE_CB, port=1026)

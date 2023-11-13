@@ -4,30 +4,20 @@ from datetime import datetime
 import rospy
 from colorama import Fore
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_PHASE_I#, DEMO_CMD_ENG, DEMO_CMD_ITA
-from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
+from commands import DEMO_3, DEMO_7, DEMO_FULL
 
 
 DEMO = rospy.get_param("/demo")
 command_eng, command_ita = None, None
+# probably this if is not useful, for this reason i assign directly after
 if DEMO == str(3):
-        command_eng = DEMO3_CMD_ENG
-        command_ita = DEMO3_CMD_ITA
+        command_eng = DEMO_3["eng"]
+        command_ita = DEMO_3["ita"]
 elif DEMO == str(7):
-        command_eng = DEMO7_CMD_ENG
-        command_ita = DEMO7_CMD_ITA
-elif DEMO == "7_plus":
-        command_eng = DEMO7P_CMD_ENG
-        command_ita = DEMO7P_CMD_ITA
-elif DEMO == "7_phaseI":
-        command_eng = DEMO_PHASE_I["eng"]
-        command_ita = DEMO_PHASE_I["ita"]
-elif DEMO == "full":
-        command_eng = DEMO_CMD_ENG
-        command_ita = DEMO_CMD_ITA
-#command_eng = DEMO_CMD_ENG
-#command_ita = DEMO_CMD_ITA
-
+        command_eng = DEMO_7["eng"]
+        command_ita = DEMO_7["ita"]
+command_eng = DEMO_FULL["eng"]
+command_ita = DEMO_FULL["ita"]
 CB_HEADER = {'Content-Type': 'application/json; charset=utf-8'}
 
 

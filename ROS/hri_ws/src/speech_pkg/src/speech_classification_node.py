@@ -23,8 +23,7 @@ import time
 import torchaudio
 from dotmap import DotMap
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
-#from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
+from commands import DEMO_3, DEMO_7, DEMO_FULL
 
 #from mtl_exp.MTL_conf import settings
 from settings.felice import settings
@@ -67,83 +66,26 @@ def amplitude_to_db_spectrogram(spectrogram:torch.Tensor) -> torch.Tensor:
         """
         #### CHANGED HERE THE MULTIPLIER FROM 10. T0 20.
         spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.cpu().max(), 1e-10)), top_db=80)
-        #spectrogram_db = librosa.power_to_db(spectrogram, ref=1., amin=1e-10, top_db=80.0) # ref: 20 * log10(S / ref)
-        #return  np.float32(spectrogram_db.cpu().numpy())
         return spectrogram_db
 
 def preprocess(waveform: np.ndarray):
-    #waveform = np.mean(waveform, axis=0, keepdims=True)
-    #waveform = (waveform-np.min(waveform))/(np.max(waveform)-np.min(waveform))    # normalization
     waveform = np.expand_dims(waveform, axis=0) # add channel dimension
     waveform = torch.tensor(waveform, dtype=torch.float32).cuda()
     melspectrogram = get_melspectrogram(waveform=waveform)
-    #print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(melspectrogram), melspectrogram.shape, melspectrogram.dtype, torch.min(melspectrogram), torch.max(melspectrogram), torch.mean(melspectrogram)))
     db_melspectrogram = amplitude_to_db_spectrogram(spectrogram=melspectrogram)
-    #return torch.tensor(db_melspectrogram, dtype=torch.float32).cuda()
     return db_melspectrogram
 
 
 def select_parameters(language="eng", demo="7"):
-    #models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
     models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(settings.logger.folder)
     COMMANDS = None
     if demo == "3":
-        if language == 'eng':
-            COMMANDS = DEMO3_CMD_ENG
-            #ckpt_folder = models_path.joinpath('eng', 'demo3_eng')
-            #ckpt_name = 'matchcboxnet--val_loss=2.2774-epoch=209.model' # demo3_eng (old one)
-        elif language == 'ita':
-            COMMANDS = DEMO3_CMD_ITA
-            #ckpt_folder = models_path.joinpath('ita', 'demo3_ita')
-            #ckpt_name = 'matchcboxnet--val_loss=8.5081-epoch=184.model'   # demo3_ita
+        COMMANDS = DEMO_3[language]
         ckpt_folder = models_path.joinpath('demo'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        #ckpt_folder = models_path.joinpath('demo'+demo, language, settings.logger.version, 'checkpoints')
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "7":
-        if language == 'eng':
-            COMMANDS = DEMO7_CMD_ENG
-            #ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
-        elif language == 'ita':
-            COMMANDS = DEMO7_CMD_ITA
-            #ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "7_plus":
-        if language == 'eng':
-            COMMANDS = DEMO7P_CMD_ENG
-            #ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
-        elif language == 'ita':
-            COMMANDS = DEMO7P_CMD_ITA
-            #ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "7_phaseI":
-        COMMANDS = DEMO7_PHASE_I[language]
-        ckpt_folder = models_path.joinpath('demo'+demo, language, settings.model.network, settings.noise.curriculum_learning.distribution, "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "full":
-        if language == 'eng':
-            COMMANDS = DEMO_CMD_ENG
-            # ckpt_folder = models_path.joinpath('eng', 'full_eng')
-            ckpt_folder = models_path.joinpath('eng', 'new_full_eng')
-            # ckpt_name = "matchcboxnet--val_loss=3.9556-epoch=249.model" # full_eng
-            ckpt_name = "matchcboxnet--val_loss=3.5196-epoch=99.model" # new_full_eng
-        elif language == 'ita':
-            COMMANDS = DEMO_CMD_ITA
-            ckpt_folder = models_path.joinpath("ita", 'full_ita')
-            # ckpt_folder = models_path.joinpath("ita", 'new_full_ita')            
-
-            ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model"  # full_ita
-            # ckpt_name = "matchcboxnet--val_loss=3.269-epoch=97.model"   # new_full_ita, here fix the commands
-            # ckpt_name = "matchcboxnet--val_loss=2.5771-epoch=47.model"   # new_full_ita, here fix the commands
-
+        COMMANDS = DEMO_7[language]
         ckpt_folder = models_path.joinpath('demo'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
@@ -182,7 +124,6 @@ class NewClassifier:
         x = preprocess(waveform=signal)
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         self.model.predict(x)
-        #self.model.predict(melspectrogram)
 
         self.init_node()
 

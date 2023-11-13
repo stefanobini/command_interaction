@@ -1,3 +1,7 @@
+'''
+python3 microphone.py -sr 16000 -id_device 24
+'''
+
 import pyaudio as pa
 import numpy as np
 import soundfile as sf
