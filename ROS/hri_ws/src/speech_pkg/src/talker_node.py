@@ -5,12 +5,12 @@ import rospy
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
 import argparse
-from lang_settings import AVAILABLE_LANGS
 import sys
 import time
 # from demo_utils.io.postRequest import MyRequestPost
 from datetime import datetime
 from speech_pkg.msg import Command, Speech
+from speech_pkg.src.utils.lang_settings import AVAILABLE_LANGS
 
 from colorama import Fore
 

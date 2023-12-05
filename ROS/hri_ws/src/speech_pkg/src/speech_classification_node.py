@@ -1,19 +1,11 @@
 #!/usr/bin/python3
 
 import os
-#from model import Model
 import numpy as np
-#from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
-#from nemo.core.classes import IterableDataset
 from torch.utils.data import DataLoader
-from speech_pkg.srv import Classification, ClassificationResponse
-from settings import pepper, global_utils
 import torch
 import rospy
-import sys
 from pathlib import Path
-import argparse
-from lang_settings import AVAILABLE_LANGS
 import colorama
 colorama.init(autoreset=True)
 from colorama import Fore, Back
@@ -23,8 +15,12 @@ import time
 import torchaudio
 from dotmap import DotMap
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO7_CMD_ENG, DEMO7_CMD_ITA, DEMO7P_CMD_ENG, DEMO7P_CMD_ITA, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
+from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO_7, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
 #from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
+from speech_pkg.srv import Classification, ClassificationResponse
+# from speech_pkg.src.utils.lang_settings import AVAILABLE_LANGS
+AVAILABLE_LANGS = ["eng", "ita"]    # this replace the precious import
+from settings import pepper, global_utils
 
 #from mtl_exp.MTL_conf import settings
 from settings.felice import settings
@@ -102,23 +98,11 @@ def select_parameters(language="eng", demo="7"):
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "7":
         if language == 'eng':
-            COMMANDS = DEMO7_CMD_ENG
+            COMMANDS = DEMO_7["eng"]
             #ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
             #ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
         elif language == 'ita':
-            COMMANDS = DEMO7_CMD_ITA
-            #ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "7_plus":
-        if language == 'eng':
-            COMMANDS = DEMO7P_CMD_ENG
-            #ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
-        elif language == 'ita':
-            COMMANDS = DEMO7P_CMD_ITA
+            COMMANDS = DEMO_7["ita"]
             #ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
             #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
         ckpt_folder = models_path.joinpath('demo'+demo, language)

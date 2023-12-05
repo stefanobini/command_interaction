@@ -1,5 +1,5 @@
 from torch.profiler import profile, record_function, ProfilerActivity
-from model import Model
+from speech_pkg.src.utils.model import Model
 import numpy as np
 from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
 from nemo.core.classes import IterableDataset

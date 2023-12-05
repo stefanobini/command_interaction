@@ -4,7 +4,7 @@ from nemo.core.classes import IterableDataset
 import torch
 from torch.utils.data import DataLoader
 import numpy as np
-from model import Model
+from speech_pkg.src.utils.model import Model
 import sys
 import time
 from commands import command_eng, command_ita

@@ -1,4 +1,5 @@
-""" DEMO 7 - ENG - ResNet15 - UniCL_PEM_v2 """
+""" DEMO FULL - ENG - ResNet15 - UniCL_PEM_v2 """
+# CHANGE CONFORMER PARAME
 import os
 from typing import List
 from dotmap import DotMap
@@ -8,11 +9,13 @@ settings = DotMap()
 settings.name:str = __file__
 settings.mode:str = "training"                                                                                          # ["training", "test"]
 settings.experimentation:str = "FELICE"
-settings.task:str = "SCR"
-settings.demo:str = "demo7"
+settings.tasks:List[str] = ["command"]                                   # [["command"], ["speaker"], ["command", "speaker"], ["intent", "explicit", "implicit"]]
+settings.demo:str = "demo7_phase2"                             # ["demo3", "demo3_phase2", "demo7", "demo7_phase2", "demo7_plus", "demofull", "demophase_I"]
+demo_dict = {"demo7":21, "demo7_phase2":13, "demo full":31, "demo3":7, "demo3_phase2":5}
+settings.n_labels:int = demo_dict[settings.demo]
 
 '''Input'''
-settings.input.language:str = "eng"                                                                                 # ["ita", "eng"]
+settings.input.language:str = "ita"                                                                                 # ["ita", "eng"]
 settings.input.type:str = "melspectrogram"                                                                          # ["waveform", "melspectrogram", "mfcc"]
 settings.input.sample_rate:int = 16000
 settings.input.noise.max_gain:float = 50.
@@ -24,7 +27,7 @@ settings.input.spectrogram.n_fft:int = 512                                      
 settings.input.spectrogram.window:str = "hann"
 settings.input.spectrogram.win_sec:float = settings.input.spectrogram.n_fft / settings.input.sample_rate            # default=0.025
 settings.input.spectrogram.hop_sec:float = settings.input.spectrogram.win_sec / 2                                   # default=0.012
-settings.input.spectrogram.win_length:int = int(settings.input.spectrogram.win_sec * settings.input.sample_rate)
+settings.input.spectrogram.win_length:int = int(settings.input.spectrogram.win_sec * settings.input.sample_rate)    # 512
 settings.input.spectrogram.hop_length:int = settings.input.spectrogram.win_length // 2
 settings.input.spectrogram.padding.value:float = -80. if settings.input.spectrogram.type == "db" else 0.            #  IF YOU CHANGE THIS VALUE CHECH "SPECT_PAD_VALUE and SPECT_PAD_STRiDE" IN dataloaders.py
 settings.input.spectrogram.padding.stride:int = 0                                                                  # silence between two padding patches, in pixel ( IF YOU CHANGE THIS VALUE CHECH "SPECT_PAD_VALUE and SPECT_PAD_STRiDE" IN dataloaders.py)
@@ -38,6 +41,7 @@ settings.input.mfcc.log_mels:bool = True                                        
 
 '''Dataset'''
 settings.dataset.folder = os.path.join("datasets", "FELICE", settings.demo)
+settings.dataset.annotations = os.path.join("datasets", "FELICE", settings.demo)
 settings.dataset.speech.training.annotations:str = os.path.join(settings.dataset.folder, "training", "annotations", settings.input.language, "training.csv")
 settings.dataset.speech.validation.annotations:str = os.path.join(settings.dataset.folder, "validation", "annotations", settings.input.language, "validation.csv")
 settings.dataset.speech.testing.annotations:str = os.path.join(settings.dataset.folder, "testing", "annotations", settings.input.language, "testing.csv")
@@ -45,7 +49,7 @@ settings.dataset.noise.training.annotations:str = os.path.join(settings.dataset.
 
 '''Model'''
 settings.model.network:str = "resnet8"                                      # ["resnet8", "mobilenetv2", "conformer", "multitask_scr_si"]
-settings.model.pretrain:bool = False
+settings.model.pretrain:bool = True
 settings.model.input.normalize:bool = False
 # ResNet8
 settings.model.resnet8.pooling_size = (4, 3)
@@ -57,21 +61,23 @@ settings.model.mobilenetv2.pretrain_path:str = "./pretrained_models/mobilenetv2_
 settings.model.conformer.num_heads: int = 4
 settings.model.conformer.ffn_dim: int = 128
 settings.model.conformer.num_layers: int = 4
-settings.model.conformer.depthwise_conv_kernel_size: int = 31
-settings.model.conformer.dropout: float = 0.0
+settings.model.conformer.depthwise_conv_kernel_size: int = settings.n_labels
+settings.model.conformer.dropout: float = 0.2
 settings.model.conformer.use_group_norm: bool = False
-settings.model.conformer.convolution_first: bool = False
+settings.model.conformer.convolution_first: bool = True
 
 '''Training'''
+settings.training.test_model:bool = False                                   # If True, only a subset of the train set is loaded. Useful to test the model and training procedure
 settings.training.reject_percentage:float = 0.5
-settings.training.num_workers:str = 16
+settings.training.num_workers:str = 20
 settings.training.accelerator:str = "gpu"                                   # device between ["cpu", "cuda"]
-settings.training.device:int = 2                                         # list of the GPU devices to use
+settings.training.device:int = 0                                         # list of the GPU devices to use
+settings.training.max_steps:int = -1
 settings.training.max_epochs:int = -1
 settings.training.min_epochs:int = 1
-settings.training.batch_size:int = 128                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
+settings.training.batch_size:int = 64                                      # at least 104 for 'ita' and 80 for 'eng' to have in the batch all 31 commands in each batch
 settings.training.lr.auto_find:bool = False
-settings.training.lr.value:float = 0.01                                     # 0.33 - ResNet8,  - MobileNet V2
+settings.training.lr.value:float = 0.001                                     # 0.33 - ResNet8,  - MobileNet V2
 settings.training.checkpoint.metric_to_track:str = "val_loss"
 settings.training.checkpoint.save_top_k:int = 1
 settings.training.check_val_every_n_epoch:int = 1
@@ -79,7 +85,7 @@ settings.training.early_stop.patience:int = 8                              # def
 settings.training.reduce_lr_on_plateau.patience:int = 5                     # default=10
 settings.training.optimizer.mode:str = "min"                                # "min" to minimize the loss, "max" to maximize the loss
 settings.training.optimizer.weight_decay:float = 0.0001                      # Default 0
-settings.training.optimizer.eps:float = settings.training.lr.value * 1e-3
+settings.training.optimizer.eps:float = settings.training.lr.value * 1e-2
 settings.training.optimizer.betas:List[float] = [0.9, 0.999]                # Default 0.9, 0.999
 settings.training.optimizer.grad_averaging:bool = False
 settings.training.optimizer.amsgrad:bool = False
@@ -90,20 +96,28 @@ settings.noise.max_snr:int = 40
 settings.noise.snr_step:int = 5
 settings.noise.descent_ratio:float = 1.0
 settings.noise.curriculum_learning.epoch_saturation_time:int = 50
-settings.noise.curriculum_learning.distribution:str = "UniCL_PEM_v2"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
+settings.noise.curriculum_learning.distribution:str = "PEM"                 # Between ["PEM", "UniCL_PEM_v1", "UniCL_PEM_v2", "GaussCL_PEM_v1", "GaussCL_PEM_v2"]
 settings.noise.curriculum_learning.uniform.step:int = 10
 settings.noise.curriculum_learning.gaussian.sigma:int = 10
 settings.noise.curriculum_learning.gaussian.max_sigma:int = settings.noise.max_snr - settings.noise.min_snr
 settings.noise.curriculum_learning.gaussian.min_sigma:int = settings.noise.curriculum_learning.gaussian.max_sigma / 2
+settings.noise.augmentation.type:str = "dynamic"                                # [None, "static", "dynamic"]
 
 '''Logger'''
 settings.logger.folder:str = "lightning_logs"
-settings.logger.name:str = os.path.join("FELICE", settings.demo, settings.input.language)                                                                             # name of the experiment
-additional_info = ""
+settings.logger.name:str = os.path.join("FELICE", settings.demo, settings.input.language, settings.model.network)                                                                             # name of the experiment
+additional_info = "_reduced_precision"
 settings.logger.version:str = "{}{}".format(settings.noise.curriculum_learning.distribution, additional_info)
 
 '''Test'''
-settings.testing.folder:str = os.path.join("testing", "PRL")
-settings.testing.n_folds:int = 10
-settings.testing.ckpt_path:str = "./lightning_logs/no_reject/02_23_2023-00_45_41/checkpoints/epoch=66-step=2680.ckpt"
+settings.testing.folder:str = os.path.join("testing", settings.experimentation)
+settings.testing.n_folds:int = 1
+ckpt_path:str = os.path.join(settings.logger.folder, settings.experimentation, settings.demo, settings.input.language, settings.model.network, settings.logger.version, "checkpoints")
+try:
+    settings.testing.ckpt_path:str = os.path.join(ckpt_path, os.listdir(ckpt_path)[-1])
+except FileNotFoundError:
+    print("This field in <{}.py> file rise an ERROR because the fold <{}> doesn't exist".format(settings.name, ckpt_path)) 
 settings.testing.results_path:str = None
+settings.testing.real_data.folder:str = os.path.join("datasets", "FELICE", "MIVIA_CRF_ISC_phaseI") # [None, os.path.join("datasets", "MIVIA_CRF_ISC")]
+if settings.testing.real_data.folder:
+    settings.testing.real_data.annotations:str = os.path.join(settings.testing.real_data.folder, "annotations", settings.input.language, "dataset.csv")                 # ["clean.csv", "noisy.csv", "all.csv", "test.csv"]
