@@ -21,7 +21,8 @@ NODE_NAME = "webview_node"
 
 app = Flask(__name__)   # Initialize the Flask app
 
-imageStream = ImageStream()     # Initialize video stream
+SAVE_VIDEO = rospy.get_param("/save_video")
+imageStream = ImageStream(save_video=SAVE_VIDEO)     # Initialize video stream
 textStream = TextStream()       # Initialize text stream
 
 

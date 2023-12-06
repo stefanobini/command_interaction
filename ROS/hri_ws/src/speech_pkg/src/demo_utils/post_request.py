@@ -10,9 +10,10 @@ from commands_unique_list import DEMO_CMD_ENG, DEMO_CMD_ITA
 
 DEMO = rospy.get_param("/demo")
 command_eng, command_ita = None, None
+# probably this if is not useful, for this reason i assign directly after
 if DEMO == str(3):
-        command_eng = DEMO3_CMD_ENG
-        command_ita = DEMO3_CMD_ITA
+        command_eng = DEMO_3["eng"]
+        command_ita = DEMO_3["ita"]
 elif DEMO == str(7):
         command_eng = DEMO_FULL["eng"]
         command_ita = DEMO_FULL["ita"]

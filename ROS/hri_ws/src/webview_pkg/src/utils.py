@@ -16,13 +16,15 @@ LANG = "eng"
 
 class ImageStream(object):
 
-    def __init__(self):
+    def __init__(self, save_video:bool=False):
         self.image = cv2.imread("{}/static/assets/loading.gif".format(os.path.dirname(os.path.abspath(__file__))))
         self.previous_label = None
         self.timestamp = time.time()
         self.count = 0
-        #saves_path = "/home/felice/speech-command_interaction/ROS/speech_ws/src/gesture_pkg/src/saves"
-        #out = cv2.VideoWriter('{}/filename.avi'.format(saves_path), cv2.VideoWriter_fourcc(*'MJPG'), 6, (320,320))
+        self.save_video = save_video
+        if self.save_video:
+                saves_path = os.path.join("/home/felice/command_interaction/ROS/hri_ws/recorded_video.avi")
+                self.out = cv2.VideoWriter(saves_path, cv2.VideoWriter_fourcc(*'MJPG'), 6, (320,320))
 
 
     def get_frame(self):
@@ -78,7 +80,8 @@ class ImageStream(object):
             #cv2.putText(img, '{} ({:.2f})'.format(detection.header.frame_id, detection.results[0].score), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
             cv2.putText(img, '{}'.format(GESTURES[label][LANG]), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1e-3 * 3 * 200, (0, 0, 255), 2)
 
-        #out.write(img)
+        if self.save_video:
+                self.out.write(img)
         if not label == 13 and self.count > 10:
             if self.previous_label != label or self.count > 20:
                 self.count = 0

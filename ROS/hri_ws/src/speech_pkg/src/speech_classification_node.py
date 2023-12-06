@@ -63,38 +63,23 @@ def amplitude_to_db_spectrogram(spectrogram:torch.Tensor) -> torch.Tensor:
         """
         #### CHANGED HERE THE MULTIPLIER FROM 10. T0 20.
         spectrogram_db = torchaudio.functional.amplitude_to_DB(x=spectrogram, multiplier=20., amin=1e-10, db_multiplier=np.log10(max(spectrogram.cpu().max(), 1e-10)), top_db=80)
-        #spectrogram_db = librosa.power_to_db(spectrogram, ref=1., amin=1e-10, top_db=80.0) # ref: 20 * log10(S / ref)
-        #return  np.float32(spectrogram_db.cpu().numpy())
         return spectrogram_db
 
 def preprocess(waveform: np.ndarray):
-    #waveform = np.mean(waveform, axis=0, keepdims=True)
-    #waveform = (waveform-np.min(waveform))/(np.max(waveform)-np.min(waveform))    # normalization
     waveform = np.expand_dims(waveform, axis=0) # add channel dimension
     waveform = torch.tensor(waveform, dtype=torch.float32).cuda()
     melspectrogram = get_melspectrogram(waveform=waveform)
-    #print(Back.YELLOW + "SPECT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(melspectrogram), melspectrogram.shape, melspectrogram.dtype, torch.min(melspectrogram), torch.max(melspectrogram), torch.mean(melspectrogram)))
     db_melspectrogram = amplitude_to_db_spectrogram(spectrogram=melspectrogram)
-    #return torch.tensor(db_melspectrogram, dtype=torch.float32).cuda()
     return db_melspectrogram
 
 
 def select_parameters(language="eng", demo="7"):
-    #models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
     models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(settings.logger.folder)
     COMMANDS = None
     if demo == "3":
-        if language == 'eng':
-            COMMANDS = DEMO3_CMD_ENG
-            #ckpt_folder = models_path.joinpath('eng', 'demo3_eng')
-            #ckpt_name = 'matchcboxnet--val_loss=2.2774-epoch=209.model' # demo3_eng (old one)
-        elif language == 'ita':
-            COMMANDS = DEMO3_CMD_ITA
-            #ckpt_folder = models_path.joinpath('ita', 'demo3_ita')
-            #ckpt_name = 'matchcboxnet--val_loss=8.5081-epoch=184.model'   # demo3_ita
+        COMMANDS = DEMO_3[language]
         ckpt_folder = models_path.joinpath('demo'+demo, language)
         ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        #ckpt_folder = models_path.joinpath('demo'+demo, language, settings.logger.version, 'checkpoints')
         ckpt_name = os.listdir(path=ckpt_folder)[-1]
     elif demo == "7":
         if language == 'eng':
@@ -166,7 +151,6 @@ class NewClassifier:
         x = preprocess(waveform=signal)
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         self.model.predict(x)
-        #self.model.predict(melspectrogram)
 
         self.init_node()
 
