@@ -2,7 +2,6 @@
 
 import os
 import numpy as np
-from torch.utils.data import DataLoader
 import torch
 import rospy
 from pathlib import Path
@@ -15,11 +14,8 @@ import time
 import torchaudio
 from dotmap import DotMap
 
-from commands import DEMO3_CMD_ENG, DEMO3_CMD_ITA, DEMO_7, DEMO_CMD_ENG, DEMO_CMD_ITA, DEMO7_PHASE_I
-#from commands_unique_list import DEMO_CMD_ITA, DEMO_CMD_ENG
+from commands import MAPPING, AVAILABLE_LANGS
 from speech_pkg.srv import Classification, ClassificationResponse
-# from speech_pkg.src.utils.lang_settings import AVAILABLE_LANGS
-AVAILABLE_LANGS = ["eng", "ita"]    # this replace the precious import
 from settings import pepper, global_utils
 
 #from mtl_exp.MTL_conf import settings
@@ -72,53 +68,6 @@ def preprocess(waveform: np.ndarray):
     db_melspectrogram = amplitude_to_db_spectrogram(spectrogram=melspectrogram)
     return db_melspectrogram
 
-
-def select_parameters(language="eng", demo="7"):
-    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(settings.logger.folder)
-    COMMANDS = None
-    if demo == "3":
-        COMMANDS = DEMO_3[language]
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "7":
-        if language == 'eng':
-            COMMANDS = DEMO_7["eng"]
-            #ckpt_folder = models_path.joinpath('eng', 'demo7_phase_I_eng_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=1.4875-epoch=127.model" # demo7_phase_I_eng_no_pre
-        elif language == 'ita':
-            COMMANDS = DEMO_7["ita"]
-            #ckpt_folder = models_path.joinpath("ita", 'demo7_phase_I_ita_no_pre')
-            #ckpt_name = "matchcboxnet--val_loss=2.9228-epoch=123.model" # demo7_phase_I_ita_no_pre
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "7_phaseI":
-        COMMANDS = DEMO7_PHASE_I[language]
-        ckpt_folder = models_path.joinpath('demo'+demo, language, settings.model.network, settings.noise.curriculum_learning.distribution, "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    elif demo == "full":
-        if language == 'eng':
-            COMMANDS = DEMO_CMD_ENG
-            # ckpt_folder = models_path.joinpath('eng', 'full_eng')
-            ckpt_folder = models_path.joinpath('eng', 'new_full_eng')
-            # ckpt_name = "matchcboxnet--val_loss=3.9556-epoch=249.model" # full_eng
-            ckpt_name = "matchcboxnet--val_loss=3.5196-epoch=99.model" # new_full_eng
-        elif language == 'ita':
-            COMMANDS = DEMO_CMD_ITA
-            ckpt_folder = models_path.joinpath("ita", 'full_ita')
-            # ckpt_folder = models_path.joinpath("ita", 'new_full_ita')            
-
-            ckpt_name = "matchcboxnet--val_loss=2.377-epoch=104.model"  # full_ita
-            # ckpt_name = "matchcboxnet--val_loss=3.269-epoch=97.model"   # new_full_ita, here fix the commands
-            # ckpt_name = "matchcboxnet--val_loss=2.5771-epoch=47.model"   # new_full_ita, here fix the commands
-
-        ckpt_folder = models_path.joinpath('demo'+demo, language)
-        ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
-        ckpt_name = os.listdir(path=ckpt_folder)[-1]
-    return COMMANDS, ckpt_folder, ckpt_name
-
-
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
     batch = next(iter(data_loader))
@@ -128,18 +77,12 @@ def infer_signal(model, signal):
     return logits
 
 
-class NewClassifier:
-    def __init__(self, threshold_1, threshold_2, commands, ckpt_folder, ckpt_name):
-        self.commands = commands
-        self.threshold_1 = threshold_1
-        self.threshold_2 = threshold_2
-
-        labels = [i for i in range(len(commands))]
-
+class Classifier:
+    def __init__(self, n_commands, ckpt_folder, ckpt_name):
         assert settings.model.network in ["resnet8"]
         ckpt_path = os.path.join(ckpt_folder, ckpt_name)
         print(Back.YELLOW + ckpt_path)
-        self.model = ResNet8_PL(settings=settings, num_labels=len(labels), loss_weights=None).cuda()  # Load model
+        self.model = ResNet8_PL(settings=settings, num_labels=n_commands, loss_weights=None).cuda()  # Load model
         ckpt = torch.load(ckpt_path, lambda s, l: s)
         state_dict = ckpt["state_dict"]
         del state_dict["loss_fn.weight"]
@@ -175,8 +118,6 @@ class NewClassifier:
         return signal_nw
 
     def predict(self, signal: np.ndarray):
-        ###print(Back.BLUE + "SIGNAL INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(signal), signal.shape, signal.dtype, np.min(signal), np.max(signal), np.mean(signal)))
-        #signal, sample_rate = torchaudio.load("/home/felice/command_interaction/ROS/hri_ws/ita_0.wav")
         x = preprocess(waveform=signal)
         #'''
         #x_cpu = np.uint8(x[0].cpu().numpy())
@@ -195,30 +136,9 @@ class NewClassifier:
         #print('INFER TIME: {:.4f}'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
-        #print(cmd, cmd_probs[0])
-        """
-        if len(cmd_probs[0]) < len(self.commands):
-            cmd_probs = np.append(arr=cmd_probs, values=[1-cmd_probs[0][cmd]], axis=1)
-        """
-        '''
-        REJECT_LABEL = probs.shape[1] - 1
-        # cmd = np.argmax(probs, axis=1)
-        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
-            cmd = np.array([REJECT_LABEL])
-        '''
-        '''
-        if cmd_probs[0, cmd] < self.threshold_2:
-            cmd = np.array([cmd_probs.shape[1]-1])
-        '''
-        '''
-        else:
-            cmd = np.argmax(probs, axis=1)
-        '''
-
         return cmd, cmd_probs
 
     def parse_req(self, req):
-        #signal = self.convert(req.data.data)
         signal = np.array(req.data.data, dtype=np.float32)
         cmd, probs = self.predict(signal)
         assert len(cmd) == 1
@@ -232,12 +152,9 @@ class NewClassifier:
         rospy.spin()
 
 
-
 class MTLClassifier:
-    def __init__(self, threshold_1, threshold_2, commands):
-        self.commands = commands
-        self.threshold_1 = threshold_1
-        self.threshold_2 = threshold_2
+    def __init__(self, n_commands):
+        self.n_commands = n_commands
 
         speakers = {"eng": 530, "ita": 502}
         labels_1 = [i for i in range(32)]
@@ -321,23 +238,8 @@ class MTLClassifier:
         # print('\nINFER TIME: {}\n'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
-        if len(cmd_probs[0]) < len(self.commands):
+        if len(cmd_probs[0]) < self.n_commands:
             cmd_probs = np.append(arr=cmd_probs, values=[1-cmd_probs[0][cmd]], axis=1)
-        '''
-        REJECT_LABEL = probs.shape[1] - 1
-        # cmd = np.argmax(probs, axis=1)
-        if probs[0, REJECT_LABEL] >= self.threshold_1 or probs[0, cmd] < self.threshold_2:
-            cmd = np.array([REJECT_LABEL])
-        '''
-        '''
-        if cmd_probs[0, cmd] < self.threshold_2:
-            cmd = np.array([cmd_probs.shape[1]-1])
-        '''
-        '''
-        else:
-            cmd = np.argmax(probs, axis=1)
-        '''
-
         return cmd, cmd_probs
 
     def parse_req(self, req):
@@ -354,20 +256,17 @@ class MTLClassifier:
         rospy.spin()
 
 
-
 if __name__ == "__main__":
-    THRESHOLD_1 = 0.1     # 0.004
-    THRESHOLD_2 = 0.5     # 0.999 - 0.9
-
     LANGUAGE = rospy.get_param("/language")
     DEMO = rospy.get_param("/demo")
 
-    commands, ckpt_folder, ckpt_name = select_parameters(language=LANGUAGE, demo=DEMO)
+    n_commands = len(MAPPING[DEMO])
+    models_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath(settings.logger.folder)
+    ckpt_folder = models_path.joinpath('demo'+DEMO, LANGUAGE)
+    ckpt_folder = models_path.joinpath(ckpt_folder, os.listdir(path=ckpt_folder)[-1], "checkpoints")
+    ckpt_name = os.listdir(path=ckpt_folder)[-1]
 
     if LANGUAGE not in AVAILABLE_LANGS:
         raise Exception("Selected language not available.\nAvailable langs:", AVAILABLE_LANGS)
-#    data_layer = AudioDataLayer(sample_rate=16000)
- #   data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    #classifier = MTLClassifier(THRESHOLD_1, THRESHOLD_2, commands)
-    #classifier = Classifier(LANGUAGE, THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
-    classifier = NewClassifier(THRESHOLD_1, THRESHOLD_2, commands, ckpt_folder, ckpt_name)
+    #classifier = MTLClassifier(n_commands)
+    classifier = Classifier(n_commands, ckpt_folder, ckpt_name)
