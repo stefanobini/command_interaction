@@ -16,7 +16,7 @@ from demo_utils.post_request import MyRequestPost
 SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt'
 speech_counter = 0
 robot_uuid = uuid.uuid1().node
-CMD_THRESHOLD = 0.3
+CMD_THRESHOLD = 0.5
 
 
 # NOT USED METHOD

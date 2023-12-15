@@ -1,13 +1,37 @@
+# Docker for WHOLE DEMO
+sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
+# AWS
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_image
+# Robot
+sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker
+# Avvio docker
+sudo docker exec -it unisa_container /bin/bash
+
+# to load pretrained model (it needs for compatibility reasons)
+mkdir -p /root/.cache/torch/hub/checkpoints/
+cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_v3_large-8738ca79.pth /root/.cache/torch/hub/checkpoints/
+
+# In the docker - Avvio demo
+cd home/felice/command_interaction/ROS/hri_ws/
+source devel/setup.bash
+
+'''For FELICE'''
+# Demo Speech
+roslaunch speech_pkg felice_speech_demo.launch
+# Demo Gesture
+roslaunch gesture_pkg felice_gesture_demo.launch
+# Demo all
+roslaunch src/launch/felice_demo.launch
+
+# roslaunch gesture_pkg gesture_demo_felice.launch
+# roslaunch gesture_pkg gesture_demo_pepper.launch
+# roslaunch gesture_pkg gesture_demo_webview.launch
+
+# roslaunch webserver_pkg gesture_demo.launch
+
 # ROS framework
 source /opt/ros/melodic/setup.bash  # create workspace
 catkin_make                         # configure workspace
-
-source devel/setup.bash
-
-roscore
-rosrun comunication_pkg cobot1_node.py
-rosrun firos core.py --conf src/firos/config
-rostopic echo comunication_pkg/Speech
 
 # Automatically update date
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
@@ -20,41 +44,6 @@ sudo /usr/sbin/nvpmodel -m 2    # To change power mode. The last number is the s
 # Network
 watch -n1 iwconfig  # Signal power
 nmcli dev wifi  # List of network
-
-# Docker for WHOLE DEMO
-sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_image
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker
-sudo docker exec -it unisa_container /bin/bash
-
-# to load pretrained model (it needs for compatibility reasons)
-mkdir -p /root/.cache/torch/hub/checkpoints/
-cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_v3_large-8738ca79.pth /root/.cache/torch/hub/checkpoints/
-
-# In the docker
-cd home/felice/command_interaction/ROS/hri_ws/
-source devel/setup.bash
-# FOR DEMO FELICE RESET THE "UNIQUE_CMD_LIST" TO THE RIGHT COMMANDS
-roslaunch gesture_pkg hri_demo_webview.launch   # server-ip:    jetson-localhost:5000
-# Address for visualization: http://10.0.1.222:5000/
-# Open with Google Chrome
-
-'''For FELICE'''
-roslaunch speech_pkg felice_speech_demo.launch
-roslaunch gesture_pkg felice_gesture_demo.launch
-roslaunch src/launch/felice_demo.launch
-
-# roslaunch gesture_pkg gesture_demo_felice.launch
-# roslaunch gesture_pkg gesture_demo_pepper.launch
-# roslaunch gesture_pkg gesture_demo_webview.launch
-
-# roslaunch webserver_pkg gesture_demo.launch
-
-# Shows connected devices
-cat /proc/asound/cards
-
-# FIROS
-contextbroaker: ip the context broaker (es. macchina virtuale)
 
 # Visual Studio Code
 https://code.visualstudio.com/download	# download .deb version
@@ -71,11 +60,7 @@ sudo -H pip3 install -U jetson-stats
 git config --global user.email "sbini@unisa.it"
 git config --global user.name "stefanobini"
 git config --global credential.helper store
-
 git pull --no-edit
-
-git checkout -b fiware
-git push -u origin fiware
 
 # To detect audio device
 python3 -m pip install sounddevice
