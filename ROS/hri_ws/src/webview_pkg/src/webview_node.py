@@ -40,7 +40,7 @@ def gen_frames():
 
 
 def gen_text():
-    text = textStream.get_text()
+    text = "Stefano Bini: "+textStream.get_text()
     yield text
 
 

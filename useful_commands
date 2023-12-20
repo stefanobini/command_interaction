@@ -1,6 +1,6 @@
 # Docker for WHOLE DEMO
 sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
-# AWS
+# AWS (Aaeon)
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_image
 # Robot
 sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker

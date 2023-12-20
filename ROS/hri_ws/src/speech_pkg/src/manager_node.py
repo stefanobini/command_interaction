@@ -16,7 +16,7 @@ from demo_utils.post_request import MyRequestPost
 SPEECH_INFO_FILE = '/home/felice/command_interaction/ROS/detected_voices/res.txt'
 speech_counter = 0
 robot_uuid = uuid.uuid1().node
-CMD_THRESHOLD = 0.5
+CMD_THRESHOLD = 0.0
 
 
 # NOT USED METHOD
@@ -52,7 +52,7 @@ def run_demo(req):
     #cb_reply_time = time.time()
     if cmd != len(DEMO_FULL["eng"])-1 and prob > CMD_THRESHOLD: # valid command is detected
         if FIWARE_CB == "None":
-            pub.publish(DEMO_FULL["eng"][cmd] + " - " + DEMO_FULL["ita"][cmd])
+            pub.publish(DEMO_FULL["eng"][cmd])
             res_str = Fore.CYAN + '#'*6 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*6 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["eng"][cmd], prob) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(DEMO_FULL["ita"][cmd], prob) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
             print(res_str)
         else:
