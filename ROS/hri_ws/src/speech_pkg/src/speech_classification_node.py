@@ -21,6 +21,8 @@ from settings import pepper, global_utils
 #from mtl_exp.MTL_conf import settings
 from settings.felice import settings
 from models.resnet8 import ResNet8_PL
+from models.mobilenetv2 import MobileNetV2_PL
+#from models.conformer import Conformer_PL
 
 
 def get_melspectrogram(waveform:torch.Tensor) -> torch.Tensor:
@@ -79,10 +81,16 @@ def infer_signal(model, signal):
 
 class Classifier:
     def __init__(self, n_commands, ckpt_folder, ckpt_name):
-        assert settings.model.network in ["resnet8"]
+        assert settings.model.network in ["resnet8", "conformer", "mobilenetv2"]
         ckpt_path = os.path.join(ckpt_folder, ckpt_name)
         print(Back.YELLOW + ckpt_path)
-        self.model = ResNet8_PL(settings=settings, num_labels=n_commands, loss_weights=None).cuda()  # Load model
+	# Model Selection
+        if settings.model.network == "resnet8":
+                self.model = ResNet8_PL(settings=settings, num_labels=n_commands, loss_weights=None).cuda()
+        elif settings.model.network == "mobilenetv2":
+                self.model = MobileNetV2_PL(settings=settings, num_labels=n_commands, loss_weights=None).cuda()
+        elif settings.model.network == "conformer":
+                self.model = Conformer_PL(settings=settings, num_labels=n_commands, loss_weights=None).cuda()
         ckpt = torch.load(ckpt_path, lambda s, l: s)
         state_dict = ckpt["state_dict"]
         del state_dict["loss_fn.weight"]
@@ -128,12 +136,12 @@ class Classifier:
         x = torch.unsqueeze(input=x, dim=0)   # add batch dimension
         ###print(Back.GREEN + "INPUT INFO:\ntype:{}\tshape:{}\tdtype:{}\tmin:{}\tmax:{}\tmean:{}\n".format(type(x), x.shape, x.dtype, np.min(x_cpu), np.max(x_cpu), np.mean(x_cpu)))
         #plot_melspectrogram(path="mel_spec_db.png", melspectrogram=db_melspectrogram)
-        #prev_time = time.time()
+        prev_time = time.time()
         #cmd_probs = self.cmd_model.predict(melspectrogram)
         #spk_probs = self.spk_model.predict(melspectrogram)
         cmd_probs = self.model.predict(x)
-        #infer_time = time.time() - prev_time
-        #print('INFER TIME: {:.4f}'.format(infer_time))
+        infer_time = time.time() - prev_time
+        print('INFER TIME: {:.4f}'.format(infer_time))
         cmd_probs = cmd_probs.cpu().detach().numpy()
         cmd = np.argmax(cmd_probs, axis=1)
         return cmd, cmd_probs

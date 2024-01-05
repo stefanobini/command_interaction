@@ -16,7 +16,6 @@ from demo_utils.post_request import MyRequestPost
 GESTURE_INFO_FILE = '/home/felice/command_interaction/acquisition/gesture/detected_voices/res.txt'
 
 gesture_counter = 0
-robot_listening = False
 robot_uuid = uuid.uuid1().node
 
 
@@ -44,7 +43,7 @@ def publish_cmd(command:int, confidence:float):
 
 
 def run_demo7(req):
-    global GESTURE_INFO_FILE, gesture_counter, robot_listening, post_request, offset
+    global GESTURE_INFO_FILE, gesture_counter, post_request, offset
 
     # CHANGE res ACCORDING THE SSD OUTPUT
     cmd = msg.header.frame_id
@@ -53,24 +52,14 @@ def run_demo7(req):
     res = classify(req.data)
     # print(Fore.MAGENTA + '#'*10 + ' Detected command ' + '#'*10 + '\n{}\n'.format(res) + '#'*38 + Fore.RESET)
 
-    if not robot_listening and res.cmd == 0:
-        robot_listening = True
-        print(Fore.LIGHTGREEN_EX + '-'*12 + ' ROBOT IS LISTENING ' + '-'*12 + Fore.RESET)
-
-    if robot_listening:
-        # publish_cmd(command=res.cmd + offset, confidence=res.probs[res.cmd])
-        cmd = res.cmd + offset
-        post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
-        res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
-        print(res_str)
-        
-        if rospy.get_param("/save_speech") == True:
-            with open(SPEECH_INFO_FILE, "a") as f:
-                f.write(res_str)
-
-    if robot_listening and res.cmd == 1:
-        robot_listening = False
-        print(Fore.LIGHTRED_EX + '-'*12 + ' ROBOT IS NOT LISTENING ' + '-'*12 + Fore.RESET)
+    cmd = res.cmd + offset
+    post_request.send_command(command_id=cmd, confidence=res.probs[res.cmd])
+    res_str = Fore.CYAN + '#'*10 + ' SPEECH CHUNCK n.{0:06d} '.format(speech_counter) + '#'*10 + '\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_eng[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n# ' + Fore.LIGHTCYAN_EX + '{}: {:.3f}'.format(command_ita[cmd], res.probs[res.cmd]) + Fore.CYAN + ' #\n' + '#'* 44 + Fore.RESET + '\n'
+    print(res_str)
+    
+    if rospy.get_param("/save_video") == True:
+        with open(SPEECH_INFO_FILE, "a") as f:
+            f.write(res_str)
 
     speech_counter += 1
     # res = speech(res.cmd, res.probs)

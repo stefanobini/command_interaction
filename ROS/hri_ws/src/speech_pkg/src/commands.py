@@ -116,7 +116,7 @@ DEMO7_MAPPING = {
 
 }
 DEMO7_PHASE2_MAPPING = {
-    0:  6,
+    0:  6,  # id_model: id_felice (for orchestrator)
     1:  7,
     2:  8,
     3:  9,
@@ -129,13 +129,6 @@ DEMO7_PHASE2_MAPPING = {
     10: 24,
     11: 25,
     12: 26
-}
-
-MAPPING = {
-    "3":        DEMO3_MAPPING,
-    "3_phase2": DEMO3_MAPPING,
-    "7":        DEMO7_MAPPING,
-    "7_phase2": DEMO7_PHASE2_MAPPING
 }
 
 DEMO_FULL = {
@@ -197,4 +190,45 @@ DEMO_FULL = {
         25: "Torna a casa",
         26: "Nessun comando"
     }
+}
+DEMOFULL_MAPPING = {
+    0:  0,  # id_model: id_felice (for orchestrator)
+    1:  1,
+    2:  2,
+    3:  3,
+    4:  4,
+    5:  5,
+    6:  6,
+    7:  7,
+    8:  8,
+    9:  9,
+    10: 10,
+    11: 11,
+    12: 12,
+    13: 13,
+    14: 14,
+    15: 15,
+    16: 16,
+    17: 17,
+    18: 18,
+    19: 19,
+    20: 20,
+    21: 21,
+    22: 22,
+    23: 23,
+    24: 24,
+    25: 25,
+    26: 26,
+    27: 26,
+    28: 26,
+    29: 26,
+    30: 26
+}
+
+MAPPING = {
+    "3":        DEMO3_MAPPING,
+    "3_phase2": DEMO3_MAPPING,
+    "7":        DEMO7_MAPPING,
+    "7_phase2": DEMO7_PHASE2_MAPPING,
+    "full": 	DEMOFULL_MAPPING
 }

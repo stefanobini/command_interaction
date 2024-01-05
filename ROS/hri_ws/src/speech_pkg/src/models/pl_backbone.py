@@ -131,7 +131,7 @@ class PL_Backbone(pl.LightningModule):
         return x
 
     def predict(self, x:torch.Tensor) -> torch.Tensor:
-        x = torch.unsqueeze(input=x, dim=0) # add batch dimension
+        #x = torch.unsqueeze(input=x, dim=0) # add batch dimension
         x = self.forward(x)
         y = self.softmax(x)
         return y
