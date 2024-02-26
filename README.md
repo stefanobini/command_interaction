@@ -1,4 +1,4 @@
-# Command-based Human-Robot Interaction framework
+# Robotic Assistant for Automotive Production Lines
 
 
 <p align="center">
@@ -9,16 +9,25 @@
   <img src="./figures/upc_logo.png" width="100">
 </p>
 
-The repository is associated with my Ph. D. project carried out at the University of Salerno in collaboration with the Fiat Research Center (Stellantis) in Melfi and the Universitat Politècnica de Catalugna (UPC). The project consists in the realization of a robotic assistant operating on the production lines that is capable of understanding both speech and gesture commands in a highly noisy and dynamic environment such as the production lines of an automotive industry.
-The obtained system has been successfully tested in the real scenarios offered by Stellantis.
+This GitHub repository is linked to my Ph.D. project conducted at the University of Salerno in collaboration with the Fiat Research Center (Stellantis) in Melfi and the Universitat Politècnica de Catalunya (UPC). The project focuses on the development of a robotic assistant designed for operation on automotive production lines. This advanced assistant is adept at comprehending both speech and gesture commands within the challenging and dynamic environment typical of automotive manufacturing.
 
-The framework is self-consistent; in fact, it contains all the material to train the Speech-Command Recognition and Gesture-Command Recognition systems, to acquire the datasets for both tasks, for the creation of the docker on which to launch the ROS framework, finally there is the ROS architecture to run the entire Speech & Command Recognition system on an embedded devices.
+**Key Features**
+- **Speech and Gesture Recognition:** The system is equipped with robust Speech-Command Recognition and Gesture-Command Recognition capabilities, enabling seamless interaction with the robotic assistant.
+- **Real-World Testing:** The developed system has undergone successful testing in real-world scenarios provided by Stellantis, demonstrating its practical applicability and effectiveness.
 
-Below is the list of hardware components used.
-- Computing device: NVIDIA Jetson Xavier NX
-- Storage unit: 32 GB microSD
-- Camera: RealSense 435
-- Microphone: ReSpeaker MicArray v2.0
+**Self-Contained Framework:**
+- **Training Material:** The repository encompasses all necessary materials for training the Speech and Gesture Recognition systems.
+- **Dataset Acquisition:** Tools for acquiring datasets relevant to both speech and gesture recognition tasks are included.
+- **ROS Docker Image:** A Docker image is provided for easy deployment of the ROS (Robot Operating System) framework.
+- **ROS Architecture:** The repository also contains the ROS architecture necessary for running the complete Speech & Command Recognition system on embedded devices.
+
+**Hardware Components:**
+- **Computing Device:** NVIDIA Jetson Xavier NX
+- **Storage Unit:** 32 GB microSD
+- **Camera:** RealSense 435
+- **Microphone:** ReSpeaker MicArray v2.0
+
+Explore the comprehensive resources within this repository to enhance your understanding of the project, replicate experiments, or contribute to its further development. Your feedback and collaboration are highly appreciated!
 
 
 ## Gesture-Command Recognition system
