@@ -1,7 +1,8 @@
 #################################################
 ### IMPORT NVIDIA docker for Jetson Xavier NX ###
 #################################################
-FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
+#FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
+FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
 #WORKDIR /usr/src/librealsense-docker
 
 
