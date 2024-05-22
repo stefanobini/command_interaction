@@ -3,8 +3,6 @@
   (:export
    "<COMMAND>"
    "COMMAND"
-   "<GESTURE>"
-   "GESTURE"
    "<SPEECH>"
    "SPEECH"
    "<SPEECHDATA>"

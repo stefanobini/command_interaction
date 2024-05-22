@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "speech_pkg: 5 messages, 3 services")
+message(STATUS "speech_pkg: 4 messages, 2 services")
 
-set(MSG_I_FLAGS "-Ispeech_pkg:/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Ispeech_pkg:/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,44 +17,34 @@ add_custom_target(speech_pkg_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" "speech_pkg/Command"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" ""
 )
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" "speech_pkg/SpeechData"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" "speech_pkg/Command"
 )
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" ""
 )
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" "speech_pkg/SpeechData"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" ""
 )
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" "speech_pkg/SpeechData"
 )
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" ""
-)
-
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" ""
-)
-
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
-add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" "speech_pkg/Command"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "speech_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" "speech_pkg/SpeechData"
 )
 
 #
@@ -64,31 +54,25 @@ add_custom_target(_speech_pkg_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg"
-  "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
-)
-_generate_msg_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
@@ -96,21 +80,15 @@ _generate_msg_cpp(speech_pkg
 
 ### Generating Services
 _generate_srv_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
 )
 _generate_srv_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
-)
-_generate_srv_cpp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
-  "${MSG_I_FLAGS}"
-  ""
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/speech_pkg
 )
 
@@ -126,21 +104,17 @@ add_custom_target(speech_pkg_generate_messages_cpp
 add_dependencies(speech_pkg_generate_messages speech_pkg_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_cpp _speech_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -153,31 +127,25 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS speech_pkg_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg"
-  "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
-)
-_generate_msg_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
@@ -185,21 +153,15 @@ _generate_msg_eus(speech_pkg
 
 ### Generating Services
 _generate_srv_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
 )
 _generate_srv_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
-)
-_generate_srv_eus(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
-  "${MSG_I_FLAGS}"
-  ""
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/speech_pkg
 )
 
@@ -215,21 +177,17 @@ add_custom_target(speech_pkg_generate_messages_eus
 add_dependencies(speech_pkg_generate_messages speech_pkg_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_eus _speech_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -242,31 +200,25 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS speech_pkg_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg"
-  "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
-)
-_generate_msg_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
@@ -274,21 +226,15 @@ _generate_msg_lisp(speech_pkg
 
 ### Generating Services
 _generate_srv_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
 )
 _generate_srv_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
-)
-_generate_srv_lisp(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
-  "${MSG_I_FLAGS}"
-  ""
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/speech_pkg
 )
 
@@ -304,21 +250,17 @@ add_custom_target(speech_pkg_generate_messages_lisp
 add_dependencies(speech_pkg_generate_messages speech_pkg_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_lisp _speech_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -331,31 +273,25 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS speech_pkg_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg"
-  "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
-)
-_generate_msg_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
@@ -363,21 +299,15 @@ _generate_msg_nodejs(speech_pkg
 
 ### Generating Services
 _generate_srv_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
 )
 _generate_srv_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
-)
-_generate_srv_nodejs(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
-  "${MSG_I_FLAGS}"
-  ""
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/speech_pkg
 )
 
@@ -393,21 +323,17 @@ add_custom_target(speech_pkg_generate_messages_nodejs
 add_dependencies(speech_pkg_generate_messages speech_pkg_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_nodejs _speech_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -420,31 +346,25 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS speech_pkg_generate_messages_nodejs
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg"
-  "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
-)
-_generate_msg_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
 )
 _generate_msg_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
@@ -452,21 +372,15 @@ _generate_msg_py(speech_pkg
 
 ### Generating Services
 _generate_srv_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
 )
 _generate_srv_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv"
   "${MSG_I_FLAGS}"
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
-)
-_generate_srv_py(speech_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv"
-  "${MSG_I_FLAGS}"
-  ""
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg
 )
 
@@ -482,21 +396,17 @@ add_custom_target(speech_pkg_generate_messages_py
 add_dependencies(speech_pkg_generate_messages speech_pkg_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Classification.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/Speech.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Manager.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/msg/SpeechData.msg" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/srv/Talker.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SCR.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Command.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/SystemHealth.msg" NAME_WE)
-add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/speech_pkg/msg/Gesture.msg" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/speech_pkg/srv/SpeechManager.srv" NAME_WE)
 add_dependencies(speech_pkg_generate_messages_py _speech_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -553,7 +463,7 @@ if(TARGET std_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg)
-  install(CODE "execute_process(COMMAND \"/usr/bin/python2\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg\")")
+  install(CODE "execute_process(COMMAND \"/usr/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg\")")
   # install generated code
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/speech_pkg

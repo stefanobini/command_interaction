@@ -1,16 +1,14 @@
 
 "use strict";
 
-let Gesture = require('./Gesture.js');
-let Speech = require('./Speech.js');
-let Command = require('./Command.js');
 let SpeechData = require('./SpeechData.js');
+let Speech = require('./Speech.js');
 let SystemHealth = require('./SystemHealth.js');
+let Command = require('./Command.js');
 
 module.exports = {
-  Gesture: Gesture,
-  Speech: Speech,
-  Command: Command,
   SpeechData: SpeechData,
+  Speech: Speech,
   SystemHealth: SystemHealth,
+  Command: Command,
 };

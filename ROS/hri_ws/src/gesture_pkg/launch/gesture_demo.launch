@@ -1,0 +1,15 @@
+<launch>
+    <param name="language" type="str" value="ita"/>  <!-- "ita" or "eng" -->
+    <param name="save_video" type="bool" value="True"/>
+    <param name="fiware_cb" type="str" value="None"/>  <!-- no Fiware -->
+
+    <!-- WEBVIEWER Settings -->
+    <param name="webviewer" type="bool" value="True"/>  <!-- ["False", "True"] -->
+
+    <!-- GESTURE Nodes -->
+    <node pkg="gesture_pkg" name="camera_node" type="camera_node.py" output="screen"/>
+    <node pkg="gesture_pkg" name="hgr_node" type="hgr_node.py" output="screen"/>
+
+    <!-- WEBVIEWER Node -->
+    <node pkg="webview_pkg" name="webview_node" type="webview_node.py" output="screen"/>
+</launch>

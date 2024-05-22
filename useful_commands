@@ -1,36 +1,23 @@
 # Docker for WHOLE DEMO
-sudo docker build -t unisa_docker . --network=host 2>&1 | tee docker_log.txt #--no-cache
-# AWS (Aaeon)
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/media/aaeon/ext_dev/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_image
-# Robot
-sudo docker run --rm --privileged --device /dev/snd --volume=/dev:/dev --volume=/home/felice/command_interaction/ROS:/home/felice/command_interaction/ROS --network="host" --runtime nvidia -dit --name unisa_container unisa_docker
-# Avvio docker
-sudo docker exec -it unisa_container /bin/bash
+sudo docker build -t eng_alfred_v0-image . --network=host 2>&1 | tee docker_log.txt #--no-cache
+sudo docker run --rm --privileged --device /dev/snd --volume=/home/alfred/engAlfred_v0/ROS:/home/alfred/engAlfred_v0/ROS --network="host" --runtime nvidia -dit --name eng_alfred_v0-container eng_alfred_v0-image
+sudo docker exec -it eng_alfred_v0-container /bin/bash
+
+# In the docker - Avvio demo
+cd /home/alfred/engAlfred_v0/ROS/hri_ws/
+source devel/setup.bash
+
+# Launch Demos
+roslaunch speech_pkg speech_demo.launch
+roslaunch gesture_pkg gesture_demo.launch
+roslaunch src/launch/demo.launch
 
 # to load pretrained model (it needs for compatibility reasons)
 mkdir -p /root/.cache/torch/hub/checkpoints/
-cp /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/models/mobilenet_v3_large-8738ca79.pth /root/.cache/torch/hub/checkpoints/
-
-# In the docker - Avvio demo
-cd home/felice/command_interaction/ROS/hri_ws/
-source devel/setup.bash
-
-'''For FELICE'''
-# Demo Speech
-roslaunch speech_pkg felice_speech_demo.launch
-# Demo Gesture
-roslaunch gesture_pkg felice_gesture_demo.launch
-# Demo all
-roslaunch src/launch/felice_demo.launch
-
-# roslaunch gesture_pkg gesture_demo_felice.launch
-# roslaunch gesture_pkg gesture_demo_pepper.launch
-# roslaunch gesture_pkg gesture_demo_webview.launch
-
-# roslaunch webserver_pkg gesture_demo.launch
+cp /home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/models/mobilenet_v3_large-8738ca79.pth /root/.cache/torch/hub/checkpoints/
 
 # ROS framework
-source /opt/ros/melodic/setup.bash  # create workspace
+source /opt/ros/noetic/setup.bash  # create workspace
 catkin_make                         # configure workspace
 
 # Automatically update date
@@ -69,8 +56,3 @@ python3 -m sounddevice
 # For camera info
 v4l2-ctl --list-devices  # list device
 v4l2-ctl --list-formats-ext # frame size, frame rate
-
-# FIWARE
-CONTEXT_BROAKER = "192.168.2.106"
-curl http://192.168.1.106:1026/v2/entities/UNISA.SpeechGestureAnalysis.SystemHealth:ac55f166-037c-11ed-a48a-d8c0a69b3641 -s -S -X DELETE
-curl http://25.45.111.204:1026/v2/entities/UNISA.SpeechGestureAnalysis.Speech?type={UserInput} -s -S -X DELETE

@@ -76,9 +76,9 @@ class ConsoleWebviewNode:
         rospy.init_node(NODE_NAME, log_level=rospy.DEBUG)
         
         #'''
-        raw_image = message_filters.Subscriber('in_rgb', Image)
+        raw_image = message_filters.Subscriber('rgb_data', Image)
         # gesture = message_filters.Subscriber('hand_gesture_recognition', Detection2DArray)
-        gesture = message_filters.Subscriber('hand_gesture_recognition', Detection2D)
+        gesture = message_filters.Subscriber('gesture_command', Detection2D)
         # ts = message_filters.TimeSynchronizer([raw_image, gesture], 100)  #50
         ts = message_filters.ApproximateTimeSynchronizer(fs=[raw_image, gesture], queue_size=100, slop=0.1, allow_headerless=False)
         ts.registerCallback(self.image_callback)

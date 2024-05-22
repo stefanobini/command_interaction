@@ -1,14 +1,12 @@
 file(REMOVE_RECURSE
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/manifest.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/SCR.l"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/SpeechManager.l"
   "CMakeFiles/speech_pkg_generate_messages_eus"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Gesture.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Command.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/Speech.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SpeechData.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/msg/SystemHealth.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Manager.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Classification.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/srv/Talker.l"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/speech_pkg/manifest.l"
 )
 
 # Per-language clean rules from dependency scanning.

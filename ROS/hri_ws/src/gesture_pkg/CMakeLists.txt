@@ -50,11 +50,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  Command.msg
+  Gesture.msg
+)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -165,9 +165,8 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  src/image_input_node.py
-  src/hand_gesture_classification_node.py
-  src/gesture_webview_node.py
+  src/camera_node.py
+  src/hgr_node.py
   src/one_stage_detector.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

@@ -1,14 +1,14 @@
-#!/usr/bin/python3
-from demo_utils.io.audio import SpeechRecognitionVAD
-from settings import demo_settings
-from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
-from speech_recognition import AudioSource
+import torch, rospy
 import numpy as np
 import soundfile as sf
-import rospy
-from std_msgs.msg import Int16MultiArray, String
+from speech_recognition import AudioSource
+
+from settings import demo_settings
+from demo_utils.io.audio import SpeechRecognitionVAD
 from demo_utils.ai.audio.voice_activity_detector import VoiceActivityDetector
-import torch
+from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
+from std_msgs.msg import Int16MultiArray, String
+
 
 class MySileroVad(VoiceActivityDetector):
     def __init__(self, threshold, sampling_rate):

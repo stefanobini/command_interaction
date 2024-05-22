@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include/gesture_pkg/CameraInfo.h"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include/gesture_pkg/Command.h"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include/gesture_pkg/Gesture.h"
   "CMakeFiles/gesture_pkg_generate_messages_cpp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/include/gesture_pkg/CameraInfo.h"
 )
 
 # Per-language clean rules from dependency scanning.

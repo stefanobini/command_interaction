@@ -70,8 +70,8 @@ class Command {
 
   static getMessageSize(object) {
     let length = 0;
-    length += object.english.length;
-    length += object.italian.length;
+    length += _getByteLength(object.english);
+    length += _getByteLength(object.italian);
     return length + 12;
   }
 

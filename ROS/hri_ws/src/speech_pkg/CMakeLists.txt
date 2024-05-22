@@ -50,7 +50,6 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    Command.msg
-   Gesture.msg
    Speech.msg
    SystemHealth.msg
    SpeechData.msg 
@@ -59,9 +58,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
  add_service_files(
    FILES
-   Classification.srv
-   Manager.srv
-   Talker.srv
+   SCR.srv
+   SpeechManager.srv
 )
 
 ## Generate actions in the 'action' folder

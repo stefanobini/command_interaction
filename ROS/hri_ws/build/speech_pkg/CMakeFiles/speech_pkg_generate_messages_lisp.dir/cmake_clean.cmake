@@ -1,13 +1,11 @@
 file(REMOVE_RECURSE
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/SCR.lisp"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/SpeechManager.lisp"
   "CMakeFiles/speech_pkg_generate_messages_lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Gesture.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Command.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/Speech.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SpeechData.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/msg/SystemHealth.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Manager.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Classification.lisp"
-  "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/speech_pkg/srv/Talker.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

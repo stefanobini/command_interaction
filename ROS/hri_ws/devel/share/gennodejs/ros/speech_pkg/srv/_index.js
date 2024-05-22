@@ -1,12 +1,10 @@
 
 "use strict";
 
-let Talker = require('./Talker.js')
-let Classification = require('./Classification.js')
-let Manager = require('./Manager.js')
+let SpeechManager = require('./SpeechManager.js')
+let SCR = require('./SCR.js')
 
 module.exports = {
-  Talker: Talker,
-  Classification: Classification,
-  Manager: Manager,
+  SpeechManager: SpeechManager,
+  SCR: SCR,
 };

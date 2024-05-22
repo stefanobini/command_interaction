@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "gesture_pkg: 0 messages, 1 services")
+message(STATUS "gesture_pkg: 2 messages, 1 services")
 
-set(MSG_I_FLAGS "-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Ivision_msgs:/home/felice/command_interaction/ROS/hri_ws/src/vision_msgs/msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Igesture_pkg:/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg;-Ivision_msgs:/opt/ros/noetic/share/vision_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,9 +17,19 @@ add_custom_target(gesture_pkg_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
 add_custom_target(_gesture_pkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "gesture_pkg" "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "gesture_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" ""
+)
+
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_custom_target(_gesture_pkg_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "gesture_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" "gesture_pkg/Command"
+)
+
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+add_custom_target(_gesture_pkg_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "gesture_pkg" "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" ""
 )
 
 #
@@ -28,10 +38,22 @@ add_custom_target(_gesture_pkg_generate_messages_check_deps_${_filename}
 
 ### Section generating for lang: gencpp
 ### Generating Messages
+_generate_msg_cpp(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/gesture_pkg
+)
+_generate_msg_cpp(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
+  "${MSG_I_FLAGS}"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/gesture_pkg
+)
 
 ### Generating Services
 _generate_srv_cpp(gesture_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/gesture_pkg
@@ -49,7 +71,11 @@ add_custom_target(gesture_pkg_generate_messages_cpp
 add_dependencies(gesture_pkg_generate_messages gesture_pkg_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_cpp _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_cpp _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
 add_dependencies(gesture_pkg_generate_messages_cpp _gesture_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -61,10 +87,22 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS gesture_pkg_generate_messages_cpp)
 
 ### Section generating for lang: geneus
 ### Generating Messages
+_generate_msg_eus(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/gesture_pkg
+)
+_generate_msg_eus(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
+  "${MSG_I_FLAGS}"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/gesture_pkg
+)
 
 ### Generating Services
 _generate_srv_eus(gesture_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/gesture_pkg
@@ -82,7 +120,11 @@ add_custom_target(gesture_pkg_generate_messages_eus
 add_dependencies(gesture_pkg_generate_messages gesture_pkg_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_eus _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_eus _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
 add_dependencies(gesture_pkg_generate_messages_eus _gesture_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -94,10 +136,22 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS gesture_pkg_generate_messages_eus)
 
 ### Section generating for lang: genlisp
 ### Generating Messages
+_generate_msg_lisp(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/gesture_pkg
+)
+_generate_msg_lisp(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
+  "${MSG_I_FLAGS}"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/gesture_pkg
+)
 
 ### Generating Services
 _generate_srv_lisp(gesture_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/gesture_pkg
@@ -115,7 +169,11 @@ add_custom_target(gesture_pkg_generate_messages_lisp
 add_dependencies(gesture_pkg_generate_messages gesture_pkg_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_lisp _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_lisp _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
 add_dependencies(gesture_pkg_generate_messages_lisp _gesture_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -127,10 +185,22 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS gesture_pkg_generate_messages_lisp)
 
 ### Section generating for lang: gennodejs
 ### Generating Messages
+_generate_msg_nodejs(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/gesture_pkg
+)
+_generate_msg_nodejs(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
+  "${MSG_I_FLAGS}"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/gesture_pkg
+)
 
 ### Generating Services
 _generate_srv_nodejs(gesture_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/gesture_pkg
@@ -148,7 +218,11 @@ add_custom_target(gesture_pkg_generate_messages_nodejs
 add_dependencies(gesture_pkg_generate_messages gesture_pkg_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_nodejs _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_nodejs _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
 add_dependencies(gesture_pkg_generate_messages_nodejs _gesture_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -160,10 +234,22 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS gesture_pkg_generate_messages_nodej
 
 ### Section generating for lang: genpy
 ### Generating Messages
+_generate_msg_py(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg
+)
+_generate_msg_py(gesture_pkg
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
+  "${MSG_I_FLAGS}"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg
+)
 
 ### Generating Services
 _generate_srv_py(gesture_pkg
-  "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
+  "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg
@@ -181,7 +267,11 @@ add_custom_target(gesture_pkg_generate_messages_py
 add_dependencies(gesture_pkg_generate_messages gesture_pkg_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_py _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg" NAME_WE)
+add_dependencies(gesture_pkg_generate_messages_py _gesture_pkg_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv" NAME_WE)
 add_dependencies(gesture_pkg_generate_messages_py _gesture_pkg_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -262,7 +352,7 @@ if(TARGET vision_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg)
-  install(CODE "execute_process(COMMAND \"/usr/bin/python2\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg\")")
+  install(CODE "execute_process(COMMAND \"/usr/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg\")")
   # install generated code
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/gesture_pkg

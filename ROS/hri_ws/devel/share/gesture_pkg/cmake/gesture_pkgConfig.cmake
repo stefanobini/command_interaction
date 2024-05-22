@@ -67,14 +67,14 @@ set(gesture_pkg_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(gesture_pkg_SOURCE_PREFIX /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg)
-  set(gesture_pkg_DEVEL_PREFIX /home/felice/command_interaction/ROS/hri_ws/devel)
+  set(gesture_pkg_SOURCE_PREFIX /home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg)
+  set(gesture_pkg_DEVEL_PREFIX /home/alfred/engAlfred_v0/ROS/hri_ws/devel)
   set(gesture_pkg_INSTALL_PREFIX "")
   set(gesture_pkg_PREFIX ${gesture_pkg_DEVEL_PREFIX})
 else()
   set(gesture_pkg_SOURCE_PREFIX "")
   set(gesture_pkg_DEVEL_PREFIX "")
-  set(gesture_pkg_INSTALL_PREFIX /home/felice/command_interaction/ROS/hri_ws/install)
+  set(gesture_pkg_INSTALL_PREFIX /home/alfred/engAlfred_v0/ROS/hri_ws/install)
   set(gesture_pkg_PREFIX ${gesture_pkg_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(gesture_pkg_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/felice/command_interaction/ROS/hri_ws/devel/include " STREQUAL " ")
+if(NOT "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include " STREQUAL " ")
   set(gesture_pkg_INCLUDE_DIRS "")
-  set(_include_dirs "/home/felice/command_interaction/ROS/hri_ws/devel/include")
+  set(_include_dirs "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/felice/command_interaction/ROS/hri_ws/devel/include " STREQUAL " "
         message(FATAL_ERROR "Project 'gesture_pkg' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'gesture_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'gesture_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/${idir}'.  ${_report}")
     endif()
     _list_append_unique(gesture_pkg_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/felice/command_interaction/ROS/hri_ws/devel/lib;/home/felice/command_interaction/ROS/hri_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/alfred/engAlfred_v0/ROS/hri_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -211,7 +211,7 @@ foreach(depend ${depends})
   _unpack_libraries_with_build_configuration(gesture_pkg_LIBRARIES ${gesture_pkg_LIBRARIES})
 
   _list_append_unique(gesture_pkg_LIBRARY_DIRS ${${gesture_pkg_dep}_LIBRARY_DIRS})
-  list(APPEND gesture_pkg_EXPORTED_TARGETS ${${gesture_pkg_dep}_EXPORTED_TARGETS})
+  _list_append_deduplicate(gesture_pkg_EXPORTED_TARGETS ${${gesture_pkg_dep}_EXPORTED_TARGETS})
 endforeach()
 
 set(pkg_cfg_extras "gesture_pkg-msg-extras.cmake")

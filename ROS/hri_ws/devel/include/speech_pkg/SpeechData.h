@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <memory>
 
 #include <ros/types.h>
 #include <ros/serialization.h>
@@ -39,7 +39,7 @@ struct SpeechData_
 
 
 
-   typedef std::vector<int16_t, typename ContainerAllocator::template rebind<int16_t>::other >  _data_type;
+   typedef std::vector<int16_t, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<int16_t>> _data_type;
   _data_type data;
 
    typedef int16_t _doa_type;
@@ -105,16 +105,6 @@ namespace message_traits
 
 
 template <class ContainerAllocator>
-struct IsFixedSize< ::speech_pkg::SpeechData_<ContainerAllocator> >
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct IsFixedSize< ::speech_pkg::SpeechData_<ContainerAllocator> const>
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
 struct IsMessage< ::speech_pkg::SpeechData_<ContainerAllocator> >
   : TrueType
   { };
@@ -122,6 +112,16 @@ struct IsMessage< ::speech_pkg::SpeechData_<ContainerAllocator> >
 template <class ContainerAllocator>
 struct IsMessage< ::speech_pkg::SpeechData_<ContainerAllocator> const>
   : TrueType
+  { };
+
+template <class ContainerAllocator>
+struct IsFixedSize< ::speech_pkg::SpeechData_<ContainerAllocator> >
+  : FalseType
+  { };
+
+template <class ContainerAllocator>
+struct IsFixedSize< ::speech_pkg::SpeechData_<ContainerAllocator> const>
+  : FalseType
   { };
 
 template <class ContainerAllocator>

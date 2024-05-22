@@ -81,10 +81,10 @@ class SystemHealth {
 
   static getMessageSize(object) {
     let length = 0;
-    length += object.id.length;
-    length += object.type.length;
-    length += object.timestamp.length;
-    length += object.status.length;
+    length += _getByteLength(object.id);
+    length += _getByteLength(object.type);
+    length += _getByteLength(object.timestamp);
+    length += _getByteLength(object.status);
     return length + 16;
   }
 

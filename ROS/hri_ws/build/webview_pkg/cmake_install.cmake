@@ -1,8 +1,8 @@
-# Install script for directory: /home/felice/command_interaction/ROS/hri_ws/src/webview_pkg
+# Install script for directory: /home/alfred/engAlfred_v0/ROS/hri_ws/src/webview_pkg
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/felice/command_interaction/ROS/hri_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/alfred/engAlfred_v0/ROS/hri_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,18 +37,23 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkg.pc")
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkg.pc")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/webview_pkg/cmake" TYPE FILE FILES
-    "/home/felice/command_interaction/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkgConfig.cmake"
-    "/home/felice/command_interaction/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkgConfig-version.cmake"
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkgConfig.cmake"
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/build/webview_pkg/catkin_generated/installspace/webview_pkgConfig-version.cmake"
     )
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/webview_pkg" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/src/webview_pkg/package.xml")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/webview_pkg" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/src/webview_pkg/package.xml")
 endif()
 

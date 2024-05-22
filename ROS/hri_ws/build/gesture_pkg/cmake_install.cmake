@@ -1,8 +1,8 @@
-# Install script for directory: /home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg
+# Install script for directory: /home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/felice/command_interaction/ROS/hri_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/alfred/engAlfred_v0/ROS/hri_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,70 +37,78 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/srv" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv")
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg-msg-paths.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/felice/command_interaction/ROS/hri_ws/devel/include/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/felice/command_interaction/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/felice/command_interaction/ROS/hri_ws/devel/share/common-lisp/ros/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/felice/command_interaction/ROS/hri_ws/devel/share/gennodejs/ros/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages/gesture_pkg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg.pc")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg-msg-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES
-    "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkgConfig.cmake"
-    "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkgConfig-version.cmake"
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/msg" TYPE FILE FILES
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Command.msg"
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/msg/Gesture.msg"
     )
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg" TYPE FILE FILES "/home/felice/command_interaction/ROS/hri_ws/src/gesture_pkg/package.xml")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/srv" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/srv/CameraInfo.srv")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/image_input_node.py")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg-msg-paths.cmake")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/hand_gesture_classification_node.py")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/include/gesture_pkg")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_webview_node.py")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/roseus/ros/gesture_pkg")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/felice/command_interaction/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/one_stage_detector.py")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp/ros/gesture_pkg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/gennodejs/ros/gesture_pkg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/lib/python3/dist-packages/gesture_pkg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/devel/lib/python3/dist-packages/gesture_pkg")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg.pc")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkg-msg-extras.cmake")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg/cmake" TYPE FILE FILES
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkgConfig.cmake"
+    "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/gesture_pkgConfig-version.cmake"
+    )
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gesture_pkg" TYPE FILE FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/src/gesture_pkg/package.xml")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/camera_node.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/hgr_node.py")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gesture_pkg" TYPE PROGRAM FILES "/home/alfred/engAlfred_v0/ROS/hri_ws/build/gesture_pkg/catkin_generated/installspace/one_stage_detector.py")
 endif()
 

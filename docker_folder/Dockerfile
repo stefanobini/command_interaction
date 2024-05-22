@@ -2,7 +2,8 @@
 ### IMPORT NVIDIA docker for Jetson Xavier NX ###
 #################################################
 #FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
-FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+#FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+FROM dustynv/l4t-ml:r35.2.1
 #WORKDIR /usr/src/librealsense-docker
 
 
@@ -75,28 +76,9 @@ RUN yes | apt install ros-noetic-ros-base
 RUN yes | apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 RUN yes | apt install python3-catkin-tools
 RUN apt install python3-rosdep
+RUN apt install -y ros-noetic-vision-msgs
 RUN rosdep init
 RUN rosdep update
-#RUN python3 -m pip install -U catkin_tools
-#RUN apt-get install ros-noetic-rospy -y
-#RUN python3 -m pip install rospkg && \
-    #apt install -y ros-noetic-naoqi-bridge-msgs && \
-    #apt install -y ros-noetic-vision-msgs
-RUN apt install -y ros-noetic-vision-msgs
-
-
-#####################
-### INSTALL NaoQI ###
-#####################
-#COPY ./ros_entrypoint.sh /
-#COPY ./qi_install.sh /
-#RUN wget https://github.com/robertanto/libqi-python-nvidia-jetson/releases/download/1.0/qi_jetson.tar.gz && \
-#    tar -xvzf qi_jetson.tar.gz && \
-#    cd qi_jetson && \
-#    chmod u+x install.sh && \
-#    ./install.sh
-##RUN ["chmod", "+x", "/ros_entrypoint.sh"]
-#ENTRYPOINT ["/ros_entrypoint.sh"]
 
 
 #################################
@@ -115,34 +97,21 @@ RUN python3 -m pip install \
         PyAudio==0.2.11 \
         pyusb==1.0.2 \
         click==7.1.2
-#RUN python3 -m pip install torchmetrics==0.6.0
-#RUN python3 -m pip install setuptools==59.5.0
-RUN python3 -m pip install torchmetrics
-RUN python3 -m pip install setuptools
-RUN python3 -m pip install SpeechRecognition
+#RUN python3 -m pip install torchmetrics
+#RUN python3 -m pip install setuptools
 RUN python3 -m pip install dotmap
+RUN python3 -m pip install colorama
+RUN python3 -m pip install netifaces
+RUN python3 -m pip install cvbridge3
+RUN python3 -m pip install Pillow
+RUN python3 -m pip install SpeechRecognition
 RUN python3 -m pip install sounddevice
 RUN python3 -m pip install webrtcvad
-RUN python3 -m pip install netifaces
-RUN python3 -m pip install -U jetson-stats
-RUN python3 -m pip install colorama
-RUN python3 -m pip install cvbridge3
-RUN python3 -m pip install flask --ignore-installed embedchain
-RUN python3 -m pip install Pillow
 RUN python3 -m pip install soundfile
 RUN python3 -m pip install librosa
-RUN python3 -m pip install pytorch-lightning
+RUN python3 -m pip install pytorch-lightning PyYAML==5.3.1
+RUN python3 -m pip install flask blinker==1.4
 RUN apt install python3-opencv -y
-
-
-#################################
-### INSTALL Python2 libraries ###
-#################################
-#RUN apt install python-cv-bridge -y
-#RUN apt install python-opencv -y
-#RUN python -m pip install colorama
-#RUN python -m pip install dotmap==1.3.23 
-#RUN python -m pip install ifcfg
 
 
 #####################
@@ -152,31 +121,5 @@ RUN apt-get update
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN apt install libsndfile1 -y
-
-
-######################
-### ONNX libraries ###
-######################
-#RUN python3 -m pip install -U openmim
-#RUN mim install mmcv-full
-#RUN git clone https://github.com/open-mmlab/mmdetection.git
-#RUN cd mmdetection
-#RUN python3 -m pip install -v -e .
-# wget https://nvidia.box.com/shared/static/jy7nqva7l88mq9i8bw3g3sklzf4kccn2.whl -O onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
-# pip3 install onnxruntime_gpu-1.10.0-cp36-cp36m-linux_aarch64.whl
-# python3 -m pip install onnxruntime
-
-# mim install mmdet==2.14.0
-# git clone https://github.com/grimoire/torch2trt_dynamic.git torch2trt_dynamic
-# cd torch2trt_dynamic
-# python3 setup.py develop
-
-#git clone --depth=1 https://github.com/grimoire/amirstan_plugin.git
-#cd amirstan_plugin
-#git submodule update --init --progress --depth=1
-#mkdir build
-#cd build
-#cmake -DTENSORRT_DIR=/usr/src/tensorrt ..
-#make -j10
 
 CMD ["bash"]

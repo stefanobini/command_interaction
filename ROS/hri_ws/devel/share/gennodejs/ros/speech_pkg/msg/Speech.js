@@ -93,9 +93,9 @@ class Speech {
 
   static getMessageSize(object) {
     let length = 0;
-    length += object.id.length;
-    length += object.type.length;
-    length += object.timestamp.length;
+    length += _getByteLength(object.id);
+    length += _getByteLength(object.type);
+    length += _getByteLength(object.timestamp);
     length += Command.getMessageSize(object.command);
     return length + 16;
   }

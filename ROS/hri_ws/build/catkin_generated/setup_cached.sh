@@ -7,6 +7,8 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH='/home/felice/command_interaction/ROS/hri_ws/devel/lib:/opt/ros/melodic/lib:/usr/local/cuda/lib64:/usr/local/cuda-10.2/targets/aarch64-linux/lib'
-export PWD='/home/felice/command_interaction/ROS/hri_ws/build'
-export PYTHONPATH='/home/felice/command_interaction/ROS/hri_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages:/usr/local/lib/python3.6/pyrealsense2:/usr/local/lib/python3.6/pyrealsense2'
+export CMAKE_PREFIX_PATH="/home/alfred/engAlfred_v0/ROS/hri_ws/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH='/home/alfred/engAlfred_v0/ROS/hri_ws/devel/lib:/opt/ros/noetic/lib:/usr/local/cuda/lib64'
+export PWD='/home/alfred/engAlfred_v0/ROS/hri_ws/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/alfred/engAlfred_v0/ROS/hri_ws/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/alfred/engAlfred_v0/ROS/hri_ws/src:$ROS_PACKAGE_PATH"

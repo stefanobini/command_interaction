@@ -10,6 +10,7 @@ import time
 from commands import command_eng, command_ita
 sys.path.append(r"/home/felice/felice/code/ROS/speech_ws/src/speech_pkg/src")
 
+
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
     batch = next(iter(data_loader))

@@ -1,4 +1,4 @@
-prefix=/home/felice/command_interaction/ROS/hri_ws/install
+prefix=/home/alfred/engAlfred_v0/ROS/hri_ws/install
 
 Name: gesture_pkg
 Description: Description of gesture_pkg
